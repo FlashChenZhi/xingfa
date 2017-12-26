@@ -1,0 +1,45 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-configuration PUBLIC
+        "-//Hibernate/Hibernate Configuration DTD//EN"
+        "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+    <session-factory>
+        <property name="current_session_context_class">thread</property>
+        <!--<property name="connection.url">jdbc:oracle:thin:@192.168.10.155:1521:orcl</property>-->
+        <!--<property name="connection.username">wcs</property>-->
+        <!--<property name="connection.password">wcs</property>-->
+        <!--<property name="connection.driver_class">oracle.jdbc.OracleDriver</property>-->
+        <!--<property name="hibernate.dialect">org.hibernate.dialect.Oracle10gDialect</property>-->
+        <property name="hibernate.connection.driver_class">oracle.jdbc.driver.OracleDriver</property>
+        <property name="hibernate.connection.url">jdbc:oracle:thin:@192.168.9.85:1521:orcl</property>
+        <property name="hibernate.connection.username">wms</property>
+        <property name="connection.password">wms</property>
+        <property name="hibernate.dialect">org.hibernate.dialect.Oracle10gDialect</property>
+        <property name="hibernate.format_sql">true</property>
+        <property name="hibernate.temp.use_jdbc_metadata_defaults">false</property>
+        <property name="hibernate.connection.provider_class">org.hibernate.c3p0.internal.C3P0ConnectionProvider</property>
+        <!--<property name="hibernate.hbm2ddl.auto">update</property>-->
+        <!--<mapping class="com.asrs.domain.Aisle"/>-->
+        <mapping class="com.asrs.domain.Plc"/>
+        <mapping class="com.asrs.domain.Wcs"/>
+        <mapping class="com.asrs.domain.AsrsCommand"/>
+        <mapping class="com.asrs.domain.AsrsJob"/>
+        <mapping class="com.asrs.domain.AsrsJobLog"/>
+        <!--<mapping class="com.asrs.domain.AsrsMachine"/>-->
+        <mapping class="com.asrs.domain.Route"/>
+        <mapping class="com.asrs.domain.RouteDetail"/>
+        <mapping class="com.asrs.domain.Station"/>
+        <mapping class="com.asrs.domain.Location"/>
+        <mapping class="com.asrs.domain.Msg03"/>
+        <mapping class="com.asrs.domain.Message"/>
+        <!--<mapping class="com.asrs.domain.BlockData"/>-->
+        <!--<mapping class="com.asrs.domain.BlockDataDetail"/>-->
+        <mapping class="com.AllBinding.blocks.Block"/>
+        <mapping class="com.AllBinding.blocks.StationBlock"/>
+        <mapping class="com.AllBinding.blocks.SCar"/>
+        <mapping class="com.AllBinding.blocks.Dock"/>
+        <mapping class="com.AllBinding.blocks.Crane"/>
+        <!-- DB schema will be updated if needed -->
+        <!-- <property name="hbm2ddl.auto">update</property> -->
+    </session-factory>
+</hibernate-configuration>

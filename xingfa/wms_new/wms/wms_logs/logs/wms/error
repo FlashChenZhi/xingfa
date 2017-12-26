@@ -1,0 +1,4 @@
+[ERROR] [2017-12-15 15:20:13,747] [WMS_INFO] 这个是测试数据
+[ERROR] [2017-12-15 15:21:36,468] [WMS_INFO] 这个是测试数据
+[ERROR] [2017-12-15 15:21:44,082] [WMS_INFO] 这个是测试数据
+[ERROR] [2017-12-15 15:46:21,135] [WMS_INFO] java.lang.ArithmeticException: / by zero

@@ -1,0 +1,11 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="CommunicationLauncher">
+    <output-path>$PROJECT_DIR$/out/artifacts/CommunicationLauncher</output-path>
+    <root id="archive" name="CommunicationLauncher.jar">
+      <element id="module-output" name="wcs" />
+      <element id="directory" name="META-INF">
+        <element id="file-copy" path="$PROJECT_DIR$/META-INF/MANIFEST.MF" />
+      </element>
+    </root>
+  </artifact>
+</component>

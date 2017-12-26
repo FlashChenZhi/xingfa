@@ -1,0 +1,39 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-configuration PUBLIC
+        "-//Hibernate/Hibernate Configuration DTD//EN"
+        "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+    <session-factory>
+        <property name="current_session_context_class">thread</property>
+        <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
+        <property name="hibernate.connection.url">jdbc:mysql://192.168.10.155:3306/zmc</property>
+        <property name="hibernate.connection.username">zmc</property>
+        <property name="connection.password">zmc</property>
+        <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
+        <property name="hibernate.temp.use_jdbc_metadata_defaults">false</property>
+        <property name="hibernate.hbm2ddl.auto">update</property>
+        <!-- 配置C3P0 -->
+        <property name="hibernate.connection.provider_class">org.hibernate.c3p0.internal.C3P0ConnectionProvider
+        </property>
+        <!-- 最大连接数 -->
+        <property name="hibernate.c3p0.max_size">10</property>
+        <!-- 最小连接数 -->
+        <property name="hibernate.c3p0.min_size">1</property>
+        <!-- 获得连接的超时时间,如果超过这个时间,会抛出异常，单位毫秒 -->
+        <property name="hibernate.c3p0.timeout">30</property>
+        <!-- 当连接池里面的连接用完的时候，C3P0一下获取的新的连接数 -->
+        <property name="hibernate.c3p0.acquire_increment">1</property>
+        <!-- 每次都验证连接是否可用 -->
+        <property name="hibernate.c3p0.validate">true</property>
+        <mapping class="com.wms.domain.Container"/>
+        <mapping class="com.wms.domain.Inventory"/>
+        <mapping class="com.wms.domain.Job"/>
+        <mapping class="com.wms.domain.JobDetail"/>
+        <mapping class="com.wms.domain.Location"/>
+        <mapping class="com.wms.domain.User"/>
+        <mapping class="com.wms.domain.Wcs"/>
+        <mapping class="com.wms.domain.Station"/>
+        <mapping class="com.wms.domain.Config"/>
+
+    </session-factory>
+</hibernate-configuration>

@@ -1,0 +1,345 @@
+[ERROR] [2017-03-17 13:13:14,411] [com.asrs.business.msgProc.WcsMsgProcCenter] RMI发生错误,MsgProcCenter终止
+[ERROR] [2017-03-17 13:13:17,060] [com.asrs.business.xmlProc.WmsMsgProcCenter] RMI发生错误,MsgProcCenter终止
+[ERROR] [2017-03-17 13:24:57,297] [com.asrs.communication.ConnectionManager] 无法连接BL01
+[ERROR] [2017-03-17 13:24:57,402] [com.asrs.communication.PlcConnection] 
+[ERROR] [2017-03-17 13:24:57,402] [com.asrs.communication.PlcConnection] SendHandler被中断
+[ERROR] [2017-03-17 13:24:57,504] [com.asrs.communication.ConnectionManager] 无法连接SC01
+[ERROR] [2017-03-17 13:26:09,489] [com.asrs.communication.ConnectionManager] 无法连接BL01
+[ERROR] [2017-03-17 13:26:09,592] [com.asrs.communication.PlcConnection] 
+[ERROR] [2017-03-17 13:26:09,593] [com.asrs.communication.PlcConnection] SendHandler被中断
+[ERROR] [2017-03-17 13:26:15,106] [com.asrs.communication.ConnectionManager] 无法连接BL01
+[ERROR] [2017-03-17 13:26:16,619] [com.asrs.communication.PlcConnection] 
+[ERROR] [2017-03-17 13:26:16,620] [com.asrs.communication.PlcConnection] SendHandler被中断
+[ERROR] [2017-03-17 13:26:20,872] [com.asrs.communication.ConnectionManager] 无法连接BL01
+[ERROR] [2017-03-17 13:26:20,879] [com.asrs.communication.PlcConnection] Connection reset
+[ERROR] [2017-03-17 13:26:20,880] [com.asrs.communication.PlcConnection] SendHandler被中断
+[ERROR] [2017-03-17 13:26:26,736] [com.asrs.communication.ConnectionManager] 无法连接BL01
+[ERROR] [2017-03-17 13:26:27,424] [com.asrs.communication.PlcConnection] 
+[ERROR] [2017-03-17 13:26:27,425] [com.asrs.communication.PlcConnection] SendHandler被中断
+[ERROR] [2017-03-17 13:26:32,428] [com.asrs.communication.ConnectionManager] 无法连接BL01
+[ERROR] [2017-03-17 13:26:32,434] [com.asrs.communication.PlcConnection] 
+[ERROR] [2017-03-17 13:26:32,436] [com.asrs.communication.PlcConnection] SendHandler被中断
+[ERROR] [2017-03-17 13:26:37,556] [com.asrs.communication.ConnectionManager] 无法连接BL01
+[ERROR] [2017-03-17 13:26:37,561] [com.asrs.communication.PlcConnection] 
+[ERROR] [2017-03-17 13:26:37,562] [com.asrs.communication.PlcConnection] SendHandler被中断
+[ERROR] [2017-03-17 13:26:42,568] [com.asrs.communication.ConnectionManager] 无法连接BL01
+[ERROR] [2017-03-17 13:26:42,574] [com.asrs.communication.PlcConnection] 
+[ERROR] [2017-03-17 13:26:42,575] [com.asrs.communication.PlcConnection] SendHandler被中断
+[ERROR] [2017-03-17 13:26:47,582] [com.asrs.communication.ConnectionManager] 无法连接BL01
+[ERROR] [2017-03-17 13:26:47,589] [com.asrs.communication.PlcConnection] 
+[ERROR] [2017-03-17 13:26:47,589] [com.asrs.communication.PlcConnection] SendHandler被中断
+[ERROR] [2017-03-17 13:26:52,597] [com.asrs.communication.ConnectionManager] 无法连接BL01
+[ERROR] [2017-03-17 13:26:52,604] [com.asrs.communication.PlcConnection] Connection reset
+[ERROR] [2017-03-17 13:26:52,604] [com.asrs.communication.PlcConnection] SendHandler被中断
+[ERROR] [2017-03-17 13:26:57,604] [com.asrs.communication.ConnectionManager] 无法连接BL01
+[ERROR] [2017-03-17 13:26:57,612] [com.asrs.communication.PlcConnection] 
+[ERROR] [2017-03-17 13:26:57,613] [com.asrs.communication.PlcConnection] SendHandler被中断
+[ERROR] [2017-03-17 13:27:02,615] [com.asrs.communication.ConnectionManager] 无法连接BL01
+[ERROR] [2017-03-17 13:27:02,622] [com.asrs.communication.PlcConnection] Connection reset
+[ERROR] [2017-03-17 13:27:02,623] [com.asrs.communication.PlcConnection] SendHandler被中断
+[ERROR] [2017-03-17 13:27:07,625] [com.asrs.communication.ConnectionManager] 无法连接BL01
+[ERROR] [2017-03-17 13:27:07,631] [com.asrs.communication.PlcConnection] Connection reset
+[ERROR] [2017-03-17 13:27:07,631] [com.asrs.communication.PlcConnection] SendHandler被中断
+[ERROR] [2017-03-17 13:27:12,667] [com.asrs.communication.ConnectionManager] 无法连接BL01
+[ERROR] [2017-03-17 13:27:12,771] [com.asrs.communication.PlcConnection] 
+[ERROR] [2017-03-17 13:27:12,773] [com.asrs.communication.PlcConnection] SendHandler被中断
+[ERROR] [2017-03-17 13:27:17,774] [com.asrs.communication.ConnectionManager] 无法连接BL01
+[ERROR] [2017-03-17 13:27:17,779] [com.asrs.communication.PlcConnection] 
+[ERROR] [2017-03-17 13:27:17,780] [com.asrs.communication.PlcConnection] SendHandler被中断
+[ERROR] [2017-03-17 13:34:34,010] [com.asrs.communication.ConnectionManager] 无法连接BL01
+[ERROR] [2017-03-17 13:34:34,018] [com.asrs.communication.PlcConnection] 
+[ERROR] [2017-03-17 13:34:34,018] [com.asrs.communication.PlcConnection] SendHandler被中断
+[ERROR] [2017-03-17 13:34:39,368] [com.asrs.communication.ConnectionManager] 无法连接BL01
+[ERROR] [2017-03-17 13:34:39,376] [com.asrs.communication.PlcConnection] 
+[ERROR] [2017-03-17 13:34:39,377] [com.asrs.communication.PlcConnection] SendHandler被中断
+[ERROR] [2017-03-17 15:04:46,063] [com.asrs.communication.ConnectionManager] 无法连接BL01
+[ERROR] [2017-03-17 15:04:46,071] [com.asrs.communication.PlcConnection] 
+[ERROR] [2017-03-17 15:04:46,072] [com.asrs.communication.PlcConnection] SendHandler被中断
+[ERROR] [2017-03-17 15:04:52,505] [com.asrs.communication.ConnectionManager] 无法连接BL01
+[ERROR] [2017-03-17 15:04:52,645] [com.asrs.communication.PlcConnection] 
+[ERROR] [2017-03-17 15:04:52,646] [com.asrs.communication.PlcConnection] SendHandler被中断
+[ERROR] [2017-03-17 15:04:57,648] [com.asrs.communication.ConnectionManager] 无法连接BL01
+[ERROR] [2017-03-17 15:04:57,655] [com.asrs.communication.PlcConnection] 
+[ERROR] [2017-03-17 15:04:57,656] [com.asrs.communication.PlcConnection] SendHandler被中断
+[ERROR] [2017-03-17 15:05:02,705] [com.asrs.communication.ConnectionManager] 无法连接BL01
+[ERROR] [2017-03-17 15:05:02,711] [com.asrs.communication.PlcConnection] 
+[ERROR] [2017-03-17 15:05:02,712] [com.asrs.communication.PlcConnection] SendHandler被中断
+[ERROR] [2017-03-17 15:05:07,716] [com.asrs.communication.ConnectionManager] 无法连接BL01
+[ERROR] [2017-03-17 15:05:07,723] [com.asrs.communication.PlcConnection] 
+[ERROR] [2017-03-17 15:05:07,724] [com.asrs.communication.PlcConnection] SendHandler被中断
+[ERROR] [2017-03-17 15:05:12,770] [com.asrs.communication.ConnectionManager] 无法连接BL01
+[ERROR] [2017-03-17 15:05:12,783] [com.asrs.communication.PlcConnection] 
+[ERROR] [2017-03-17 15:05:12,784] [com.asrs.communication.PlcConnection] SendHandler被中断
+[ERROR] [2017-03-17 15:05:17,787] [com.asrs.communication.ConnectionManager] 无法连接BL01
+[ERROR] [2017-03-17 15:05:17,794] [com.asrs.communication.PlcConnection] Connection reset
+[ERROR] [2017-03-17 15:05:17,794] [com.asrs.communication.PlcConnection] SendHandler被中断
+[ERROR] [2017-03-17 15:05:22,802] [com.asrs.communication.ConnectionManager] 无法连接BL01
+[ERROR] [2017-03-17 15:05:22,806] [com.asrs.communication.PlcConnection] 
+[ERROR] [2017-03-17 15:05:22,807] [com.asrs.communication.PlcConnection] SendHandler被中断
+[ERROR] [2017-03-17 15:05:27,812] [com.asrs.communication.ConnectionManager] 无法连接BL01
+[ERROR] [2017-03-17 15:05:27,824] [com.asrs.communication.PlcConnection] 
+[ERROR] [2017-03-17 15:05:27,824] [com.asrs.communication.PlcConnection] SendHandler被中断
+[ERROR] [2017-03-17 15:05:32,835] [com.asrs.communication.ConnectionManager] 无法连接BL01
+[ERROR] [2017-03-17 15:05:32,840] [com.asrs.communication.PlcConnection] Connection reset
+[ERROR] [2017-03-17 15:05:32,841] [com.asrs.communication.PlcConnection] SendHandler被中断
+[ERROR] [2017-03-17 15:05:37,845] [com.asrs.communication.ConnectionManager] 无法连接BL01
+[ERROR] [2017-03-17 15:05:37,850] [com.asrs.communication.PlcConnection] 
+[ERROR] [2017-03-17 15:05:37,851] [com.asrs.communication.PlcConnection] SendHandler被中断
+[ERROR] [2017-03-17 15:05:43,057] [com.asrs.communication.ConnectionManager] 无法连接BL01
+[ERROR] [2017-03-17 15:05:43,063] [com.asrs.communication.PlcConnection] 
+[ERROR] [2017-03-17 15:05:43,064] [com.asrs.communication.PlcConnection] SendHandler被中断
+[ERROR] [2017-03-17 15:05:48,110] [com.asrs.communication.ConnectionManager] 无法连接BL01
+[ERROR] [2017-03-17 15:05:48,215] [com.asrs.communication.PlcConnection] 
+[ERROR] [2017-03-17 15:05:48,215] [com.asrs.communication.PlcConnection] SendHandler被中断
+[ERROR] [2017-03-17 15:05:53,220] [com.asrs.communication.ConnectionManager] 无法连接BL01
+[ERROR] [2017-03-17 15:05:53,228] [com.asrs.communication.PlcConnection] 
+[ERROR] [2017-03-17 15:05:53,229] [com.asrs.communication.PlcConnection] SendHandler被中断
+[ERROR] [2017-03-17 15:05:58,231] [com.asrs.communication.ConnectionManager] 无法连接BL01
+[ERROR] [2017-03-17 15:05:58,242] [com.asrs.communication.PlcConnection] 
+[ERROR] [2017-03-17 15:05:58,242] [com.asrs.communication.PlcConnection] SendHandler被中断
+[ERROR] [2017-03-17 15:06:03,241] [com.asrs.communication.ConnectionManager] 无法连接BL01
+[ERROR] [2017-03-17 15:06:03,247] [com.asrs.communication.PlcConnection] 
+[ERROR] [2017-03-17 15:06:03,248] [com.asrs.communication.PlcConnection] SendHandler被中断
+[ERROR] [2017-03-17 15:06:08,251] [com.asrs.communication.ConnectionManager] 无法连接BL01
+[ERROR] [2017-03-17 15:06:08,258] [com.asrs.communication.PlcConnection] 
+[ERROR] [2017-03-17 15:06:08,259] [com.asrs.communication.PlcConnection] SendHandler被中断
+[ERROR] [2017-03-17 15:06:13,264] [com.asrs.communication.ConnectionManager] 无法连接BL01
+[ERROR] [2017-03-17 15:06:13,271] [com.asrs.communication.PlcConnection] 
+[ERROR] [2017-03-17 15:06:13,271] [com.asrs.communication.PlcConnection] SendHandler被中断
+[ERROR] [2017-03-17 15:06:18,274] [com.asrs.communication.ConnectionManager] 无法连接BL01
+[ERROR] [2017-03-17 15:06:18,282] [com.asrs.communication.PlcConnection] Connection reset
+[ERROR] [2017-03-17 15:06:18,282] [com.asrs.communication.PlcConnection] SendHandler被中断
+[ERROR] [2017-03-17 15:06:23,286] [com.asrs.communication.ConnectionManager] 无法连接BL01
+[ERROR] [2017-03-17 15:06:23,293] [com.asrs.communication.PlcConnection] Connection reset
+[ERROR] [2017-03-17 15:06:23,293] [com.asrs.communication.PlcConnection] SendHandler被中断
+[ERROR] [2017-03-17 15:06:28,297] [com.asrs.communication.ConnectionManager] 无法连接BL01
+[ERROR] [2017-03-17 15:06:28,305] [com.asrs.communication.PlcConnection] Connection reset
+[ERROR] [2017-03-17 15:06:28,306] [com.asrs.communication.PlcConnection] SendHandler被中断
+[ERROR] [2017-03-17 15:06:33,306] [com.asrs.communication.ConnectionManager] 无法连接BL01
+[ERROR] [2017-03-17 15:06:33,312] [com.asrs.communication.PlcConnection] 
+[ERROR] [2017-03-17 15:06:33,313] [com.asrs.communication.PlcConnection] SendHandler被中断
+[ERROR] [2017-03-17 15:06:38,315] [com.asrs.communication.ConnectionManager] 无法连接BL01
+[ERROR] [2017-03-17 15:06:38,324] [com.asrs.communication.PlcConnection] 
+[ERROR] [2017-03-17 15:06:38,325] [com.asrs.communication.PlcConnection] SendHandler被中断
+[ERROR] [2017-03-17 15:06:43,328] [com.asrs.communication.ConnectionManager] 无法连接BL01
+[ERROR] [2017-03-17 15:06:43,335] [com.asrs.communication.PlcConnection] 
+[ERROR] [2017-03-17 15:06:43,337] [com.asrs.communication.PlcConnection] SendHandler被中断
+[ERROR] [2017-03-17 15:06:48,425] [com.asrs.communication.ConnectionManager] 无法连接BL01
+[ERROR] [2017-03-17 15:06:48,532] [com.asrs.communication.PlcConnection] 
+[ERROR] [2017-03-17 15:06:48,533] [com.asrs.communication.PlcConnection] 未连接,无法发送! 00001001506481ML0153B
+[ERROR] [2017-03-17 15:06:53,530] [com.asrs.communication.ConnectionManager] 无法连接BL01
+[ERROR] [2017-03-17 15:06:53,536] [com.asrs.communication.PlcConnection] 
+[ERROR] [2017-03-17 15:06:53,537] [com.asrs.communication.PlcConnection] SendHandler被中断
+[ERROR] [2017-03-17 15:06:58,539] [com.asrs.communication.ConnectionManager] 无法连接BL01
+[ERROR] [2017-03-17 15:06:58,546] [com.asrs.communication.PlcConnection] Connection reset
+[ERROR] [2017-03-17 15:06:58,547] [com.asrs.communication.PlcConnection] SendHandler被中断
+[ERROR] [2017-03-17 15:07:03,548] [com.asrs.communication.ConnectionManager] 无法连接BL01
+[ERROR] [2017-03-17 15:07:03,555] [com.asrs.communication.PlcConnection] 
+[ERROR] [2017-03-17 15:07:03,556] [com.asrs.communication.PlcConnection] SendHandler被中断
+[ERROR] [2017-03-17 15:07:08,559] [com.asrs.communication.ConnectionManager] 无法连接BL01
+[ERROR] [2017-03-17 15:07:08,565] [com.asrs.communication.PlcConnection] 
+[ERROR] [2017-03-17 15:07:08,566] [com.asrs.communication.PlcConnection] SendHandler被中断
+[ERROR] [2017-03-17 15:07:13,577] [com.asrs.communication.ConnectionManager] 无法连接BL01
+[ERROR] [2017-03-17 15:07:13,584] [com.asrs.communication.PlcConnection] Connection reset
+[ERROR] [2017-03-17 15:07:13,585] [com.asrs.communication.PlcConnection] SendHandler被中断
+[ERROR] [2017-03-17 15:07:18,588] [com.asrs.communication.ConnectionManager] 无法连接BL01
+[ERROR] [2017-03-17 15:07:18,595] [com.asrs.communication.PlcConnection] Connection reset
+[ERROR] [2017-03-17 15:07:18,596] [com.asrs.communication.PlcConnection] SendHandler被中断
+[ERROR] [2017-03-17 15:07:23,596] [com.asrs.communication.ConnectionManager] 无法连接BL01
+[ERROR] [2017-03-17 15:07:23,602] [com.asrs.communication.PlcConnection] 
+[ERROR] [2017-03-17 15:07:23,603] [com.asrs.communication.PlcConnection] SendHandler被中断
+[ERROR] [2017-03-17 15:07:28,606] [com.asrs.communication.ConnectionManager] 无法连接BL01
+[ERROR] [2017-03-17 15:07:28,613] [com.asrs.communication.PlcConnection] Connection reset
+[ERROR] [2017-03-17 15:07:28,613] [com.asrs.communication.PlcConnection] SendHandler被中断
+[ERROR] [2017-03-17 15:07:33,682] [com.asrs.communication.ConnectionManager] 无法连接BL01
+[ERROR] [2017-03-17 15:07:33,688] [com.asrs.communication.PlcConnection] 
+[ERROR] [2017-03-17 15:07:38,694] [com.asrs.communication.ConnectionManager] 无法连接BL01
+[ERROR] [2017-03-17 15:07:38,705] [com.asrs.communication.PlcConnection] 
+[ERROR] [2017-03-17 15:07:38,706] [com.asrs.communication.PlcConnection] SendHandler被中断
+[ERROR] [2017-03-17 15:07:43,761] [com.asrs.communication.ConnectionManager] 无法连接BL01
+[ERROR] [2017-03-17 15:07:43,765] [com.asrs.communication.PlcConnection] 
+[ERROR] [2017-03-17 15:07:43,766] [com.asrs.communication.PlcConnection] SendHandler被中断
+[ERROR] [2017-03-17 15:07:48,842] [com.asrs.communication.ConnectionManager] 无法连接BL01
+[ERROR] [2017-03-17 15:07:48,945] [com.asrs.communication.PlcConnection] 
+[ERROR] [2017-03-17 15:07:48,946] [com.asrs.communication.PlcConnection] SendHandler被中断
+[ERROR] [2017-03-17 15:07:53,950] [com.asrs.communication.ConnectionManager] 无法连接BL01
+[ERROR] [2017-03-17 15:07:53,958] [com.asrs.communication.PlcConnection] Connection reset
+[ERROR] [2017-03-17 15:07:53,958] [com.asrs.communication.PlcConnection] SendHandler被中断
+[ERROR] [2017-03-17 15:07:58,962] [com.asrs.communication.ConnectionManager] 无法连接BL01
+[ERROR] [2017-03-17 15:07:58,967] [com.asrs.communication.PlcConnection] 
+[ERROR] [2017-03-17 15:07:58,968] [com.asrs.communication.PlcConnection] SendHandler被中断
+[ERROR] [2017-03-17 15:08:03,976] [com.asrs.communication.ConnectionManager] 无法连接BL01
+[ERROR] [2017-03-17 15:08:03,983] [com.asrs.communication.PlcConnection] 
+[ERROR] [2017-03-17 15:08:03,983] [com.asrs.communication.PlcConnection] SendHandler被中断
+[ERROR] [2017-03-17 15:08:08,988] [com.asrs.communication.ConnectionManager] 无法连接BL01
+[ERROR] [2017-03-17 15:08:08,995] [com.asrs.communication.PlcConnection] Connection reset
+[ERROR] [2017-03-17 15:08:08,995] [com.asrs.communication.PlcConnection] SendHandler被中断
+[ERROR] [2017-03-17 15:08:14,057] [com.asrs.communication.ConnectionManager] 无法连接BL01
+[ERROR] [2017-03-17 15:08:14,064] [com.asrs.communication.PlcConnection] 发送数据给ML01时发生错误.
+0003060150814000000C
+Broken pipe (Write failed)
+[ERROR] [2017-03-17 15:08:14,065] [com.asrs.communication.PlcConnection] Connection reset
+[ERROR] [2017-03-17 15:08:14,065] [com.asrs.communication.PlcConnection] 发送数据给ML01时发生错误.
+0003060150814000000C
+Broken pipe (Write failed)
+[ERROR] [2017-03-17 15:08:19,066] [com.asrs.communication.ConnectionManager] 无法连接BL01
+[ERROR] [2017-03-17 15:08:19,073] [com.asrs.communication.PlcConnection] Connection reset
+[ERROR] [2017-03-17 15:08:19,074] [com.asrs.communication.PlcConnection] SendHandler被中断
+[ERROR] [2017-03-17 15:08:24,175] [com.asrs.communication.ConnectionManager] 无法连接BL01
+[ERROR] [2017-03-17 15:08:24,182] [com.asrs.communication.PlcConnection] 
+[ERROR] [2017-03-17 15:08:24,184] [com.asrs.communication.PlcConnection] SendHandler被中断
+[ERROR] [2017-03-17 15:08:29,186] [com.asrs.communication.ConnectionManager] 无法连接BL01
+[ERROR] [2017-03-17 15:08:29,193] [com.asrs.communication.PlcConnection] 
+[ERROR] [2017-03-17 15:08:29,193] [com.asrs.communication.PlcConnection] SendHandler被中断
+[ERROR] [2017-03-17 15:08:34,277] [com.asrs.communication.ConnectionManager] 无法连接BL01
+[ERROR] [2017-03-17 15:08:34,284] [com.asrs.communication.PlcConnection] 
+[ERROR] [2017-03-17 15:08:34,284] [com.asrs.communication.PlcConnection] SendHandler被中断
+[ERROR] [2017-03-17 15:08:39,289] [com.asrs.communication.ConnectionManager] 无法连接BL01
+[ERROR] [2017-03-17 15:08:39,309] [com.asrs.communication.PlcConnection] 
+[ERROR] [2017-03-17 15:08:39,310] [com.asrs.communication.PlcConnection] 未连接,无法发送! 00001001508391ML01533
+[ERROR] [2017-03-17 15:08:44,394] [com.asrs.communication.ConnectionManager] 无法连接BL01
+[ERROR] [2017-03-17 15:08:44,399] [com.asrs.communication.PlcConnection] 
+[ERROR] [2017-03-17 15:08:44,400] [com.asrs.communication.PlcConnection] SendHandler被中断
+[ERROR] [2017-03-17 15:08:49,462] [com.asrs.communication.ConnectionManager] 无法连接BL01
+[ERROR] [2017-03-17 15:08:49,569] [com.asrs.communication.PlcConnection] Connection reset
+[ERROR] [2017-03-17 15:08:49,570] [com.asrs.communication.PlcConnection] SendHandler被中断
+[ERROR] [2017-03-17 15:08:54,571] [com.asrs.communication.ConnectionManager] 无法连接BL01
+[ERROR] [2017-03-17 15:08:54,578] [com.asrs.communication.PlcConnection] 
+[ERROR] [2017-03-17 15:08:54,579] [com.asrs.communication.PlcConnection] SendHandler被中断
+[ERROR] [2017-03-17 15:08:59,587] [com.asrs.communication.ConnectionManager] 无法连接BL01
+[ERROR] [2017-03-17 15:08:59,596] [com.asrs.communication.PlcConnection] Connection reset
+[ERROR] [2017-03-17 15:08:59,597] [com.asrs.communication.PlcConnection] SendHandler被中断
+[ERROR] [2017-03-17 15:09:04,616] [com.asrs.communication.ConnectionManager] 无法连接BL01
+[ERROR] [2017-03-17 15:09:04,623] [com.asrs.communication.PlcConnection] Connection reset
+[ERROR] [2017-03-17 15:09:04,623] [com.asrs.communication.PlcConnection] SendHandler被中断
+[ERROR] [2017-03-17 15:09:09,627] [com.asrs.communication.ConnectionManager] 无法连接BL01
+[ERROR] [2017-03-17 15:09:09,633] [com.asrs.communication.PlcConnection] 
+[ERROR] [2017-03-17 15:09:09,634] [com.asrs.communication.PlcConnection] SendHandler被中断
+[ERROR] [2017-03-17 15:09:14,706] [com.asrs.communication.ConnectionManager] 无法连接BL01
+[ERROR] [2017-03-17 15:09:14,713] [com.asrs.communication.PlcConnection] 
+[ERROR] [2017-03-17 15:09:14,713] [com.asrs.communication.PlcConnection] SendHandler被中断
+[ERROR] [2017-03-17 15:09:19,717] [com.asrs.communication.ConnectionManager] 无法连接BL01
+[ERROR] [2017-03-17 15:09:19,724] [com.asrs.communication.PlcConnection] 
+[ERROR] [2017-03-17 15:09:19,724] [com.asrs.communication.PlcConnection] SendHandler被中断
+[ERROR] [2017-03-17 15:09:24,824] [com.asrs.communication.ConnectionManager] 无法连接BL01
+[ERROR] [2017-03-17 15:09:24,830] [com.asrs.communication.PlcConnection] 
+[ERROR] [2017-03-17 15:09:24,831] [com.asrs.communication.PlcConnection] SendHandler被中断
+[ERROR] [2017-03-17 15:09:29,831] [com.asrs.communication.ConnectionManager] 无法连接BL01
+[ERROR] [2017-03-17 15:09:29,843] [com.asrs.communication.PlcConnection] 
+[ERROR] [2017-03-17 15:09:29,843] [com.asrs.communication.PlcConnection] SendHandler被中断
+[ERROR] [2017-03-17 15:09:34,903] [com.asrs.communication.ConnectionManager] 无法连接BL01
+[ERROR] [2017-03-17 15:09:34,911] [com.asrs.communication.PlcConnection] Connection reset
+[ERROR] [2017-03-17 15:09:34,912] [com.asrs.communication.PlcConnection] SendHandler被中断
+[ERROR] [2017-03-17 15:09:39,913] [com.asrs.communication.ConnectionManager] 无法连接BL01
+[ERROR] [2017-03-17 15:09:39,919] [com.asrs.communication.PlcConnection] 
+[ERROR] [2017-03-17 15:09:39,921] [com.asrs.communication.PlcConnection] SendHandler被中断
+[ERROR] [2017-03-17 15:09:45,009] [com.asrs.communication.ConnectionManager] 无法连接BL01
+[ERROR] [2017-03-17 15:09:45,014] [com.asrs.communication.PlcConnection] 
+[ERROR] [2017-03-17 15:09:45,015] [com.asrs.communication.PlcConnection] SendHandler被中断
+[ERROR] [2017-03-17 15:09:50,082] [com.asrs.communication.ConnectionManager] 无法连接BL01
+[ERROR] [2017-03-17 15:09:50,187] [com.asrs.communication.PlcConnection] Connection reset
+[ERROR] [2017-03-17 15:09:50,188] [com.asrs.communication.PlcConnection] SendHandler被中断
+[ERROR] [2017-03-17 15:09:55,191] [com.asrs.communication.ConnectionManager] 无法连接BL01
+[ERROR] [2017-03-17 15:09:55,198] [com.asrs.communication.PlcConnection] 
+[ERROR] [2017-03-17 15:09:55,199] [com.asrs.communication.PlcConnection] SendHandler被中断
+[ERROR] [2017-03-17 15:10:00,201] [com.asrs.communication.ConnectionManager] 无法连接BL01
+[ERROR] [2017-03-17 15:10:00,208] [com.asrs.communication.PlcConnection] 
+[ERROR] [2017-03-17 15:10:00,209] [com.asrs.communication.PlcConnection] SendHandler被中断
+[ERROR] [2017-03-17 15:10:05,215] [com.asrs.communication.ConnectionManager] 无法连接BL01
+[ERROR] [2017-03-17 15:10:05,220] [com.asrs.communication.PlcConnection] 
+[ERROR] [2017-03-17 15:10:05,220] [com.asrs.communication.PlcConnection] SendHandler被中断
+[ERROR] [2017-03-17 15:10:10,222] [com.asrs.communication.ConnectionManager] 无法连接BL01
+[ERROR] [2017-03-17 15:10:10,228] [com.asrs.communication.PlcConnection] 
+[ERROR] [2017-03-17 15:10:10,229] [com.asrs.communication.PlcConnection] SendHandler被中断
+[ERROR] [2017-03-17 15:10:13,491] [com.asrs.business.msgProc.WcsMsgProcCenter] RMI发生错误,MsgProcCenter终止
+[ERROR] [2017-03-17 15:10:19,607] [com.asrs.communication.ConnectionManager] 无法连接BL01
+[ERROR] [2017-03-17 15:10:19,614] [com.asrs.communication.PlcConnection] 
+[ERROR] [2017-03-17 15:10:19,615] [com.asrs.communication.PlcConnection] SendHandler被中断
+[ERROR] [2017-03-17 15:10:25,450] [com.asrs.communication.ConnectionManager] 无法连接BL01
+[ERROR] [2017-03-17 15:10:25,459] [com.asrs.communication.PlcConnection] 
+[ERROR] [2017-03-17 15:10:25,460] [com.asrs.communication.PlcConnection] SendHandler被中断
+[ERROR] [2017-03-17 15:10:30,466] [com.asrs.communication.ConnectionManager] 无法连接BL01
+[ERROR] [2017-03-17 15:10:30,473] [com.asrs.communication.PlcConnection] 
+[ERROR] [2017-03-17 15:10:30,474] [com.asrs.communication.PlcConnection] 未连接,无法发送! 00001001510301ML01533
+[ERROR] [2017-03-17 15:10:35,569] [com.asrs.communication.ConnectionManager] 无法连接BL01
+[ERROR] [2017-03-17 15:10:35,577] [com.asrs.communication.PlcConnection] Connection reset
+[ERROR] [2017-03-17 15:10:35,578] [com.asrs.communication.PlcConnection] 未连接,无法发送! 00011001510351ML01537
+[ERROR] [2017-03-17 15:10:40,579] [com.asrs.communication.ConnectionManager] 无法连接BL01
+[ERROR] [2017-03-17 15:10:40,584] [com.asrs.communication.PlcConnection] 
+[ERROR] [2017-03-17 15:10:40,585] [com.asrs.communication.PlcConnection] SendHandler被中断
+[ERROR] [2017-03-17 15:10:45,688] [com.asrs.communication.ConnectionManager] 无法连接BL01
+[ERROR] [2017-03-17 15:10:45,693] [com.asrs.communication.PlcConnection] 
+[ERROR] [2017-03-17 15:10:45,694] [com.asrs.communication.PlcConnection] 未连接,无法发送! 00030601510450000001
+[ERROR] [2017-03-17 15:10:50,804] [com.asrs.communication.ConnectionManager] 无法连接BL01
+[ERROR] [2017-03-17 15:10:50,908] [com.asrs.communication.PlcConnection] 
+[ERROR] [2017-03-17 15:10:50,909] [com.asrs.communication.PlcConnection] SendHandler被中断
+[ERROR] [2017-03-17 15:10:55,910] [com.asrs.communication.ConnectionManager] 无法连接BL01
+[ERROR] [2017-03-17 15:10:55,916] [com.asrs.communication.PlcConnection] 
+[ERROR] [2017-03-17 15:10:55,917] [com.asrs.communication.PlcConnection] SendHandler被中断
+[ERROR] [2017-03-17 15:15:39,729] [com.asrs.business.xmlProc.WmsMsgProcCenter] RMI发生错误,MsgProcCenter终止
+[ERROR] [2017-03-17 15:16:27,174] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] Io 异常: Operation timed out (Read failed)
+[ERROR] [2017-03-17 15:44:56,560] [org.hibernate.tool.hbm2ddl.SchemaUpdate] HHH000319: Could not get database metadata
+java.sql.SQLException: Connections could not be acquired from the underlying database!
+	at com.mchange.v2.sql.SqlUtils.toSQLException(SqlUtils.java:118)
+	at com.mchange.v2.c3p0.impl.C3P0PooledConnectionPool.checkoutPooledConnection(C3P0PooledConnectionPool.java:689)
+	at com.mchange.v2.c3p0.impl.AbstractPoolBackedDataSource.getConnection(AbstractPoolBackedDataSource.java:140)
+	at org.hibernate.c3p0.internal.C3P0ConnectionProvider.getConnection(C3P0ConnectionProvider.java:89)
+	at org.hibernate.tool.hbm2ddl.SuppliedConnectionProviderConnectionHelper.prepare(SuppliedConnectionProviderConnectionHelper.java:51)
+	at org.hibernate.tool.hbm2ddl.SchemaUpdate.execute(SchemaUpdate.java:194)
+	at org.hibernate.tool.hbm2ddl.SchemaUpdate.execute(SchemaUpdate.java:178)
+	at org.hibernate.internal.SessionFactoryImpl.<init>(SessionFactoryImpl.java:522)
+	at org.hibernate.cfg.Configuration.buildSessionFactory(Configuration.java:1857)
+	at org.hibernate.cfg.Configuration.buildSessionFactory(Configuration.java:1928)
+	at com.util.hibernate.HibernateUtil.<clinit>(HibernateUtil.java:19)
+	at com.util.hibernate.Transaction.begin(Transaction.java:15)
+	at com.asrs.communication.CommunicationLauncher.main(CommunicationLauncher.java:46)
+Caused by: com.mchange.v2.resourcepool.CannotAcquireResourceException: A ResourcePool could not acquire a resource from its primary factory or source.
+	at com.mchange.v2.resourcepool.BasicResourcePool.awaitAvailable(BasicResourcePool.java:1418)
+	at com.mchange.v2.resourcepool.BasicResourcePool.prelimCheckoutResource(BasicResourcePool.java:606)
+	at com.mchange.v2.resourcepool.BasicResourcePool.checkoutResource(BasicResourcePool.java:526)
+	at com.mchange.v2.c3p0.impl.C3P0PooledConnectionPool.checkoutAndMarkConnectionInUse(C3P0PooledConnectionPool.java:755)
+	at com.mchange.v2.c3p0.impl.C3P0PooledConnectionPool.checkoutPooledConnection(C3P0PooledConnectionPool.java:682)
+	... 11 more
+[ERROR] [2017-03-17 15:44:56,567] [org.hibernate.tool.hbm2ddl.SchemaUpdate] HHH000299: Could not complete schema update
+java.sql.SQLException: Connections could not be acquired from the underlying database!
+	at com.mchange.v2.sql.SqlUtils.toSQLException(SqlUtils.java:118)
+	at com.mchange.v2.c3p0.impl.C3P0PooledConnectionPool.checkoutPooledConnection(C3P0PooledConnectionPool.java:689)
+	at com.mchange.v2.c3p0.impl.AbstractPoolBackedDataSource.getConnection(AbstractPoolBackedDataSource.java:140)
+	at org.hibernate.c3p0.internal.C3P0ConnectionProvider.getConnection(C3P0ConnectionProvider.java:89)
+	at org.hibernate.tool.hbm2ddl.SuppliedConnectionProviderConnectionHelper.prepare(SuppliedConnectionProviderConnectionHelper.java:51)
+	at org.hibernate.tool.hbm2ddl.SchemaUpdate.execute(SchemaUpdate.java:194)
+	at org.hibernate.tool.hbm2ddl.SchemaUpdate.execute(SchemaUpdate.java:178)
+	at org.hibernate.internal.SessionFactoryImpl.<init>(SessionFactoryImpl.java:522)
+	at org.hibernate.cfg.Configuration.buildSessionFactory(Configuration.java:1857)
+	at org.hibernate.cfg.Configuration.buildSessionFactory(Configuration.java:1928)
+	at com.util.hibernate.HibernateUtil.<clinit>(HibernateUtil.java:19)
+	at com.util.hibernate.Transaction.begin(Transaction.java:15)
+	at com.asrs.communication.CommunicationLauncher.main(CommunicationLauncher.java:46)
+Caused by: com.mchange.v2.resourcepool.CannotAcquireResourceException: A ResourcePool could not acquire a resource from its primary factory or source.
+	at com.mchange.v2.resourcepool.BasicResourcePool.awaitAvailable(BasicResourcePool.java:1418)
+	at com.mchange.v2.resourcepool.BasicResourcePool.prelimCheckoutResource(BasicResourcePool.java:606)
+	at com.mchange.v2.resourcepool.BasicResourcePool.checkoutResource(BasicResourcePool.java:526)
+	at com.mchange.v2.c3p0.impl.C3P0PooledConnectionPool.checkoutAndMarkConnectionInUse(C3P0PooledConnectionPool.java:755)
+	at com.mchange.v2.c3p0.impl.C3P0PooledConnectionPool.checkoutPooledConnection(C3P0PooledConnectionPool.java:682)
+	... 11 more
+[ERROR] [2017-03-17 15:45:26,751] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] Connections could not be acquired from the underlying database!
+[ERROR] [2017-03-17 15:45:26,757] [com.asrs.communication.CommunicationLauncher] Could not open connection
+[ERROR] [2017-03-17 20:21:04,356] [com.AllBinding.threads.CraneThread] 
+[ERROR] [2017-03-17 20:21:04,386] [com.AllBinding.threads.CraneThread] 
+[ERROR] [2017-03-17 20:21:04,420] [com.AllBinding.threads.CraneThread] 
+[ERROR] [2017-03-17 20:21:04,454] [com.AllBinding.threads.CraneThread] 
+[ERROR] [2017-03-17 20:21:04,484] [com.AllBinding.threads.CraneThread] 
+[ERROR] [2017-03-17 20:21:04,510] [com.AllBinding.threads.CraneThread] 
+[ERROR] [2017-03-17 20:21:04,539] [com.AllBinding.threads.CraneThread] 
+[ERROR] [2017-03-17 20:21:43,033] [com.AllBinding.threads.CraneThread] 
+[ERROR] [2017-03-17 20:21:43,048] [com.AllBinding.threads.CraneThread] 
+[ERROR] [2017-03-17 20:21:43,064] [com.AllBinding.threads.CraneThread] 
+[ERROR] [2017-03-17 20:21:43,082] [com.AllBinding.threads.CraneThread] 
+[ERROR] [2017-03-17 20:21:43,097] [com.AllBinding.threads.CraneThread] 
+[ERROR] [2017-03-17 20:21:43,114] [com.AllBinding.threads.CraneThread] 
+[ERROR] [2017-03-17 20:21:43,139] [com.AllBinding.threads.CraneThread] 
+[ERROR] [2017-03-17 20:21:43,156] [com.AllBinding.threads.CraneThread] 
+[ERROR] [2017-03-17 20:21:43,189] [com.AllBinding.threads.CraneThread] 
+[ERROR] [2017-03-17 20:21:43,210] [com.AllBinding.threads.CraneThread] 
+[ERROR] [2017-03-17 20:21:44,867] [com.AllBinding.threads.CraneThread] 
+[ERROR] [2017-03-17 20:21:44,885] [com.AllBinding.threads.CraneThread] 

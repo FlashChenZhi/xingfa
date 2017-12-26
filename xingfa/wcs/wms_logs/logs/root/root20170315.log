@@ -1,0 +1,12 @@
+[ERROR] [2017-03-16 10:20:35,860] [com.asrs.communication.PlcConnection] Connection reset
+[ERROR] [2017-03-16 10:20:35,860] [com.asrs.communication.PlcConnection] Connection reset
+[ERROR] [2017-03-16 10:20:35,862] [com.asrs.communication.PlcConnection] SendHandler被中断
+[ERROR] [2017-03-16 10:20:35,862] [com.asrs.communication.PlcConnection] SendHandler被中断
+[ERROR] [2017-03-16 10:20:44,556] [com.asrs.communication.PlcConnection] Connection reset
+[ERROR] [2017-03-16 10:20:44,557] [com.asrs.communication.PlcConnection] SendHandler被中断
+[ERROR] [2017-03-16 10:30:55,491] [com.asrs.communication.PlcConnection] Connection reset
+[ERROR] [2017-03-16 10:30:55,492] [com.asrs.communication.PlcConnection] SendHandler被中断
+[ERROR] [2017-03-16 10:30:55,547] [com.asrs.communication.PlcConnection] Connection reset
+[ERROR] [2017-03-16 10:30:55,548] [com.asrs.communication.PlcConnection] SendHandler被中断
+[ERROR] [2017-03-16 10:30:55,589] [com.asrs.communication.PlcConnection] Connection reset
+[ERROR] [2017-03-16 10:30:55,589] [com.asrs.communication.PlcConnection] SendHandler被中断
