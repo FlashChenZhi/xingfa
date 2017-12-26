@@ -65,7 +65,7 @@
     <context:annotation-config/>
 
     <!-- 扫描service注解,生成实例 -->
-    <context:component-scan base-package="com.wms.service"/>
+    <context:component-scan base-package="com.web.service"/>
 
     <bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
         <property name="basename">

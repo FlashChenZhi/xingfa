@@ -1,0 +1,48 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-configuration PUBLIC
+        "-//Hibernate/Hibernate Configuration DTD//EN"
+        "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+    <session-factory>
+        <property name="current_session_context_class">thread</property>
+        <!--<property name="connection.url">jdbc:oracle:thin:@localhost:1521:orcl</property>-->
+        <!--<property name="connection.url">jdbc:mysql://localhost:3306/dabieshan?useSSL=true</property>-->
+        <!--<property name="connection.url">jdbc:sqlserver://192.168.10.5:1433;DatabaseName=wcs</property>-->
+        <property name="connection.url">jdbc:sqlserver://172.16.130.138:1433;DatabaseName=wcs</property>
+        <property name="connection.username">wcs</property>
+        <property name="connection.password">wcs2017</property>
+        <!--<property name="connection.driver_class">com.mysql.jdbc.Driver</property>-->
+        <property name="connection.driver_class">com.microsoft.sqlserver.jdbc.SQLServerDriver</property>
+
+        <property name="hibernate.show_sql">false</property>
+        <property name="hibernate.format_sql">false</property>
+        <property name="hibernate.use_sql_comments">false</property>
+        <property name="hibernate.cglib.use_reflection_optimizer">false</property>
+        <property name="hibernate.temp.use_jdbc_metadata_defaults">false</property>
+        <property name="hibernate.dialect">org.hibernate.dialect.SQLServerDialect</property>
+        <!--<property name="hibernate.hbm2ddl.auto">create</property>-->
+        <!--<mapping class="com.asrs.domain.Aisle"/>-->
+        <mapping class="com.asrs.domain.Plc"/>
+        <mapping class="com.asrs.domain.Wcs"/>
+        <mapping class="com.asrs.domain.AsrsJob"/>
+        <mapping class="com.asrs.domain.Route"/>
+        <mapping class="com.asrs.domain.RouteDetail"/>
+        <mapping class="com.asrs.domain.Station"/>
+        <mapping class="com.asrs.domain.Location"/>
+        <mapping class="com.asrs.domain.WcsMessage"/>
+        <mapping class="com.thread.blocks.Block"/>
+        <mapping class="com.thread.blocks.Lift"/>
+        <mapping class="com.thread.blocks.StationBlock"/>
+        <mapping class="com.thread.blocks.MCar"/>
+        <mapping class="com.thread.blocks.SCar"/>
+        <mapping class="com.thread.blocks.Srm"/>
+        <mapping class="com.thread.blocks.Conveyor"/>
+        <mapping class="com.thread.blocks.Dock"/>
+        <mapping class="com.asrs.domain.MessageLog"/>
+        <mapping class="com.asrs.domain.AsrsJobTest"/>
+        <mapping class="com.asrs.domain.Configuration"/>
+        <mapping class="com.asrs.domain.TransportOrderLog"/>
+        <!-- DB schema will be updated if needed -->
+        <!-- <property name="hbm2ddl.auto">update</property> -->
+    </session-factory>
+</hibernate-configuration>
