@@ -16,5 +16,5 @@ public interface MsgProcess
 {
       public void Do(MessageBuilder msg) throws MsgException, RemoteException;
 
-      void setProxy(XmlProxy wmsProxy,MessageProxy wcsProxy);
+      void setProxy(XmlProxy wmsProxy, MessageProxy wcsProxy);
 }

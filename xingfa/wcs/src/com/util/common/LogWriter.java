@@ -48,6 +48,11 @@ public class LogWriter
             Logger.getLogger("WMS_INFO").info(log);
       }
 
+      public static void writeXmlInfo(String logger,String log)
+      {
+            Logger.getLogger("XMLMessageInfo").info(log);
+      }
+
       public static void main(String[] args) {
             writeInfo("WMS_INFO","fdsfsdfdsfdf12312312");
       }

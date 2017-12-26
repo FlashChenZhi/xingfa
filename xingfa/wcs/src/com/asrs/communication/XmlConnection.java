@@ -65,6 +65,7 @@ public class XmlConnection {
                         if (dataStr.length() > 0){
                             String msg = dataStr.toString();
                             _proxy.addRcvdXML(dataStr.toString());
+
                             if(msg.length() <= 7){
                                 System.out.println("XMLRecv接收到Message:" + msg);
                             } else {
@@ -77,6 +78,20 @@ public class XmlConnection {
                     {
                         dataStr.append((char) rcvByte);
                     }
+
+                    if(dataStr.toString().endsWith("</WmsWcsXML_Envelope>")){
+                        String msg = dataStr.toString();
+                        System.out.println(msg);
+                        LogWriter.writeXmlInfo("xmlLog",dataStr.toString());
+                        _proxy.addRcvdXML(dataStr.toString());
+                        if(msg.length() <= 7){
+                            System.out.println("XMLRecv接收到Message:" + msg);
+                        } else {
+                            System.out.println("XMLRecv接收到XML");
+                        }
+                        dataStr = new StringBuilder();
+                    }
+
                 }catch (EOFException e){
                     try {
                         sleep(SLEEP_FOR_EOF);
@@ -106,13 +121,13 @@ public class XmlConnection {
         if (_writer != null){
             while (isConnected()){
                 try {
-                    String msg = XMLConstant.PROTOCOL_STX + _proxy.getSendXML() + XMLConstant.PROTOCOL_ETX;
-                    send(msg);
-
+                    String msg = _proxy.getSendXML();
+                    LogWriter.writeXmlInfo("xmlLog",msg);
                     if(msg.length() <= 7){
                         System.out.println("XMLRecv发送Message:" + msg);
                     } else {
                         System.out.println("XMLRecv发送XML");
+                        send(msg);
                     }
                 } catch (InterruptedException e) {
                     e.printStackTrace();

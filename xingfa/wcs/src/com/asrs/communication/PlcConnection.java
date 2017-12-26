@@ -1,7 +1,10 @@
 package com.asrs.communication;
 
+import com.asrs.domain.MessageLog;
 import com.asrs.message.*;
 import com.util.common.*;
+import com.util.hibernate.HibernateUtil;
+import com.util.hibernate.Transaction;
 import org.apache.commons.lang.time.*;
 
 import java.io.BufferedInputStream;
@@ -143,8 +146,7 @@ public class PlcConnection
             send(str.getBytes());
       }
 
-      public void send(Message msg) throws  CommunicationException
-      {
+      public void send(Message msg) throws CommunicationException, InterruptedException {
             MessageBuilder mb = new MessageBuilder();
             mb.ID = msg.getID();
             mb.IdClassification = msg.IdClassification;
@@ -158,6 +160,21 @@ public class PlcConnection
             bytes[bytes.length - 1] = 0x03;
             send(bytes);
             LogWriter.writeInfo("ComLog", String.format("[S] [%1$s] [%2$s]", _plcName, msgStr.substring(1, msgStr.length() - 1)));
+            Thread.sleep(100);
+            send(bytes);
+            try{
+                Transaction.begin();
+                MessageLog log = new MessageLog();
+                log.setType(MessageLog.TYPE_SEND);
+                log.setMsg(msgStr.substring(1, msgStr.length() - 1));
+                log.setCreateDate(new Date());
+                HibernateUtil.getCurrentSession().save(log);
+                Transaction.commit();
+
+            }catch (Exception e){
+                Transaction.rollback();
+                e.printStackTrace();
+            }
       }
 
       public void receiveHandler()
@@ -217,6 +234,7 @@ public class PlcConnection
                         {
                               Message msg = MessageCenter.instance().getSndMsg(_plcName);
                               send(msg);
+                              Thread.sleep(500);
                         }
                         catch (InterruptedException e)
                         {
@@ -247,7 +265,23 @@ public class PlcConnection
                   return;
             }
             LogWriter.writeInfo("ComLog", String.format("[R] [%1$s] [%2$s]", _plcName, dataStr));
-            if (dataStr.length() >= 22)
+
+          try{
+
+              Transaction.begin();
+              MessageLog log = new MessageLog();
+              log.setType(MessageLog.TYPE_RECV);
+              log.setMsg(dataStr);
+              log.setCreateDate(new Date());
+              HibernateUtil.getCurrentSession().save(log);
+              Transaction.commit();
+
+          }catch (Exception e){
+              e.printStackTrace();
+              Transaction.rollback();
+          }
+
+            if (dataStr.length() >= 21)
             {
                   String content = dataStr.substring(0, dataStr.length() - 2);
                   String contentData = dataStr.substring(13, dataStr.length() - 2);
@@ -259,6 +293,8 @@ public class PlcConnection
                               MessageBuilder mb = MessageBuilder.Parse(content);
                               mb.PlcName = _plcName;
                               MessageCenter.instance().addRcvdMsg(mb);
+
+
                         }
                         catch (MsgException e)
                         {

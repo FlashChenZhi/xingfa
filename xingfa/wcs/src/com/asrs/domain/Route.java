@@ -21,8 +21,8 @@ public class Route {
     private int _id;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq")
-    @SequenceGenerator(name = "seq", sequenceName = "SEQ_ROUTE_ID", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+//    @SequenceGenerator(name = "seq", sequenceName = "SEQ_ROUTE", allocationSize = 1)
     @Column(name = "ID", nullable = false, length = 8)
     public int getId() {
         return _id;
@@ -103,18 +103,6 @@ public class Route {
         result = 31 * result + (_status != null ? _status.hashCode() : 0);
         return result;
     }
-
-//    private List<AsrsMachine> _asrsMachines = new ArrayList<AsrsMachine>();
-//
-//    @ManyToMany(mappedBy = "routes")
-//    @Cascade(value = {org.hibernate.annotations.CascadeType.SAVE_UPDATE})
-//    public List<AsrsMachine> getAsrsMachines() {
-//        return _asrsMachines;
-//    }
-//
-//    public void setAsrsMachines(List<AsrsMachine> asrsMachines) {
-//        _asrsMachines = asrsMachines;
-//    }
 
     public static Route getRoute(String fromSt, String toSt) {
         Session session = HibernateUtil.getCurrentSession();

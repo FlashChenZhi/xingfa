@@ -38,9 +38,8 @@ public class WmsMsgProcCenter implements Runnable {
             }else {
                 _wmsProxy.addSendXML(sendId);
 
-                String msg = xml.substring(5);
-                //XMLUtil.saveAsFile(msg);
-                Envelope e = XMLUtil.getEnvelope(msg);
+//                String msg = xml.substring(5);
+                Envelope e = XMLUtil.getEnvelope(xml);
 
                 XMLProcess xmlProcess = getOrder(e);
 

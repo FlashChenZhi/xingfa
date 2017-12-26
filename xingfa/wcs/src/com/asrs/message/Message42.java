@@ -24,7 +24,6 @@ public class Message42 extends Message implements Serializable {
         this.plcName = plcName;
     }
 
-    public String Action = "";
     public String Station = "";
     public String Mode = "";
 
@@ -32,10 +31,9 @@ public class Message42 extends Message implements Serializable {
     }
 
     public Message42(String str) throws MsgException {
-        if (str.length() == 8) {
-            Action = str.substring(0, 2);
-            Station = str.substring(2, 6);
-            Mode = str.substring(6, 8);
+        if (str.length() == 6) {
+            Station = str.substring(0, 4);
+            Mode = str.substring(4, 6);
         } else {
             throw new MsgException("MsgException.Invalid_length   " + str);
         }
@@ -43,9 +41,8 @@ public class Message42 extends Message implements Serializable {
 
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append(StringUtils.rightPad(Action, 2, '0'));
-        sb.append(StringUtils.rightPad(Station, 4, '0'));
-        sb.append(StringUtils.rightPad(Mode, 2, '0'));
+        sb.append(StringUtils.leftPad(Station, 4, '0'));
+        sb.append(StringUtils.leftPad(Mode, 2, '0'));
         return sb.toString();
     }
 }

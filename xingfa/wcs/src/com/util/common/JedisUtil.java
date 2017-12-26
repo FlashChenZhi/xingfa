@@ -24,7 +24,7 @@ public class JedisUtil {
         Properties prop = new Properties();
         InputStream in = Object.class.getResourceAsStream("/datasource-redis.properties");
         if (in == null) {
-            hostName = "192.168.9.85";
+            hostName = "127.0.0.1";
             port = 6379;
         } else {
             try {

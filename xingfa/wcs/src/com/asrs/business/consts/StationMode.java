@@ -12,6 +12,5 @@ import java.util.Map;
 public class StationMode {
 
     public static final String PUTAWAY = "01";//入库
-    public static final String RETRIEVAL = "02";//出库
     public static final String UNKNOWN = "03";//NG
 }

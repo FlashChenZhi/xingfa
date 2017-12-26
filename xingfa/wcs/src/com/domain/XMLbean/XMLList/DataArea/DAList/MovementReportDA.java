@@ -34,14 +34,14 @@ public class MovementReportDA {
     @XStreamAlias("StUnit")
     private StUnit stUnit;
 
+    @XStreamAlias("StUnitId")
+    private String stUnitId;
+
     @XStreamAlias("ToLocation")
     private ToLocation toLocation;
 
     @XStreamAlias("ReasonCode")
     private String reasonCode;
-
-    @XStreamAlias("StandAloneFlag")
-    private String standAloneFlag = XMLConstant.COM_STANDALONE_FLAG;
 
     @XStreamAlias("Information")
     private String information =XMLConstant.LUAI_INFORMATION;
@@ -94,15 +94,6 @@ public class MovementReportDA {
         this.reasonCode = reasonCode;
     }
 
-    @Column(name = "standAloneFlag")
-    public String getStandAloneFlag() {
-        return standAloneFlag;
-    }
-
-    public void setStandAloneFlag(String standAloneFlag) {
-        this.standAloneFlag = standAloneFlag;
-    }
-
     @Column(name = "information")
     public String getInformation() {
         return information;
@@ -110,6 +101,14 @@ public class MovementReportDA {
 
     public void setInformation(String information) {
         this.information = information;
+    }
+
+    public String getStUnitId() {
+        return stUnitId;
+    }
+
+    public void setStUnitId(String stUnitId) {
+        this.stUnitId = stUnitId;
     }
 
     @XStreamOmitField

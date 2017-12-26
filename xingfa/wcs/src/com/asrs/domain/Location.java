@@ -6,9 +6,6 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Date;
 
 /**
  * Author: Zhouyue
@@ -33,9 +30,15 @@ public class Location {
 
     private int _id;
 
+    public static final String MISS = "0";
+    public static final String LEFT = "1";
+    public static final String RIGHT = "2";
+
+    private Double width;
+    private Double height;
+
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq")
-    @SequenceGenerator(name = "seq", sequenceName = "SEQ_LOCATION_ID", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID", nullable = false, length = 8)
     public int getId() {
         return _id;
@@ -97,7 +100,7 @@ public class Location {
     private int _level;
 
     @Basic
-    @Column(name = "`LEVEL`")
+    @Column(name = "LEV")
     public int getLevel() {
         return _level;
     }
@@ -106,52 +109,41 @@ public class Location {
         _level = level;
     }
 
-    private String _size;
+    private int _version = 0;
+
+    @Version
+    @Column(name = "VERSION")
+    public int getVersion() {
+        return _version;
+    }
+
+    public void setVersion(int version) {
+        _version = version;
+    }
+
+    private String position;
 
     @Basic
-    @Column(name = "`SIZE`")
-    public String getSize() {
-        return _size;
+    @Column(name = "POSITION")
+    public String getPosition() {
+        return position;
     }
 
-    public void setSize(String size) {
-        _size = size;
+    public void setPosition(String position) {
+        this.position = position;
     }
 
-    private String _width;
+
+    private String outPosition;
 
     @Basic
-    @Column(name = "WIDTH")
-    public String getWidth() {
-        return _width;
+    @Column(name = "OUTPOSITION")
+    public String getOutPosition() {
+        return outPosition;
     }
 
-    public void setWidth(String width) {
-        this._width = width;
-    }
-
-    private String _height;
-
-    @Basic
-    @Column(name = "HEIGHT")
-    public String getHeight() {
-        return _height;
-    }
-
-    public void setHeight(String height) {
-        this._height = height;
-    }
-
-    private String _orientation;
-
-    @Basic
-    @Column(name = "ORIENTATION")
-    public String getOrientation() {
-        return _orientation;
-    }
-
-    public void setOrientation(String orientation) {
-        this._orientation = orientation;
+    public void setOutPosition(String outPosition) {
+        this.outPosition = outPosition;
     }
 
     private int _seq;
@@ -166,49 +158,48 @@ public class Location {
         _seq = seq;
     }
 
+    private String actualArea;
 
-    private int _version = 0;
-
-    @Version
-    @Column(name = "VERSION")
-    public int getVersion() {
-        return _version;
+    @Basic
+    @Column(name = "AREA")
+    public String getActualArea() {
+        return actualArea;
     }
 
-    public void setVersion(int version) {
-        _version = version;
+    public void setActualArea(String actureArea) {
+        this.actualArea = actureArea;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+    private Boolean fullFlag;
 
-        Location location = (Location) o;
-
-        if (_id != location._id) return false;
-        if (_aisle != location._aisle) return false;
-        if (_bank != location._bank) return false;
-        if (_bay != location._bay) return false;
-        if (_level != location._level) return false;
-        if (_version != location._version) return false;
-        if (_locationNo != null ? !_locationNo.equals(location._locationNo) : location._locationNo != null)
-            return false;
-        return !(_size != null ? !_size.equals(location._size) : location._size != null);
-
+    @Basic
+    @Column(name = "FULLFLAG")
+    public Boolean getFullFlag() {
+        return fullFlag;
     }
 
-    @Override
-    public int hashCode() {
-        int result = _id;
-        result = 31 * result + (_locationNo != null ? _locationNo.hashCode() : 0);
-        result = 31 * result + _aisle;
-        result = 31 * result + _bank;
-        result = 31 * result + _bay;
-        result = 31 * result + _level;
-        result = 31 * result + (_size != null ? _size.hashCode() : 0);
-        result = 31 * result + _version;
-        return result;
+    public void setFullFlag(Boolean fullFlag) {
+        this.fullFlag = fullFlag;
+    }
+
+    @Basic
+    @Column(name = "WIDTH")
+    public Double getWidth() {
+        return width;
+    }
+
+    public void setWidth(Double width) {
+        this.width = width;
+    }
+
+    @Basic
+    @Column(name = "HEIGHT")
+    public Double getHeight() {
+        return height;
+    }
+
+    public void setHeight(Double height) {
+        this.height = height;
     }
 
     public static Location getByLocationNo(String locationNo) {
@@ -225,4 +216,17 @@ public class Location {
         return (Location) session.get(Location.class, id);
     }
 
+    /**
+     * @param i  　　bank
+     * @param i1 bay
+     * @param i2 level
+     * @return
+     */
+    public static Location getByBankBayLevel(int i, int i1, int i2,String position) {
+
+        Query q = HibernateUtil.getCurrentSession().createQuery("from Location  l where l.bank=:b and l.bay =:ba and l.level=:lv and l.position=:po")
+                .setParameter("b", i).setParameter("ba", i1).setParameter("lv", i2).setParameter("po",position);
+
+        return (Location) q.uniqueResult();
+    }
 }

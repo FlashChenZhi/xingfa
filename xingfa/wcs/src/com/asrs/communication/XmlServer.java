@@ -1,7 +1,5 @@
 package com.asrs.communication;
 
-
-
 import com.asrs.domain.Wcs;
 import com.util.common.LogWriter;
 import com.util.hibernate.Transaction;
@@ -43,6 +41,7 @@ public class XmlServer implements Runnable {
 
         try {
             server = new ServerSocket(_port);
+            System.out.println("server start okay!");
         } catch (IOException e) {
             e.printStackTrace();
             String errMsg = "socket接收服务器无法启动.";

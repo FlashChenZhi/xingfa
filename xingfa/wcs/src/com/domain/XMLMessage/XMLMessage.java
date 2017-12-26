@@ -34,7 +34,7 @@ public class XMLMessage {
     private String version;
     private String division;
     private String confirmation;
-    private String rack;
+    private List<String> rack;
     private String mha;
     private String standAloneFlag;
     private String weight;
@@ -120,12 +120,11 @@ public class XMLMessage {
         this.confirmation = confirmation;
     }
 
-    @Column(name="rack")
-    public String getRack() {
+    public List<String> getRack() {
         return rack;
     }
 
-    public void setRack(String rack) {
+    public void setRack(List<String> rack) {
         this.rack = rack;
     }
 

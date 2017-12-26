@@ -1,15 +1,15 @@
 package com.asrs.business.msgProc;
 
+import com.asrs.business.consts.AsrsJobStatusDetail;
 import com.asrs.communication.MessageProxy;
 import com.asrs.communication.XmlProxy;
-import com.asrs.domain.Msg03;
-import com.asrs.message.Message23;
-import com.asrs.message.MessageBuilder;
-import com.asrs.message.MsgException;
+import com.asrs.domain.AsrsJob;
+import com.asrs.domain.WcsMessage;
+import com.asrs.message.*;
 import com.util.hibernate.HibernateUtil;
 import com.util.hibernate.Transaction;
-import org.hibernate.Query;
 import org.hibernate.Session;
+
 
 import java.util.List;
 
@@ -20,12 +20,14 @@ import java.util.List;
  * Time: 20:44:42
  * Copyright Dsl.Worgsoft.
  */
-public class Msg23Proc implements MsgProcess {
-    public void Do(MessageBuilder msg) throws MsgException {
-        Message23 message23 = new Message23(msg.DataString);
-        message23.setPlcName(msg.PlcName);
-        Do(message23);
-    }
+public class Msg23Proc implements MsgProcess
+{
+      public void Do(MessageBuilder msg) throws MsgException
+      {
+            Message23 message23 = new Message23(msg.DataString);
+            message23.setPlcName(msg.PlcName);
+            Do(message23);
+      }
 
     @Override
     public void setProxy(XmlProxy wmsProxy, MessageProxy wcsProxy) {
@@ -37,18 +39,23 @@ public class Msg23Proc implements MsgProcess {
     MessageProxy _wcsProxy;
 
 
-    public void Do(Message23 message23) {
-        String mcKey = message23.McKey;
-        Transaction.begin();
-        Session session = HibernateUtil.getCurrentSession();
-        Query q = session.createQuery("from Msg03 m where m.mcKey = :mcKey and m.machineNo = :machineNo and m.cycleOrder = :cycleOrder")
-                .setString("mcKey", mcKey)
-                .setString("machineNo", message23.MachineNo)
-                .setString("cycleOrder", message23.CycleOrder);
-        List<Msg03> msg03s = q.list();
-        for (Msg03 msg03 : msg03s) {
-            msg03.setReceived(true);
-        }
-        Transaction.commit();
-    }
+      public void Do(Message23 message23)
+      {
+         String mcKey=message23.McKey;
+          Transaction.begin();
+//          AsrsJob aj=AsrsJob.getAsrsJobByMcKey(mcKey);
+//          aj.setStatusDetail(AsrsJobStatusDetail.ACCEPTED);
+          Session session = HibernateUtil.getCurrentSession();
+//          session.saveOrUpdate(aj);
+          org.hibernate.Query q = session.createQuery("from WcsMessage m where m.mcKey = :mcKey and m.machineNo = :machineNo and m.cycleOrder = :cycleOrder")
+                  .setString("mcKey",mcKey)
+                  .setString("machineNo",message23.MachineNo)
+                  .setString("cycleOrder", message23.CycleOrder);
+          List<WcsMessage> msg03s = q.list();
+          for(WcsMessage msg03 : msg03s){
+              msg03.setReceived(true);
+          }
+
+          Transaction.commit();
+      }
 }

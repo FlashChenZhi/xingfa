@@ -53,9 +53,13 @@ public class Message50 extends Message implements Serializable {
                     mcKeyAndBarcodes.put(mcKey, barcode);
                     block.McKeysAndBarcodes.put(j, mcKeyAndBarcodes);
                 }
-                block.Load = str.substring(index, ++index);
+                block.Load = str.substring(index, index + 1);
+                index += 1;
                 block.height = str.substring(index, ++index);
                 block.width = str.substring(index, ++index);
+                block.weight = str.substring(index, index + 6);
+                index += 6;
+
                 MachineNos.put(machineNo, block);
             }
         } catch (Exception ex) {
@@ -78,8 +82,6 @@ public class Message50 extends Message implements Serializable {
                 sb.append(StringUtils.rightPad(mcKeyAndBarcode.values().iterator().next(), 10, '0'));
             }
             sb.append(StringUtils.rightPad(block.Load, 1, '0'));
-            sb.append(StringUtils.rightPad(block.height,1,'0'));
-            sb.append(StringUtils.rightPad(block.width,1,'0'));
         }
         return sb.toString();
     }
@@ -90,5 +92,6 @@ public class Message50 extends Message implements Serializable {
         public String Load = "";
         public String height = "";
         public String width = "";
+        public String weight = "";
     }
 }

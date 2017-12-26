@@ -11,9 +11,9 @@ import com.util.common.LogWriter;
 import java.rmi.Naming;
 
 /**
- *  Date: 2008-3-11
- *Created by IntelliJ IDEA.
+ * Created by IntelliJ IDEA.
  * Author: Zhouyue
+ * Date: 2008-3-11
  * Time: 12:44:01
  * Copyright Dsl.Worgsoft.
  */

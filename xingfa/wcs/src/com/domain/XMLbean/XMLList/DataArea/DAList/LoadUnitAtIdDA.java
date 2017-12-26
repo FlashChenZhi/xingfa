@@ -24,29 +24,36 @@ public class LoadUnitAtIdDA {
     @XStreamAlias("Location")
     private XMLLocation xmlLocation;
 
-    @XStreamAlias("ScanData")
-    private ScanData scanData;
-
     @XStreamAlias("Weight")
     private String weight;
-
-    @XStreamAlias("Width")
-    private String width;
-
-    @XStreamAlias("Height")
-    private String height;
-
-    @XStreamAlias("StUnitType")
-    private String stUnitType=XMLConstant.LUAI_STUNITTYPE;
 
     @XStreamAlias("ErrorCode")
     private String errorCode =XMLConstant.LUAI_ERROR_CODE;
 
-    @XStreamAlias("StandAloneFlag")
-    private String standAloneFlag = XMLConstant.COM_STANDALONE_FLAG;
-
     @XStreamAlias("Information")
     private String information =XMLConstant.LUAI_INFORMATION;
+
+    @XStreamAlias("ScanData")
+    private String scanDate;
+
+    @XStreamAlias("LoadType")
+    private String loadType;
+
+    public String getScanDate() {
+        return scanDate;
+    }
+
+    public void setScanDate(String scanDate) {
+        this.scanDate = scanDate;
+    }
+
+    public String getLoadType() {
+        return loadType;
+    }
+
+    public void setLoadType(String loadType) {
+        this.loadType = loadType;
+    }
 
     @Column(name = "wcsLoadId")
     public String getWcsLoadId() {
@@ -67,16 +74,6 @@ public class LoadUnitAtIdDA {
         this.xmlLocation = xmlLocation;
     }
 
-    @OneToOne(targetEntity = ScanData.class, cascade = CascadeType.ALL)
-    @JoinColumn(name = "ScanDataID", updatable = true)
-    public ScanData getScanData() {
-        return scanData;
-    }
-
-    public void setScanData(ScanData scanData) {
-        this.scanData = scanData;
-    }
-
     @Column(name = "weight")
     public String getWeight() {
         return weight;
@@ -84,15 +81,6 @@ public class LoadUnitAtIdDA {
 
     public void setWeight(String weight) {
         this.weight = weight;
-    }
-
-    @Column(name = "stUnitType")
-    public String getStUnitType() {
-        return stUnitType;
-    }
-
-    public void setStUnitType(String stUnitType) {
-        this.stUnitType = stUnitType;
     }
 
     @Column(name = "errorCode")
@@ -104,15 +92,6 @@ public class LoadUnitAtIdDA {
         this.errorCode = errorCode;
     }
 
-    @Column(name = "standAloneFlag")
-    public String getStandAloneFlag() {
-        return standAloneFlag;
-    }
-
-    public void setStandAloneFlag(String standAloneFlag) {
-        this.standAloneFlag = standAloneFlag;
-    }
-
     @Column(name = "information")
     public String getInformation() {
         return information;
@@ -120,24 +99,6 @@ public class LoadUnitAtIdDA {
 
     public void setInformation(String information) {
         this.information = information;
-    }
-
-    @Column(name = "width")
-    public String getWidth() {
-        return width;
-    }
-
-    public void setWidth(String width) {
-        this.width = width;
-    }
-
-    @Column(name = "height")
-    public String getHeight() {
-        return height;
-    }
-
-    public void setHeight(String height) {
-        this.height = height;
     }
 
     @XStreamOmitField

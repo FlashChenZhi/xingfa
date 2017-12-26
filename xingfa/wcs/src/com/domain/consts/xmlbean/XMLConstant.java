@@ -8,7 +8,8 @@ package com.domain.consts.xmlbean;
  * To change this template use File | Settings | File Templates.
  */
 public class XMLConstant {
-    public static String COM_DIVISION = "WCS1";
+    public static String COM_DIVISION = "WCS";
+    public static String WMS_DIVISION = "WMS";
     public static String COM_CONFIRMATION = "0";
     public static String COM_VERSION = "0100";
     public static String COM_STANDALONE_FLAG = "W";
@@ -19,7 +20,7 @@ public class XMLConstant {
     public static String LUAI_SCAN_FLAG = "1";
     public static String LUAI_AI = "00";
     public static String LUAI_ERROR_CODE = "00";
-    public static String LUAI_INFORMATION = "01";
+    public static String LUAI_INFORMATION = "00";
     public static String LUAI_STUNITTYPE = "1";
 
     /**

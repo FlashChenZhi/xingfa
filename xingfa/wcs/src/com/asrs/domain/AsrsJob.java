@@ -25,12 +25,14 @@ public class AsrsJob {
     public static final String __STATUS = "status";
 
     public static final String __STATUSDETAIL = "statusDetail";
-
+    public static final String __ID = "id";
+    public static final String _MCKEY = "mcKey";
+    public static final String _WMSMCKEY = "wmsMckey";
     private int _id;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq")
-    @SequenceGenerator(name = "seq", sequenceName = "SEQ_ASRSJOB_ID", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+//    @SequenceGenerator(name = "seq", sequenceName = "SEQ_ASRSJOB", allocationSize = 1)
     @Column(name = "ID", nullable = false, length = 8)
     public int getId() {
         return _id;
@@ -63,30 +65,6 @@ public class AsrsJob {
     public void setFromStation(String fromStation) {
         _fromStation = fromStation;
     }
-
-//    private String _fromProxyStation;
-
-//    @Column(name = "FROMPROXYSTATION")
-//    @Basic
-//    public String getFromProxyStation() {
-//        return _fromProxyStation;
-//    }
-//
-//    public void setFromProxyStation(String fromProxyStation) {
-//        _fromProxyStation = fromProxyStation;
-//    }
-//
-//    private String _toProxyStation;
-//
-//    @Column(name = "TOPROXYSTATION")
-//    @Basic
-//    public String getToProxyStation() {
-//        return _toProxyStation;
-//    }
-//
-//    public void setToProxyStation(String toProxyStation) {
-//        _toProxyStation = toProxyStation;
-//    }
 
     private String _toStation;
 
@@ -173,17 +151,17 @@ public class AsrsJob {
         _statusDetail = statusDetail;
     }
 
-//    private int _priority;
-//
-//    @Column(name = "PRIORITY")
-//    @Basic
-//    public int getPriority() {
-//        return _priority;
-//    }
-//
-//    public void setPriority(int priority) {
-//        _priority = priority;
-//    }
+    private int _priority;
+
+    @Column(name = "PRIORITY")
+    @Basic
+    public int getPriority() {
+        return _priority;
+    }
+
+    public void setPriority(int priority) {
+        _priority = priority;
+    }
 
     private Date _generateTime;
 
@@ -221,53 +199,65 @@ public class AsrsJob {
         _doneTime = doneTime;
     }
 
-//    private String _reInput;
-//
-//    @Column(name = "REINPUT")
-//    @Basic
-//    public String getReInput() {
-//        return _reInput;
-//    }
-//
-//    public void setReInput(String reInput) {
-//        _reInput = reInput;
-//    }
-//
-//    private Boolean _indicating;
-//
-//    @Column(name = "INDICATING")
-//    @Basic
-//    public Boolean getIndicating() {
-//        return _indicating;
-//    }
-//
-//    public void setIndicating(Boolean indicating) {
-//        _indicating = indicating;
-//    }
-//
-//    private String _controlInfo;
-//
-//    @Column(name = "CONTROLINFO")
-//    @Basic
-//    public String getControlInfo() {
-//        return _controlInfo;
-//    }
-//
-//    public void setControlInfo(String controlInfo) {
-//        _controlInfo = controlInfo;
-//    }
-//
-//    private String _errorMsg;
-//
-//    @Column(name = "ERRORMSG")
-//    @Basic
-//    public String getErrorMsg() {
-//        return _errorMsg;
-//    }
-//
-//    public void setErrorMsg(String errorMsg) {
-//        _errorMsg = errorMsg;
-//    }
+    private Boolean _indicating;
+
+    @Column(name = "INDICATING")
+    @Basic
+    public Boolean getIndicating() {
+        return _indicating;
+    }
+
+    public void setIndicating(Boolean indicating) {
+        _indicating = indicating;
+    }
+
+    private String _errorMsg;
+
+    @Column(name = "ERRORMSG")
+    @Basic
+    public String getErrorMsg() {
+        return _errorMsg;
+    }
+
+    public void setErrorMsg(String errorMsg) {
+        _errorMsg = errorMsg;
+    }
+
+    @Basic
+    @Column(name = "WMSMCKEY")
+    private String wmsMckey;
+
+    public String getWmsMckey() {
+        return wmsMckey;
+    }
+
+    public void setWmsMckey(String wmsMckey) {
+        this.wmsMckey = wmsMckey;
+    }
+
+    private String wareHouse;
+
+    @Basic
+    @Column(name = "WARE_HOUSE")
+    public String getWareHouse() {
+        return wareHouse;
+    }
+
+    public void setWareHouse(String wareHouse) {
+        this.wareHouse = wareHouse;
+    }
+
+    private boolean sendReport;
+
+    @Basic
+    @Column(name = "SEND_REPORT")
+    public boolean isSendReport() {
+        return sendReport;
+    }
+
+    public void setSendReport(boolean sendReport) {
+        this.sendReport = sendReport;
+    }
 
     @Override
     public boolean equals(Object o) {
@@ -277,30 +267,23 @@ public class AsrsJob {
         AsrsJob asrsJob = (AsrsJob) o;
 
         if (_id != asrsJob._id) return false;
-//        if (_priority != asrsJob._priority) return false;
+        if (_priority != asrsJob._priority) return false;
         if (_barcode != null ? !_barcode.equals(asrsJob._barcode) : asrsJob._barcode != null) return false;
-//        if (_controlInfo != null ? !_controlInfo.equals(asrsJob._controlInfo) : asrsJob._controlInfo != null)
-//            return false;
         if (_doneTime != null ? !_doneTime.equals(asrsJob._doneTime) : asrsJob._doneTime != null) return false;
-//        if (_errorMsg != null ? !_errorMsg.equals(asrsJob._errorMsg) : asrsJob._errorMsg != null) return false;
+        if (_errorMsg != null ? !_errorMsg.equals(asrsJob._errorMsg) : asrsJob._errorMsg != null) return false;
         if (_fromLocation != null ? !_fromLocation.equals(asrsJob._fromLocation) : asrsJob._fromLocation != null)
             return false;
-//        if (_fromProxyStation != null ? !_fromProxyStation.equals(asrsJob._fromProxyStation) : asrsJob._fromProxyStation != null)
-//            return false;
         if (_fromStation != null ? !_fromStation.equals(asrsJob._fromStation) : asrsJob._fromStation != null)
             return false;
         if (_generateTime != null ? !_generateTime.equals(asrsJob._generateTime) : asrsJob._generateTime != null)
             return false;
-//        if (_indicating != null ? !_indicating.equals(asrsJob._indicating) : asrsJob._indicating != null) return false;
+        if (_indicating != null ? !_indicating.equals(asrsJob._indicating) : asrsJob._indicating != null) return false;
         if (_mcKey != null ? !_mcKey.equals(asrsJob._mcKey) : asrsJob._mcKey != null) return false;
-//        if (_reInput != null ? !_reInput.equals(asrsJob._reInput) : asrsJob._reInput != null) return false;
         if (_startTime != null ? !_startTime.equals(asrsJob._startTime) : asrsJob._startTime != null) return false;
         if (_status != null ? !_status.equals(asrsJob._status) : asrsJob._status != null) return false;
         if (_statusDetail != null ? !_statusDetail.equals(asrsJob._statusDetail) : asrsJob._statusDetail != null)
             return false;
         if (_toLocation != null ? !_toLocation.equals(asrsJob._toLocation) : asrsJob._toLocation != null) return false;
-//        if (_toProxyStation != null ? !_toProxyStation.equals(asrsJob._toProxyStation) : asrsJob._toProxyStation != null)
-//            return false;
         if (_toStation != null ? !_toStation.equals(asrsJob._toStation) : asrsJob._toStation != null) return false;
         if (_type != null ? !_type.equals(asrsJob._type) : asrsJob._type != null) return false;
 
@@ -312,8 +295,6 @@ public class AsrsJob {
         int result = _id;
         result = 31 * result + (_mcKey != null ? _mcKey.hashCode() : 0);
         result = 31 * result + (_fromStation != null ? _fromStation.hashCode() : 0);
-//        result = 31 * result + (_fromProxyStation != null ? _fromProxyStation.hashCode() : 0);
-//        result = 31 * result + (_toProxyStation != null ? _toProxyStation.hashCode() : 0);
         result = 31 * result + (_toStation != null ? _toStation.hashCode() : 0);
         result = 31 * result + (_fromLocation != null ? _fromLocation.hashCode() : 0);
         result = 31 * result + (_barcode != null ? _barcode.hashCode() : 0);
@@ -321,14 +302,12 @@ public class AsrsJob {
         result = 31 * result + (_type != null ? _type.hashCode() : 0);
         result = 31 * result + (_status != null ? _status.hashCode() : 0);
         result = 31 * result + (_statusDetail != null ? _statusDetail.hashCode() : 0);
-//        result = 31 * result + _priority;
+        result = 31 * result + _priority;
         result = 31 * result + (_generateTime != null ? _generateTime.hashCode() : 0);
         result = 31 * result + (_startTime != null ? _startTime.hashCode() : 0);
         result = 31 * result + (_doneTime != null ? _doneTime.hashCode() : 0);
-//        result = 31 * result + (_reInput != null ? _reInput.hashCode() : 0);
-//        result = 31 * result + (_indicating != null ? _indicating.hashCode() : 0);
-//        result = 31 * result + (_controlInfo != null ? _controlInfo.hashCode() : 0);
-//        result = 31 * result + (_errorMsg != null ? _errorMsg.hashCode() : 0);
+        result = 31 * result + (_indicating != null ? _indicating.hashCode() : 0);
+        result = 31 * result + (_errorMsg != null ? _errorMsg.hashCode() : 0);
         return result;
     }
 
@@ -337,38 +316,11 @@ public class AsrsJob {
         return (AsrsJob) session.get(AsrsJob.class, id);
     }
 
-    public static AsrsJob getAsrsJobByMcKey(String mcKey) {
+    public static AsrsJob getAsrsJobByMcKey(String mckey) {
         Session session = HibernateUtil.getCurrentSession();
-        Query q = session.createQuery("from AsrsJob aj where aj.mcKey=:mcKey").setString("mcKey", mcKey);
+        Query q = session.createQuery("from AsrsJob aj where aj.mcKey=:mckey").setString("mckey", mckey);
         return (AsrsJob) q.uniqueResult();
     }
 
-    public void writeLog() {
-        Session session = HibernateUtil.getCurrentSession();
-
-        AsrsJobLog ajl = new AsrsJobLog();
-
-        ajl.setBarcode(this.getBarcode());
-//        ajl.setControlInfo(this.getControlInfo());
-        ajl.setDoneTime(this.getDoneTime());
-        ajl.setFromLocation(this.getFromLocation());
-//        ajl.setFromProxyStation(this.getFromProxyStation());
-        ajl.setFromStation(this.getFromStation());
-        ajl.setGenerateTime(this.getGenerateTime());
-//        ajl.setIndicating(this.getIndicating());
-        ajl.setMcKey(this.getMcKey());
-//        ajl.setPriority(this.getPriority());
-//        ajl.setReInput(this.getReInput());
-        ajl.setStartTime(this.getStartTime());
-        ajl.setStatus(this.getStatus());
-        ajl.setStatusDetail(this.getStatusDetail());
-        ajl.setToLocation(this.getToLocation());
-//        ajl.setToProxyStation(this.getToProxyStation());
-        ajl.setToStation(this.getToStation());
-        ajl.setType(this.getType());
-//        ajl.setErrorMsg(this.getErrorMsg());
-
-        session.save(ajl);
-    }
 }
 

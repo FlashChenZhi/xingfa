@@ -82,6 +82,54 @@ public class Message35 extends Message implements Serializable {
         return sb.toString();
     }
 
+    public boolean isPickingUpGoods(){
+        return CycleOrder.equals(_CycleOrder.pickUpGoods);
+    }
+
+    public boolean isUnloadGoods(){
+        return CycleOrder.equals(_CycleOrder.unloadGoods);
+    }
+
+    public boolean isMove(){
+        return CycleOrder.equals(_CycleOrder.move);
+    }
+
+    public boolean isLoadCar(){
+        return CycleOrder.equals(_CycleOrder.loadCar);
+    }
+
+    public boolean isUnLoadCar(){
+        return CycleOrder.equals(_CycleOrder.unloadCar);
+    }
+
+    public boolean isMoveCarryGoods(){
+        return CycleOrder.equals(_CycleOrder.moveCarryGoods);
+    }
+
+    public boolean isMoveUnloadGoods(){
+        return CycleOrder.equals(_CycleOrder.moveUnloadGoods);
+    }
+
+    public boolean isOnCar(){
+        return CycleOrder.equals(_CycleOrder.onCar);
+    }
+
+    public boolean isOffCar(){
+        return CycleOrder.equals(_CycleOrder.offCar);
+    }
+
+    public boolean isScarMoveCarryGoods(){
+        return CycleOrder.equals(_CycleOrder.scarMoveCarryGoods);
+    }
+
+    public boolean isOnCarCarryGoods(){
+        return CycleOrder.equals(_CycleOrder.onCarCarryGoods);
+    }
+
+    public boolean isOffCarCarryGoods(){
+        return CycleOrder.equals(_CycleOrder.offCarCarryGoods);
+    }
+
     public static class _CycleOrder {
         public static final String goBack = "01";
         public static final String pickUpGoods = "02";
@@ -93,8 +141,8 @@ public class Message35 extends Message implements Serializable {
         public static final String moveUnloadGoods = "08";
         public static final String onCar = "09";
         public static final String offCar = "10";
-        public static final String recharege= "11";
-        public static final String rechargeOver = "12";
-
+        public static final String scarMoveCarryGoods = "11";
+        public static final String onCarCarryGoods = "12";
+        public static final String offCarCarryGoods = "13";
     }
 }

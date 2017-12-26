@@ -20,7 +20,7 @@ public class Sender {
     private String division = XMLConstant.COM_DIVISION;
 
     @XStreamAlias("Confirmation")
-    private String confirmation =XMLConstant.COM_CONFIRMATION;
+    private String confirmation;
 
     @XStreamOmitField
     private int id;

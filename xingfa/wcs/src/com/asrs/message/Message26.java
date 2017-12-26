@@ -88,11 +88,6 @@ public class Message26 extends Message implements Serializable {
     }
 
     public class Block {
-
-        public Block(){
-
-        }
-
         public String HostMachine = "";
         public String Bank = "";
         public String Bay = "";

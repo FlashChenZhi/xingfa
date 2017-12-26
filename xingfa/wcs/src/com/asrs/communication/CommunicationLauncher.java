@@ -7,9 +7,6 @@ import com.util.hibernate.Transaction;
 import org.hibernate.Session;
 import org.hibernate.criterion.Restrictions;
 
-import java.net.MalformedURLException;
-import java.rmi.AlreadyBoundException;
-import java.rmi.Naming;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
@@ -25,23 +22,16 @@ import java.util.List;
 public class CommunicationLauncher {
     public static void main(String[] args) {
         try {
+            final Registry registry = LocateRegistry.getRegistry();
+            registry.rebind("WcsMessageProxy", MessageCenter.instance());
 
-             System.setProperty("java.rmi.server.hostname","127.0.0.1");
-             LocateRegistry.createRegistry(1089);
-            Naming.bind("rmi://127.0.0.1:1089/WcsMessageProxy",MessageCenter.instance());
-
-//            final Registry registry = LocateRegistry.getRegistry();
-//            registry.rebind("WcsMessageProxy", MessageCenter.instance());
-//
             Runtime.getRuntime().addShutdownHook(new Thread() {
                 public void run() {
                     try {
-                        Naming.unbind("rmi://127.0.0.1:1089/WcsMessageProxy");
+                        registry.unbind("WcsMessageProxy");
                     } catch (RemoteException e) {
                         e.printStackTrace();
                     } catch (NotBoundException e) {
-                        e.printStackTrace();
-                    } catch (MalformedURLException e) {
                         e.printStackTrace();
                     }
                 }
@@ -49,10 +39,6 @@ public class CommunicationLauncher {
         } catch (RemoteException e) {
             e.printStackTrace();
             System.exit(-1);
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        } catch (AlreadyBoundException e) {
-            e.printStackTrace();
         }
 
         List<Plc> plcs = null;

@@ -74,6 +74,7 @@ public class Message03 extends Message implements Serializable {
         return sb.toString();
     }
 
+
     public static class _CycleOrder {
         public static final String goBack = "01";
         public static final String pickUpGoods = "02";
@@ -85,7 +86,8 @@ public class Message03 extends Message implements Serializable {
         public static final String moveUnloadGoods = "08";
         public static final String onCar = "09";
         public static final String offCar = "10";
-        public static final String recharege= "11";
-        public static final String rechargeOver = "12";
+        public static final String scarMoveCarryGoods = "11";
+        public static final String onCarCarryGoods = "12";
+        public static final String offCarCarryGoods = "13";
     }
 }

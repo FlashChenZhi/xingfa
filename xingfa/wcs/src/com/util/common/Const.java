@@ -14,8 +14,22 @@ public class Const {
 
     public final static String OP_LOG_NAME = "opLog";
 
-    public final static String WCSPROXY = "rmi://127.0.0.1:1089/WcsMessageProxy";
-    public static final String WMSPROXY = "rmi://127.0.0.1:1089/WmsXmlProxy";
+    public final static String WCSPROXY = "rmi://localhost/WcsMessageProxy";
+    public static final String WMSPROXY = "rmi://localhost/WmsXmlProxy";
 
-    public static final String putAwayMcKey = "0000";
+    public static final String TEMP_BAY = "9";
+
+    public static final String TEMP_LEFT_BANK = "24";
+    public static final String TEMP_RIGHT_BANK = "9";
+
+    public static final String RECHARGE_LOCATION = "1303";
+
+    public static final Integer LOWER_POWER = 30;
+
+    public static final String RETRIEVAL_MCKEY = "RETRIEVAL_MCKEY";
+
+//    public static final String TEMP_LOCATION = "208002001"; //充电临时货位
+//    public static final String CHARGE_LOCATION = "208001001"; //充电货位
+//    public static final String CHARGE_CHANEL = "107004001";//充电通道
+
 }

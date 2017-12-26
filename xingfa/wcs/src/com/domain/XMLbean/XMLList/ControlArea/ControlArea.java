@@ -13,13 +13,13 @@ import java.util.Date;
  * Date: 13-6-4
  * Time: 下午1:28
  */
-@Entity
-@Table(name = "ControlArea")
 public class ControlArea {
     @XStreamAlias("Sender")
     private Sender sender;
 
-    //    @XStreamConverter(DateConverter.class)
+    @XStreamAlias("Receiver")
+    private Receiver receiver;
+
     @XStreamAlias("CreationDateTime")
     private String creationDateTime;
 
@@ -33,10 +33,6 @@ public class ControlArea {
         creationDateTime = new DateTimeFormatter("yyyy-MM-dd HH:mm:ss").format(new Date());
     }
 
-    @Id
-    @SequenceGenerator(name = "sequenceGenerator", sequenceName = "CONTROLAREA_SEQ", allocationSize = 1)
-    @GeneratedValue(generator = "sequenceGenerator", strategy = GenerationType.SEQUENCE)
-    @Column(name = "ID")
     public int getId() {
         return id;
     }
@@ -45,8 +41,6 @@ public class ControlArea {
         this.id = id;
     }
 
-    @OneToOne(targetEntity = RefId.class, cascade = CascadeType.ALL)
-    @JoinColumn(name = "RefIdID", updatable = true)
     public RefId getRefId() {
         return RefId;
     }
@@ -55,8 +49,6 @@ public class ControlArea {
         RefId = refId;
     }
 
-    @OneToOne(targetEntity = Sender.class, cascade = CascadeType.ALL)
-    @JoinColumn(name = "SenderID", updatable = true)
     public Sender getSender() {
         return sender;
     }
@@ -65,7 +57,14 @@ public class ControlArea {
         this.sender = sender;
     }
 
-    @Column(name = "creationDateTime")
+    public Receiver getReceiver() {
+        return receiver;
+    }
+
+    public void setReceiver(Receiver receiver) {
+        this.receiver = receiver;
+    }
+
     public String getCreationDateTime() {
         return creationDateTime;
     }

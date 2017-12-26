@@ -1,8 +1,10 @@
 package com.asrs.business.msgProc;
 
+import com.asrs.business.consts.AsrsJobType;
 import com.asrs.business.consts.StationMode;
 import com.asrs.communication.MessageProxy;
 import com.asrs.communication.XmlProxy;
+import com.asrs.domain.AsrsJob;
 import com.asrs.domain.Station;
 import com.asrs.message.Message42;
 import com.asrs.message.MessageBuilder;
@@ -15,7 +17,12 @@ import com.domain.XMLbean.XMLList.DataArea.DAList.TransportModeChangeDA;
 import com.domain.XMLbean.XMLList.TransportModeChange;
 import com.domain.XMLbean.XMLList.TransportModeChangeReport;
 import com.domain.consts.xmlbean.XMLConstant;
+import com.thread.blocks.Block;
+import com.thread.blocks.StationBlock;
+import com.util.hibernate.HibernateUtil;
+import com.util.hibernate.Transaction;
 
+import javax.management.Query;
 import java.util.Date;
 
 /**
@@ -43,54 +50,42 @@ public class Msg42Proc implements MsgProcess {
 
 
     public void Do(Message42 message42) {
-//        Station station=Station.getStation(message42.Station);
-//            if (StationMode.UNKNOWN.equals(message42.Mode)) {
-//                station.setMode(station.getOldMode());
-//            } else {
-//                station.setMode(message42.Mode);
-//            }
-        if (StationMode.RETRIEVAL.equals(message42.Action)) {
-            Sender sender = new Sender();
-            sender.setDivision(XMLConstant.COM_DIVISION);
-            ControlArea controlArea = new ControlArea();
-            controlArea.setSender(sender);
-            TransportModeChangeDA transportModeChangeDA = new TransportModeChangeDA();
-            transportModeChangeDA.setMha(message42.Station);
-            transportModeChangeDA.setTransportType(message42.Mode);
-            TransportModeChange transportModeChange = new TransportModeChange();
-            transportModeChange.setDate(new Date());
-            transportModeChange.setControlArea(controlArea);
-            transportModeChange.setDataArea(transportModeChangeDA);
-            Envelope envelope = new Envelope();
-            envelope.setTransportModeChange(transportModeChange);
-            try {
-                XMLUtil.sendEnvelope(envelope);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        } else {
-            Station station = Station.getStation(message42.Station);
-            station.setOldMode(station.getMode());
-            station.setMode(StationMode.UNKNOWN);
-            Sender sender = new Sender();
-            sender.setDivision(XMLConstant.COM_DIVISION);
-            ControlArea controlArea = new ControlArea();
-            controlArea.setSender(sender);
-            TransportModeChangeDA transportModeChangeDA = new TransportModeChangeDA();
-            transportModeChangeDA.setMha(message42.Station);
-            transportModeChangeDA.setTransportType(message42.Mode);
-            TransportModeChangeReport transportModeChangeReport = new TransportModeChangeReport();
-            transportModeChangeReport.setDate(new Date());
-            transportModeChangeReport.setControlArea(controlArea);
-            transportModeChangeReport.setDataArea(transportModeChangeDA);
-            Envelope envelope = new Envelope();
-            envelope.setTransportModeChangeReport(transportModeChangeReport);
-            try {
-                XMLUtil.sendEnvelope(envelope);
-            } catch (Exception e) {
-                e.printStackTrace();
+
+        //应答
+        Sender sender = new Sender();
+        sender.setDivision(XMLConstant.COM_DIVISION);
+        ControlArea controlArea = new ControlArea();
+        controlArea.setSender(sender);
+        TransportModeChangeDA transportModeChangeDA = new TransportModeChangeDA();
+        transportModeChangeDA.setMha(message42.Station);
+        transportModeChangeDA.setTransportType(message42.Mode.equals("00") ? StationMode.UNKNOWN : message42.Mode);
+        transportModeChangeDA.setInformation("01");
+        TransportModeChangeReport transportModeChange = new TransportModeChangeReport();
+        transportModeChange.setDate(new Date());
+        transportModeChange.setControlArea(controlArea);
+        transportModeChange.setDataArea(transportModeChangeDA);
+        Envelope envelope = new Envelope();
+        envelope.setTransportModeChangeReport(transportModeChange);
+        try {
+            Transaction.begin();
+
+            if (message42.Mode.equals("00")) {
+                Station station = Station.getStation(message42.Station);
+                station.setType(station.getOldMode());
+                station.setMode(station.getOldMode());
+            } else {
+
+                Station station = Station.getStation(message42.Station);
+                station.setType(message42.Mode.equals(StationMode.PUTAWAY) ? AsrsJobType.PUTAWAY : AsrsJobType.RETRIEVAL);
+                station.setMode(message42.Mode.equals(StationMode.PUTAWAY) ? AsrsJobType.PUTAWAY : AsrsJobType.RETRIEVAL);
             }
 
+            Transaction.commit();
+            XMLUtil.sendEnvelope(envelope);
+        } catch (Exception e) {
+            Transaction.rollback();
+            e.printStackTrace();
         }
+
     }
 }

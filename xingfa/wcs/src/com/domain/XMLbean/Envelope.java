@@ -30,13 +30,16 @@ public class Envelope implements Serializable {
     @XStreamAlias("AcceptLoadUnitAtId")
     private AcceptLoadUnitAtID acceptLoadUnitID;
 
+    @XStreamAlias("AcceptTransportOrder")
+    private AcceptTransportOrder acceptTransportOrder;
+
     @XStreamAlias("CancelTransportOrder")
     private CancelTransportOrder cancelTransportOrder;
 
     @XStreamAlias("HandlingUnitStatus")
     private HandlingUnitStatus handlingUnitStatus;
 
-    @XStreamAlias("LoadUnitAtId")
+    @XStreamAlias("LoadUnitAtID")
     private LoadUnitAtID loadUnitAtID;
 
     @XStreamAlias("MovementReport")
@@ -103,6 +106,14 @@ public class Envelope implements Serializable {
 
     public void setLoadUnitAtID(LoadUnitAtID loadUnitAtID) {
         this.loadUnitAtID = loadUnitAtID;
+    }
+
+    public AcceptTransportOrder getAcceptTransportOrder() {
+        return acceptTransportOrder;
+    }
+
+    public void setAcceptTransportOrder(AcceptTransportOrder acceptTransportOrder) {
+        this.acceptTransportOrder = acceptTransportOrder;
     }
 
     @OneToOne(targetEntity = HandlingUnitStatus.class, cascade = CascadeType.ALL)

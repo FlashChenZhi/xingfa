@@ -1,12 +1,10 @@
 package com.domain.XMLbean.XMLList;
 
-import com.domain.XMLbean.XMLProcess;
-import com.thoughtworks.xstream.annotations.XStreamAlias;
-import com.thoughtworks.xstream.annotations.XStreamAsAttribute;
-import com.thoughtworks.xstream.annotations.XStreamOmitField;
 import com.domain.XMLbean.XMLList.ControlArea.ControlArea;
 import com.domain.XMLbean.XMLList.DataArea.DAList.MovementReportDA;
-import com.domain.consts.xmlbean.XMLConstant;
+import com.domain.XMLbean.XMLProcess;
+import com.thoughtworks.xstream.annotations.XStreamAlias;
+import com.thoughtworks.xstream.annotations.XStreamOmitField;
 
 import javax.persistence.*;
 
@@ -20,19 +18,6 @@ import javax.persistence.*;
 @Entity
 @Table(name = "MovementReport")
 public class MovementReport extends XMLProcess {
-    @XStreamAlias("version")
-    @XStreamAsAttribute
-    private String version = XMLConstant.COM_VERSION;
-
-    @Column(name = "version")
-    public String getVersion() {
-        return version;
-    }
-
-    public void setVersion(String version) {
-        this.version = version;
-    }
-
     @XStreamAlias("ControlArea")
     private ControlArea controlArea;
 

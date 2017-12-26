@@ -8,7 +8,7 @@ import com.domain.XMLbean.XMLList.DataArea.DAList.TransportModeChangeDA;
 import com.domain.XMLbean.XMLList.DataArea.DAList.WorkStartEndDA;
 import com.domain.XMLbean.XMLProcess;
 import com.domain.consts.xmlbean.XMLConstant;
-import com.test.blocks.StationBlock;
+import com.thread.blocks.StationBlock;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamAsAttribute;
 import com.thoughtworks.xstream.annotations.XStreamOmitField;
@@ -26,10 +26,6 @@ import java.util.Date;
 @Entity
 @Table(name = "TransportModeChangeReport")
 public class TransportModeChangeReport extends XMLProcess {
-    @XStreamAsAttribute
-    @XStreamAlias("version")
-    private String version = XMLConstant.COM_VERSION;
-
     @XStreamAlias("ControlArea")
     private ControlArea controlArea;
 
@@ -54,15 +50,6 @@ public class TransportModeChangeReport extends XMLProcess {
 
     public void setDataArea(TransportModeChangeDA dataArea) {
         this.dataArea = dataArea;
-    }
-
-    @Column(name = "version")
-    public String getVersion() {
-        return version;
-    }
-
-    public void setVersion(String version) {
-        this.version = version;
     }
 
     @XStreamOmitField
@@ -98,7 +85,6 @@ public class TransportModeChangeReport extends XMLProcess {
             message40.setPlcName(block.getPlcName());
             message40.Mode = model;
             message40.Station = stationNo;
-            message40.Action = "01";
             MessageProxy _wcsproxy = (MessageProxy) Naming.lookup(Const.WCSPROXY);
             _wcsproxy.addSndMsg(message40);
             Transaction.commit();

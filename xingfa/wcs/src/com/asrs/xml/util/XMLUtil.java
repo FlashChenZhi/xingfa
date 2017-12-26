@@ -1,21 +1,20 @@
 package com.asrs.xml.util;
 
-import com.asrs.communication.XmlProxy;
-import com.thoughtworks.xstream.XStream;
-import com.thoughtworks.xstream.io.xml.DomDriver;
 import com.asrs.RefKey;
+import com.asrs.communication.XmlProxy;
 import com.domain.XMLbean.Envelope;
-import com.domain.XMLbean.XMLList.*;
 import com.domain.XMLbean.XMLList.ControlArea.ControlArea;
 import com.domain.XMLbean.XMLList.ControlArea.RefId;
 import com.domain.XMLbean.XMLList.ControlArea.Sender;
-import com.domain.XMLbean.XMLList.DataArea.*;
 import com.domain.XMLbean.XMLList.DataArea.DAList.MovementReportDA;
+import com.domain.XMLbean.XMLList.DataArea.FromLocation;
+import com.domain.XMLbean.XMLList.DataArea.StUnit;
+import com.domain.XMLbean.XMLList.DataArea.ToLocation;
+import com.domain.XMLbean.XMLList.MovementReport;
+import com.thoughtworks.xstream.XStream;
+import com.thoughtworks.xstream.io.xml.DomDriver;
 import com.util.common.Const;
-import com.util.hibernate.HibernateUtil;
-import com.util.hibernate.Transaction;
 import org.apache.commons.lang.StringUtils;
-import org.hibernate.Session;
 
 import java.io.*;
 import java.rmi.Naming;
@@ -153,34 +152,36 @@ public class XMLUtil {
 
         return controlArea;
     }
-    public static Envelope getEnvelope(String xml){
 
-        Object o=null;
+    public static Envelope getEnvelope(String xml) {
+
+        Object o = null;
         Envelope envelope = null;
 
 
-        o=xStream.fromXML(xml);
-        envelope = (Envelope)o;
+        o = xStream.fromXML(xml.trim());
+        envelope = (Envelope) o;
         return envelope;
     }
+
     public static String getSendXML(Envelope envelope) {
         String s = xStream.toXML(envelope);
         StringBuilder result = new StringBuilder("<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?> \n");
         result.append(s);
 
         String schema;
-        if (s.contains("LoadUnitAtId")){
+        if (s.contains("LoadUnitAtId")) {
             schema = "LoadUnitAtId";
-        }else if (s.contains("MovementReport")){
+        } else if (s.contains("MovementReport")) {
             schema = "MovementReport";
-        }else {
+        } else {
             schema = "HandlingUnitStatus";
         }
 
-        String str=" xmlns=\"http://www.consafelogistics.com\" xmlns:xcl=\"http://www.consafelogistics.com/wmswcs\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:schemaLocation=\"xcl "
-            + schema + "_0100.xsd\" version=\"0100\"";
-
-        result.insert(65,str);
+//        String str=" xmlns=\"http://www.consafelogistics.com\" xmlns:xcl=\"http://www.consafelogistics.com/wmswcs\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:schemaLocation=\"xcl "
+//            + schema + "_0100.xsd\" version=\"0100\"";
+//
+//        result.insert(65,str);
         String xml = result.toString();
         xml.replaceAll("__", "_");
 
@@ -204,8 +205,8 @@ public class XMLUtil {
             elementName = "HandlingUnitStatus";
         } else if (s.contains("MovementReport")) {
             elementName = "MovementReport";
-        } else if (s.contains("TransportOrder")) {
-            elementName = "TransportOrder";
+        } else if (s.contains("TransportOrderLog")) {
+            elementName = "TransportOrderLog";
         } else {
             elementName = "Envelope";
         }
@@ -220,13 +221,13 @@ public class XMLUtil {
         }
     }*/
 
-    public static String convertString(String s){
-        if (StringUtils.isBlank(s)){
+    public static String convertString(String s) {
+        if (StringUtils.isBlank(s)) {
             return "";
         } else {
             StringBuffer sb = new StringBuffer();
             byte[] bytes = s.getBytes();
-            for (byte b : bytes){
+            for (byte b : bytes) {
                 int i = b;
                 String a = "\\u" + StringUtils.leftPad("" + i, 4, "0");
                 sb.append(a);
@@ -234,8 +235,8 @@ public class XMLUtil {
             return sb.toString();
         }
     }
-    
-    public static Date convertDate(String dataString){
+
+    public static Date convertDate(String dataString) {
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
         Date date = new Date();
         try {
@@ -249,20 +250,22 @@ public class XMLUtil {
 
     public static void sendEnvelope(Envelope envelope) throws Exception {
 
-        Session session = HibernateUtil.getCurrentSession();
-        boolean connected = session.getTransaction().isActive();
-        if(!connected) {
-            Transaction.begin();
-        }
+//        Session session = HibernateUtil.getCurrentSession();
+//        boolean connected = session.getTransaction().isActive();
+//        if(!connected) {
+//            Transaction.begin();
+//        }
+//
+//        String sendId = StringUtils.leftPad(String.valueOf(HibernateUtil.nextSeq("seq_xml")), 5, "0");
+//        if(!connected) {
+//            Transaction.commit();
+//        }
 
-        String sendId = StringUtils.leftPad(String.valueOf(HibernateUtil.nextSeq("seq_xml")), 5, "0");
-        if(!connected) {
-            Transaction.commit();
-        }
+//        String sendId = "10000";
         XmlProxy _wmsproxy = (XmlProxy) Naming.lookup(Const.WMSPROXY);
 
-        String result = sendId + XMLUtil.getSendXML(envelope);
+//        String result = sendId + XMLUtil.getSendXML(envelope);
 
-        _wmsproxy.addSendXML(result);
+        _wmsproxy.addSendXML(XMLUtil.getSendXML(envelope));
     }
 }

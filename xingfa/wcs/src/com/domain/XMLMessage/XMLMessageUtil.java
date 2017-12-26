@@ -21,6 +21,7 @@ import org.apache.commons.lang.StringUtils;
 import org.hibernate.Query;
 import org.hibernate.Session;
 
+import java.util.ArrayList;
 import java.util.List;
 
 //import com.util.hibernate.Transaction;
@@ -203,16 +204,14 @@ public class XMLMessageUtil {
         xmlLocation.setMHA(xmlMessage.getMha());
         loadUnitAtIdDA.setXMLLocation(xmlLocation);
         ScanData scanData = new ScanData();
-//        scanData.setScanFlag(xmlMessage.getScanFlag());
         ItemData itemData = new ItemData();
         itemData.setValue(xmlMessage.getItemDateValue());
 
         scanData.setItemData(itemData);
-        loadUnitAtIdDA.setScanData(scanData);
+        loadUnitAtIdDA.setScanDate("00");
         loadUnitAtIdDA.setWeight(xmlMessage.getWeight());
         if (StringUtils.isNotBlank(xmlMessage.getInformation()) && xmlMessage.getInformation().length() > 1) {
-            loadUnitAtIdDA.setStUnitType(xmlMessage.getInformation().substring(1,2));
-            loadUnitAtIdDA.setInformation(xmlMessage.getInformation().substring(0,2));
+            loadUnitAtIdDA.setInformation(xmlMessage.getInformation().substring(0, 2));
         }
         loadUnitAtID.setDataArea(loadUnitAtIdDA);
         return loadUnitAtID;
@@ -233,10 +232,13 @@ public class XMLMessageUtil {
         movementReportDA.setRequestId(xmlMessage.getRequestId()); //requestId
         FromLocation fromLocation = new FromLocation();
         fromLocation.setMHA(xmlMessage.getFromMha());
-        fromLocation.setRack(xmlMessage.getFromRack());
-        fromLocation.setX(xmlMessage.getFromX());
-        fromLocation.setY(xmlMessage.getFromY());
-        fromLocation.setZ(xmlMessage.getFromZ());
+        // TODO: 2017/5/1 修改货位
+//        fromLocation.setRack(xmlMessage.getFromRack());
+        List<String> rack = new ArrayList<>(3);
+        rack.add(xmlMessage.getFromX());
+        rack.add(xmlMessage.getFromY());
+        rack.add(xmlMessage.getFromZ());
+        fromLocation.setRack(rack);
         movementReportDA.setFromLocation(fromLocation); //end fromlocation
         StUnit stUnit = new StUnit();
         stUnit.setStUnitID(xmlMessage.getStunitId());
@@ -248,10 +250,13 @@ public class XMLMessageUtil {
 
         ToLocation toLocation = new ToLocation();
         toLocation.setMHA(xmlMessage.getToMha());
-        toLocation.setRack(xmlMessage.getToRack());
-        toLocation.setX(xmlMessage.getToX());
-        toLocation.setY(xmlMessage.getToY());
-        toLocation.setZ(xmlMessage.getToZ());
+        // TODO: 2017/5/1 修改货位
+//        toLocation.setRack(xmlMessage.getToRack());
+        List<String> list = new ArrayList<>(3);
+        list.add(xmlMessage.getToX());
+        list.add(xmlMessage.getToY());
+        list.add(xmlMessage.getToZ());
+        toLocation.setRack(list);
 
         movementReportDA.setToLocation(toLocation);   //end tolocation
         movementReportDA.setReasonCode(xmlMessage.getReasonCode());

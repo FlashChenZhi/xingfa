@@ -20,30 +20,6 @@ import javax.persistence.*;
 @Entity
 @Table(name = "LoadUnitAtID")
 public class LoadUnitAtID extends XMLProcess {
-    @XStreamAlias("version")
-    @XStreamAsAttribute
-    private String version = XMLConstant.COM_VERSION;
-    @XStreamAlias("height")
-    @XStreamAsAttribute
-    private String _height;
-
-    @Column(name = "HEIGHT")
-    public String getHeight() {
-        return _height;
-    }
-
-    public void setHeight(String height) {
-        this._height = height;
-    }
-
-    @Column(name = "version")
-    public String getVersion() {
-        return version;
-    }
-
-    public void setVersion(String version) {
-        this.version = version;
-    }
 
     @XStreamAlias("ControlArea")
     private ControlArea controlArea;
