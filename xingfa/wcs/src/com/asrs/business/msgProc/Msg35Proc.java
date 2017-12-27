@@ -8,7 +8,6 @@ import com.asrs.communication.MessageProxy;
 import com.asrs.communication.XmlProxy;
 import com.asrs.domain.AsrsJob;
 import com.asrs.domain.Location;
-import com.asrs.domain.TransportOrderLog;
 import com.asrs.domain.WcsMessage;
 import com.asrs.message.*;
 import com.asrs.xml.util.XMLUtil;
@@ -24,8 +23,6 @@ import com.domain.XMLbean.XMLList.MovementReport;
 import com.domain.consts.xmlbean.XMLConstant;
 import com.thread.blocks.*;
 import com.util.common.Const;
-import com.util.common.LogType;
-import com.util.common.LogWriter;
 import com.util.hibernate.HibernateUtil;
 import com.util.hibernate.Transaction;
 import org.apache.commons.lang.StringUtils;
@@ -82,7 +79,7 @@ public class Msg35Proc implements MsgProcess {
             wcsQ.setParameter("msgType", WcsMessage.MSGTYPE_35);
             wcsQ.setParameter("mckey", message35.McKey);
             List<WcsMessage> msg35List = wcsQ.list();
-            if (true) {
+            if (msg35List.isEmpty()) {
                 WcsMessage.save35(message35);
                 AsrsJob aj = AsrsJob.getAsrsJobByMcKey(message35.McKey);
                 Session session = HibernateUtil.getCurrentSession();
@@ -429,19 +426,43 @@ public class Msg35Proc implements MsgProcess {
                                 srm.setBay(loc.getBay());
                                 srm.setLevel(loc.getLevel());
                                 srm.setActualArea(loc.getActualArea());
+                                srm.setCheckLocation(true);
                             } else {
                                 srm.setLevel(1);
                                 srm.setDock(message35.Station);
                                 srm.setBay(0);
-                                if (StringUtils.isNotBlank(srm.getsCarBlockNo())) {
-                                    SCar sCar = (SCar) Block.getByBlockNo(srm.getsCarBlockNo());
-                                    sCar.setLevel(1);
-                                    sCar.setBay(0);
-                                }
                             }
-                            srm.setCheckLocation(true);
+                            if (StringUtils.isNotBlank(srm.getsCarBlockNo())) {
+                                SCar sCar = (SCar) Block.getByBlockNo(srm.getsCarBlockNo());
+                                sCar.setLevel(1);
+                                sCar.setBay(0);
+                            }
+
                         } else if (message35.isLoadCar()) {
                             srm.setsCarBlockNo(message35.Station);
+                        }
+                    } else {
+                        MCar mCar = (MCar) block;
+                        if (message35.isMove()) {
+                            if ("0000".equals(message35.Station) || StringUtils.isBlank(message35.Station)) {
+                                Location loc = Location.getByBankBayLevel(Integer.parseInt(message35.Bank), Integer.parseInt(message35.Bay), Integer.parseInt(message35.Level), mCar.getPosition());
+                                mCar.setBay(loc.getBay());
+                                mCar.setLevel(loc.getLevel());
+                                mCar.setActualArea(loc.getActualArea());
+                                mCar.setCheckLocation(true);
+                                mCar.setDock(null);
+
+                            } else {
+                                mCar.setLevel(1);
+                                mCar.setBay(0);
+                                mCar.setDock(message35.Station);
+                            }
+
+                            if (StringUtils.isNotBlank(mCar.getsCarBlockNo())) {
+                                SCar sCar = (SCar) Block.getByBlockNo(mCar.getsCarBlockNo());
+                                sCar.setLevel(1);
+                                sCar.setBay(0);
+                            }
                         }
                     }
 
