@@ -203,10 +203,9 @@ public class SrmOperator {
     /**
      * 堆垛机回原点
      *
-     * @param srm
      * @throws Exception
      */
-    public void cycle(Srm srm) throws Exception {
+    public void cycle() throws Exception {
         MsgSender.send03(Message03._CycleOrder.move, mckey, srm, "", srm.getCycle(), "", "");
     }
 

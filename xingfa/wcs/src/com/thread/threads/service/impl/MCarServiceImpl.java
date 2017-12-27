@@ -1,6 +1,9 @@
 package com.thread.threads.service.impl;
 
+import com.asrs.business.consts.AsrsJobType;
+import com.thread.blocks.Block;
 import com.thread.blocks.MCar;
+import com.thread.threads.operator.MCarOperator;
 import com.thread.threads.service.MCarService;
 import org.apache.commons.lang3.StringUtils;
 
@@ -18,10 +21,32 @@ public class MCarServiceImpl implements MCarService {
     @Override
     public void withOutJob() throws Exception {
 
-        if (StringUtils.isNotBlank(mCar.getsCarBlockNo())) {
+        //湖北兴发母车寻找任务。此处母车只做搬运，出入库只按照前后端输送机的mckey找任务
+        //出库任务
+        boolean hasJob = false;
+        Block retrievalPreBlock = mCar.getPreBlockByJobType(AsrsJobType.RETRIEVAL);
+        if (retrievalPreBlock != null) {
+            if (StringUtils.isNotBlank(retrievalPreBlock.getMcKey()) && !retrievalPreBlock.isWaitingResponse()) {
+                mCar.setReservedMcKey(retrievalPreBlock.getMcKey());
+                hasJob = true;
+            }
+        }
 
-        } else {
+        if (!hasJob) {
+            Block putawayPreBlock = mCar.getPreBlockByJobType(AsrsJobType.PUTAWAY);
+            if (putawayPreBlock != null) {
+                if (StringUtils.isNotBlank(putawayPreBlock.getMcKey()) && !putawayPreBlock.isWaitingResponse()) {
+                    mCar.setReservedMcKey(putawayPreBlock.getMcKey());
+                    hasJob = true;
+                }
+            }
+        }
 
+        if (!hasJob) {
+            if (mCar.getCycle().equals(mCar.getDock())) {
+                MCarOperator mCarOperator = new MCarOperator(mCar, "9999");
+                mCarOperator.cycle();
+            }
         }
 
     }

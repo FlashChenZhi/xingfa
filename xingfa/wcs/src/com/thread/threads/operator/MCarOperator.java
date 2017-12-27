@@ -4,6 +4,7 @@ import com.asrs.domain.Location;
 import com.asrs.message.Message03;
 import com.thread.blocks.Block;
 import com.thread.blocks.MCar;
+import com.thread.blocks.Srm;
 import com.thread.utils.MsgSender;
 
 /**
@@ -91,4 +92,14 @@ public class MCarOperator {
         }
 
     }
+
+    /**
+     * 母车回原点
+     *
+     * @throws Exception
+     */
+    public void cycle() throws Exception {
+        MsgSender.send03(Message03._CycleOrder.move, mckey, mCar, "", mCar.getCycle(), "", "");
+    }
+
 }

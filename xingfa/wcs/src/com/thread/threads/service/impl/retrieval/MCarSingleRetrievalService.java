@@ -9,6 +9,7 @@ import com.thread.threads.service.impl.MCarServiceImpl;
 
 /**
  * Created by van on 2017/12/26.
+ * 单独母车用于搬运托盘的实例，前后端都为输送机可参照此例
  */
 public class MCarSingleRetrievalService extends MCarServiceImpl {
 

@@ -162,7 +162,7 @@ public abstract class SrmAndScarServiceImpl implements SrmService {
                     } else {
                         if (!srm.getCycle().equals(srm.getDock())) {
                             SrmOperator srmOperator = new SrmOperator(srm, "9999");
-                            srmOperator.cycle(srm);
+                            srmOperator.cycle();
                         }
                     }
                 }
