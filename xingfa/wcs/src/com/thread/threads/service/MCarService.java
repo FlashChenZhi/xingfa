@@ -4,4 +4,5 @@ package com.thread.threads.service;
  * Created by van on 2017/10/31.
  */
 public interface MCarService extends Service {
+
 }

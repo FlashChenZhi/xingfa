@@ -25,6 +25,7 @@ public class MCar extends Block {
     private String actualArea;
     private Boolean checkLocation;//是否校准位置
     private Integer groupNo;
+    private String cycle;
 
     @Basic
     @Column(name = "liftNo")
@@ -62,7 +63,7 @@ public class MCar extends Block {
         query.setParameter("mcarNo", mCarNo);
         query.setParameter("liftNO", liftNo);
         Dock dock = (Dock) query.uniqueResult();
-        return  dock.getDockNo();
+        return dock.getDockNo();
     }
 
     @Basic
@@ -135,4 +136,13 @@ public class MCar extends Block {
         this.groupNo = groupNo;
     }
 
+    @Basic
+    @Column(name = "CYCLE")
+    public String getCycle() {
+        return cycle;
+    }
+
+    public void setCycle(String cycle) {
+        this.cycle = cycle;
+    }
 }

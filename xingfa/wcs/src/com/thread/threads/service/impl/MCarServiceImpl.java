@@ -8,6 +8,7 @@ import org.apache.commons.lang3.StringUtils;
  * Created by van on 2017/10/31.
  */
 public class MCarServiceImpl implements MCarService {
+
     private MCar mCar;
 
     public MCarServiceImpl(MCar mCar) {
