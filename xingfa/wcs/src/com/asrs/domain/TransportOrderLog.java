@@ -14,7 +14,6 @@ public class TransportOrderLog {
     private String toLocation;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID", nullable = false, length = 8)
     public int getId() {
         return id;

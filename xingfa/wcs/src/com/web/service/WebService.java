@@ -9,6 +9,7 @@ import com.asrs.communication.MessageProxy;
 import com.asrs.domain.*;
 import com.asrs.message.*;
 import com.thread.blocks.*;
+import com.thread.utils.MsgSender;
 import com.util.common.*;
 import com.util.hibernate.HibernateUtil;
 import com.util.hibernate.Transaction;
@@ -16,6 +17,7 @@ import com.web.vo.BlockVo;
 import com.web.vo.MessageLogVo;
 import com.web.vo.Msg03Vo;
 import com.web.vo.OnlineTaskVo;
+import org.apache.poi.util.StringUtil;
 import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -85,6 +87,7 @@ public class WebService {
             Transaction.begin();
             Session session = HibernateUtil.getCurrentSession();
             Criteria criteria = session.createCriteria(AsrsJob.class);
+            criteria.addOrder(Order.asc(AsrsJob.__ID));
             //获取总行数
             Long total = (Long) criteria.setProjection(Projections.rowCount()).uniqueResult();
 //            获取分页数据
@@ -253,12 +256,12 @@ public class WebService {
                 m3.McKey = msg03.getMcKey();
                 m3.MachineNo = msg03.getMachineNo();
                 m3.CycleOrder = msg03.getCycleOrder();
-                m3.Height = msg03.getHeight();
-                m3.Width = msg03.getWidth();
-                m3.Station = msg03.getStation();
-                m3.Bank = msg03.getBank();
-                m3.Bay = msg03.getBay();
-                m3.Level = msg03.getLevel();
+                m3.Height = msg03.getHeight() == null ? "0" : msg03.getHeight();
+                m3.Width = msg03.getWidth() == null ? "0" : msg03.getWidth();
+                m3.Station = msg03.getStation() == null ? "0000" : msg03.getStation();
+                m3.Bank = msg03.getBank() == null ? "00" : msg03.getBank();
+                m3.Bay = msg03.getBay() == null ? "00" : msg03.getBay();
+                m3.Level = msg03.getLevel() == null ? "00" : msg03.getLevel();
                 m3.Dock = msg03.getDock();
                 MessageProxy _wcsproxy = (MessageProxy) Naming.lookup(Const.WCSPROXY);
                 _wcsproxy.addSndMsg(m3);
@@ -296,7 +299,9 @@ public class WebService {
             if (message.startsWith("40")) {
 
                 Message40 m4 = new Message40(message.substring(2));
-                m4.setPlcName("BL01");
+                StationBlock station = (StationBlock) StationBlock.getByStationNo(m4.Station);
+
+                m4.setPlcName(station.getPlcName());
                 MessageProxy _wcsproxy = (MessageProxy) Naming.lookup(Const.WCSPROXY);
                 _wcsproxy.addSndMsg(m4);
 
@@ -393,6 +398,7 @@ public class WebService {
             if (block == null) {
                 throw new Exception("block不存在");
             }
+
             block.setStatus("1");
 
             Transaction.commit();
@@ -419,6 +425,7 @@ public class WebService {
             if (block == null) {
                 throw new Exception("block不存在");
             }
+
             block.setStatus("2");
 
             Transaction.commit();
@@ -630,22 +637,32 @@ public class WebService {
         try {
             Transaction.begin();
 
-            MessageProxy _wcsproxy = (MessageProxy) Naming.lookup(Const.WCSPROXY);
             Block block = Block.getByBlockNo(blockNo);
+            //存在Mckey
+            if (StringUtils.isNotEmpty(block.getMcKey())) {
+                if (block instanceof SCar) {
 
-            if (block instanceof MCar) {
-                MCar mcar = (MCar) block;
-                mcar.setCheckLocation(false);
+                } else if (block instanceof Conveyor) {
+
+                } else if (block instanceof Srm) {
+
+                } else if (block instanceof StationBlock) {
+
+                }
             }
 
-            Plc plc = Plc.getPlcByPlcName(block.getPlcName());
+            if (StringUtils.isNotEmpty(block.getReservedMcKey())) {
+                if (block instanceof SCar) {
 
-            Message06 message06 = new Message06();
-            message06.setPlcName(plc.getPlcName());
-            message06.MachineNo = block.getPlcName();
-            message06.Status = "3";
+                } else if (block instanceof Conveyor) {
 
-            _wcsproxy.addSndMsg(message06);
+                } else if (block instanceof Srm) {
+
+                } else if (block instanceof StationBlock) {
+
+                }
+
+            }
 
             Transaction.commit();
             httpMessage.setSuccess(true);
@@ -704,7 +721,7 @@ public class WebService {
 
                     block.setWaitingResponse(false);
                     block.setMcKey("");
-                    block.setStatus("0");
+                    block.setStatus("2");
                     block.setReservedMcKey("");
 
                     if (block instanceof SCar) {
@@ -741,5 +758,80 @@ public class WebService {
         }
         return httpMessage;
 
+    }
+
+    public HttpMessage chargeFinish(String blockNo) {
+        HttpMessage httpMessage = new HttpMessage();
+        try {
+
+            Transaction.begin();
+
+            Block block = Block.getByBlockNo(blockNo);
+            if (block instanceof SCar) {
+
+                SCar sCar = (SCar) block;
+                if (!sCar.getStatus().equals(SCar.STATUS_CHARGE)) {
+                    Transaction.rollback();
+                    httpMessage.setSuccess(false);
+                    httpMessage.setMsg("子车非充电中");
+                    return httpMessage;
+                }
+                if (sCar.getPower() < 50) {
+                    Transaction.rollback();
+                    httpMessage.setSuccess(false);
+                    httpMessage.setMsg("子车电量不足");
+                    return httpMessage;
+
+                }
+
+
+                Location location = Location.getByLocationNo(sCar.getChargeLocation());
+                Srm fromSrm = Srm.getSrmByPosition(location.getPosition());
+                Srm toSrm = Srm.getSrmByGroupNo(sCar.getGroupNo());
+
+                if (fromSrm.getBlockNo().equals(toSrm.getBlockNo())) {
+                    sCar.setStatus(SCar.STATUS_RUN);
+                    //欧普适用
+                    //MsgSender.send03(Message03._CycleOrder.chargeFinish, "9999", sCar, sCar.getChargeLocation(), "", AsrsJobType.RECHARGEDOVER);
+
+                } else {
+
+                    AsrsJob newJob = new AsrsJob();
+
+                    newJob.setWareHouse(sCar.getWareHouse());
+                    newJob.setType(AsrsJobType.RECHARGEDOVER);
+                    newJob.setMcKey(Mckey.getNext());
+                    newJob.setGenerateTime(new Date());
+                    newJob.setStatus(AsrsJobStatus.RUNNING);
+                    newJob.setStatusDetail(AsrsJobStatusDetail.WAITING);
+                    newJob.setFromLocation(sCar.getChargeLocation());
+                    newJob.setFromStation(fromSrm.getBlockNo());
+                    newJob.setToStation(toSrm.getBlockNo());
+
+                    HibernateUtil.getCurrentSession().save(newJob);
+                    sCar.setMcKey(newJob.getMcKey());
+                    sCar.setStatus(SCar.STATUS_RUN);
+
+                }
+
+            } else {
+                Transaction.rollback();
+                httpMessage.setSuccess(false);
+                httpMessage.setMsg("设备非子车");
+                return httpMessage;
+            }
+
+            Transaction.commit();
+
+            httpMessage.setSuccess(true);
+            httpMessage.setMsg("成功");
+
+        } catch (Exception e) {
+            Transaction.rollback();
+            httpMessage.setSuccess(false);
+            httpMessage.setMsg("出错了。");
+            e.printStackTrace();
+        }
+        return httpMessage;
     }
 }

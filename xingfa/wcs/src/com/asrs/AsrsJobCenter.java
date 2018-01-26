@@ -24,7 +24,7 @@ public class AsrsJobCenter {
     public static void main(String[] args) {
 //        System.setSecurityManager(new RMISecurityManager());
         try {
-            _wmsproxy = (XmlProxy) Naming.lookup(Const.WMSPROXY);
+//            _wmsproxy = (XmlProxy) Naming.lookup(Const.WMSPROXY);
             _wcsproxy = (MessageProxy) Naming.lookup(Const.WCSPROXY);
         } catch (Exception e) {
             LogWriter.writeError(AsrsJobCenter.class, "初始化MessageProxy时发生错误");
@@ -32,9 +32,9 @@ public class AsrsJobCenter {
             System.exit(-1);
         }
 
-        Thread thread1 = new Thread(new WmsMsgProcCenter(_wmsproxy));
-        thread1.setName("WmsMsgProcCenter");
-        thread1.start();
+//        Thread thread1 = new Thread(new WmsMsgProcCenter(_wmsproxy));
+//        thread1.setName("WmsMsgProcCenter");
+//        thread1.start();
 
         Thread thread2 = new Thread(new WcsMsgProcCenter(_wmsproxy, _wcsproxy));
         thread2.setName("WcsMsgProcCenter");

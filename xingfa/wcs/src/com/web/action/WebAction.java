@@ -132,4 +132,12 @@ public class WebAction {
         return httpMessage;
     }
 
+    @RequestMapping("chargeFinish.do")
+    @ResponseBody
+    public HttpMessage chargeFinish(String blockNo) {
+        HttpMessage httpMessage = webService.chargeFinish(blockNo);
+        return httpMessage;
+    }
+
+
 }

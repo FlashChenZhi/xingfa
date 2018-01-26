@@ -30,8 +30,7 @@ public class AsrsJobTest {
     private int _id;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-//    @SequenceGenerator(name = "seq", sequenceName = "SEQ_ASRSJOB", allocationSize = 1)
+    @SequenceGenerator(name = "seq", sequenceName = "SEQ_ASRSJOB_TEST", allocationSize = 1)
     @Column(name = "ID", nullable = false, length = 8)
     public int getId() {
         return _id;

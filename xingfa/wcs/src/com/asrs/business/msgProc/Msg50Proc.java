@@ -2,6 +2,7 @@
 package com.asrs.business.msgProc;
 
 import com.asrs.business.consts.AsrsJobType;
+import com.asrs.business.consts.ReasonCode;
 import com.asrs.communication.MessageProxy;
 import com.asrs.communication.XmlProxy;
 import com.asrs.domain.*;
@@ -17,12 +18,11 @@ import com.domain.XMLbean.XMLList.ControlArea.RefId;
 import com.domain.XMLbean.XMLList.ControlArea.Sender;
 import com.domain.XMLbean.XMLList.DataArea.DAList.LoadUnitAtIdDA;
 import com.domain.XMLbean.XMLList.DataArea.*;
+import com.domain.XMLbean.XMLList.DataArea.DAList.MovementReportDA;
 import com.domain.XMLbean.XMLList.LoadUnitAtID;
+import com.domain.XMLbean.XMLList.MovementReport;
 import com.domain.consts.xmlbean.XMLConstant;
-import com.thread.blocks.Block;
-import com.thread.blocks.Conveyor;
-import com.thread.blocks.SCar;
-import com.thread.blocks.StationBlock;
+import com.thread.blocks.*;
 import com.util.hibernate.HibernateUtil;
 import com.util.hibernate.Transaction;
 import org.apache.commons.lang.StringUtils;
@@ -59,9 +59,13 @@ public class Msg50Proc implements MsgProcess {
     MessageProxy _wcsProxy;
 
     public static void main(String[] args) throws Exception {
-        Msg50Proc proc = new Msg50Proc();
-        Message50 m50 = new Message50("11301199990000000000100000000");
-        proc.Do(m50);
+//        Msg50Proc proc = new Msg50Proc();
+//        Message50 m50 = new Message50("13101199990OPWJ00138100000000");
+        //002050019085413101199992OPWJ03007_____10000000069
+//        proc.Do(m50);
+        String barcode = "2OPWJ03007_____";
+        System.out.println(barcode.substring(1).replaceAll("_",""));
+
     }
 
     public void Do(Message50 message50) {
@@ -80,84 +84,109 @@ public class Msg50Proc implements MsgProcess {
                         Configuration configuration = Configuration.getConfig(Configuration.KEY_RUNMODEL);
                         if (configuration.getValue().equals(Configuration.MODEL_ONLINE)) {
                             //有子车电量不足
-                            List<SCar> sCars = HibernateUtil.getCurrentSession().createQuery("from SCar where power<30").list();
-                            List<AsrsJob> chargeJob = HibernateUtil.getCurrentSession().createQuery("from AsrsJob where type=:tp").setParameter("tp", AsrsJobType.RECHARGED).list();
+                            List<SCar> sCars = HibernateUtil.getCurrentSession().createQuery("from SCar where power<30 and wareHouse=:po").setParameter("po", block1.getWareHouse()).list();
+                            List<AsrsJob> chargeJob = HibernateUtil.getCurrentSession().createQuery("from AsrsJob where type=:tp and wareHouse=:wh").setParameter("tp", AsrsJobType.RECHARGED)
+                                    .setParameter("wh", block1.getWareHouse()).list();
 
                             if (sCars.isEmpty() && chargeJob.isEmpty()) {
                                 for (Map.Entry<Integer, Map<String, String>> entry1 : entry.getValue().McKeysAndBarcodes.entrySet()) {
                                     for (Map.Entry<String, String> entry2 : entry1.getValue().entrySet()) {
-                                        Sender sender = new Sender();
-                                        sender.setDivision(XMLConstant.COM_DIVISION);
-                                        Receiver receiver = new Receiver();
-                                        receiver.setDivision(XMLConstant.WMS_DIVISION);
+                                        if (entry2.getValue().indexOf("???") == -1) {
+                                            Sender sender = new Sender();
+                                            sender.setDivision(XMLConstant.COM_DIVISION);
+                                            Receiver receiver = new Receiver();
+                                            receiver.setDivision(XMLConstant.WMS_DIVISION);
 
-                                        ControlArea controlArea = new ControlArea();
-                                        controlArea.setSender(sender);
-                                        controlArea.setReceiver(receiver);
-                                        controlArea.setCreationDateTime(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
+                                            ControlArea controlArea = new ControlArea();
+                                            controlArea.setSender(sender);
+                                            controlArea.setReceiver(receiver);
+                                            controlArea.setCreationDateTime(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
 
-                                        RefId refId = new RefId();
-                                        refId.setId(999999);
-                                        controlArea.setRefId(refId);
+                                            RefId refId = new RefId();
+                                            refId.setId(999999);
+                                            controlArea.setRefId(refId);
 
-                                        XMLLocation xmlLocation = new XMLLocation();
-                                        xmlLocation.setMHA(station.getStationNo());
+                                            XMLLocation xmlLocation = new XMLLocation();
+                                            xmlLocation.setMHA(station.getStationNo());
 
-                                        List<String> list = new ArrayList<>(3);
-                                        list.add("");
-                                        list.add("");
-                                        list.add("");
-                                        xmlLocation.setRack(list);
+                                            List<String> list = new ArrayList<>(3);
+                                            list.add("");
+                                            list.add("");
+                                            list.add("");
+                                            xmlLocation.setRack(list);
 
-                                        LoadUnitAtIdDA loadUnitAtIdDA = new LoadUnitAtIdDA();
-                                        loadUnitAtIdDA.setXMLLocation(xmlLocation);
-                                        loadUnitAtIdDA.setScanDate(entry2.getValue());
-                                        loadUnitAtIdDA.setLoadType("00");
-                                        loadUnitAtIdDA.setWeight(entry.getValue().weight);
+                                            LoadUnitAtIdDA loadUnitAtIdDA = new LoadUnitAtIdDA();
+                                            loadUnitAtIdDA.setXMLLocation(xmlLocation);
+                                            loadUnitAtIdDA.setScanDate(entry2.getValue());
+                                            loadUnitAtIdDA.setLoadType("00");
+                                            loadUnitAtIdDA.setWeight(entry.getValue().weight);
 
-                                        LoadUnitAtID loadUnitAtID = new LoadUnitAtID();
-                                        loadUnitAtID.setControlArea(controlArea);
-                                        loadUnitAtID.setDataArea(loadUnitAtIdDA);
+                                            LoadUnitAtID loadUnitAtID = new LoadUnitAtID();
+                                            loadUnitAtID.setControlArea(controlArea);
+                                            loadUnitAtID.setDataArea(loadUnitAtIdDA);
 
-                                        Envelope envelope = new Envelope();
-                                        envelope.setLoadUnitAtID(loadUnitAtID);
-                                        XMLUtil.sendEnvelope(envelope);
-                                        block1.setLoad("1");
+                                            Envelope envelope = new Envelope();
+                                            envelope.setLoadUnitAtID(loadUnitAtID);
+                                            XMLMessage xmlMessage = new XMLMessage();
+                                            xmlMessage.setStatus("1");
+                                            xmlMessage.setRecv("WMS");
+                                            xmlMessage.setMessageInfo(XMLUtil.getSendXML(envelope));
+                                            HibernateUtil.getCurrentSession().save(xmlMessage);
+
+                                            block1.setLoad("1");
+                                        } else {
+                                            SystemLog.error(station.getStationNo() + "NoRead");
+                                            InMessage.error(blockNo,"NoRead");
+                                        }
                                     }
                                 }
 
                             } else {
-                                System.out.println("sth wrong");
+                                SystemLog.error("子车存在充电任务");
+                                InMessage.error(blockNo,"子车存在充电任务");
                             }
                         } else {
 
-                            //有子车电量不足
-                            List<SCar> sCars = HibernateUtil.getCurrentSession().createQuery("from SCar where power<30").list();
-                            //是否有回库作业
+                            String[] positions = block1.getInPostion().split("-");
+                            Configuration config = Configuration.getConfig(block1.getStationNo());
+                            String po = config.getValue();
+                            Srm srm = Srm.getSrmByPosition(po);
 
-                            if (sCars.isEmpty()) {
-                                Query q = HibernateUtil.getCurrentSession().createQuery("from AsrsJobTest where fromStation=:station order by id asc").setMaxResults(1);
-                                q.setParameter("station",station.getStationNo());
-                                AsrsJobTest test = (AsrsJobTest) q.uniqueResult();
-
-                                if (test != null) {
-                                    AsrsJob asrsJob = new AsrsJob();
-                                    asrsJob.setType("01");
-                                    asrsJob.setFromStation(block1.getBlockNo());
-                                    asrsJob.setToStation(test.getToStation());
-                                    asrsJob.setToLocation(test.getToLocation());
-                                    asrsJob.setFromLocation(test.getFromLocation());
-                                    asrsJob.setMcKey(StringUtils.leftPad(HibernateUtil.nextSeq("seq_mckey") + "", 4, "0"));
-                                    asrsJob.setStatus("1");
-                                    asrsJob.setStatusDetail("0");
-                                    block1.setMcKey(asrsJob.getMcKey());
-                                    HibernateUtil.getCurrentSession().save(asrsJob);
-                                    HibernateUtil.getCurrentSession().delete(test);
-
+                            for (int i = 0; i < positions.length; i++) {
+                                if (po.equals(positions[i])) {
+                                    if (i != positions.length - 1) {
+                                        po = positions[i + 1];
+                                    } else {
+                                        po = positions[0];
+                                    }
+                                    break;
                                 }
-
                             }
 
+                            config.setValue(po);
+
+
+                            Query q = HibernateUtil.getCurrentSession().createQuery("from AsrsJobTest where fromStation=:station and toStation=:ts order by id asc").setMaxResults(1);
+                            q.setParameter("station", station.getStationNo());
+                            q.setParameter("ts", srm.getBlockNo());
+                            AsrsJobTest test = (AsrsJobTest) q.uniqueResult();
+
+                            if (test != null) {
+                                AsrsJob asrsJob = new AsrsJob();
+                                asrsJob.setType("01");
+                                asrsJob.setFromStation(block1.getBlockNo());
+                                asrsJob.setToStation(test.getToStation());
+                                asrsJob.setToLocation(test.getToLocation());
+                                asrsJob.setFromLocation(test.getFromLocation());
+                                asrsJob.setMcKey(org.apache.commons.lang.StringUtils.leftPad(HibernateUtil.nextSeq("seq_mckey") + "", 4, "0"));
+                                asrsJob.setStatus("1");
+                                asrsJob.setStatusDetail("0");
+                                asrsJob.setWareHouse(block1.getWareHouse());
+                                block1.setMcKey(asrsJob.getMcKey());
+                                HibernateUtil.getCurrentSession().save(asrsJob);
+                                HibernateUtil.getCurrentSession().delete(test);
+
+                            }
                         }
 
                     } else if (AsrsJobType.RETRIEVAL.equals(station.getMode()) && "0".equals(entry.getValue().Load)) {
@@ -167,15 +196,10 @@ public class Msg50Proc implements MsgProcess {
                             for (Map.Entry<String, String> entry2 : mapValue.entrySet()) {
                                 String mckey = entry2.getKey();
                                 AsrsJob asrsJob = AsrsJob.getAsrsJobByMcKey(mckey);
-                                if (mckey.equals(block1.getMcKey())) {
-                                    block1.setMcKey(block1.getBuffMckey());
-                                    block1.setBuffMckey(null);
-                                } else if (mckey.equals(block1.getBuffMckey())) {
-                                    block1.setBuffMckey(null);
-                                }
-                                if (asrsJob != null)
+                                if (asrsJob != null) {
                                     session.delete(asrsJob);
-
+                                    block1.setMcKey(null);
+                                }
                             }
                         }
                     }

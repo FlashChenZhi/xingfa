@@ -36,7 +36,6 @@ public class MCarSinglePutawayService extends MCarServiceImpl {
             }
         }
 
-
     }
 
     @Override

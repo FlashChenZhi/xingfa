@@ -46,44 +46,6 @@ import java.util.List;
 @Table(name = "TransportOrderLog")
 public class TransportOrder extends XMLProcess {
 
-    public static void main(String[] args) throws Exception {
-        TransportOrder order = new TransportOrder();
-        TransportOrderDA date = new TransportOrderDA();
-        date.setTransportType("01");
-        List<String> locations = new ArrayList<>();
-        locations.add("30");
-        locations.add("1");
-        locations.add("1");
-        ToLocation toLocation = new ToLocation();
-        toLocation.setRack(locations);
-        FromLocation fromLocation = new FromLocation();
-        fromLocation.setMHA("1301");
-        date.setToLocation(toLocation);
-        date.setFromLocation(fromLocation);
-
-        Sender sender = new Sender();
-        sender.setDivision("WMS");
-
-        Receiver receiver = new Receiver();
-        receiver.setDivision("WCS");
-
-        ControlArea area = new ControlArea();
-        area.setSender(sender);
-        area.setReceiver(receiver);
-
-        RefId refId = new RefId();
-        refId.setReferenceId("0001");
-        area.setRefId(refId);
-        order.setControlArea(area);
-
-        date.setStUnitId("00000000");
-
-        order.setDataArea(date);
-
-
-        order.execute();
-    }
-
     @XStreamAlias("version")
     @XStreamAsAttribute
     private String version = XMLConstant.COM_VERSION;
@@ -142,134 +104,108 @@ public class TransportOrder extends XMLProcess {
 
 
     @Override
-    public void execute() {
+    public void execute() throws Exception {
         AsrsJob asrsJob = new AsrsJob();
-        try {
-            Transaction.begin();
-            Session session = HibernateUtil.getCurrentSession();
-            List<AsrsJob> asrsJobs = session.createCriteria(AsrsJob.class)
-                    .add(Restrictions.eq(AsrsJob._WMSMCKEY, controlArea.getRefId().getReferenceId())).list();
-            String mcKey = Mckey.getNext();
-            if (asrsJobs.isEmpty()) {
-                System.out.println("接受任务");
+        Session session = HibernateUtil.getCurrentSession();
+        List<AsrsJob> asrsJobs = session.createCriteria(AsrsJob.class)
+                .add(Restrictions.eq(AsrsJob._WMSMCKEY, controlArea.getRefId().getReferenceId())).list();
+        if (asrsJobs.isEmpty()) {
+            System.out.println("接受任务");
 
-                Query jq = HibernateUtil.getCurrentSession().createQuery("from AsrsJob where type =:tp1 or type =:tp2");
-                jq.setParameter("tp1", AsrsJobType.RECHARGED);
-                jq.setParameter("tp2", AsrsJobType.RECHARGEDOVER);
-                List<AsrsJob> jobs = jq.list();
-                if (!jobs.isEmpty()) {
+            Query jq = HibernateUtil.getCurrentSession().createQuery("from AsrsJob where type =:tp1 or type =:tp2");
+            jq.setParameter("tp1", AsrsJobType.RECHARGED);
+            jq.setParameter("tp2", AsrsJobType.RECHARGEDOVER);
+            List<AsrsJob> jobs = jq.list();
+            if (!jobs.isEmpty()) {
+                throw new Exception("存在充电任务");
+            }
+
+            if (AsrsJobType.PUTAWAY.equals(dataArea.getTransportType())) {
+
+                String fromStation = dataArea.getFromLocation().getMHA();
+
+                Station station = Station.getStation(fromStation);
+                if (!station.getType().equals(AsrsJobType.PUTAWAY)) {
                     throw new Exception("站台不是入库站台");
                 }
 
-                if (AsrsJobType.PUTAWAY.equals(dataArea.getTransportType())) {
+                StationBlock stationBlock = StationBlock.getByStationNo(fromStation);
+                asrsJob.setFromStation(stationBlock.getBlockNo());
+                List<String> locationS = dataArea.getToLocation().getRack();
 
-                    String fromStation = dataArea.getFromLocation().getMHA();
-
-                    Station station = Station.getStation(fromStation);
-                    if (!station.getType().equals(AsrsJobType.PUTAWAY)) {
-                        throw new Exception("站台不是入库站台");
-                    }
-
-                    StationBlock stationBlock = StationBlock.getByStationNo(fromStation);
-                    asrsJob.setFromStation(stationBlock.getBlockNo());
-                    List<String> locationS = dataArea.getToLocation().getRack();
-
-                    if (StringUtils.isNotEmpty(stationBlock.getMcKey())) {
-                        throw new Exception("入库站台有任务");
-                    }
-
-                    String blockNo = dataArea.getToLocation().getMHA();
-                    Srm srm = (Srm) Block.getByBlockNo(blockNo);
-
-                    Location location = Location.getByBankBayLevel(Integer.parseInt(locationS.get(0)), Integer.parseInt(locationS.get(1)), Integer.parseInt(locationS.get(2)), srm.getPosition());
-
-                    if (location == null) {
-                        throw new Exception("货位不存在");
-                    }
-
-                    Query scarQ = HibernateUtil.getCurrentSession().createQuery("from SCar where position=:po").setMaxResults(1);
-                    scarQ.setParameter("po", srm.getPosition());
-                    SCar sCar = (SCar) scarQ.uniqueResult();
-                    if (sCar == null) {
-                        throw new Exception("区域没子车");
-                    }
-
-                    if (stationBlock.getLoad() == null || stationBlock.getLoad().equals("0")) {
-                        throw new Exception("入库站台无载荷");
-                    }
-
-                    //入库类型
-                    asrsJob.setType(AsrsJobType.PUTAWAY);
-
-                    asrsJob.setToLocation(location.getLocationNo());
-                    stationBlock.setMcKey(mcKey);
-                    stationBlock.setWaitingResponse(false);
-                    session.saveOrUpdate(stationBlock);
-
-
-                    asrsJob.setToStation(srm.getBlockNo());
-                    stationBlock.setLoad("0");
-                    asrsJob.setWareHouse(srm.getWareHouse());
-
-                } else if (AsrsJobType.RETRIEVAL.equals(dataArea.getTransportType())) {
-
-                    List<String> locationS = dataArea.getFromLocation().getRack();
-
-                    String blockNo = dataArea.getFromLocation().getMHA();
-                    Srm srm = (Srm) Block.getByBlockNo(blockNo);
-
-                    Location location = Location.getByBankBayLevel(Integer.parseInt(locationS.get(0)), Integer.parseInt(locationS.get(1)), Integer.parseInt(locationS.get(2)), srm.getPosition());
-
-                    Query scarQ = HibernateUtil.getCurrentSession().createQuery("from SCar where position=:po").setMaxResults(1);
-                    scarQ.setParameter("po", srm.getPosition());
-                    SCar sCar = (SCar) scarQ.uniqueResult();
-                    if (sCar == null) {
-                        throw new Exception("区域没子车");
-                    }
-
-                    asrsJob.setFromLocation(location.getLocationNo());
-                    String toStation = dataArea.getToLocation().getMHA();
-
-                    Station station = Station.getStation(toStation);
-                    if (!station.getType().equals(AsrsJobType.RETRIEVAL)) {
-                        throw new Exception("站台不是出库站台");
-                    }
-
-                    StationBlock stationBlock = StationBlock.getByStationNo(toStation);
-                    asrsJob.setToStation(stationBlock.getBlockNo());
-                    asrsJob.setType(AsrsJobType.RETRIEVAL);
-
-                    asrsJob.setFromStation(srm.getBlockNo());
-                    asrsJob.setWareHouse(srm.getWareHouse());
-
+                if (StringUtils.isNotEmpty(stationBlock.getMcKey())) {
+                    throw new Exception("入库站台有任务");
                 }
-                asrsJob.setPriority(1);
-                asrsJob.setIndicating(false);
-                asrsJob.setWmsMckey(controlArea.getRefId().getReferenceId());
-                asrsJob.setMcKey(mcKey);
-                asrsJob.setBarcode(dataArea.getStUnitId());
-                asrsJob.setStatus(AsrsJobStatus.RUNNING);
-                asrsJob.setStatusDetail(AsrsJobStatusDetail.WAITING);
-                asrsJob.setGenerateTime(new Date());
-                asrsJob.setSendReport(false);
-                session.save(asrsJob);
-            }
-            sendReport("00");
 
-            Transaction.commit();
+                String blockNo = dataArea.getToLocation().getMHA();
+                Srm srm = (Srm) Block.getByBlockNo(blockNo);
 
-        } catch (Exception e) {
-            Transaction.rollback();
-            e.printStackTrace();
-            try {
-                sendReport("03");
-            } catch (Exception e1) {
-                e1.printStackTrace();
+                Location location = Location.getByBankBayLevel(Integer.parseInt(locationS.get(0)), Integer.parseInt(locationS.get(1)), Integer.parseInt(locationS.get(2)), srm.getPosition());
+
+                if (location == null) {
+                    throw new Exception("货位不存在");
+                }
+
+                if (stationBlock.getLoad() == null || stationBlock.getLoad().equals("0")) {
+                    throw new Exception("入库站台无载荷");
+                }
+
+                location.setReserved(true);
+
+                //入库类型
+                asrsJob.setType(AsrsJobType.PUTAWAY);
+
+                asrsJob.setToLocation(location.getLocationNo());
+                stationBlock.setMcKey(controlArea.getRefId().getReferenceId());
+                stationBlock.setWaitingResponse(false);
+                session.saveOrUpdate(stationBlock);
+
+
+                asrsJob.setToStation(srm.getBlockNo());
+                stationBlock.setLoad("0");
+                asrsJob.setWareHouse(srm.getWareHouse());
+
+            } else if (AsrsJobType.RETRIEVAL.equals(dataArea.getTransportType())) {
+
+                List<String> locationS = dataArea.getFromLocation().getRack();
+
+                String blockNo = dataArea.getFromLocation().getMHA();
+                Srm srm = (Srm) Block.getByBlockNo(blockNo);
+
+                Location location = Location.getByBankBayLevel(Integer.parseInt(locationS.get(0)), Integer.parseInt(locationS.get(1)), Integer.parseInt(locationS.get(2)), srm.getPosition());
+
+                asrsJob.setFromLocation(location.getLocationNo());
+                String toStation = dataArea.getToLocation().getMHA();
+
+                Station station = Station.getStation(toStation);
+                if (!station.getType().equals(AsrsJobType.RETRIEVAL)) {
+                    throw new Exception("站台不是出库站台");
+                }
+
+                StationBlock stationBlock = StationBlock.getByStationNo(toStation);
+                asrsJob.setToStation(stationBlock.getBlockNo());
+                asrsJob.setType(AsrsJobType.RETRIEVAL);
+
+                asrsJob.setFromStation(srm.getBlockNo());
+                asrsJob.setWareHouse(srm.getWareHouse());
+
             }
+            asrsJob.setPriority(1);
+            asrsJob.setIndicating(false);
+            asrsJob.setWmsMckey(controlArea.getRefId().getReferenceId());
+            asrsJob.setMcKey(controlArea.getRefId().getReferenceId());
+            asrsJob.setBarcode(dataArea.getStUnit().getStUnitID());
+            asrsJob.setStatus(AsrsJobStatus.RUNNING);
+            asrsJob.setStatusDetail(AsrsJobStatusDetail.WAITING);
+            asrsJob.setGenerateTime(new Date());
+            asrsJob.setSendReport(false);
+            session.save(asrsJob);
         }
+        sendReport("00");
+
     }
 
-    private void sendReport(String result) throws Exception {
+    public void sendReport(String result) throws Exception {
         AcceptTransportOrder acceptTransportOrder = new AcceptTransportOrder();
 
 
@@ -281,7 +217,9 @@ public class TransportOrder extends XMLProcess {
 
 
         Sender sender = new Sender();
-        sender.setDivision(this.controlArea.getReceiver().getDivision());
+        if(this.controlArea.getReceiver()!=null) {
+            sender.setDivision(this.controlArea.getReceiver().getDivision());
+        }
         controlArea.setSender(sender);
 
         Receiver receiver = new Receiver();
@@ -300,7 +238,13 @@ public class TransportOrder extends XMLProcess {
         //将MovementReport发送给wms
         Envelope el = new Envelope();
         el.setAcceptTransportOrder(acceptTransportOrder);
-        XMLUtil.sendEnvelope(el);
+
+        XMLMessage xmlMessage = new XMLMessage();
+        xmlMessage.setStatus("1");
+        xmlMessage.setRecv("WMS");
+        xmlMessage.setMessageInfo(XMLUtil.getSendXML(el));
+        HibernateUtil.getCurrentSession().save(xmlMessage);
+
 
     }
 }

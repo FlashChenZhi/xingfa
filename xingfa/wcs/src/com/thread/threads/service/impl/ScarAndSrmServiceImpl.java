@@ -29,14 +29,22 @@ public class ScarAndSrmServiceImpl implements ScarService {
             if (StringUtils.isNotBlank(srm.getMcKey())) {
                 //如果提升机上有任务，
                 AsrsJob asrsJob = AsrsJob.getAsrsJobByMcKey(srm.getMcKey());
-                if (asrsJob.getType().equals(AsrsJobType.PUTAWAY) && !asrsJob.getStatus().equals(AsrsJobStatus.DONE)) {
+                if (asrsJob.getType().equals(AsrsJobType.PUTAWAY) && asrsJob.getStatus().equals(AsrsJobStatus.RUNNING)) {
                     //如果提升机存在入库任务，子车设置reservedmckey，出库任务不管，默认子车已经取货完成上提升机了
                     sCar.setReservedMcKey(srm.getMcKey());
+                    asrsJob.setStatus(AsrsJobStatus.ACCEPT);
                 }
+
             } else if (StringUtils.isNotBlank(srm.getReservedMcKey())) {
+
+                AsrsJob asrsJob = AsrsJob.getAsrsJobByMcKey(srm.getReservedMcKey());
                 //如果提升机上又预约任务
-                if (StringUtils.isNotBlank(srm.getsCarBlockNo()))
-                    sCar.setReservedMcKey(srm.getReservedMcKey());
+                if (StringUtils.isNotBlank(srm.getsCarBlockNo()) && asrsJob.getStatus().equals(AsrsJobStatus.RUNNING) ) {
+                    if(!asrsJob.getType().equals(AsrsJobType.ST2ST)) {
+                        sCar.setReservedMcKey(srm.getReservedMcKey());
+                        asrsJob.setStatus(AsrsJobStatus.ACCEPT);
+                    }
+                }
             }
 
         } else {
@@ -46,10 +54,11 @@ public class ScarAndSrmServiceImpl implements ScarService {
             //如果提升机上有任务，
             if (srm != null && StringUtils.isNotBlank(srm.getMcKey())) {
                 AsrsJob asrsJob = AsrsJob.getAsrsJobByMcKey(srm.getMcKey());
-                if (asrsJob.getType().equals(AsrsJobType.PUTAWAY) && !asrsJob.getStatus().equals(AsrsJobStatus.DONE)) {
+                if (asrsJob.getType().equals(AsrsJobType.PUTAWAY) && asrsJob.getStatus().equals(AsrsJobStatus.RUNNING)) {
                     //如果提升机存在入库任务，子车设置reservedmckey，出库任务不管，默认子车已经取货完成上提升机了
                     //充电状态不是完成状态
                     sCar.setReservedMcKey(srm.getMcKey());
+                    asrsJob.setStatus(AsrsJobStatus.ACCEPT);
                     hasJob = true;
                 }
             }

@@ -35,8 +35,8 @@ public class WcsMessage {
 
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-//    @SequenceGenerator(name = "seq", sequenceName = "SEQ_MSG03", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq")
+    @SequenceGenerator(name = "seq", sequenceName = "SEQ_MSG03", allocationSize = 1)
     @Column(name = "ID", nullable = false, length = 8)
     public int getId() {
         return id;

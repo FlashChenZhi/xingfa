@@ -20,8 +20,8 @@ public class MessageLog {
     public static final String TYPE_RECV = "R";
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-//    @SequenceGenerator(name = "seq", sequenceName = "SEQ_ASRSJOB", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq")
+    @SequenceGenerator(name = "seq", sequenceName = "SEQ_MESSAGELOG", allocationSize = 1)
     @Column(name = "ID", nullable = false)
     public int getId() {
         return id;

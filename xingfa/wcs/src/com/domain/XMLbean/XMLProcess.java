@@ -21,7 +21,7 @@ public abstract class XMLProcess {
     Date arriveTime;
 
 
-    public abstract void execute();
+    public abstract void execute() throws Exception;
 
     public void setProxy(XmlProxy xmlProxy,MessageProxy proxy) {
         this.xmlProxy = xmlProxy;

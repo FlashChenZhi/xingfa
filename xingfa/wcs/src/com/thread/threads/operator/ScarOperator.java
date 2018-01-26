@@ -3,12 +3,10 @@ package com.thread.threads.operator;
 import com.asrs.domain.AsrsJob;
 import com.asrs.domain.Location;
 import com.asrs.message.Message03;
-import com.thread.blocks.Block;
 import com.thread.blocks.SCar;
 import com.thread.blocks.Srm;
 import com.thread.utils.MsgSender;
-import org.apache.commons.lang.StringUtils;
-import org.apache.poi.util.StringUtil;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  * Created by van on 2017/11/2.
@@ -42,8 +40,7 @@ public class ScarOperator {
      */
     public void tryOnSrm(Srm srm) throws Exception {
 
-        if (sCar.getActualArea().equals(srm.getActualArea())
-                && sCar.getLevel() == srm.getLevel()
+        if (sCar.getLevel() == srm.getLevel()
                 && sCar.getBay() == srm.getBay()) {
             MsgSender.send03(Message03._CycleOrder.onCar, mckey, sCar, "", srm.getBlockNo(), "", "");
         }
@@ -134,9 +131,10 @@ public class ScarOperator {
     public void tryUnloadGoods(Srm srm) throws Exception {
         AsrsJob asrsJob = AsrsJob.getAsrsJobByMcKey(mckey);
         Location location = Location.getByLocationNo(asrsJob.getToLocation());
-        if (location.getActualArea().equals(sCar.getActualArea())
+        if (StringUtils.isNotBlank(srm.getMcKey())
+                && location.getActualArea().equals(sCar.getActualArea())
                 && location.getBay() == sCar.getBay()
-                && sCar.getLevel() == sCar.getLevel()) {
+                && sCar.getLevel() == location.getLevel()) {
             MsgSender.send03(Message03._CycleOrder.unloadGoods, mckey, sCar, location.getLocationNo(), srm.getBlockNo(), "", "");
         }
     }
@@ -180,5 +178,16 @@ public class ScarOperator {
             MsgSender.send03(Message03._CycleOrder.onCar, mckey, sCar, location, srm.getBlockNo(), "", "");
         }
 
+    }
+
+    /**
+     * 子车充电
+     *
+     * @param sCar
+     * @param location
+     * @throws Exception
+     */
+    public void tryCharge(SCar sCar, Location location) throws Exception {
+        MsgSender.send03(Message03._CycleOrder.charge, sCar.getMcKey(), sCar, location.getLocationNo(), "", "", "");
     }
 }

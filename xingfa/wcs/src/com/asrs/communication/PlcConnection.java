@@ -160,8 +160,6 @@ public class PlcConnection
             bytes[bytes.length - 1] = 0x03;
             send(bytes);
             LogWriter.writeInfo("ComLog", String.format("[S] [%1$s] [%2$s]", _plcName, msgStr.substring(1, msgStr.length() - 1)));
-            Thread.sleep(100);
-            send(bytes);
             try{
                 Transaction.begin();
                 MessageLog log = new MessageLog();

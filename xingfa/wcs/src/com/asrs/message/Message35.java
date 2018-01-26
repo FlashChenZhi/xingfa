@@ -82,52 +82,60 @@ public class Message35 extends Message implements Serializable {
         return sb.toString();
     }
 
-    public boolean isPickingUpGoods(){
+    public boolean isPickingUpGoods() {
         return CycleOrder.equals(_CycleOrder.pickUpGoods);
     }
 
-    public boolean isUnloadGoods(){
+    public boolean isUnloadGoods() {
         return CycleOrder.equals(_CycleOrder.unloadGoods);
     }
 
-    public boolean isMove(){
+    public boolean isMove() {
         return CycleOrder.equals(_CycleOrder.move);
     }
 
-    public boolean isLoadCar(){
+    public boolean isLoadCar() {
         return CycleOrder.equals(_CycleOrder.loadCar);
     }
 
-    public boolean isUnLoadCar(){
+    public boolean isUnLoadCar() {
         return CycleOrder.equals(_CycleOrder.unloadCar);
     }
 
-    public boolean isMoveCarryGoods(){
+    public boolean isMoveCarryGoods() {
         return CycleOrder.equals(_CycleOrder.moveCarryGoods);
     }
 
-    public boolean isMoveUnloadGoods(){
+    public boolean isMoveUnloadGoods() {
         return CycleOrder.equals(_CycleOrder.moveUnloadGoods);
     }
 
-    public boolean isOnCar(){
+    public boolean isOnCar() {
         return CycleOrder.equals(_CycleOrder.onCar);
     }
 
-    public boolean isOffCar(){
+    public boolean isOffCar() {
         return CycleOrder.equals(_CycleOrder.offCar);
     }
 
-    public boolean isScarMoveCarryGoods(){
+    public boolean isScarMoveCarryGoods() {
         return CycleOrder.equals(_CycleOrder.scarMoveCarryGoods);
     }
 
-    public boolean isOnCarCarryGoods(){
+    public boolean isOnCarCarryGoods() {
         return CycleOrder.equals(_CycleOrder.onCarCarryGoods);
     }
 
-    public boolean isOffCarCarryGoods(){
+    public boolean isOffCarCarryGoods() {
         return CycleOrder.equals(_CycleOrder.offCarCarryGoods);
+    }
+
+    public boolean isCharge() {
+        return CycleOrder.equals(_CycleOrder.charge);
+    }
+
+    public boolean isChargeFinish() {
+        return CycleOrder.equals(_CycleOrder.chargeFinish);
     }
 
     public static class _CycleOrder {
@@ -144,5 +152,8 @@ public class Message35 extends Message implements Serializable {
         public static final String scarMoveCarryGoods = "11";
         public static final String onCarCarryGoods = "12";
         public static final String offCarCarryGoods = "13";
+        public static final String charge = "14";
+        public static final String chargeFinish = "15";
+
     }
 }

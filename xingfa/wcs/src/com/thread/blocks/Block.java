@@ -1,6 +1,8 @@
 package com.thread.blocks;
 
+import com.asrs.business.consts.AsrsJobStatusDetail;
 import com.asrs.domain.AsrsJob;
+import com.asrs.domain.Location;
 import com.asrs.domain.RouteDetail;
 import com.util.hibernate.*;
 import com.util.hibernate.Transaction;
@@ -249,5 +251,43 @@ public abstract class Block {
         }
 
         return getByBlockNo(rds.get(0).getCurrentBlockNo());
+    }
+
+    @Transient
+    public Block getPreBlockHasMckey(String jobType) {
+        org.hibernate.Query query = HibernateUtil.getCurrentSession().createQuery("select d from RouteDetail d,Block b where d.currentBlockNo = b.blockNo and " +
+                "d.nextBlockNo =:cb and b.mcKey is not null and d.route.type=:type order by b.blockNo desc")
+                .setString("cb", getBlockNo()).setString("type", jobType);
+
+        List<RouteDetail> rds = query.list();
+
+        if (rds.isEmpty()) {
+            return null;
+        }
+        for (RouteDetail detail : rds) {
+            Block block1 = Block.getByBlockNo(detail.getCurrentBlockNo());
+            AsrsJob job = AsrsJob.getAsrsJobByMcKey(block1.getMcKey());
+            Location location = Location.getByLocationNo(job.getToLocation());
+
+            //检查是否存在其他入库任务
+            org.hibernate.Query query1 = HibernateUtil.getCurrentSession().createQuery(" select j from AsrsJob j,Location l" +
+                    " where j.toLocation = l.locationNo and l.position=:po and l.bay =:bay and l.level =:lev and l.actualArea =:area and l.seq<:seq and j.statusDetail =:jd");
+
+            query1.setParameter("po", location.getPosition());
+            query1.setParameter("bay", location.getBay());
+            query1.setParameter("lev", location.getLevel());
+            query1.setParameter("area",location.getActualArea());
+            query1.setParameter("seq", location.getSeq());
+            query1.setParameter("jd", AsrsJobStatusDetail.WAITING);
+            query1.setMaxResults(1);
+            AsrsJob asrsJob = (AsrsJob) query1.uniqueResult();
+            if (asrsJob == null) {
+                return block1;
+            }
+
+        }
+
+        return null;
+
     }
 }

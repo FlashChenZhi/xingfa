@@ -17,6 +17,7 @@ public class StationBlock extends Block {
     private String liftNo;
     private String buffMckey;
     private String load;
+    private String inPostion;
 
     @Basic
     @Column(name = "stationNo")
@@ -66,6 +67,16 @@ public class StationBlock extends Block {
 
     public void setLoad(String load) {
         this.load = load;
+    }
+
+    @Basic
+    @Column(name = "IN_POSITION")
+    public String getInPostion() {
+        return inPostion;
+    }
+
+    public void setInPostion(String inPostion) {
+        this.inPostion = inPostion;
     }
 
     public static StationBlock getByStationNo(String stationNo) {

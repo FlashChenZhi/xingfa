@@ -48,61 +48,35 @@ public class XmlConnection {
     }
 
     public void receiveHandler(){
-        if (_reader != null){
+        System.out.println("Receive Handler is running");
+        if (_reader != null) {
             byte rcvByte;
             StringBuilder dataStr = new StringBuilder();
 
-            while (isConnected()){
+            while (isConnected()) {
                 try {
                     rcvByte = _reader.readByte();
                     //lastRecvTime = System.currentTimeMillis();
-                    if (rcvByte == 2)
-                    {
+                    if (rcvByte == 2) {
                         dataStr = new StringBuilder();
-                    }
-                    else if (rcvByte == 3)
-                    {
-                        if (dataStr.length() > 0){
+                    } else if (rcvByte == 3) {
+                        if (dataStr.length() > 0) {
                             String msg = dataStr.toString();
                             _proxy.addRcvdXML(dataStr.toString());
-
-                            if(msg.length() <= 7){
-                                System.out.println("XMLRecv接收到Message:" + msg);
+                            if (msg.length() <= 7) {
+                                System.out.println("XMLSend接收:" + dataStr.toString());
                             } else {
                                 System.out.println("XMLRecv接收到XML");
                             }
                         }
                         dataStr = new StringBuilder();
-                    }
-                    else
-                    {
+                    } else {
                         dataStr.append((char) rcvByte);
                     }
+                } catch (EOFException e) {
 
-                    if(dataStr.toString().endsWith("</WmsWcsXML_Envelope>")){
-                        String msg = dataStr.toString();
-                        System.out.println(msg);
-                        LogWriter.writeXmlInfo("xmlLog",dataStr.toString());
-                        _proxy.addRcvdXML(dataStr.toString());
-                        if(msg.length() <= 7){
-                            System.out.println("XMLRecv接收到Message:" + msg);
-                        } else {
-                            System.out.println("XMLRecv接收到XML");
-                        }
-                        dataStr = new StringBuilder();
-                    }
-
-                }catch (EOFException e){
-                    try {
-                        sleep(SLEEP_FOR_EOF);
-                        //System.out.println("XMLSend EOFException");
-                    } catch (InterruptedException interrupt) {
-                        interrupt.printStackTrace();
-                        LogWriter.writeError(this.getClass(), "XMLRecvConnection receiveHandler被中断");
-                        break;
-                    }
                     continue;
-                }catch (IOException ex) {
+                } catch (IOException ex) {
                     ex.printStackTrace();
                     LogWriter.writeError(this.getClass(), ex.getMessage());
                     try {
@@ -113,20 +87,21 @@ public class XmlConnection {
                     break;
                 }
             }
-        }
-        LogWriter.writeError(this.getClass(), "XMLRecvConnection receiveHandler终止");
+        }        LogWriter.writeError(this.getClass(), "XMLRecvConnection receiveHandler终止");
     }
 
     public void sendHandler(){
         if (_writer != null){
             while (isConnected()){
                 try {
-                    String msg = _proxy.getSendXML();
+//                    String msg = _proxy.getSendXML();
+                    String msg = XMLConstant.PROTOCOL_STX + _proxy.getSendXML() + XMLConstant.PROTOCOL_ETX;
                     LogWriter.writeXmlInfo("xmlLog",msg);
                     if(msg.length() <= 7){
                         System.out.println("XMLRecv发送Message:" + msg);
                     } else {
                         System.out.println("XMLRecv发送XML");
+
                         send(msg);
                     }
                 } catch (InterruptedException e) {

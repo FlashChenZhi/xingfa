@@ -89,5 +89,8 @@ public class Message03 extends Message implements Serializable {
         public static final String scarMoveCarryGoods = "11";
         public static final String onCarCarryGoods = "12";
         public static final String offCarCarryGoods = "13";
+        public static final String charge = "14";
+        public static final String chargeFinish = "15";
+
     }
 }

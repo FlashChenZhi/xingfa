@@ -1,7 +1,9 @@
 package com.asrs.communication;
 
+import com.asrs.domain.Plc;
 import com.thread.blocks.Block;
 import com.thread.blocks.MCar;
+import com.thread.blocks.Srm;
 import com.util.common.*;
 import com.util.hibernate.Transaction;
 
@@ -30,6 +32,7 @@ public class ConnectionManager implements Runnable {
     private boolean isAutoConnect = true;
 
     HashMap<String, PlcConnection> _connectionPool = new HashMap<String, PlcConnection>();
+    private String plcName;
 
     public ConnectionManager() {
 //        _connCheckThread.start();
@@ -43,7 +46,7 @@ public class ConnectionManager implements Runnable {
             conn = new PlcConnection(name, ip, port);
             _connectionPool.put(name, conn);
         }
-
+        plcName = name;
         if (!conn.IsConnected()) {
             try {
                 conn.connect();
@@ -53,14 +56,33 @@ public class ConnectionManager implements Runnable {
                     if (block instanceof MCar) {
                         MCar mCar = (MCar) block;
                         mCar.setCheckLocation(false);
+                    } else if (block instanceof Srm) {
+                        Srm srm = (Srm) block;
+                        srm.setCheckLocation(false);
                     }
                 }
+
+                //PLC连接成功
+                Plc plc = Plc.getPlcByPlcName(name);
+                plc.setStatus("1");
                 Transaction.commit();
                 System.out.println(conn.getPlcName() + " Connected!");
             } catch (CommunicationException e) {
-                String errMsg = "无法连接" + conn.getPlcName();
+                Transaction.rollback();
+                String errMsg = "cannot connection" + conn.getPlcName();
                 System.out.println(errMsg);
                 LogWriter.writeError(this.getClass(), errMsg);
+                try {
+                    Transaction.begin();
+                    //PLC连接成功
+                    Plc plc = Plc.getPlcByPlcName(name);
+                    plc.setStatus("2");
+                    Transaction.commit();
+                } catch (Exception e1) {
+                    Transaction.rollback();
+                    e1.printStackTrace();
+                }
+
             }
         }
 
@@ -109,15 +131,32 @@ public class ConnectionManager implements Runnable {
                                 if (block instanceof MCar) {
                                     MCar mCar = (MCar) block;
                                     mCar.setCheckLocation(false);
+                                } else if (block instanceof Srm) {
+                                    Srm srm = (Srm) block;
+                                    srm.setCheckLocation(false);
                                 }
                             }
+                            //PLC连接成功
+                            Plc plc = Plc.getPlcByPlcName(plcName);
+                            plc.setStatus("1");
+
                             Transaction.commit();
 
                             System.out.println(conn.getPlcName() + " Connected!");
                         } catch (CommunicationException e) {
-                            String errMsg = "无法连接" + conn.getPlcName();
-                            System.out.println(errMsg);
+                            Transaction.rollback();
+                            String errMsg = "cannot connection" + conn.getPlcName();
                             LogWriter.writeError(this.getClass(), errMsg);
+                            try {
+                                Transaction.begin();
+                                //PLC连接成功
+                                Plc plc = Plc.getPlcByPlcName(conn.getPlcName());
+                                plc.setStatus("2");
+                                Transaction.commit();
+                            } catch (Exception e1) {
+                                Transaction.rollback();
+                                e1.printStackTrace();
+                            }
                         }
                     }
                 }

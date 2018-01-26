@@ -5,8 +5,6 @@ import com.thread.blocks.*;
 import com.thread.utils.MsgSender;
 import org.apache.commons.lang3.StringUtils;
 
-import javax.persistence.Transient;
-
 /**
  * Created by van on 2017/11/2.
  * 输送机操作类
@@ -30,9 +28,15 @@ public class ConveyorOperator {
      * @throws Exception
      */
     public void tryMoveToAnotherCrane(Block nextBlock) throws Exception {
-        if (!nextBlock.isWaitingResponse() && StringUtils.isBlank(nextBlock.getMcKey()) && StringUtils.isBlank(nextBlock.getReservedMcKey())) {
-            MsgSender.send03(Message03._CycleOrder.moveUnloadGoods, mckey, conveyor, "", nextBlock.getBlockNo(), "", "");
-            MsgSender.send03(Message03._CycleOrder.moveCarryGoods, mckey, nextBlock, "", conveyor.getBlockNo(), "", "");
+        Conveyor coy = (Conveyor) nextBlock;
+        if (coy.isManty()) {
+                MsgSender.send03(Message03._CycleOrder.moveUnloadGoods, mckey, conveyor, "", nextBlock.getBlockNo(), "", "");
+                MsgSender.send03(Message03._CycleOrder.moveCarryGoods, mckey, nextBlock, "", conveyor.getBlockNo(), "", "");
+        } else {
+            if (!nextBlock.isWaitingResponse() && StringUtils.isBlank(nextBlock.getMcKey()) && StringUtils.isBlank(nextBlock.getReservedMcKey())) {
+                MsgSender.send03(Message03._CycleOrder.moveUnloadGoods, mckey, conveyor, "", nextBlock.getBlockNo(), "", "");
+                MsgSender.send03(Message03._CycleOrder.moveCarryGoods, mckey, nextBlock, "", conveyor.getBlockNo(), "", "");
+            }
         }
     }
 
@@ -57,7 +61,7 @@ public class ConveyorOperator {
      * @param nextBlock
      */
     public void tryMoveUnloadGoodsToSrm(Srm nextBlock) throws Exception {
-        if (nextBlock.getDock() != null && nextBlock.getDock().equals(conveyor.getBlockNo())) {
+        if (nextBlock.getDock() != null && nextBlock.getDock().equals(conveyor.getBlockNo()) && StringUtils.isBlank(nextBlock.getMcKey())) {
             MsgSender.send03(Message03._CycleOrder.moveUnloadGoods, mckey, conveyor, "", nextBlock.getBlockNo(), "", "");
         }
     }
@@ -70,7 +74,7 @@ public class ConveyorOperator {
      * @param nextBlock
      */
     public void tryMoveUnloadGoodsToMCar(MCar nextBlock) throws Exception {
-        if (nextBlock.getDock() != null && nextBlock.getDock().equals(conveyor.getDock())) {
+        if (nextBlock.getDock() != null && nextBlock.getDock().equals(conveyor.getDock()) && StringUtils.isBlank(nextBlock.getMcKey())) {
             MsgSender.send03(Message03._CycleOrder.moveUnloadGoods, mckey, conveyor, "", nextBlock.getBlockNo(), "", "");
         }
     }
@@ -84,7 +88,7 @@ public class ConveyorOperator {
      * @throws Exception
      */
     public void tryMoveUnloadGoodsToStation(StationBlock nextBlock) throws Exception {
-        if (StringUtils.isBlank(nextBlock.getMcKey()) || StringUtils.isBlank(nextBlock.getBuffMckey())) {
+        if (StringUtils.isBlank(nextBlock.getMcKey())) {
             MsgSender.send03(Message03._CycleOrder.moveUnloadGoods, mckey, conveyor, "", nextBlock.getBlockNo(), "", "");
             MsgSender.send03(Message03._CycleOrder.moveCarryGoods, mckey, nextBlock, "", conveyor.getBlockNo(), "", "");
         }

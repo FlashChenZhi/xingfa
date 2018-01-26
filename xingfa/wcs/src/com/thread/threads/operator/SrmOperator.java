@@ -115,6 +115,15 @@ public class SrmOperator {
                     this.move(sCarLocation);
                 }
 
+            } else {
+                if (StringUtils.isNotBlank(srm.getMcKey())) {
+                    if (StringUtils.isNotBlank(sCar.getReservedMcKey())) {
+                        AsrsJob asrsJob = AsrsJob.getAsrsJobByMcKey(sCar.getReservedMcKey());
+                        Location location = Location.getByLocationNo(asrsJob.getToLocation());
+                        if (!srm.arrive(location))
+                            this.move(location);
+                    }
+                }
             }
         }
     }
@@ -203,9 +212,10 @@ public class SrmOperator {
     /**
      * 堆垛机回原点
      *
+     * @param srm
      * @throws Exception
      */
-    public void cycle() throws Exception {
+    public void cycle(Srm srm) throws Exception {
         MsgSender.send03(Message03._CycleOrder.move, mckey, srm, "", srm.getCycle(), "", "");
     }
 
@@ -217,7 +227,7 @@ public class SrmOperator {
      */
     public void unLoadCarFirst(SCar sCar, String reservedMcKey) throws Exception {
         AsrsJob asrsJob = AsrsJob.getAsrsJobByMcKey(reservedMcKey);
-        Location location = Location.getByLocationNo(asrsJob.getToLocation());
+        Location location = Location.getByLocationNo(asrsJob.getFromLocation());
         ScarOperator scarOperator = new ScarOperator(sCar, reservedMcKey);
         if (srm.getCheckLocation() && srm.getLevel() == location.getLevel() && srm.getBay() == location.getBay()) {
             unLoadCar(sCar.getBlockNo(), reservedMcKey, location);

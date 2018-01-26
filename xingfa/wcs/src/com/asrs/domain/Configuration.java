@@ -16,6 +16,7 @@ public class Configuration {
     public static final String KEY_RUNMODEL = "RUNMODEL";
     public static final String MODEL_ONLINE = "1";
     public static final String MODEL_OFFLINE = "0";
+    public static final String CURRENTSRM = "CURRENTSRM";
 
     @Id
     @Column(name = "CFKEY")

@@ -32,7 +32,7 @@ public class SrmCharageOverService extends SrmAndScarServiceImpl {
         } else {
             Srm endStation = (Srm) Srm.getByBlockNo(asrsJob.getToStation());
             SCar sCar = SCar.getScarByGroup(endStation.getGroupNo());
-            Location location = Location.getByLocationNo(sCar.getChargeChanel());
+            Location location = Location.getByLocationNo(sCar.getChargeLocation());
             SrmOperator srmOperator = new SrmOperator(srm, srm.getReservedMcKey());
             srmOperator.tryLoadCarFromLocation(sCar, location);
 

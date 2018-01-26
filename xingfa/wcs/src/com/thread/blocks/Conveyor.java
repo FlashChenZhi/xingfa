@@ -1,9 +1,5 @@
 package com.thread.blocks;
 
-import com.asrs.message.Message03;
-import com.thread.utils.MsgSender;
-import org.apache.commons.lang3.StringUtils;
-
 import javax.persistence.*;
 
 /**
@@ -16,6 +12,8 @@ import javax.persistence.*;
 public class Conveyor extends Block {
     private String dock;
     private String onCar;
+    private boolean manty;
+    private boolean mantWaiting;
 
     @Basic
     @Column(name = "DOCK")
@@ -35,6 +33,26 @@ public class Conveyor extends Block {
 
     public void setOnCar(String onCar) {
         this.onCar = onCar;
+    }
+
+    @Basic
+    @Column(name = "MANTY")
+    public boolean isManty() {
+        return manty;
+    }
+
+    public void setManty(boolean manty) {
+        this.manty = manty;
+    }
+
+    @Basic
+    @Column(name = "MANT_WAITING")
+    public boolean isMantWaiting() {
+        return mantWaiting;
+    }
+
+    public void setMantWaiting(boolean mantWaiting) {
+        this.mantWaiting = mantWaiting;
     }
 
 }

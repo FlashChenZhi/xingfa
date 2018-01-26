@@ -36,6 +36,8 @@ public class StationServiceImpl implements StationService {
 
         if (nextBlock instanceof Conveyor) {
             operator.tryMoveToConveyor((Conveyor) nextBlock);
+        } else if (nextBlock instanceof Srm) {
+            operator.tryMoveToSrm((Srm)nextBlock);
         }
 
     }

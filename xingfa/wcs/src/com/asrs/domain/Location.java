@@ -38,8 +38,9 @@ public class Location {
     private Double height;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID", nullable = false, length = 8)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq")
+    @SequenceGenerator(name = "seq", sequenceName = "SEQ_LOCATION_ID", allocationSize = 1)
     public int getId() {
         return _id;
     }
@@ -157,6 +158,20 @@ public class Location {
     public void setSeq(int seq) {
         _seq = seq;
     }
+
+    private boolean _reserved;
+
+    @Basic
+    @Column(name = "RESERVED")
+    //保留的
+    public boolean getReserved() {
+        return _reserved;
+    }
+
+    public void setReserved(boolean reserved) {
+        _reserved = reserved;
+    }
+
 
     private String actualArea;
 

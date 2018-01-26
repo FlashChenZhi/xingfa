@@ -72,10 +72,38 @@ public class SrmAndScarRetrievalService extends SrmAndScarServiceImpl {
                         operator.tryUnloadGoods();
                     }
                 }
-            }else{
-                //移动升降机上没有子车
-                operator.tryUnloadGoods();
+            } else {
+
+                if (sCar.isWaitingResponse()) {
+                    if (StringUtils.isNotBlank(sCar.getMcKey())) {
+
+                    } else {
+                        AsrsJob newJob = AsrsJob.getAsrsJobByMcKey(sCar.getReservedMcKey());
+                        Location newLocation = Location.getByLocationNo(newJob.getFromLocation());
+
+                        if (newLocation.getLevel() == srm.getLevel()
+                                && newLocation.getBay() == srm.getBay()) {
+                            //优先卸子车
+                            operator.unLoadCarFirst(sCar, sCar.getReservedMcKey());
+                        } else {
+                            //是否先卸子车
+                            boolean flag = unLoadCarFirst();
+                            if (flag) {
+                                operator.unLoadCarFirst(sCar, sCar.getReservedMcKey());
+                            } else {
+                                //有限卸货
+                                operator.tryUnloadGoods();
+                            }
+                        }
+
+                    }
+                } else {
+                    //移动升降机上没有子车
+                    operator.tryUnloadGoods();
+                }
             }
+
+
         } else {
             //移动升降机上没有子车
             operator.tryUnloadGoods();

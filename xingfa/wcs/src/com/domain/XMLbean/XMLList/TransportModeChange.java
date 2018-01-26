@@ -40,7 +40,7 @@ import java.util.List;
 //TransportModeChange
 public class TransportModeChange extends XMLProcess {
 
-    public static void main(String[] args) throws Exception{
+    public static void main(String[] args) throws Exception {
         Message40 message40 = new Message40();
         message40.setPlcName("BL01");
         message40.Station = "1301";
@@ -98,18 +98,35 @@ public class TransportModeChange extends XMLProcess {
 
             StationBlock stationBlock = StationBlock.getByStationNo(dataArea.getMha());
 
-            Station nowStation = Station.getStation(dataArea.getMha());
-            if((dataArea.getTransportType().equals("01") && nowStation.getMode().equals(AsrsJobType.PUTAWAY))
-                    || (dataArea.getTransportType().equals("02") && nowStation.getMode().equals(AsrsJobType.RETRIEVAL))){
+            org.hibernate.Query query = HibernateUtil.getCurrentSession().createQuery("from AsrsJob where toStation=:station or fromStation=:fStatiom");
+            query.setString("station", stationBlock.getBlockNo());
+            query.setString("fStatiom", stationBlock.getBlockNo());
+            List<AsrsJob> list = query.list();
 
+            if (list.isEmpty()) {
+                Session session = HibernateUtil.getCurrentSession();
+                Station station = Station.getStation(dataArea.getMha());
+                station.setOldMode(station.getMode());
+                station.setMode("09");
+                session.saveOrUpdate(station);
+                StationBlock block = (StationBlock) session.createQuery("from StationBlock sb where sb.stationNo = :stationNo")
+                        .setParameter("stationNo", dataArea.getMha()).uniqueResult();
+                Message40 message40 = new Message40();
+                message40.setPlcName(block.getPlcName());
+                message40.Station = dataArea.getMha();
+                message40.Mode = dataArea.getTransportType();
+                MessageProxy _wcsproxy = (MessageProxy) Naming.lookup(Const.WCSPROXY);
+                _wcsproxy.addSndMsg(message40);
+            } else {
+                //有任务，不允许切换，回复NG给wms
                 Sender sender = new Sender();
                 sender.setDivision(XMLConstant.COM_DIVISION);
                 ControlArea controlArea = new ControlArea();
                 controlArea.setSender(sender);
                 TransportModeChangeDA transportModeChangeDA = new TransportModeChangeDA();
                 transportModeChangeDA.setMha(this.dataArea.getMha());
-                transportModeChangeDA.setTransportType(dataArea.getTransportType());
-                transportModeChangeDA.setInformation("00");
+                transportModeChangeDA.setTransportType(StationMode.UNKNOWN);
+                transportModeChangeDA.setInformation("03");
                 TransportModeChangeReport transportModeChangeReport = new TransportModeChangeReport();
                 transportModeChangeReport.setDate(new Date());
                 transportModeChangeReport.setControlArea(controlArea);
@@ -121,53 +138,8 @@ public class TransportModeChange extends XMLProcess {
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-
-
-            }else{
-
-                org.hibernate.Query query = HibernateUtil.getCurrentSession().createQuery("from AsrsJob where toStation=:station or fromStation=:fStatiom");
-                query.setString("station", stationBlock.getBlockNo());
-                query.setString("fStatiom", stationBlock.getBlockNo());
-                List<AsrsJob> list = query.list();
-
-                if (list.isEmpty()) {
-                    Session session = HibernateUtil.getCurrentSession();
-                    Station station = Station.getStation(dataArea.getMha());
-                    station.setOldMode(station.getMode());
-                    station.setMode("09");
-                    session.saveOrUpdate(station);
-                    StationBlock block = (StationBlock) session.createQuery("from StationBlock sb where sb.stationNo = :stationNo")
-                            .setParameter("stationNo",dataArea.getMha()).uniqueResult();
-                    Message40 message40 = new Message40();
-                    message40.setPlcName(block.getPlcName());
-                    message40.Station = dataArea.getMha();
-                    message40.Mode = dataArea.getTransportType();
-                    MessageProxy _wcsproxy = (MessageProxy) Naming.lookup(Const.WCSPROXY);
-                    _wcsproxy.addSndMsg(message40);
-                } else {
-                    //有任务，不允许切换，回复NG给wms
-                    Sender sender = new Sender();
-                    sender.setDivision(XMLConstant.COM_DIVISION);
-                    ControlArea controlArea = new ControlArea();
-                    controlArea.setSender(sender);
-                    TransportModeChangeDA transportModeChangeDA = new TransportModeChangeDA();
-                    transportModeChangeDA.setMha(this.dataArea.getMha());
-                    transportModeChangeDA.setTransportType(StationMode.UNKNOWN);
-                    transportModeChangeDA.setInformation("03");
-                    TransportModeChangeReport transportModeChangeReport = new TransportModeChangeReport();
-                    transportModeChangeReport.setDate(new Date());
-                    transportModeChangeReport.setControlArea(controlArea);
-                    transportModeChangeReport.setDataArea(transportModeChangeDA);
-                    Envelope envelope = new Envelope();
-                    envelope.setTransportModeChangeReport(transportModeChangeReport);
-                    try {
-                        XMLUtil.sendEnvelope(envelope);
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                }
-
             }
+
             Transaction.commit();
         } catch (Exception e) {
             Transaction.rollback();

@@ -45,7 +45,7 @@ public class CommunicationLauncher {
         try {
             Transaction.begin();
             Session session = HibernateUtil.getCurrentSession();
-            plcs = session.createCriteria(Plc.class).add(Restrictions.eq("status", "1")).list();
+            plcs = session.createCriteria(Plc.class).list();
             Transaction.commit();
         } catch (RuntimeException ex) {
             try {

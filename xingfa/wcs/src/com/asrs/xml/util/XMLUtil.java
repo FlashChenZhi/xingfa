@@ -166,7 +166,7 @@ public class XMLUtil {
 
     public static String getSendXML(Envelope envelope) {
         String s = xStream.toXML(envelope);
-        StringBuilder result = new StringBuilder("<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?> \n");
+        StringBuilder result = new StringBuilder();
         result.append(s);
 
         String schema;

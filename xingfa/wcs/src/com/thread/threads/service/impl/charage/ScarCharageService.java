@@ -46,9 +46,8 @@ public class ScarCharageService extends ScarAndSrmServiceImpl {
                 //子车在母车上
                 scarOperator.tryOffSrm(sCar.getOnMCar(), location);
             } else {
-                //子车不在母车上，在中间通道，上堆垛机
-                Srm srm = Srm.getSrmByPosition(location.getPosition());
-                scarOperator.tryOnSrmOverPosition(srm, temLocation.getLocationNo());
+                //子车不在堆垛机上，子车已经下车在充电位置上了。发送充电
+                scarOperator.tryCharge(sCar,location);
             }
 
         } else {

@@ -55,8 +55,14 @@ public class Msg26Proc implements MsgProcess {
                 String value = JSONObject.fromObject(entry.getValue()).toString();
 
                 Transaction.begin();
-                Block block1 = (Block) HibernateUtil.getCurrentSession().createQuery("from Block where blockNo=:blocnNo").setParameter("blocnNo",entry.getKey().toString()).uniqueResult();
-                block1.setError(block.getErrorCode());
+                Block block1 = (Block) HibernateUtil.getCurrentSession().createQuery("from Block where blockNo=:blocnNo").setParameter("blocnNo", entry.getKey().toString()).uniqueResult();
+                if (block1 instanceof SCar) {
+                    SCar sCar = (SCar) block1;
+                    sCar.setPower(Integer.parseInt(block.getBatteryElectricity()));
+                    sCar.setError(block.getErrorCode());
+                    System.out.println(block.getErrorCode());
+
+                }
                 Transaction.commit();
             }
         } catch (Exception e) {

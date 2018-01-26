@@ -93,13 +93,5 @@ public class MCarOperator {
 
     }
 
-    /**
-     * 母车回原点
-     *
-     * @throws Exception
-     */
-    public void cycle() throws Exception {
-        MsgSender.send03(Message03._CycleOrder.move, mckey, mCar, "", mCar.getCycle(), "", "");
-    }
 
 }
