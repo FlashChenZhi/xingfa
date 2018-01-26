@@ -21,23 +21,12 @@ import javax.persistence.*;
 @Table(name = "HandlingUnitStatus")
 public class HandlingUnitStatus extends XMLProcess {
     @XStreamAsAttribute
-    @XStreamAlias("version")
-    private String version = XMLConstant.COM_VERSION;
 
     @XStreamAlias("ControlArea")
     private ControlArea controlArea;
 
     @XStreamAlias("DataArea")
     private HandlingUnitStatusDA dataArea;
-
-    @Column(name = "version")
-    public String getVersion() {
-        return version;
-    }
-
-    public void setVersion(String version) {
-        this.version = version;
-    }
 
     @OneToOne(targetEntity = ControlArea.class, cascade = CascadeType.ALL)
     @JoinColumn(name = "ControlAreaID", updatable = true)

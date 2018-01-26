@@ -3,26 +3,16 @@ package com.wms.service;
 import com.asrs.business.consts.AsrsJobType;
 import com.asrs.thread.JobDoHelp;
 import com.util.common.HttpMessage;
-import com.util.common.StringUtils;
 import com.util.hibernate.HibernateUtil;
 import com.util.hibernate.Transaction;
 import com.wms.domain.AsrsJob;
 import com.wms.domain.Job;
 import com.wms.domain.blocks.Block;
-import com.wms.domain.blocks.Crane;
 import com.wms.domain.blocks.SCar;
-import com.wms.vo.BlockVo;
-import org.hibernate.Criteria;
+import com.wms.domain.blocks.Srm;
 import org.hibernate.Query;
-import org.hibernate.Session;
-import org.hibernate.criterion.Projections;
-import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 /**
  * Created by wangfan
@@ -131,7 +121,7 @@ public class TaskService {
                             sCar.setReservedMcKey(null);
                         }
                     }
-                    Crane crane = (Crane) Block.getByBlockNo("ML01");
+                    Srm crane = (Srm) Block.getByBlockNo("ML01");
                     if (crane != null) {
                         if(mcKey.equals(crane.getMcKey())){
                             crane.setMcKey(null);

@@ -5,6 +5,8 @@ import com.asrs.domain.XMLbean.XMLList.TransportOrder;
 import com.util.hibernate.HibernateUtil;
 import org.hibernate.Session;
 
+import java.util.List;
+
 /**
  * Created with IntelliJ IDEA.
  * User: Administrator Date: 13-8-30 Time:
@@ -54,17 +56,16 @@ public class XMLTransportOrderUtil {
         }
         String fromMHA = order.getDataArea().getFromLocation().getMHA();
         xmlTransportOrder.setFromMHA(fromMHA);
-        xmlTransportOrder.setFromRACK(order.getDataArea().getFromLocation().getRack());
-        xmlTransportOrder.setFromX(order.getDataArea().getFromLocation().getX());
-        xmlTransportOrder.setFromY(order.getDataArea().getFromLocation().getY());
-        xmlTransportOrder.setFromZ(order.getDataArea().getFromLocation().getZ());
+//        xmlTransportOrder.setFromRACK(order.getDataArea().getFromLocation());
+        List<String> ranks = order.getDataArea().getFromLocation().getRack();
+        xmlTransportOrder.setFromX(ranks.get(0));
+        xmlTransportOrder.setFromY(ranks.get(1));
+        xmlTransportOrder.setFromZ(ranks.get(2));
         String fromLocationNo = null;
-        if (order.getDataArea().getFromLocation().getRack() != null &&
-                order.getDataArea().getFromLocation().getX() != null &&
-                order.getDataArea().getFromLocation().getY() != null) {
-            fromLocationNo = MsgUtil.getLocFromXML(order.getDataArea().getFromLocation().getRack(),
-                    order.getDataArea().getFromLocation().getX(),
-                    order.getDataArea().getFromLocation().getY());
+        if (!ranks.isEmpty()) {
+//            fromLocationNo = MsgUtil.getLocFromXML(order.getDataArea().getFromLocation().getRack(),
+//                    order.getDataArea().getFromLocation().getX(),
+//                    order.getDataArea().getFromLocation().getY());
         }
 
         xmlTransportOrder.setFromLocationNo(fromLocationNo);
@@ -74,17 +75,17 @@ public class XMLTransportOrderUtil {
         xmlTransportOrder.setRegDate(order.getDataArea().getStUnit().getRegDate());
         String toMHA = order.getDataArea().getToLocation().getMHA();
         xmlTransportOrder.setToMHA(toMHA);
-        xmlTransportOrder.setToRACK(order.getDataArea().getToLocation().getRack());
-        xmlTransportOrder.setToX(order.getDataArea().getToLocation().getX());
-        xmlTransportOrder.setToY(order.getDataArea().getToLocation().getY());
-        xmlTransportOrder.setToZ(order.getDataArea().getToLocation().getZ());
+
+        List<String> toRanks = order.getDataArea().getFromLocation().getRack();
+
+        xmlTransportOrder.setToX(toRanks.get(0));
+        xmlTransportOrder.setToY(toRanks.get(1));
+        xmlTransportOrder.setToZ(toRanks.get(2));
         String toLocationNo = null;
-        if (order.getDataArea().getToLocation().getRack() != null &&
-                order.getDataArea().getToLocation().getX() != null &&
-                order.getDataArea().getToLocation().getY() != null) {
-            toLocationNo = MsgUtil.getLocFromXML(order.getDataArea().getToLocation().getRack(),
-                    order.getDataArea().getToLocation().getX(),
-                    order.getDataArea().getToLocation().getY());
+        if (!toRanks.isEmpty()) {
+//            toLocationNo = MsgUtil.getLocFromXML(order.getDataArea().getToLocation().getRack(),
+//                    order.getDataArea().getToLocation().getX(),
+//                    order.getDataArea().getToLocation().getY());
         }
 
         xmlTransportOrder.setToLocationNo(toLocationNo);

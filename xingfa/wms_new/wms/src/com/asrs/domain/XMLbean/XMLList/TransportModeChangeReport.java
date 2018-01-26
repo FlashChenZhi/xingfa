@@ -23,9 +23,6 @@ import java.util.Date;
 @Entity
 @Table(name = "TransportModeChangeReport")
 public class TransportModeChangeReport extends XMLProcess {
-    @XStreamAsAttribute
-    @XStreamAlias("version")
-    private String version = XMLConstant.COM_VERSION;
 
     @XStreamAlias("ControlArea")
     private ControlArea controlArea;
@@ -51,15 +48,6 @@ public class TransportModeChangeReport extends XMLProcess {
 
     public void setDataArea(TransportModeChangeDA dataArea) {
         this.dataArea = dataArea;
-    }
-
-    @Column(name = "version")
-    public String getVersion() {
-        return version;
-    }
-
-    public void setVersion(String version) {
-        this.version = version;
     }
 
     @XStreamOmitField

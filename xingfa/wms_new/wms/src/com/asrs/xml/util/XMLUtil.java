@@ -75,56 +75,56 @@ public class XMLUtil {
         }
     }
 
-    public static MovementReport getNewMovementReport(String requestID, StUnit stUnit, ToLocation toLocation, FromLocation fromLocation) {
-        MovementReport movementReport = new MovementReport();
-        ControlArea controlArea = new ControlArea();  //controlArea
-        Sender sender = new Sender();                 //sender
-
-        controlArea.setSender(sender);                 //end sender
-        controlArea.setCreationDateTime(new Date().toString());
-        RefId refId = new RefId();  //refid
-        refId.setReferenceId(RefKey.getNext());  //end refid
-        controlArea.setRefId(refId);
-        movementReport.setControlArea(controlArea); //end controlarea
-
-        MovementReportDA movementReportDA = new MovementReportDA(); //dataarea
-        movementReportDA.setRequestId(requestID); //requestId
-        movementReportDA.setFromLocation(fromLocation); //end fromlocation
-
-
-        movementReportDA.setStUnit(stUnit);  //end stUnit
-
-        movementReportDA.setToLocation(toLocation);   //end tolocation
-        movementReportDA.setReasonCode("0");
-        movementReport.setDataArea(movementReportDA);   //end movementReport
-
-
-        return movementReport;
-    }
-
-    public static MovementReport getNewMovementReport(String requestID, FromLocation fromLocation, StUnit stUnit, ToLocation toLocation) {
-        MovementReport movementReport = new MovementReport();
-        ControlArea controlArea = new ControlArea();
-        MovementReportDA movementReportDA = new MovementReportDA();
-        movementReport.setControlArea(controlArea);
-        movementReport.setDataArea(movementReportDA);
-        Sender sender = new Sender();
-        RefId refId = new RefId();
-        refId.setReferenceId(RefKey.getNext());
-        controlArea.setSender(sender);
-        controlArea.setRefId(refId);
-
-        movementReportDA.setFromLocation(fromLocation);
-        movementReportDA.setStUnit(stUnit);
-        movementReportDA.setToLocation(toLocation);
-        controlArea.setCreationDateTime(new Date().toString());
-        controlArea.setRefId(refId);
-
-        movementReportDA.setRequestId(requestID);
-        movementReportDA.setReasonCode("00");
-
-        return movementReport;
-    }
+//    public static MovementReport getNewMovementReport(String requestID, StUnit stUnit, ToLocation toLocation, FromLocation fromLocation) {
+//        MovementReport movementReport = new MovementReport();
+//        ControlArea controlArea = new ControlArea();  //controlArea
+//        Sender sender = new Sender();                 //sender
+//
+//        controlArea.setSender(sender);                 //end sender
+//        controlArea.setCreationDateTime(new Date().toString());
+//        RefId refId = new RefId();  //refid
+//        refId.setReferenceId(RefKey.getNext());  //end refid
+//        controlArea.setRefId(refId);
+//        movementReport.setControlArea(controlArea); //end controlarea
+//
+//        MovementReportDA movementReportDA = new MovementReportDA(); //dataarea
+//        movementReportDA.setRequestId(requestID); //requestId
+//        movementReportDA.setFromLocation(fromLocation); //end fromlocation
+//
+//
+//        movementReportDA.setStUnit(stUnit);  //end stUnit
+//
+//        movementReportDA.setToLocation(toLocation);   //end tolocation
+//        movementReportDA.setReasonCode("0");
+//        movementReport.setDataArea(movementReportDA);   //end movementReport
+//
+//
+//        return movementReport;
+//    }
+//
+//    public static MovementReport getNewMovementReport(String requestID, FromLocation fromLocation, StUnit stUnit, ToLocation toLocation) {
+//        MovementReport movementReport = new MovementReport();
+//        ControlArea controlArea = new ControlArea();
+//        MovementReportDA movementReportDA = new MovementReportDA();
+//        movementReport.setControlArea(controlArea);
+//        movementReport.setDataArea(movementReportDA);
+//        Sender sender = new Sender();
+//        RefId refId = new RefId();
+//        refId.setReferenceId(RefKey.getNext());
+//        controlArea.setSender(sender);
+//        controlArea.setRefId(refId);
+//
+//        movementReportDA.setFromLocation(fromLocation);
+//        movementReportDA.setStUnit(stUnit);
+//        movementReportDA.setToLocation(toLocation);
+//        controlArea.setCreationDateTime(new Date().toString());
+//        controlArea.setRefId(refId);
+//
+//        movementReportDA.setRequestId(requestID);
+//        movementReportDA.setReasonCode("00");
+//
+//        return movementReport;
+//    }
 
     /**
      * 生成新的ControlArea
@@ -165,7 +165,7 @@ public class XMLUtil {
     }
     public static String getSendXML(Envelope envelope) {
         String s = xStream.toXML(envelope);
-        StringBuilder result = new StringBuilder("<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?> \n");
+        StringBuilder result = new StringBuilder();
         result.append(s);
 
         String schema;
@@ -179,10 +179,10 @@ public class XMLUtil {
             schema = "HandlingUnitStatus";
         }
 
-        String str=" xmlns=\"http://www.consafelogistics.com\" xmlns:xcl=\"http://www.consafelogistics.com/wmswcs\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:schemaLocation=\"xcl "
-            + schema + "_0100.xsd\" version=\"0100\"";
-
-        result.insert(65,str);
+//        String str=" xmlns=\"http://www.consafelogistics.com\" xmlns:xcl=\"http://www.consafelogistics.com/wmswcs\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:schemaLocation=\"xcl "
+//            + schema + "_0100.xsd\" version=\"0100\"";
+//
+//        result.insert(65,str);
         String xml = result.toString();
         xml.replaceAll("__", "_");
 
@@ -251,18 +251,18 @@ public class XMLUtil {
 
     public static void sendEnvelope(Envelope envelope) throws Exception {
 
-        Session session = HibernateUtil.getCurrentSession();
-        boolean connected = session.getTransaction().isActive();
-        if(!connected) {
-            Transaction.begin();
-        }
-        String sendId = StringUtils.leftPad(String.valueOf(HibernateUtil.nextSeq("seq_xml")), 5, "0");
-        if(!connected) {
-            Transaction.commit();
-        }
+//        Session session = HibernateUtil.getCurrentSession();
+//        boolean connected = session.getTransaction().isActive();
+//        if(!connected) {
+//            Transaction.begin();
+//        }
+//        String sendId = StringUtils.leftPad(String.valueOf(HibernateUtil.nextSeq("seq_xml")), 5, "0");
+//        if(!connected) {
+//            Transaction.commit();
+//        }
         XmlProxy _wmsproxy = (XmlProxy) Naming.lookup(Const.WMSPROXY);
 
-        String result = sendId + XMLUtil.getSendXML(envelope);
+        String result = XMLUtil.getSendXML(envelope);
 
         _wmsproxy.addSendXML(result);
     }

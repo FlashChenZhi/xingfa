@@ -9,6 +9,7 @@ public class PushOrderDetail {
 
     private BigDecimal qty;//总只数
     private String itemCode;//商品代码
+    private String palletNo;//托盘号
 
     public BigDecimal getQty() {
         return qty;
@@ -26,4 +27,11 @@ public class PushOrderDetail {
         this.itemCode = itemCode;
     }
 
+    public String getPalletNo() {
+        return palletNo;
+    }
+
+    public void setPalletNo(String palletNo) {
+        this.palletNo = palletNo;
+    }
 }

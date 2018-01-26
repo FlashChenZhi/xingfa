@@ -30,15 +30,15 @@ public class WmsMsgProcCenter implements Runnable {
             //收到XML
             System.out.println("Receive XML:" + xml);
             String sendId = xml.substring(0, 5);
-            if(sendId.equals(xml)){
+            if (sendId.equals(xml)) {
                 //应答
-                System.out.println("SendId:" + sendId + " response OK!");
-            }else {
+//                System.out.println("SendId:" + sendId + " response OK!");
+            } else {
                 _wmsProxy.addSendXML(sendId);
 
-                String msg = xml.substring(5);
+//                String msg = xml.substring(5);
                 //XMLUtil.saveAsFile(msg);
-                Envelope e = XMLUtil.getEnvelope(msg);
+                Envelope e = XMLUtil.getEnvelope(xml);
 
                 XMLProcess xmlProcess = getOrder(e);
 
@@ -84,9 +84,9 @@ public class WmsMsgProcCenter implements Runnable {
         HandlingUnitStatus handlingUnitStatus = envelope.getHandlingUnitStatus();
         LoadUnitAtID loadUnitAtID = envelope.getLoadUnitAtID();
         MovementReport movementReport = envelope.getMovementReport();
-        TransportOrder transportOrder = envelope.getTransportOrder();
         WorkStartEnd workStartEnd = envelope.getWorkStartEnd();
         TransportModeChange transportModeChange = envelope.getTransportModeChange();
+        AcceptTransportOrder acceptTransportOrder = envelope.getAcceptTransportOrder();
 
         if (null != acceptLoadUnitAtID) {
             xmlProcess = acceptLoadUnitAtID;
@@ -98,14 +98,15 @@ public class WmsMsgProcCenter implements Runnable {
             xmlProcess = loadUnitAtID;
         } else if (null != movementReport) {
             xmlProcess = movementReport;
-        } else if (null != transportOrder) {
-            xmlProcess = transportOrder;
         } else if (null != workStartEnd) {
             xmlProcess = workStartEnd;
         } else if (null != transportModeChange) {
             xmlProcess = transportModeChange;
-        } else {
+        } else if (null != acceptTransportOrder) {
             //未找到任何XMLOder
+            xmlProcess = acceptTransportOrder;
+        } else {
+
         }
 
         return xmlProcess;

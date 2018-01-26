@@ -10,7 +10,6 @@ package com.asrs.domain.consts.xmlbean;
 public class XMLConstant {
     public static String COM_DIVISION = "WMS1";
     public static String COM_CONFIRMATION = "0";
-    public static String COM_VERSION = "0100";
     public static String COM_STANDALONE_FLAG = "W";
 
     /**

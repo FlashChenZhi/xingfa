@@ -1,6 +1,8 @@
 package com.wms.domain.blocks;
 
 import com.util.hibernate.HibernateUtil;
+import org.apache.commons.lang.StringUtils;
+import org.hibernate.Session;
 
 import javax.persistence.*;
 
@@ -12,15 +14,25 @@ import javax.persistence.*;
 @DiscriminatorColumn(name = "type")
 public abstract class Block {
     protected String blockNo;
-    protected boolean waitingResponse = false;
+    protected boolean waitingResponse;
+    private String reservedMcKey;
     protected String plcName;
     protected String mcKey;
     protected String status;
-    protected String reservedMcKey;
-    protected String errorName;
+    protected String error;
+    private String wareHouse;
+
+    public static final String STATUS_RUN = "1";
+    public static final String STATUS_CHARGE = "3";
+    public static final String STATUS_CHARGE_OVER = "4";
+
+    public Block(String blockNo, String plcName) {
+        this.blockNo = blockNo;
+        waitingResponse = false;
+        this.plcName = plcName;
+    }
 
     protected Block() {
-
     }
 
     @Id
@@ -63,22 +75,16 @@ public abstract class Block {
         this.plcName = plcName;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Block block = (Block) o;
-        if (waitingResponse != block.waitingResponse) return false;
-        if (blockNo != null ? !blockNo.equals(block.blockNo) : block.blockNo != null) return false;
-        return true;
+    @Basic
+    @Column(name = "STATUS")
+    public String getStatus() {
+        return status;
     }
 
-    @Override
-    public int hashCode() {
-        int result = blockNo != null ? blockNo.hashCode() : 0;
-        result = 31 * result + (waitingResponse ? 1 : 0);
-        return result;
+    public void setStatus(String status) {
+        this.status = status;
     }
+
 
     @Basic
     @Column(name = "reservedMcKey")
@@ -91,27 +97,49 @@ public abstract class Block {
     }
 
     @Basic
-    @Column(name = "STATUS")
-    public String getStatus() {
-        return status;
+    @Column(name = "ERROR")
+    public String getError() {
+        return error;
     }
 
-    public void setStatus(String status) {
-        this.status = status;
+    public void setError(String error) {
+        this.error = error;
     }
 
     @Basic
-    @Column(name = "ERRORNAME")
-    public String getErrorName() {
-        return errorName;
+    @Column(name = "WARE_HOUSE")
+    public String getWareHouse() {
+        return wareHouse;
     }
 
-    public void setErrorName(String errorName) {
-        this.errorName = errorName;
+    public void setWareHouse(String wareHouse) {
+        this.wareHouse = wareHouse;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = blockNo != null ? blockNo.hashCode() : 0;
+        result = 31 * result + (waitingResponse ? 1 : 0);
+//        result = 31 * result + (nextBlockNo != null ? nextBlockNo.hashCode() : 0);
+        return result;
+    }
+
 
     public static Block getByBlockNo(String blockNo) {
-        return (Block) HibernateUtil.getCurrentSession().
-                createQuery("from Block where blockNo=:blockNo").setParameter("blockNo", blockNo).uniqueResult();
+        if (StringUtils.isNotBlank(blockNo)) {
+            Session session = HibernateUtil.getCurrentSession();
+            return (Block) session.get(Block.class, blockNo);
+        } else {
+            return null;
+        }
+
     }
 }

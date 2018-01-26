@@ -20,9 +20,6 @@ import javax.persistence.*;
 @Entity
 @Table(name = "AcceptLoadUnitAtID")
 public class AcceptLoadUnitAtID extends XMLProcess {
-    @XStreamAsAttribute
-    @XStreamAlias("version")
-    private String version = XMLConstant.COM_VERSION;
 
     @XStreamAlias("ControlArea")
     private ControlArea controlArea;
@@ -48,15 +45,6 @@ public class AcceptLoadUnitAtID extends XMLProcess {
 
     public void setDataArea(AcceptLoadUnitAtIdDA dataArea) {
         this.dataArea = dataArea;
-    }
-
-    @Column(name = "version")
-    public String getVersion() {
-        return version;
-    }
-
-    public void setVersion(String version) {
-        this.version = version;
     }
 
     @XStreamOmitField

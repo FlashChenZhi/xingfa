@@ -96,4 +96,9 @@ public class QueryAction {
         return queryService.searchSku(skuCode, currentPage);
     }
 
+    @RequestMapping("/modifySkuShelfLife.do")
+    @ResponseBody
+    public HttpMessage modifySkuShelfLife(String skuCode,int shelfLife){
+        return queryService.modifySkuShelfLife(skuCode,shelfLife);
+    }
 }

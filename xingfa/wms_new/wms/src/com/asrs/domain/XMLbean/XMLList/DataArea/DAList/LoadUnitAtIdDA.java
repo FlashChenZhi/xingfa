@@ -1,10 +1,9 @@
 package com.asrs.domain.XMLbean.XMLList.DataArea.DAList;
 
-import com.thoughtworks.xstream.annotations.XStreamAlias;
-import com.thoughtworks.xstream.annotations.XStreamOmitField;
-import com.asrs.domain.XMLbean.XMLList.DataArea.ScanData;
 import com.asrs.domain.XMLbean.XMLList.DataArea.XMLLocation;
 import com.asrs.domain.consts.xmlbean.XMLConstant;
+import com.thoughtworks.xstream.annotations.XStreamAlias;
+import com.thoughtworks.xstream.annotations.XStreamOmitField;
 
 import javax.persistence.*;
 
@@ -24,23 +23,36 @@ public class LoadUnitAtIdDA {
     @XStreamAlias("Location")
     private XMLLocation xmlLocation;
 
-    @XStreamAlias("ScanData")
-    private ScanData scanData;
-
     @XStreamAlias("Weight")
     private String weight;
 
-    @XStreamAlias("StUnitType")
-    private String stUnitType=XMLConstant.LUAI_STUNITTYPE;
-
     @XStreamAlias("ErrorCode")
-    private String errorCode =XMLConstant.LUAI_ERROR_CODE;
-
-    @XStreamAlias("StandAloneFlag")
-    private String standAloneFlag = XMLConstant.COM_STANDALONE_FLAG;
+    private String errorCode = XMLConstant.LUAI_ERROR_CODE;
 
     @XStreamAlias("Information")
     private String information =XMLConstant.LUAI_INFORMATION;
+
+    @XStreamAlias("ScanData")
+    private String scanDate;
+
+    @XStreamAlias("LoadType")
+    private String loadType;
+
+    public String getScanDate() {
+        return scanDate;
+    }
+
+    public void setScanDate(String scanDate) {
+        this.scanDate = scanDate;
+    }
+
+    public String getLoadType() {
+        return loadType;
+    }
+
+    public void setLoadType(String loadType) {
+        this.loadType = loadType;
+    }
 
     @Column(name = "wcsLoadId")
     public String getWcsLoadId() {
@@ -61,16 +73,6 @@ public class LoadUnitAtIdDA {
         this.xmlLocation = xmlLocation;
     }
 
-    @OneToOne(targetEntity = ScanData.class, cascade = CascadeType.ALL)
-    @JoinColumn(name = "ScanDataID", updatable = true)
-    public ScanData getScanData() {
-        return scanData;
-    }
-
-    public void setScanData(ScanData scanData) {
-        this.scanData = scanData;
-    }
-
     @Column(name = "weight")
     public String getWeight() {
         return weight;
@@ -80,15 +82,6 @@ public class LoadUnitAtIdDA {
         this.weight = weight;
     }
 
-    @Column(name = "stUnitType")
-    public String getStUnitType() {
-        return stUnitType;
-    }
-
-    public void setStUnitType(String stUnitType) {
-        this.stUnitType = stUnitType;
-    }
-
     @Column(name = "errorCode")
     public String getErrorCode() {
         return errorCode;
@@ -96,15 +89,6 @@ public class LoadUnitAtIdDA {
 
     public void setErrorCode(String errorCode) {
         this.errorCode = errorCode;
-    }
-
-    @Column(name = "standAloneFlag")
-    public String getStandAloneFlag() {
-        return standAloneFlag;
-    }
-
-    public void setStandAloneFlag(String standAloneFlag) {
-        this.standAloneFlag = standAloneFlag;
     }
 
     @Column(name = "information")

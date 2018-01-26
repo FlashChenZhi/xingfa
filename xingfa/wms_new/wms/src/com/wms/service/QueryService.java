@@ -30,6 +30,7 @@ import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -58,7 +59,7 @@ public class QueryService {
             OnlineTaskVo onlineTaskVo;
             for (Job job : jobs) {
                 onlineTaskVo = new OnlineTaskVo();
-                onlineTaskVo.setBarcode(job.getContainer().getBarcode());
+                onlineTaskVo.setBarcode(job.getContainer());
                 onlineTaskVo.setJobStatus(AsrsJobStatus.map.get(job.getStatus()));
                 onlineTaskVo.setJobType(AsrsJobType.map.get(job.getType()));
                 onlineTaskVo.setMcKey(job.getMcKey());
@@ -336,47 +337,47 @@ public class QueryService {
 
     }
 
+    public static void main(String[] args) {
+        QueryService service = new QueryService();
+        service.searchSku(null, 1);
+    }
+
     public HttpMessage searchSku(String skuCode, int currentPage) {
         HttpMessage httpMessage = new HttpMessage();
         List<SkuVo> skuVos = new ArrayList<SkuVo>();
         try {
             Transaction.begin();
-            Session session = HibernateUtil.getCurrentSession();
             Map<String, Object> map = new HashMap<>();
 
-            Criteria criteria = HibernateUtil.getCurrentSession().createCriteria(Sku.class);
-            if (com.util.common.StringUtils.isNotEmpty(skuCode)) {
-                criteria.add(Restrictions.eq("skuCode", skuCode));
+            StringBuilder sb = new StringBuilder("select i.ITEM_CODE,i.item_name,s.SHELF_LIFE from SKU_IFAC i left join sku s on i.ITEM_CODE = s.SKU_CODE ");
+            StringBuilder coutSb = new StringBuilder("select count(1) from SKU_IFAC i left join sku s on i.ITEM_CODE = s.SKU_CODE");
+            if (StringUtils.isNotBlank(skuCode)) {
+                sb.append(" where i.ITEM_CODE ='" + skuCode + "' ");
+                coutSb.append(" where i.ITEM_CODE ='" + skuCode + "' ");
             }
-            criteria.addOrder(Order.desc("id"));
 
-            Long total = (Long) criteria.setProjection(Projections.rowCount()).uniqueResult();
+            Query query = HibernateUtil.getCurrentSession().createSQLQuery(sb.toString());
+            Query countQuery = HibernateUtil.getCurrentSession().createSQLQuery(coutSb.toString());
 
-            criteria.setProjection(null);
-            criteria.setFirstResult((currentPage - 1) * 10);
-            criteria.setMaxResults(10);
-
-            List<Sku> skus = criteria.list();
+            query.setFirstResult(10 * (currentPage - 1));
+            query.setMaxResults(10);
+            BigDecimal total = (BigDecimal) countQuery.uniqueResult();
+            List<Object[]> skus = query.list();
             SkuVo skuVo;
-            for (Sku sku : skus) {
+            for (Object[] sku : skus) {
 
                 skuVo = new SkuVo();
-                skuVo.setSkuName(sku.getSkuName());
-                skuVo.setCustSkuName(sku.getCustSkuName());
-                skuVo.setSkuCode(sku.getSkuCode());
-                skuVo.setCustName(sku.getCustName());
-                skuVo.setPackageQty(sku.getPackageQty());
-                skuVo.setPalletLoadQTy(sku.getPalletLoadQTy());
-                skuVo.setSkuEom(sku.getSkuEom());
-                skuVo.setSkuSpec(sku.getSkuSpec());
-                skuVo.setSkuType(sku.getSkuType());
 
+                skuVo.setSkuCode(sku[0].toString());
+                skuVo.setSkuName(sku[1].toString());
+                if (sku[2] != null)
+                    skuVo.setShelfLife(((BigDecimal) sku[2]).intValue());
                 skuVos.add(skuVo);
 
             }
 
             map.clear();
-            map.put("total", total);
+            map.put("total", total == null ? 0 : total);
             map.put("data", skuVos);
             Transaction.commit();
             httpMessage.setSuccess(true);
@@ -389,5 +390,30 @@ public class QueryService {
         }
         return httpMessage;
 
+    }
+
+    public HttpMessage modifySkuShelfLife(String skuCode, int shelfLife) {
+        HttpMessage httpMessage = new HttpMessage();
+        try {
+
+            Transaction.begin();
+            Sku sku = Sku.getByCode(skuCode);
+            if (sku == null) {
+                sku = new Sku();
+                sku.setSkuCode(skuCode);
+
+            }
+            sku.setShelfLift(shelfLife);
+            HibernateUtil.getCurrentSession().saveOrUpdate(sku);
+            Transaction.commit();
+            httpMessage.setSuccess(true);
+            httpMessage.setMsg("修改成功");
+        } catch (Exception e) {
+            Transaction.rollback();
+            httpMessage.setSuccess(false);
+            httpMessage.setMsg("出错了");
+            e.printStackTrace();
+        }
+        return httpMessage;
     }
 }

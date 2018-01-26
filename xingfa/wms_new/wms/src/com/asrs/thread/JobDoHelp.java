@@ -24,8 +24,8 @@ public class JobDoHelp {
     public static void finishPutaway(String mckey) {
         LogWriter.info(LoggerType.WMS, "强制完成入库任务mckey" + mckey);
         Job job = Job.getByMcKey(mckey);
-        AsrsJob asrsJob = AsrsJob.getByMckey(mckey);
-        Crane crane = (Crane) Block.getByBlockNo("ML01");
+        AsrsJob asrsJob = AsrsJob.getAsrsJobByMcKey(mckey);
+        Srm crane = (Srm) Block.getByBlockNo("ML01");
         SCar sCar = (SCar) Block.getByBlockNo("SC01");
         StationBlock station = (StationBlock) Block.getByBlockNo("0001");
 
@@ -62,16 +62,14 @@ public class JobDoHelp {
                 || mckey.equals(sCar.getReservedMcKey())) {
 
             sCar.setMcKey(null);
-            sCar.setOnCarNo("ML01");
+            sCar.setOnMCar("ML01");
             sCar.setWaitingResponse(false);
-
-
         }
 
         if (mckey.equals(crane.getMcKey())
                 || mckey.equals(crane.getReservedMcKey())) {
 
-            crane.setsCarNo("SC01");
+            crane.setsCarBlockNo("SC01");
             crane.setWaitingResponse(false);
 
         }
@@ -88,7 +86,7 @@ public class JobDoHelp {
      */
     public static void cancelPutaway(String mckey) {
         LogWriter.info(LoggerType.WMS, "强制取消入库任务mckey" + mckey);
-        Crane crane = (Crane) Block.getByBlockNo("ML01");
+        Srm crane = (Srm) Block.getByBlockNo("ML01");
         SCar sCar = (SCar) Block.getByBlockNo("SC01");
         StationBlock station = (StationBlock) Block.getByBlockNo("0001");
 
@@ -103,7 +101,7 @@ public class JobDoHelp {
                 sCar.setMcKey(null);
                 sCar.setReservedMcKey(null);
 
-                sCar.setOnCarNo("ML01");
+                sCar.setOnMCar("ML01");
                 sCar.setWaitingResponse(false);
 
 
@@ -114,7 +112,7 @@ public class JobDoHelp {
                 crane.setMcKey(null);
                 crane.setReservedMcKey(null);
 
-                crane.setsCarNo("SC01");
+                crane.setsCarBlockNo("SC01");
                 crane.setWaitingResponse(false);
 
                 crane.setBay(2);
@@ -176,18 +174,12 @@ public class JobDoHelp {
     public static void retirevalCancel(String mckey) {
         LogWriter.info(LoggerType.WMS, "强制取消出库任务mckey" + mckey);
         Job job = Job.getByMcKey(mckey);
-        AsrsJob asrsJob = AsrsJob.getByMckey(mckey);
+        AsrsJob asrsJob = AsrsJob.getAsrsJobByMcKey(mckey);
 
-        Crane crane = (Crane) Block.getByBlockNo("ML01");
+        Srm crane = (Srm) Block.getByBlockNo("ML01");
         SCar sCar = (SCar) Block.getByBlockNo("SC01");
         StationBlock station = (StationBlock) Block.getByBlockNo("0003");
-        Dock dock = (Dock) Block.getByBlockNo("0002");
 
-        if (mckey.equals(dock.getMcKey()) || mckey.equals(dock.getReservedMcKey())) {
-            dock.setWaitingResponse(false);
-            dock.setReservedMcKey(null);
-            dock.setMcKey(null);
-        }
         if (mckey.equals(station.getMcKey()) || mckey.equals(station.getReservedMcKey())) {
             station.setWaitingResponse(false);
             station.setMcKey(null);
@@ -197,13 +189,13 @@ public class JobDoHelp {
             sCar.setMcKey(null);
             sCar.setReservedMcKey(null);
             sCar.setWaitingResponse(false);
-            sCar.setOnCarNo("ML01");
+            sCar.setOnMCar("ML01");
         }
         if (mckey.equals(crane.getMcKey()) || mckey.equals(crane.getReservedMcKey())) {
             crane.setWaitingResponse(false);
             crane.setMcKey(null);
             crane.setReservedMcKey(null);
-            crane.setsCarNo("SC01");
+            crane.setsCarBlockNo("SC01");
         }
         if (job != null)
             HibernateUtil.getCurrentSession().delete(job);
@@ -221,24 +213,19 @@ public class JobDoHelp {
         LogWriter.info(LoggerType.WMS, "强制完成出库任务mckey" + mckey);
 
         Job job = Job.getByMcKey(mckey);
-        AsrsJob asrsJob = AsrsJob.getByMckey(mckey);
+        AsrsJob asrsJob = AsrsJob.getAsrsJobByMcKey(mckey);
 
-        Crane crane = (Crane) Block.getByBlockNo("ML01");
+        Srm crane = (Srm) Block.getByBlockNo("ML01");
         SCar sCar = (SCar) Block.getByBlockNo("SC01");
         StationBlock station = (StationBlock) Block.getByBlockNo("0003");
-        Dock dock = (Dock) Block.getByBlockNo("0002");
-        if (mckey.equals(dock.getMcKey()) || mckey.equals(dock.getReservedMcKey())) {
-            dock.setWaitingResponse(false);
-            dock.setMcKey(null);
-            dock.setReservedMcKey(null);
-        }
+
         if (mckey.equals(station.getMcKey()) || mckey.equals(station.getReservedMcKey())) {
             station.setReservedMcKey(null);
             station.setMcKey(null);
             station.setWaitingResponse(false);
         }
 
-        Container c = job.getContainer();
+        Container c = Container.getByBarcode(job.getContainer());
 
         List<JobDetail> details = new ArrayList<JobDetail>(job.getJobDetails());
         for (JobDetail detail : details) {
@@ -262,8 +249,8 @@ public class JobDoHelp {
         }
 
         if (mckey.equals(sCar.getMcKey()) || mckey.equals(sCar.getReservedMcKey())) {
-            sCar.setOnCarNo("ML01");
-            crane.setsCarNo("SC01");
+            sCar.setOnMCar("ML01");
+            crane.setsCarBlockNo("SC01");
             sCar.setReservedMcKey(null);
             sCar.setMcKey(null);
             crane.setReservedMcKey(null);

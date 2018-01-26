@@ -1,8 +1,6 @@
 package com.wms.service;
 
 import com.util.common.HttpMessage;
-import com.util.common.LogWriter;
-import com.util.common.LoggerType;
 import com.util.common.StringUtils;
 import com.util.hibernate.HibernateUtil;
 import com.util.hibernate.Transaction;
@@ -170,7 +168,7 @@ public class LocationService {
                         vo.setMckey(StringUtils.isNotEmpty(scar.getMcKey()) ? scar.getMcKey() : scar.getReservedMcKey());
                         vo.setRemark(getBlockRemark(block, vo.getMckey()));
                     }
-                    if (StringUtils.isNotEmpty(scar.getOnCarNo())) {
+                    if (StringUtils.isNotEmpty(scar.getOnMCar())) {
                         int bay = scar.getBay();
                         int level = scar.getLevel();
                         String locationNo = "0" + 8 + "0" + bay + "0" + level;
@@ -202,8 +200,8 @@ public class LocationService {
                         list.add(vo);
 
                     }
-                } else if (block instanceof Crane) {
-                    Crane crane = (Crane) block;
+                } else if (block instanceof Srm) {
+                    Srm crane = (Srm) block;
                     if (crane.getLevel() == 0) {
                         vo.setLocationNo("ML0" + crane.getBay());
                     } else {
@@ -211,12 +209,6 @@ public class LocationService {
                         vo.setLocationNo(locationNo);
                     }
                     vo.setStatus(AutoLocationListVo.STATUS_ML01);
-                    list.add(vo);
-                } else if (block instanceof Dock) {
-                    Dock dock = (Dock) block;
-                    String locationNo = "0002";
-                    vo.setLocationNo(locationNo);
-                    vo.setStatus(AutoLocationListVo.STATUS_DOCK);
                     list.add(vo);
                 }
             }
@@ -243,7 +235,6 @@ public class LocationService {
         sb.append("<span class=\"b\">");
         sb.append("机器号 : " + block.getBlockNo() + "<br/>");
         sb.append("设备状态: " + block.getStatus() + "<br/>");
-        sb.append("异常原因: " + block.getErrorName() + "<br/>");
         sb.append("mckey : " + mckey);
         sb.append("</span>");
         sb.append("</li>");

@@ -23,6 +23,8 @@ import com.util.hibernate.Transaction;
 import com.wms.domain.*;
 import com.wms.domain.blocks.Block;
 import com.wms.domain.blocks.SCar;
+import com.wms.domain.blocks.Srm;
+import com.wms.domain.blocks.StationBlock;
 import com.wms.vo.*;
 import org.apache.commons.collections.map.HashedMap;
 import org.apache.commons.lang.StringUtils;
@@ -60,17 +62,17 @@ public class InventoryService {
                 Sku sku = receivingPlan.getSku();
                 InputAreaQueryVo inputAreaQueryVo = new InputAreaQueryVo();
                 inputAreaQueryVo.setBatchNo(receivingPlan.getBatchNo());
-                inputAreaQueryVo.setCustName(receivingPlan.getSku().getCustName());
-                inputAreaQueryVo.setCustSkuName(receivingPlan.getSku().getCustSkuName());
+//                inputAreaQueryVo.setCustName(receivingPlan.getSku().getCustName());
+//                inputAreaQueryVo.setCustSkuName(receivingPlan.getSku().getCustSkuName());
                 inputAreaQueryVo.setLotNum(receivingPlan.getLotNum());
                 inputAreaQueryVo.setOrderNo(receivingPlan.getOrderNo());
                 inputAreaQueryVo.setProviderName(receivingPlan.getProviderName());
                 inputAreaQueryVo.setSkuCode(receivingPlan.getSku().getSkuCode());
-                inputAreaQueryVo.setSkuEom(receivingPlan.getSku().getSkuEom());
-                inputAreaQueryVo.setSkuName(receivingPlan.getSku().getSkuName());
-                inputAreaQueryVo.setSkuSpec(receivingPlan.getSku().getSkuSpec());
+//                inputAreaQueryVo.setSkuEom(receivingPlan.getSku().getSkuEom());
+//                inputAreaQueryVo.setSkuName(receivingPlan.getSku().getSkuName());
+//                inputAreaQueryVo.setSkuSpec(receivingPlan.getSku().getSkuSpec());
                 inputAreaQueryVo.setRecvQty(receivingPlan.getRecvedQty());
-                inputAreaQueryVo.setQty(sku.getPalletLoadQTy());
+//                inputAreaQueryVo.setQty(sku.getPalletLoadQTy());
 
                 httpMessage.setSuccess(true);
                 httpMessage.setMsg(inputAreaQueryVo);
@@ -160,7 +162,7 @@ public class InventoryService {
                     //设置来自哪个站台
                     job.setFromStation("1101");
                     //设置托盘号
-                    job.setContainer(container);
+                    job.setContainer(container.getBarcode());
                     job.setStatus(AsrsJobStatus.WAITING);
                     job.setType(AsrsJobType.PUTAWAY);
                     //托盘暂时先放入虚拟货位
@@ -245,7 +247,6 @@ public class InventoryService {
      */
     public HttpMessage rerieval(List<RetrievalOrderVo> retrievalOrderVos) {
         HttpMessage httpMessage = new HttpMessage();
-        boolean flag;
         String failNos = "";
         for (RetrievalOrderVo retrievalOrderVo : retrievalOrderVos) {
             try {
@@ -266,41 +267,85 @@ public class InventoryService {
 
                 Set<RetrievalOrderDetail> details = retrievalOrder.getRetrievalOrderDetailSet();
                 Iterator<RetrievalOrderDetail> itor = details.iterator();
+                List<String> containers = new ArrayList<>();
+                boolean flag = true;
                 while (itor.hasNext()) {
                     RetrievalOrderDetail detail = itor.next();
-                    //按照出库顺序找库存
-                    Query query = HibernateUtil.getCurrentSession().createQuery("select container.barcode,i.lotNum, container.location.seq from Inventory i where i.skuCode =:skuCode and i.whCode =:whCode and i.orderNo!=null group by  container.barcode,i.lotNum, container.location.seq  order by i.lotNum, container.location.seq  ");
-                    query.setParameter("skuCode", detail.getItemCode());
-                    query.setParameter("whCode", retrievalOrder.getWhCode());
-                    List<Object[]> barCodes = query.list();
-                    BigDecimal remindQty = detail.getQty();
-                    for (Object[] barCode : barCodes) {
+                    if (StringUtils.isNotEmpty(detail.getPalletNo())) {
+                        //指定托盘出库
+                        Container container = Container.getByBarcode(detail.getPalletNo());
+                        if (container != null) {
+                            Location location = container.getLocation();
+                            Query query = HibernateUtil.getCurrentSession().createQuery(" from Container where location.position=:po and location.level=:lv " +
+                                    "and location.bay=:b and location.seq<:s and location.actualArea=:ar");
+                            query.setParameter("po", location.getPosition());
+                            query.setParameter("lv", location.getLevel());
+                            query.setParameter("b", location.getBay());
+                            query.setParameter("s", location.getSeq());
+                            query.setParameter("ar", location.getActualArea());
+                            List<Container> cis = query.list();
+                            if (cis.isEmpty()) {
+                                containers.add(container.getBarcode());
+                            }
 
-                        if (remindQty.compareTo(BigDecimal.ZERO) == -1) {
+                        } else {
+                            flag = false;
                             break;
                         }
+                    } else {
+                        //按照出库顺序找库存
+                        Query query = HibernateUtil.getCurrentSession().createQuery("select container.barcode,i.lotNum, container.location.seq,container.location.level,container.location.bay from Inventory i where i.skuCode =:skuCode and i.whCode =:whCode and i.orderNo is null group by  container.barcode,i.lotNum, container.location.seq,container.location.level,container.location.bay  order by i.lotNum asc,container.location.bay desc, container.location.level asc,container.location.seq desc ");
+                        query.setParameter("skuCode", detail.getItemCode());
+                        query.setParameter("whCode", retrievalOrder.getWhCode());
+                        List<Object[]> barCodes = query.list();
+                        BigDecimal remindQty = detail.getQty();
+                        for (Object[] barCode : barCodes) {
 
-                        Container container = Container.getByBarcode(barCode[0].toString());
-                        List<Inventory> inventories = (List<Inventory>) container.getInventories();
-                        for (Inventory inventory : inventories) {
-                            remindQty = remindQty.subtract(inventory.getQty());
-                            inventory.setOrderNo(retrievalOrder.getOrderNo());
+                            if (remindQty.compareTo(BigDecimal.ZERO) == -1) {
+                                break;
+                            }
+
+                            Container container = Container.getByBarcode(barCode[0].toString());
+                            List<Inventory> inventories = (List<Inventory>) container.getInventories();
+                            for (Inventory inventory : inventories) {
+                                remindQty = remindQty.subtract(inventory.getQty());
+                                inventory.setOrderNo(retrievalOrder.getOrderNo());
+
+                            }
+                            containers.add(container.getBarcode());
 
                         }
 
-                        WmsJobInventory wmsJobInventory = new WmsJobInventory();
-                        wmsJobInventory.setPalletNo(container.getBarcode());
-                        HibernateUtil.getCurrentSession().save(wmsJobInventory);
-
+                        if (remindQty.compareTo(BigDecimal.ZERO) == 1) {
+                            Transaction.rollback();
+                            failNos = failNos + retrievalOrder.getOrderNo();
+                            flag = false;
+                            break;
+                        }
                     }
-
-                    if (remindQty.compareTo(BigDecimal.ZERO) == 1) {
-                        Transaction.rollback();
-                        failNos = failNos + retrievalOrder.getOrderNo();
-                        break;
-                    }
-
                 }
+
+                if (!flag) {
+                    break;
+                }
+                for (String barCode : containers) {
+                    Container container = Container.getByBarcode(barCode);
+                    Location location = container.getLocation();
+                    Srm srm = Srm.getSrmByPosition(location.getPosition());
+                    StationBlock stationBlock = StationBlock.getSrmByPosition(location.getPosition());
+                    Job job = new Job();
+                    job.setStatus("1");
+                    job.setFromLocation(location);
+                    job.setFromStation(srm.getBlockNo());
+                    job.setMcKey(Mckey.getNext());
+                    job.setToStation("3201");
+                    job.setOrderNo(retrievalOrder.getOrderNo());
+                    job.setContainer(barCode);
+                    job.setType(AsrsJobType.RETRIEVAL);
+                    HibernateUtil.getCurrentSession().save(job);
+                }
+
+                retrievalOrder.setStatus("1");
 
                 Transaction.commit();
 
@@ -566,7 +611,7 @@ public class InventoryService {
         job.setType(AsrsJobType.RETRIEVAL);
         String mcKey = Mckey.getNext();
         job.setMcKey(mcKey);
-        job.setContainer(container);
+        job.setContainer(container.getBarcode());
         job.setFromLocation(location);
         job.setToStation("1201");
         job.setStatus(AsrsJobStatus.WAITING);
@@ -583,11 +628,13 @@ public class InventoryService {
 
         //创建FromLocation对象
         FromLocation fromLocation = new FromLocation();
-        fromLocation.setRack(location.getLocationNo());
-        fromLocation.setX(String.valueOf(location.getBank()));
-        fromLocation.setY(String.valueOf(location.getBay()));
-        fromLocation.setZ(String.valueOf(location.getLevel()));
-        fromLocation.setMHA("1201");
+        List<String> locations = new ArrayList<>();
+        locations.add(location.getBank() + "");
+        locations.add(location.getBay() + "");
+        locations.add(location.getLevel() + "");
+        fromLocation.setRack(locations);
+
+        fromLocation.setMHA("3201");
         StUnit stUnit = new StUnit();
 
         stUnit.setStUnitID(container.getBarcode());
@@ -726,12 +773,12 @@ public class InventoryService {
             Sku sku = (Sku) query.uniqueResult();
             if (sku != null) {
                 InputAreaQueryVo inputAreaQueryVo = new InputAreaQueryVo();
-                inputAreaQueryVo.setCustName(sku.getCustName());
-                inputAreaQueryVo.setCustSkuName(sku.getCustSkuName());
+//                inputAreaQueryVo.setCustName(sku.getCustName());
+//                inputAreaQueryVo.setCustSkuName(sku.getCustSkuName());
                 inputAreaQueryVo.setSkuCode(sku.getSkuCode());
-                inputAreaQueryVo.setSkuEom(sku.getSkuEom());
-                inputAreaQueryVo.setSkuName(sku.getSkuName());
-                inputAreaQueryVo.setSkuSpec(sku.getSkuSpec());
+//                inputAreaQueryVo.setSkuEom(sku.getSkuEom());
+//                inputAreaQueryVo.setSkuName(sku.getSkuName());
+//                inputAreaQueryVo.setSkuSpec(sku.getSkuSpec());
 
                 httpMessage.setSuccess(true);
                 httpMessage.setMsg(inputAreaQueryVo);

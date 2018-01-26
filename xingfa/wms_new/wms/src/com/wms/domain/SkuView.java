@@ -9,6 +9,7 @@ import java.math.BigDecimal;
 @Entity
 @Table(name = "SKU_IFAC")
 public class SkuView {
+    public static final String COL_CODE = "skuCode";
     private String id;
     private String skuCode;//商品代码
     private String skuName;//商品名称

@@ -176,17 +176,17 @@ public class XMLMessageUtil {
         }
     }
 
-    public static Envelope getEnvolope(XMLMessage xmlMessage) {
-        Envelope envelope = new Envelope();
-        if (xmlMessage.getType() == XMLMessageType.LOAD_UNIT_AT_ID) {
-            envelope.setLoadUnitAtID(getLoadUnitAtID(xmlMessage));
-        } else if (xmlMessage.getType() == XMLMessageType.MOVEMENT_REPORT) {
-            envelope.setMovementReport(getMovementReport(xmlMessage));
-        } else {
-            envelope.setHandlingUnitStatus(getHandlingUnitStatus(xmlMessage));
-        }
-        return envelope;
-    }
+//    public static Envelope getEnvolope(XMLMessage xmlMessage) {
+//        Envelope envelope = new Envelope();
+//        if (xmlMessage.getType() == XMLMessageType.LOAD_UNIT_AT_ID) {
+//            envelope.setLoadUnitAtID(getLoadUnitAtID(xmlMessage));
+//        } else if (xmlMessage.getType() == XMLMessageType.MOVEMENT_REPORT) {
+//            envelope.setMovementReport(getMovementReport(xmlMessage));
+//        } else {
+//            envelope.setHandlingUnitStatus(getHandlingUnitStatus(xmlMessage));
+//        }
+//        return envelope;
+//    }
 
     private static LoadUnitAtID getLoadUnitAtID(XMLMessage xmlMessage) {
         LoadUnitAtID loadUnitAtID = new LoadUnitAtID();
@@ -209,87 +209,86 @@ public class XMLMessageUtil {
         itemData.setValue(xmlMessage.getItemDateValue());
 
         scanData.setItemData(itemData);
-        loadUnitAtIdDA.setScanData(scanData);
+            loadUnitAtIdDA.setScanDate(xmlMessage.getItemDateValue());
         loadUnitAtIdDA.setWeight(xmlMessage.getWeight());
         if (StringUtils.isNotBlank(xmlMessage.getInformation()) && xmlMessage.getInformation().length() > 1) {
-            loadUnitAtIdDA.setStUnitType(xmlMessage.getInformation().substring(1,2));
             loadUnitAtIdDA.setInformation(xmlMessage.getInformation().substring(0,2));
         }
         loadUnitAtID.setDataArea(loadUnitAtIdDA);
         return loadUnitAtID;
     }
 
-    private static MovementReport getMovementReport(XMLMessage xmlMessage) {
-        MovementReport movementReport = new MovementReport();
-        ControlArea controlArea = new ControlArea();  //controlArea
-        Sender sender = new Sender();                 //sender
-        controlArea.setSender(sender);                 //end sender
-        //  controlArea.setCreationDateTime(new Date().toString());
-        RefId refId = new RefId();  //refid
-        refId.setReferenceId(xmlMessage.getRefid());  //end refid
-        controlArea.setRefId(refId);
-        movementReport.setControlArea(controlArea); //end controlarea
+//    private static MovementReport getMovementReport(XMLMessage xmlMessage) {
+//        MovementReport movementReport = new MovementReport();
+//        ControlArea controlArea = new ControlArea();  //controlArea
+//        Sender sender = new Sender();                 //sender
+//        controlArea.setSender(sender);                 //end sender
+//        //  controlArea.setCreationDateTime(new Date().toString());
+//        RefId refId = new RefId();  //refid
+//        refId.setReferenceId(xmlMessage.getRefid());  //end refid
+//        controlArea.setRefId(refId);
+//        movementReport.setControlArea(controlArea); //end controlarea
+//
+//        MovementReportDA movementReportDA = new MovementReportDA(); //dataarea
+//        movementReportDA.setRequestId(xmlMessage.getRequestId()); //requestId
+//        FromLocation fromLocation = new FromLocation();
+//        fromLocation.setMHA(xmlMessage.getFromMha());
+//        fromLocation.setRack(xmlMessage.getFromRack());
+//        fromLocation.setX(xmlMessage.getFromX());
+//        fromLocation.setY(xmlMessage.getFromY());
+//        fromLocation.setZ(xmlMessage.getFromZ());
+//        movementReportDA.setFromLocation(fromLocation); //end fromlocation
+//        StUnit stUnit = new StUnit();
+//        stUnit.setStUnitID(xmlMessage.getStunitId());
+//        // stUnit.setStUnitType(xmlMessage.gets);
+//        stUnit.setBlockCode(xmlMessage.getReasonCode());
+//        //stUnit.setRegDate(xmlMessage.getr);
+//
+//        movementReportDA.setStUnit(stUnit);  //end stUnit
+//
+//        ToLocation toLocation = new ToLocation();
+//        toLocation.setMHA(xmlMessage.getToMha());
+//        toLocation.setRack(xmlMessage.getToRack());
+//        toLocation.setX(xmlMessage.getToX());
+//        toLocation.setY(xmlMessage.getToY());
+//        toLocation.setZ(xmlMessage.getToZ());
+//
+//        movementReportDA.setToLocation(toLocation);   //end tolocation
+//        movementReportDA.setReasonCode(xmlMessage.getReasonCode());
+//
+//        UserArea ua = new UserArea();
+//        ua.setOrderID(xmlMessage.getOrderId());
+//        movementReportDA.setUserArea(ua);
+//
+//        movementReport.setDataArea(movementReportDA);   //end movementReport
+//
+//        return movementReport;
+//    }
 
-        MovementReportDA movementReportDA = new MovementReportDA(); //dataarea
-        movementReportDA.setRequestId(xmlMessage.getRequestId()); //requestId
-        FromLocation fromLocation = new FromLocation();
-        fromLocation.setMHA(xmlMessage.getFromMha());
-        fromLocation.setRack(xmlMessage.getFromRack());
-        fromLocation.setX(xmlMessage.getFromX());
-        fromLocation.setY(xmlMessage.getFromY());
-        fromLocation.setZ(xmlMessage.getFromZ());
-        movementReportDA.setFromLocation(fromLocation); //end fromlocation
-        StUnit stUnit = new StUnit();
-        stUnit.setStUnitID(xmlMessage.getStunitId());
-        // stUnit.setStUnitType(xmlMessage.gets);
-        stUnit.setBlockCode(xmlMessage.getReasonCode());
-        //stUnit.setRegDate(xmlMessage.getr);
-
-        movementReportDA.setStUnit(stUnit);  //end stUnit
-
-        ToLocation toLocation = new ToLocation();
-        toLocation.setMHA(xmlMessage.getToMha());
-        toLocation.setRack(xmlMessage.getToRack());
-        toLocation.setX(xmlMessage.getToX());
-        toLocation.setY(xmlMessage.getToY());
-        toLocation.setZ(xmlMessage.getToZ());
-
-        movementReportDA.setToLocation(toLocation);   //end tolocation
-        movementReportDA.setReasonCode(xmlMessage.getReasonCode());
-
-        UserArea ua = new UserArea();
-        ua.setOrderID(xmlMessage.getOrderId());
-        movementReportDA.setUserArea(ua);
-
-        movementReport.setDataArea(movementReportDA);   //end movementReport
-
-        return movementReport;
-    }
-
-    private static HandlingUnitStatus getHandlingUnitStatus(XMLMessage xmlMessage) {
-        HandlingUnitStatus handlingUnitStatus = new HandlingUnitStatus();
-
-        ControlArea controlArea = new ControlArea();
-        handlingUnitStatus.setControlArea(controlArea);
-        Sender sender = new Sender();
-        controlArea.setSender(sender);
-        //  controlArea.setCreationDateTime(xmlMessage.getCreationDateTime());
-        RefId refId = new RefId();
-        controlArea.setRefId(refId);
-        refId.setReferenceId(xmlMessage.getRefid());
-        HandlingUnitStatusDA handlingUnitStatusDA = new HandlingUnitStatusDA();
-        handlingUnitStatus.setDataArea(handlingUnitStatusDA);
-        HandlingUnitInfo handlingUnitInfo = new HandlingUnitInfo();
-        handlingUnitStatusDA.setHandlingUnitInfo(handlingUnitInfo);
-        handlingUnitInfo.setHandlingUnitType(xmlMessage.getHandlingUnitType());
-        handlingUnitInfo.setHandlingUnitNbr(xmlMessage.getHandlingUnitNbr());
-        handlingUnitInfo.setReasonCode(xmlMessage.getReasonCode());
-
-        XMLLocation xmlLocation = new XMLLocation();
-        handlingUnitInfo.setXMLLocation(xmlLocation);
-        xmlLocation.setMHA(xmlMessage.getMha());
-        xmlLocation.setRack(xmlMessage.getRack());
-
-        return handlingUnitStatus;
-    }
+//    private static HandlingUnitStatus getHandlingUnitStatus(XMLMessage xmlMessage) {
+//        HandlingUnitStatus handlingUnitStatus = new HandlingUnitStatus();
+//
+//        ControlArea controlArea = new ControlArea();
+//        handlingUnitStatus.setControlArea(controlArea);
+//        Sender sender = new Sender();
+//        controlArea.setSender(sender);
+//        //  controlArea.setCreationDateTime(xmlMessage.getCreationDateTime());
+//        RefId refId = new RefId();
+//        controlArea.setRefId(refId);
+//        refId.setReferenceId(xmlMessage.getRefid());
+//        HandlingUnitStatusDA handlingUnitStatusDA = new HandlingUnitStatusDA();
+//        handlingUnitStatus.setDataArea(handlingUnitStatusDA);
+//        HandlingUnitInfo handlingUnitInfo = new HandlingUnitInfo();
+//        handlingUnitStatusDA.setHandlingUnitInfo(handlingUnitInfo);
+//        handlingUnitInfo.setHandlingUnitType(xmlMessage.getHandlingUnitType());
+//        handlingUnitInfo.setHandlingUnitNbr(xmlMessage.getHandlingUnitNbr());
+//        handlingUnitInfo.setReasonCode(xmlMessage.getReasonCode());
+//
+//        XMLLocation xmlLocation = new XMLLocation();
+//        handlingUnitInfo.setXMLLocation(xmlLocation);
+//        xmlLocation.setMHA(xmlMessage.getMha());
+//        xmlLocation.setRack(xmlMessage.getRack());
+//
+//        return handlingUnitStatus;
+//    }
 }

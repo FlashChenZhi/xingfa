@@ -27,18 +27,6 @@ import java.util.Date;
 @Entity
 @Table(name = "TransportOrder")
 public class TransportOrder extends XMLProcess {
-    @XStreamAlias("version")
-    @XStreamAsAttribute
-    private String version = XMLConstant.COM_VERSION;
-
-    @Column(name = "version")
-    public String getVersion() {
-        return version;
-    }
-
-    public void setVersion(String version) {
-        this.version = version;
-    }
 
     @XStreamAlias("ControlArea")
     private ControlArea controlArea;

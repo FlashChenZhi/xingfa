@@ -25,10 +25,6 @@
         </init-param>
     </filter>
 
-    <filter-mapping>
-        <filter-name>encodingFilter</filter-name>
-        <url-pattern>*.do</url-pattern>
-    </filter-mapping>
     <servlet>
         <servlet-name>spring-dispatcher</servlet-name>
         <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
@@ -48,11 +44,11 @@
 
     <servlet-mapping>
         <servlet-name>spring-dispatcher</servlet-name>
-        <url-pattern>*.do</url-pattern>
+        <url-pattern>/wms/*</url-pattern>
     </servlet-mapping>
 
     <welcome-file-list>
-        <welcome-file>index.html</welcome-file>
+        <welcome-file>login.html</welcome-file>
     </welcome-file-list>
 
 </web-app>

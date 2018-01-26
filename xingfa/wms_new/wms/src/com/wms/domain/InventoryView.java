@@ -19,6 +19,7 @@ public class InventoryView {
     private BigDecimal qty;
     private BigDecimal caseQty;
     private String caseBarCode;
+    private String status;
 
     @Id
     @Column(name = "INV_STOR_ID")
@@ -108,5 +109,15 @@ public class InventoryView {
 
     public void setCaseBarCode(String caseBarCode) {
         this.caseBarCode = caseBarCode;
+    }
+
+    @Basic
+    @Column(name = "STATUS")
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 }

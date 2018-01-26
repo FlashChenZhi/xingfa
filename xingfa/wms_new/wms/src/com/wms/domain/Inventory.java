@@ -29,11 +29,17 @@ public class Inventory {
     private String caseBarCode;
 
     private String skuCode;
+    private String skuName;
     private Container container;
+
+
 
     public static final String COL_SKUCODE = "skuCode";
     public static final String COL_CONTAINER = "container";
     public static final String COL_LOTNUM = "lotNum";
+    public static final String COL_WHCODE = "whCode";
+    public static final String COL_CASEBARCODE = "caseBarCode";
+
 
     @Id
     @Column(name = "ID")
@@ -166,5 +172,15 @@ public class Inventory {
 
     public void setCaseBarCode(String caseBarCode) {
         this.caseBarCode = caseBarCode;
+    }
+
+    @Basic
+    @Column(name = "SKUNAME")
+    public String getSkuName() {
+        return skuName;
+    }
+
+    public void setSkuName(String skuName) {
+        this.skuName = skuName;
     }
 }

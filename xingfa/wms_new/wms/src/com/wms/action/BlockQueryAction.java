@@ -20,13 +20,6 @@ public class BlockQueryAction {
     @Resource
     private BlockQueryService blockQueryService;
 
-    @RequestMapping("searchBlock.do")
-    @ResponseBody
-    public HttpMessage searchLocation(String blockNo) {
-        HttpMessage httpMessage = blockQueryService.searchBlock(blockNo);
-        return httpMessage;
-    }
-
     @RequestMapping("onLine.do")
     @ResponseBody
     public HttpMessage onLine(String blockNo) {
@@ -46,19 +39,6 @@ public class BlockQueryAction {
     @ResponseBody
     public HttpMessage offLine(String blockNo) {
         HttpMessage httpMessage = blockQueryService.onLine(blockNo, false);
-        return httpMessage;
-    }
-
-    @RequestMapping("init.do")
-    @ResponseBody
-    public BaseReturnObj init() {
-        return blockQueryService.init();
-    }
-
-    @RequestMapping("onCar.do")
-    @ResponseBody
-    public HttpMessage onCar(String blockNo) {
-        HttpMessage httpMessage = blockQueryService.onCar(blockNo);
         return httpMessage;
     }
 

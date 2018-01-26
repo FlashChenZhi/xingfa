@@ -1,22 +1,25 @@
 package com.asrs.domain.XMLbean.XMLList;
 
-import com.opple.WebService;
-import com.util.common.DateFormat;
+import com.asrs.business.consts.AsrsJobStatus;
 import com.wms.domain.*;
 import com.asrs.domain.XMLbean.XMLList.ControlArea.ControlArea;
 import com.asrs.domain.XMLbean.XMLList.DataArea.DAList.MovementReportDA;
 import com.asrs.domain.XMLbean.XMLProcess;
 import com.asrs.business.consts.ReasonCode;
-import com.asrs.domain.consts.xmlbean.XMLConstant;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
-import com.thoughtworks.xstream.annotations.XStreamAsAttribute;
 import com.thoughtworks.xstream.annotations.XStreamOmitField;
 import com.util.hibernate.HibernateUtil;
-import com.util.hibernate.Transaction;
+import com.wms.domain.Location;
+import com.wms.domain.blocks.Block;
+import com.wms.domain.blocks.StationBlock;
+import org.apache.http.client.utils.DateUtils;
 import org.hibernate.*;
+import org.hibernate.Query;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created with IntelliJ IDEA.
@@ -28,18 +31,6 @@ import java.util.Date;
 @Entity
 @Table(name = "MovementReport")
 public class MovementReport extends XMLProcess {
-    @XStreamAlias("version")
-    @XStreamAsAttribute
-    private String version = XMLConstant.COM_VERSION;
-
-    @Column(name = "version")
-    public String getVersion() {
-        return version;
-    }
-
-    public void setVersion(String version) {
-        this.version = version;
-    }
 
     @XStreamAlias("ControlArea")
     private ControlArea controlArea;
@@ -85,41 +76,95 @@ public class MovementReport extends XMLProcess {
 
     @Override
     public void execute() {
-        try {
-            Transaction.begin();
-            Session session = HibernateUtil.getCurrentSession();
-            String mcKey = controlArea.getRefId().getReferenceId();
-            Job j = Job.getByMcKey(mcKey);
-            Container c = j.getContainer();
-            if (dataArea.getReasonCode().equals(ReasonCode.PUTAWAYFINISHED)) {
-                Location l = j.getToLocation();
-                l.setReserved(false);
-                l.setEmpty(false);
-                session.update(l);
-                c.setLocation(l);
-                session.update(c);
-                //// TODO: 放在后台
-                WebService.finishPutaway(c.getBarcode());
+        Session session = HibernateUtil.getCurrentSession();
+        String mcKey = controlArea.getRefId().getReferenceId();
+        Job j = Job.getByMcKey(mcKey);
+        if (dataArea.getReasonCode().equals(ReasonCode.PUTAWAYFINISHED)) {
+            Location l = j.getToLocation();
+            l.setReserved(false);
+            l.setEmpty(false);
+            session.update(l);
 
-            } else if (dataArea.getReasonCode().equals(ReasonCode.RETRIEVALFINISHED)) {
+            Container container = null;
 
-                Location location = j.getFromLocation();
-                location.setEmpty(true);
-                location.setRetrievalRestricted(false);
-                session.update(location);
-                session.delete(c);
+            Query query = HibernateUtil.getCurrentSession().createQuery("from InventoryView where palletCode=:palletNo");
+            query.setParameter("palletNo", j.getContainer());
+            List<InventoryView> views = query.list();
 
-                //// TODO: 放在后台
-                WebService.finishOrder(j);
 
+            container = Container.getByBarcode(j.getContainer());
+
+            if (container == null) {
+                container = new Container();
+                container.setBarcode(j.getContainer());
+                container.setLocation(l);
+                container.setCreateDate(new Date());
+                container.setCreateUser("sys");
+                container.setReserved(true);
+                HibernateUtil.getCurrentSession().save(container);
+            }
+            InventoryLog inventoryLog = new InventoryLog();
+            inventoryLog.setQty(BigDecimal.ZERO);
+            inventoryLog.setType(InventoryLog.TYPE_IN);
+            for (InventoryView view : views) {
+
+                if (view != null) {
+                    Inventory inventory = new Inventory();
+                    inventory.setWhCode(view.getWhCode());
+                    inventory.setSkuName(view.getSkuName());
+                    inventory.setLotNum(view.getLotNum());
+                    inventory.setCaseBarCode(view.getCaseBarCode());
+                    inventory.setQty(view.getQty());
+                    inventory.setCaseQty(view.getCaseQty());
+                    inventory.setSkuCode(view.getSkuCode());
+                    inventory.setContainer(container);
+                    inventory.setStoreDate(DateUtils.formatDate(new Date(), "yyyy-MM-dd"));
+                    inventory.setStoreTime(DateUtils.formatDate(new Date(), "HH:mm:ss"));
+                    HibernateUtil.getCurrentSession().save(inventory);
+                    inventoryLog.setQty(inventoryLog.getQty().add(inventory.getQty()));
+                    inventoryLog.setSkuCode(inventory.getSkuCode());
+                    inventoryLog.setWhCode(inventory.getWhCode());
+                    inventoryLog.setToLocation(container.getLocation().getLocationNo());
+                    inventoryLog.setLotNum(inventory.getLotNum());
+                    inventoryLog.setSkuName(inventory.getSkuName());
+                    container.setStatus(view.getStatus());
+                }
 
             }
-            session.delete(j);
-            Transaction.commit();
-        } catch (Exception e) {
-            Transaction.rollback();
-            e.printStackTrace();
+            inventoryLog.setContainer(container.getBarcode());
+            inventoryLog.setCreateDate(new Date());
+            HibernateUtil.getCurrentSession().save(inventoryLog);
+
+
+            // TODO: 放在后台
+//                WebService.finishPutaway(j.getContainer());
+
+        } else if (dataArea.getReasonCode().equals(ReasonCode.RETRIEVALFINISHED)) {
+
+            Location location = j.getFromLocation();
+            location.setEmpty(true);
+            location.setRetrievalRestricted(false);
+            session.update(location);
+            j.setStatus(AsrsJobStatus.DONE);
+            OutMessage.info(j.getToStation(), j.getOrderNo(), j.getContainer());
+
+
+            //// TODO: 放在后台
+//                WebService.finishOrder(j);
+        } else if (dataArea.getReasonCode().equals(ReasonCode.SLOCATIONTOLOCATION)) {
+            Location location = j.getFromLocation();
+            Location toLocation = j.getToLocation();
+            location.setEmpty(true);
+            location.setRetrievalRestricted(false);
+
+            toLocation.setEmpty(false);
+            toLocation.setRetrievalRestricted(false);
+
+            session.update(location);
+            session.update(toLocation);
+
         }
+        j.asrsDone();
 
     }
 }

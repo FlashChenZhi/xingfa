@@ -12,6 +12,8 @@ import java.rmi.AlreadyBoundException;
 import java.rmi.Naming;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
+import java.rmi.registry.LocateRegistry;
+import java.rmi.registry.Registry;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,23 +25,47 @@ import java.util.List;
  */
 public class XmlCommunicationLauncher {
     public static void main(String[] args) {
+//        try {
+////            final Registry registry = LocateRegistry.getRegistry();
+////            registry.rebind("XmlProxy", XmlCenter.instance());
+//
+//            System.setProperty("java.rmi.server.hostname","127.0.0.1");
+//            Naming.bind("rmi://127.0.0.1:1089/XmlProxy",XmlCenter.instance());
+//
+//
+//            Runtime.getRuntime().addShutdownHook(new Thread() {
+//                public void run() {
+//                    try {
+//                        Naming.unbind("rmi://127.0.0.1:1089/XmlProxy");
+//                    } catch (RemoteException e) {
+//                        e.printStackTrace();
+//                    } catch (NotBoundException e) {
+//                        e.printStackTrace();
+//                    } catch (MalformedURLException e) {
+//                        e.printStackTrace();
+//                    }
+//                }
+//            });
+//        } catch (RemoteException e) {
+//            e.printStackTrace();
+//            System.exit(-1);
+//        } catch (MalformedURLException e) {
+//            e.printStackTrace();
+//        } catch (AlreadyBoundException e) {
+//            e.printStackTrace();
+//        }
+
         try {
-//            final Registry registry = LocateRegistry.getRegistry();
-//            registry.rebind("XmlProxy", XmlCenter.instance());
-
-            System.setProperty("java.rmi.server.hostname","127.0.0.1");
-            Naming.bind("rmi://127.0.0.1:1089/XmlProxy",XmlCenter.instance());
-
+            final Registry registry = LocateRegistry.getRegistry();
+            registry.rebind("XmlProxy", XmlCenter.instance());
 
             Runtime.getRuntime().addShutdownHook(new Thread() {
                 public void run() {
                     try {
-                        Naming.unbind("rmi://127.0.0.1:1089/XmlProxy");
+                        registry.unbind("XmlProxy");
                     } catch (RemoteException e) {
                         e.printStackTrace();
                     } catch (NotBoundException e) {
-                        e.printStackTrace();
-                    } catch (MalformedURLException e) {
                         e.printStackTrace();
                     }
                 }
@@ -47,11 +73,8 @@ public class XmlCommunicationLauncher {
         } catch (RemoteException e) {
             e.printStackTrace();
             System.exit(-1);
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        } catch (AlreadyBoundException e) {
-            e.printStackTrace();
         }
+
 
         List<Wcs> wcses = new ArrayList<Wcs>();
         try {

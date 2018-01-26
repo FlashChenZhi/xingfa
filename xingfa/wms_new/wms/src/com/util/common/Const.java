@@ -19,10 +19,11 @@ public class Const {
 
     public static final String loginUser = "userName";
 
-    public static final String WMSPROXY = "rmi://127.0.0.1:1089/XmlProxy";
+//    public static final String WMSPROXY = "rmi://127.0.0.1:1089/XmlProxy";
+    public static final String WMSPROXY = "rmi://localhost/XmlProxy";
 
-    public static final String OPPLE_IN_WMS_URL = "http://10.10.115.33:8080/opple_wms_server/inbound/wap/servlet ";
-    public static final String OPPLE_OUT_WMS_URL = "http://10.10.115.33:8080/opple_wms_server/outbound/wap/servlet";
-    public static final String OPPLE_OUT_CLOSE_WMS_URL = "http://10.10.115.33:8080/opple_wms_server/outbound/close/wap/servlet";
+    public static final String OPPLE_IN_WMS_URL = "http://10.10.0.63/inbound/wap/servlet ";
+    public static final String OPPLE_OUT_WMS_URL = "http://10.10.0.63/outbound/wap/servlet";
+    public static final String OPPLE_OUT_CLOSE_WMS_URL = "http://10.10.0.63/outbound/close/wap/servlet";
 
 }

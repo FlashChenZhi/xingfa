@@ -27,7 +27,7 @@ public class UserService {
                 httpMessage.setSuccess(false);
 
             } else {
-                if (user.getPwd().equals(pwd)) {
+                if (user.getPassword().equals(pwd)) {
                     data = "登录成功";
                     httpMessage.setSuccess(true);
                 } else {
@@ -59,11 +59,11 @@ public class UserService {
                 httpMessage.setSuccess(false);
                 httpMessage.setMsg(String.format("登录用户%s不存在", userName));
             } else {
-                if (!DigestUtils.sha512Hex(oldPwd + user.getSalt()).equals(user.getPwd())) {
+                if (!DigestUtils.sha512Hex(oldPwd).equals(user.getPassword())) {
                     httpMessage.setSuccess(false);
                     httpMessage.setMsg(String.format("登录用户%s原密码错误", userName));
                 } else {
-                    user.setPwd(DigestUtils.sha512Hex((password + user.getSalt())));
+                    user.setPassword(DigestUtils.sha512Hex((password)));
                     session.update(user);
                     httpMessage.setSuccess(true);
                     httpMessage.setMsg("密码修改成功");
@@ -88,9 +88,8 @@ public class UserService {
             User user = (User) criteria.uniqueResult();
             if (user == null) {
                 user = new User();
-                user.setUserName(userName);
-                user.setSalt(UUID.randomUUID().toString());
-                user.setPwd(DigestUtils.sha512Hex((pwd + user.getSalt())));
+                user.setName(userName);
+                user.setPassword(DigestUtils.sha512Hex((pwd)));
                 session.saveOrUpdate(user);
                 httpMessage.setSuccess(true);
                 httpMessage.setMsg("注册成功");

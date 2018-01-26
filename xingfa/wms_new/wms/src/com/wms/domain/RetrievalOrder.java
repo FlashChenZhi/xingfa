@@ -22,6 +22,7 @@ public class RetrievalOrder {
     public static final String COL_ORDER_NO = "orderNo";
     public static final String COL_STATUS = "status";
     public static final String COL_WHCODE = "whCode";
+    public static final String COL_ID = "id";
     private int id;
 
     private String whCode;

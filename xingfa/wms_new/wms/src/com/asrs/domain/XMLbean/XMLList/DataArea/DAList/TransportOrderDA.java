@@ -1,13 +1,13 @@
 package com.asrs.domain.XMLbean.XMLList.DataArea.DAList;
 
-import com.thoughtworks.xstream.annotations.XStreamAlias;
-import com.thoughtworks.xstream.annotations.XStreamOmitField;
 import com.asrs.domain.XMLbean.XMLList.DataArea.FromLocation;
 import com.asrs.domain.XMLbean.XMLList.DataArea.Part;
 import com.asrs.domain.XMLbean.XMLList.DataArea.StUnit;
 import com.asrs.domain.XMLbean.XMLList.DataArea.ToLocation;
 import com.asrs.domain.XMLbean.XMLList.UserArea.UserArea;
 import com.asrs.domain.consts.xmlbean.XMLConstant;
+import com.thoughtworks.xstream.annotations.XStreamAlias;
+import com.thoughtworks.xstream.annotations.XStreamOmitField;
 
 import javax.persistence.*;
 
@@ -62,6 +62,11 @@ public class TransportOrderDA {
     @XStreamAlias("Priority")
     private String priority;
 
+    @XStreamAlias("StUnitId")
+    private String stUnitId;
+
+    @XStreamAlias("RouteChange")
+    private String routeChange;
 
     @XStreamAlias("TransportType")
     private String transportType;
@@ -248,4 +253,42 @@ public class TransportOrderDA {
 
     @XStreamAlias("UserArea")
     private UserArea userArea;
+
+    public String getStUnitId() {
+        return stUnitId;
+    }
+
+    public void setStUnitId(String stUnitId) {
+        this.stUnitId = stUnitId;
+    }
+
+    public String getRouteChange() {
+        return routeChange;
+    }
+
+    public void setRouteChange(String routeChange) {
+        this.routeChange = routeChange;
+    }
+
+    @XStreamAlias("Weight")
+    private String weight;
+
+    public String getWeight() {
+        return weight;
+    }
+
+    public void setWeight(String weight) {
+        this.weight = weight;
+    }
+
+    @XStreamAlias("LoadType")
+    private String loadType;
+
+    public String getLoadType() {
+        return loadType;
+    }
+
+    public void setLoadType(String loadType) {
+        this.loadType = loadType;
+    }
 }

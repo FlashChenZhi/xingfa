@@ -8,8 +8,10 @@ import com.util.hibernate.Transaction;
 import com.webservice.vo.RetrievalSuccessVo;
 import com.wms.domain.*;
 import net.sf.json.JSONObject;
+import org.apache.commons.lang3.StringUtils;
 import org.hibernate.Query;
 
+import java.math.BigDecimal;
 import java.util.*;
 
 /**
@@ -18,20 +20,40 @@ import java.util.*;
 public class WebService {
 
     public static void main(String[] args) {
-        Transaction.begin();
-        Job job = Job.getById(1);
-        finishOrder(job);
 
-        Transaction.commit();
-//        finishPutaway("OPWJ00156");
+        try {
+            Transaction.begin();
+
+            save("OPWJ00041");
+
+            Transaction.commit();
+
+        } catch (Exception e) {
+            Transaction.rollback();
+        }
+        //        finishPutaway("OPWJ00156");
     }
 
     public static InventoryView getPutawayInfo(String palletNo) {
         Query query = HibernateUtil.getCurrentSession().createQuery("from InventoryView where palletCode=:palletNo");
         query.setParameter("palletNo", palletNo);
-        query.setMaxResults(1);
-        InventoryView view = (InventoryView) query.uniqueResult();
-        return view;
+        List<InventoryView> views = query.list();
+        String lotNo = null;
+        for (InventoryView view : views) {
+            if (lotNo != null) {
+                if (!lotNo.equals(view.getLotNum())) {
+                    return null;
+                }
+            } else if (StringUtils.isNotBlank(view.getLotNum())) {
+                lotNo = view.getLotNum();
+            }
+        }
+        if (!views.isEmpty()) {
+            return views.get(0);
+        } else {
+            return null;
+        }
+
 
     }
 
@@ -74,64 +96,65 @@ public class WebService {
     /**
      * 出库完成
      */
-    public static void finishOrder(Job job) {
-        try {
+    public static void finishOrder(Job job) throws Exception {
 
-            Container container = job.getContainer();
-            Set<Inventory> inventorySet = new HashSet<>(container.getInventories());
+        Container container = Container.getByBarcode(job.getContainer());
+        Set<Inventory> inventorySet = new HashSet<>(container.getInventories());
 
-            RetrievalOrder retrievalOrder = RetrievalOrder.getByOrderNo(job.getOrderNo());
-            RetrievalSuccessVo successVo = new RetrievalSuccessVo();
-            successVo.setWhCode(retrievalOrder.getWhCode());
-            successVo.setOrderType(retrievalOrder.getJobType());
-            successVo.setOrderCode(retrievalOrder.getOrderNo());
-            successVo.setPalletCode(job.getContainer().getBarcode());
-            successVo.setItemCode(job.getContainer().getInventories().iterator().next().getSkuCode());
-            String param = JSONObject.fromObject(successVo).toString();
+        RetrievalOrder retrievalOrder = RetrievalOrder.getByOrderNo(job.getOrderNo());
+        RetrievalSuccessVo successVo = new RetrievalSuccessVo();
+        successVo.setWhCode(retrievalOrder.getWhCode());
+        successVo.setOrderType(retrievalOrder.getJobType());
+        successVo.setOrderCode(retrievalOrder.getOrderNo());
+        successVo.setPalletCode(container.getBarcode());
+        successVo.setItemCode(container.getInventories().iterator().next().getSkuCode());
+        String param = JSONObject.fromObject(successVo).toString();
 
-            HibernateUtil.getCurrentSession().delete(job);
+        HibernateUtil.getCurrentSession().delete(job);
 
-            Iterator<Inventory> iterator = inventorySet.iterator();
-            while (iterator.hasNext()) {
-                Inventory inventory = iterator.next();
-                HibernateUtil.getCurrentSession().delete(inventory);
-            }
-
-            HibernateUtil.getCurrentSession().delete(container);
-
-            String result = ContentUtil.getResultJsonType(Const.OPPLE_OUT_WMS_URL, param);
-            JSONObject resultJson = JSONObject.fromObject(result);
-            if (!(Boolean) resultJson.get("success")) {
-                throw new Exception("上传出库完成失败");
-            }
-        } catch (Exception e) {
-            Transaction.rollback();
-            e.printStackTrace();
+        InventoryLog inventoryLog = new InventoryLog();
+        inventoryLog.setQty(BigDecimal.ZERO);
+        inventoryLog.setType(InventoryLog.TYPE_OUT);
+        Iterator<Inventory> iterator = inventorySet.iterator();
+        while (iterator.hasNext()) {
+            Inventory inventory = iterator.next();
+            inventoryLog.setQty(inventoryLog.getQty().add(inventory.getQty()));
+            inventoryLog.setLotNum(inventory.getLotNum());
+            inventoryLog.setSkuCode(inventory.getSkuCode());
+            inventoryLog.setSkuName(inventory.getSkuName());
+            inventoryLog.setWhCode(inventory.getWhCode());
+            inventoryLog.setFromLocation(container.getLocation().getLocationNo());
+            HibernateUtil.getCurrentSession().delete(inventory);
         }
+        inventoryLog.setCreateDate(new Date());
+        HibernateUtil.getCurrentSession().save(inventoryLog);
+
+        HibernateUtil.getCurrentSession().delete(container);
+
+        String result = ContentUtil.getResultJsonType(Const.OPPLE_OUT_WMS_URL, param);
+        JSONObject resultJson = JSONObject.fromObject(result);
+        if (!(Boolean) resultJson.get("success")) {
+//            throw new Exception("上传出库完成失败");
+            RetrievalFinishLog log = new RetrievalFinishLog();
+            log.setOrderNo(job.getOrderNo());
+            log.setContainer(container.getBarcode());
+            HibernateUtil.getCurrentSession().save(log);
+        }
+
     }
 
     /**
      * 上架完成
      */
-    public static void finishPutaway(String palletNo) {
-        try {
-            Transaction.begin();
-            //上架完成，保存库存
-            save(palletNo);
-
-            //上报上位ERP
-            JSONObject jsonObject = new JSONObject();
-            jsonObject.put("palletCode", palletNo);
-            String param = jsonObject.toString();
-            String result = ContentUtil.getResultJsonType(Const.OPPLE_IN_WMS_URL, param);
-            JSONObject resultJson = JSONObject.fromObject(result);
-            if (!(Boolean) resultJson.get("success")) {
-                throw new Exception("上传入库完成失败");
-            }
-            Transaction.commit();
-        } catch (Exception e) {
-            Transaction.rollback();
-            e.printStackTrace();
+    public static void finishPutaway(String palletNo) throws Exception {
+        //上报上位ERP
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("palletCode", palletNo);
+        String param = jsonObject.toString();
+        String result = ContentUtil.getResultJsonType(Const.OPPLE_IN_WMS_URL, param);
+        JSONObject resultJson = JSONObject.fromObject(result);
+        if (!(Boolean) resultJson.get("success")) {
+            throw new Exception("上传入库完成失败");
         }
     }
 

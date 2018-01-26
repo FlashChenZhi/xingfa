@@ -1,8 +1,8 @@
 package com.asrs.domain.XMLbean.XMLList.DataArea;
 
+import com.asrs.domain.consts.xmlbean.XMLConstant;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamOmitField;
-import com.asrs.domain.consts.xmlbean.XMLConstant;
 
 import javax.persistence.*;
 

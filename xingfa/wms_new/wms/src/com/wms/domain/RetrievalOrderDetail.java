@@ -13,9 +13,13 @@ public class RetrievalOrderDetail {
     private BigDecimal qty;//总只数
     private String itemCode;//商品代码
     private String batch;//批次
+    private String palletNo;
     private int version;
 
     private RetrievalOrder retrievalOrder;
+
+    public static final String COL_RETRIEVALORDER = "retrievalOrder";
+    public static final String COL_ITEMCODE = "itemCode";
 
     @Id
     @Column(name = "ID")
@@ -77,6 +81,16 @@ public class RetrievalOrderDetail {
 
     public void setRetrievalOrder(RetrievalOrder retrievalOrder) {
         this.retrievalOrder = retrievalOrder;
+    }
+
+    @Basic
+    @Column(name = "PALLET_NO")
+    public String getPalletNo() {
+        return palletNo;
+    }
+
+    public void setPalletNo(String palletNo) {
+        this.palletNo = palletNo;
     }
 
     @Override

@@ -11,6 +11,7 @@
         <property name="connection.password">opuser</property>
         <property name="hibernate.dialect">org.hibernate.dialect.Oracle10gDialect</property>
         <property name="hibernate.format_sql">true</property>
+        <property name="hibernate.show_sql">true</property>
         <property name="hibernate.temp.use_jdbc_metadata_defaults">false</property>
         <!--<property name="hibernate.hbm2ddl.auto">update</property>-->
         <!-- 配置C3P0 -->
@@ -24,7 +25,6 @@
         <property name="hibernate.c3p0.timeout">30</property>
         <!-- 当连接池里面的连接用完的时候，C3P0一下获取的新的连接数 -->
         <property name="hibernate.c3p0.acquire_increment">1</property>
-        <property name="hibernate.show_sql">true</property>
 
         <!-- 每次都验证连接是否可用 -->
         <property name="hibernate.c3p0.validate">true</property>
@@ -44,7 +44,6 @@
         <mapping class="com.wms.domain.StoreResult"/>
         <mapping class="com.wms.domain.blocks.Dock"/>
         <mapping class="com.wms.domain.blocks.Block"/>
-        <mapping class="com.wms.domain.blocks.Crane"/>
         <mapping class="com.wms.domain.blocks.SCar"/>
         <mapping class="com.wms.domain.blocks.StationBlock"/>
         <mapping class="com.wms.domain.Message"/>
@@ -55,5 +54,19 @@
         <mapping class="com.wms.domain.InventoryView"/>
         <mapping class="com.wms.domain.OutSeaBatch"/>
         <mapping class="com.wms.domain.WmsJobInventory"/>
+        <mapping class="com.wms.domain.SystemLog"/>
+        <mapping class="com.wms.domain.blocks.Srm"/>
+        <mapping class="com.wms.domain.blocks.Dock"/>
+        <mapping class="com.wms.domain.XMLMessage"/>
+        <mapping class="com.wms.domain.Role"/>
+        <mapping class="com.wms.domain.Menu"/>
+        <mapping class="com.wms.domain.Configuration"/>
+        <mapping class="com.wms.domain.JobLog"/>
+        <mapping class="com.wms.domain.InventoryLog"/>
+        <mapping class="com.wms.domain.InStrategy"/>
+        <mapping class="com.wms.domain.InMessage"/>
+        <mapping class="com.wms.domain.OutMessage"/>
+        <mapping class="com.wms.domain.RetrievalFinishLog"/>
+
     </session-factory>
 </hibernate-configuration>

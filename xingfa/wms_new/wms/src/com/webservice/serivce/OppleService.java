@@ -53,6 +53,7 @@ public class OppleService {
                     orderDetail.setQty(detail.getQty());
                     orderDetail.setBatch(pushOrderVo.getBatch());
                     orderDetail.setRetrievalOrder(retrievalOrder);
+                    orderDetail.setPalletNo(detail.getPalletNo());
                     detailSet.add(orderDetail);
                 }
 

@@ -26,7 +26,7 @@ import java.util.List;
  */
 
 @Controller
-@RequestMapping("/inventory")
+@RequestMapping("/inventory1")
 public class InventoryAction {
     InventoryService inventoryService = new InventoryService();
 

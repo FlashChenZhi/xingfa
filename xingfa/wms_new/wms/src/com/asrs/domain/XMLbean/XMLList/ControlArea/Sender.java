@@ -1,8 +1,8 @@
 package com.asrs.domain.XMLbean.XMLList.ControlArea;
 
+import com.asrs.domain.consts.xmlbean.XMLConstant;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamOmitField;
-import com.asrs.domain.consts.xmlbean.XMLConstant;
 
 import javax.persistence.*;
 
@@ -20,7 +20,7 @@ public class Sender {
     private String division = XMLConstant.COM_DIVISION;
 
     @XStreamAlias("Confirmation")
-    private String confirmation =XMLConstant.COM_CONFIRMATION;
+    private String confirmation;
 
     @XStreamOmitField
     private int id;

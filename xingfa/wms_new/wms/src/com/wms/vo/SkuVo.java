@@ -8,6 +8,7 @@ import java.math.BigDecimal;
 public class SkuVo {
 
     private String skuCode;//商品代码
+    private int shelfLife;//存储周期
     private String skuName;//商品名称
     private String skuSpec;//商品规格
     private String custSkuName;//客户货名
@@ -87,5 +88,13 @@ public class SkuVo {
 
     public void setSkuType(String skuType) {
         this.skuType = skuType;
+    }
+
+    public int getShelfLife() {
+        return shelfLife;
+    }
+
+    public void setShelfLife(int shelfLife) {
+        this.shelfLife = shelfLife;
     }
 }

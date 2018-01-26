@@ -1,15 +1,16 @@
 package com.asrs.domain.XMLbean.XMLList;
 
 import com.asrs.Mckey;
-import com.asrs.business.consts.AsrsJobStatus;
 import com.asrs.business.consts.AsrsJobType;
 import com.asrs.business.consts.TransportType;
 import com.asrs.domain.XMLbean.Envelope;
 import com.asrs.domain.XMLbean.XMLList.ControlArea.ControlArea;
+import com.asrs.domain.XMLbean.XMLList.ControlArea.Receiver;
 import com.asrs.domain.XMLbean.XMLList.ControlArea.RefId;
 import com.asrs.domain.XMLbean.XMLList.ControlArea.Sender;
 import com.asrs.domain.XMLbean.XMLList.DataArea.DAList.LoadUnitAtIdDA;
 import com.asrs.domain.XMLbean.XMLList.DataArea.DAList.TransportOrderDA;
+import com.asrs.domain.XMLbean.XMLList.DataArea.FromLocation;
 import com.asrs.domain.XMLbean.XMLList.DataArea.StUnit;
 import com.asrs.domain.XMLbean.XMLList.DataArea.ToLocation;
 import com.asrs.domain.XMLbean.XMLProcess;
@@ -19,20 +20,22 @@ import com.opple.WebService;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamAsAttribute;
 import com.thoughtworks.xstream.annotations.XStreamOmitField;
-import com.util.common.Const;
 import com.util.common.DateFormat;
 import com.util.hibernate.HibernateUtil;
 import com.util.hibernate.Transaction;
 import com.wms.domain.*;
-import javafx.print.PrinterJob;
-import org.apache.commons.lang.StringUtils;
-import org.hibernate.Session;
+import com.wms.domain.AsrsJob;
+import com.wms.domain.Location;
+import com.wms.domain.blocks.Block;
+import com.wms.domain.blocks.Srm;
+import com.wms.domain.blocks.StationBlock;
+import org.hibernate.*;
+import org.hibernate.Query;
 
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Random;
 
 /**
  * Created with IntelliJ IDEA.
@@ -45,18 +48,6 @@ import java.util.Random;
 @Table(name = "LoadUnitAtID")
 public class LoadUnitAtID extends XMLProcess {
 
-    @XStreamAlias("version")
-    @XStreamAsAttribute
-    private String version = XMLConstant.COM_VERSION;
-
-    @Column(name = "version")
-    public String getVersion() {
-        return version;
-    }
-
-    public void setVersion(String version) {
-        this.version = version;
-    }
 
     @XStreamAlias("height")
     @XStreamAsAttribute
@@ -114,61 +105,159 @@ public class LoadUnitAtID extends XMLProcess {
 
     @Override
     public void execute() {
-        //To change body of implemented methods use File | Settings | File Templates.
-        try {
-            Transaction.begin();
-            Session session = HibernateUtil.getCurrentSession();
+        Session session = HibernateUtil.getCurrentSession();
 
-            InventoryView view = WebService.getPutawayInfo(dataArea.getScanData().getItemData().getValue());
+        //读码器15位条码，首位字符不要，后面用_补齐，全部去掉。
+        String palletNo = dataArea.getScanDate().substring(1).replaceAll("_", "");
+
+        org.hibernate.Query jobQuery = HibernateUtil.getCurrentSession().createQuery("from AsrsJob where barcode=:code");
+        jobQuery.setParameter("code", palletNo);
+        List<AsrsJob> jobs = jobQuery.list();
+        String stationNo = dataArea.getXMLLocation().getMHA();
+        StationBlock stationBlock = StationBlock.getByStationNo(stationNo);
+
+        Query invQ = HibernateUtil.getCurrentSession().createQuery("from Container c where barcode=:bcode");
+        invQ.setParameter("bcode", palletNo);
+        List<Container> containers = invQ.list();
+        if (!jobs.isEmpty() || !containers.isEmpty()) {
+            SystemLog.error("托盘" + palletNo + "已存在");
+            InMessage.error(stationNo, "托盘" + palletNo + "已存在");
+        } else {
+
+            InventoryView view = WebService.getPutawayInfo(palletNo);
             if (view != null) {
+                Location newLocation = null;
 
-                Location newLocation = Location.getEmptyLocation(view.getSkuCode(), this.getHeight(), view.getLotNum());
-                newLocation.setReserved(true);
-                //开始
-                //创建ControlArea控制域对象
-                ControlArea ca = new ControlArea();
-                Sender sd = new Sender();
-                sd.setDivision(XMLConstant.COM_DIVISION);
-                ca.setSender(sd);
+                String[] positon = stationBlock.getInPostion().split("-");
 
-                RefId ri = new RefId();
-                ri.setReferenceId(Mckey.getNext());
-                ca.setRefId(ri);
-                ca.setCreationDateTime(new DateFormat().format(new Date(), DateFormat.YYYYMMDDHHMMSS));
+                InStrategy inStrategy = InStrategy.getInStrategy(view.getSkuCode());
 
-                //创建TransportOrderDA数据域对象
-                TransportOrderDA toa = new TransportOrderDA();
+                if (("整托").equals(view.getStatus())) {
 
-                toa.setTransportType(TransportType.PUTAWAY);
-                ToLocation toLocation = new ToLocation();
-                toLocation.setMHA(dataArea.getXMLLocation().getMHA());
-                toLocation.setRack(newLocation.getLocationNo());
-                toLocation.setX(String.valueOf(newLocation.getBank()));
-                toLocation.setY(String.valueOf(newLocation.getBay()));
-                toLocation.setZ(String.valueOf(newLocation.getLevel()));
-                toa.setToLocation(toLocation);
-                StUnit su = new StUnit();
-                su.setStUnitID(view.getPalletCode());
-                toa.setStUnit(su);
-                toa.setToLocation(toLocation);
+                    if (inStrategy != null) {
+                        Srm srm = Srm.getSrmByPosition(inStrategy.getPosition());
+                        if (srm.getStatus().equals(Block.STATUS_RUN))
+                            newLocation = Location.getEmptyLocation(view.getSkuCode(), view.getLotNum(), inStrategy.getPosition(), view.getWhCode());
+                    }
 
-                //创建TransportOrder核心对象
-                TransportOrder to = new TransportOrder();
-                to.setControlArea(ca);
-                to.setDataArea(toa);
-                //结束
-                Envelope el = new Envelope();
-                el.setTransportOrder(to);
-                XMLUtil.sendEnvelope(el);
+                    if (newLocation == null) {
+                        for (int i = 0; i < positon.length; i++) {
+                            String po = positon[i];
+                            Srm srm = Srm.getSrmByPosition(po);
+                            if (!srm.getStatus().equals(Block.STATUS_RUN))
+                                continue;
+
+                            newLocation = Location.getEmptyLocation(view.getSkuCode(), view.getLotNum(), po, view.getWhCode());
+                            if (newLocation != null) {
+                                newLocation.setReserved(true);
+                                break;
+                            }
+
+                        }
+                    }
+                } else if ("非整托".equals(view.getStatus())) {
+                    //
+                    if (newLocation == null) {
+                        for (int i = 0; i < positon.length; i++) {
+                            String po = positon[i];
+                            Srm srm = Srm.getSrmByPosition(po);
+                            if (!srm.getStatus().equals(Block.STATUS_RUN))
+                                continue;
+
+                            newLocation = Location.getPartPalletLocation();
+                            if (newLocation != null) {
+                                newLocation.setReserved(true);
+                                break;
+                            }
+                        }
+                    }
+
+                } else if ("空托盘".equals(view.getStatus())) {
+
+
+
+                }
+
+                if (newLocation == null) {
+                    SystemLog.error("托盘" + palletNo + "找不到合适的货位");
+                    InMessage.error(stationNo, "托盘" + palletNo + "，找不到合适的货位");
+                }
+
+                if(newLocation != null) {
+
+                    String mckey = Mckey.getNext();
+                    //开始
+                    //创建ControlArea控制域对象
+                    ControlArea ca = new ControlArea();
+                    Sender sd = new Sender();
+                    sd.setDivision(XMLConstant.COM_DIVISION);
+                    ca.setSender(sd);
+
+                    Receiver rv = new Receiver();
+                    rv.setDivision("WCS1");
+                    ca.setReceiver(rv);
+
+                    RefId ri = new RefId();
+                    ri.setReferenceId(mckey);
+                    ca.setRefId(ri);
+                    ca.setCreationDateTime(new DateFormat().format(new Date(), DateFormat.YYYYMMDDHHMMSS));
+
+                    //创建TransportOrderDA数据域对象
+                    TransportOrderDA toa = new TransportOrderDA();
+
+                    toa.setTransportType(TransportType.PUTAWAY);
+                    ToLocation toLocation = new ToLocation();
+                    Srm srm = Srm.getSrmByPosition(newLocation.getPosition());
+                    toLocation.setMHA(srm.getBlockNo());
+                    List<String> locations = new ArrayList<>();
+                    locations.add(newLocation.getBank() + "");
+                    locations.add(newLocation.getBay() + "");
+                    locations.add(newLocation.getLevel() + "");
+                    toLocation.setRack(locations);
+                    toa.setToLocation(toLocation);
+                    FromLocation fromLocation = new FromLocation();
+                    fromLocation.setMHA(dataArea.getXMLLocation().getMHA());
+                    toa.setFromLocation(fromLocation);
+                    StUnit su = new StUnit();
+                    su.setStUnitID(view.getPalletCode());
+                    toa.setStUnit(su);
+                    toa.setToLocation(toLocation);
+
+                    //创建TransportOrder核心对象
+                    TransportOrder to = new TransportOrder();
+                    to.setControlArea(ca);
+                    to.setDataArea(toa);
+                    //结束
+                    Envelope el = new Envelope();
+                    el.setTransportOrder(to);
+
+                    XMLMessage xmlMessage = new XMLMessage();
+                    xmlMessage.setRecv("WCS");
+                    xmlMessage.setStatus("1");
+                    xmlMessage.setMessageInfo(XMLUtil.getSendXML(el));
+                    HibernateUtil.getCurrentSession().save(xmlMessage);
+
+                    Job job = new Job();
+                    job.setStatus("1");
+                    job.setContainer(palletNo);
+                    job.setToLocation(newLocation);
+                    job.setCreateDate(new Date());
+                    job.setCreateUser("sys");
+                    job.setFromStation(fromLocation.getMHA());
+                    job.setToStation(toLocation.getMHA());
+                    job.setMcKey(mckey);
+                    job.setType(AsrsJobType.PUTAWAY);
+                    job.setSendReport(false);
+
+                    HibernateUtil.getCurrentSession().save(job);
+
+                    InMessage.info(stationNo, view);
+                }
 
             } else {
-                throw new Exception("托盘数据不存在" );
+                SystemLog.error("托盘数据" + dataArea.getScanDate() + "不存在");
+                InMessage.error(stationNo, "托盘数据" + dataArea.getScanDate() + "不存在");
             }
-
-            Transaction.commit();
-        } catch (Exception e) {
-            Transaction.rollback();
-            e.printStackTrace();
         }
 
     }

@@ -27,6 +27,10 @@ public class Envelope implements Serializable {
     @XStreamAlias("WorkStartEnd")
     private WorkStartEnd workStartEnd;
 
+    @XStreamAlias("AcceptTransportOrder")
+    private AcceptTransportOrder acceptTransportOrder;
+
+
     @XStreamAlias("AcceptLoadUnitAtId")
     private AcceptLoadUnitAtID acceptLoadUnitID;
 
@@ -36,7 +40,7 @@ public class Envelope implements Serializable {
     @XStreamAlias("HandlingUnitStatus")
     private HandlingUnitStatus handlingUnitStatus;
 
-    @XStreamAlias("LoadUnitAtId")
+    @XStreamAlias("LoadUnitAtID")
     private LoadUnitAtID loadUnitAtID;
 
     @XStreamAlias("MovementReport")
@@ -148,5 +152,13 @@ public class Envelope implements Serializable {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public AcceptTransportOrder getAcceptTransportOrder() {
+        return acceptTransportOrder;
+    }
+
+    public void setAcceptTransportOrder(AcceptTransportOrder acceptTransportOrder) {
+        this.acceptTransportOrder = acceptTransportOrder;
     }
 }

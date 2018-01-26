@@ -43,7 +43,7 @@ public class WorkStartEndDA {
     private int id;
 
     @Id
-    @SequenceGenerator(name = "sequenceGenerator", sequenceName = "WORKSTARTEND_DA_SEQ", allocationSize = 1)
+    @SequenceGenerator(name = "sequenceGenerator", sequenceName = "CANCELTRANSPORTORDER_DA_SEQ", allocationSize = 1)
     @GeneratedValue(generator = "sequenceGenerator", strategy = GenerationType.SEQUENCE)
     @Column(name = "ID")
     public int getId() {
