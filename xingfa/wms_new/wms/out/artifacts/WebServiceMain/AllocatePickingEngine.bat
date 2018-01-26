@@ -1,1 +1,0 @@
-java -Djava.ext.dirs=lib -jar -Dfile.encoding=UTF-8 -Xmx512m -Xms64m -XX:PermSize=64m -XX:MaxPermSize=256m AllocatePickingEngine.jar
