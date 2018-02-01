@@ -9,7 +9,10 @@ var config = require('./webpack.config.dev.js');
 
 var proxy = [{
     path: "/wcs/**",
-    target: "http://localhost:8089"
+    target: "http://localhost:8080/"
+},{
+    path: "/wms/**",
+    target: "http://localhost:8080/"
 }];
 
 new WebpackDevServer(webpack(config), {

@@ -24,6 +24,9 @@ import SkuQuery from '../components/query/SkuQuery';
 import ModifyLocation from '../components/query/ModifyLocation';
 import MessageLogQuery from '../components/query/MessageLogQuery';
 import SendMessage from '../components/query/SendMessage';
+import PutInStorage from '../components/InOrOut/PutInStorage';
+import OrderInquiry from '../components/InOrOut/OrderInquiry';
+import PlatformSwitch from '../components/InOrOut/PlatformSwitch';
 class Index extends React.Component {
     constructor(props) {
         super(props);
@@ -52,7 +55,9 @@ class Index extends React.Component {
                     <Route path="/ModifyLocation" components={ModifyLocation}/>
                     <Route path="/MessageLogQuery" components={MessageLogQuery}/>
                     <Route path="/SendMessage" components={SendMessage}/>
-
+                    <Route path="/PutInStorage" components={PutInStorage}/>
+                    <Route path="/OrderInquiry" components={OrderInquiry}/>
+                    <Route path="/PlatformSwitch" components={PlatformSwitch}/>
                 </Route>
                 <Route path="/" component={LoginMain}>
                     <IndexRedirect to="/login"/>

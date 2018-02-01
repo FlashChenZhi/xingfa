@@ -95,7 +95,7 @@ export default class TopNavi extends React.Component {
 
         return (
             <Row>
-                <Col span={12}>
+                <Col span={10}>
                     <div className="ant-layout-ceiling-demo">
                         <div className="ant-layout-ceiling">
                             <div className="ant-layout-wrapper">
@@ -106,7 +106,7 @@ export default class TopNavi extends React.Component {
                         </div>
                     </div>
                 </Col>
-                <Col span={12}>
+                <Col span={9}>
                     <div className="ant-layout-ceiling-demo">
                         <div className="ant-layout-ceiling">
                             <div className="ant-layout-wrapper">
@@ -125,6 +125,13 @@ export default class TopNavi extends React.Component {
                         </div>
                     </div>
                     <UpdatePwdModel visible={updatePwdModelVisible} hideModel={this.hideModel.bind(this)}/>
+                </Col>
+                <Col span={5}>
+                    <div className="ant-layout-ceiling">
+                        <ul className="right">
+                            <img src="images/xingfalogo.jpg" width={"100%;"} height={"50px;"} />
+                        </ul>
+                    </div>
                 </Col>
             </Row>
         );

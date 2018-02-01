@@ -6,9 +6,9 @@
     <session-factory>
         <property name="current_session_context_class">thread</property>
         <property name="hibernate.connection.driver_class">oracle.jdbc.driver.OracleDriver</property>
-        <property name="hibernate.connection.url">jdbc:oracle:thin:@10.10.1.178:1521:whs</property>
-        <property name="hibernate.connection.username">opuser</property>
-        <property name="connection.password">opuser</property>
+        <property name="hibernate.connection.url">jdbc:oracle:thin:@127.0.0.1:1521:orcl</property>
+        <property name="hibernate.connection.username">xingfa</property>
+        <property name="connection.password">xingfa</property>
         <property name="hibernate.dialect">org.hibernate.dialect.Oracle10gDialect</property>
         <property name="hibernate.format_sql">true</property>
         <property name="hibernate.temp.use_jdbc_metadata_defaults">false</property>
