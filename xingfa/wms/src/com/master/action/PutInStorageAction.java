@@ -1,7 +1,9 @@
 package com.master.action;
 
 import com.master.service.PutInStorageService;
+import com.util.common.BaseReturnObj;
 import com.util.common.PagerReturnObj;
+import com.util.common.ReturnObj;
 import net.sf.json.JSON;
 import net.sf.json.JSONArray;
 import org.springframework.stereotype.Controller;
@@ -32,7 +34,7 @@ public class PutInStorageAction {
      */
     @RequestMapping(value = "/getCommodityCode",method = RequestMethod.POST)
     @ResponseBody
-    public PagerReturnObj<List<Map<String,Object>>> getCommodityCode() throws IOException{
+    public ReturnObj<List<Map<String,String>>> getCommodityCode() throws IOException{
 
         return putInStorageService.getCommodityCode();
     }
@@ -47,7 +49,7 @@ public class PutInStorageAction {
      */
     @RequestMapping(value = "/addTask",method = RequestMethod.POST)
     @ResponseBody
-    public String addTask(String tuopanhao,String zhantai,String commodityCode,int num) throws IOException{
+    public BaseReturnObj addTask(String tuopanhao, String zhantai, String commodityCode, int num) throws IOException{
         tuopanhao = URLDecoder.decode(tuopanhao,"utf-8");
         System.out.println("托盘号："+tuopanhao+";站台："+zhantai+";货品代码："+commodityCode+";数量："+num);
         return putInStorageService.addTask(tuopanhao,zhantai,commodityCode,num);

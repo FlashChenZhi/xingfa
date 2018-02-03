@@ -181,8 +181,6 @@ public class Container {
     public static Container getByBarcode(String palletNo) {
         Query q = HibernateUtil.getCurrentSession().createQuery("from Container c where c.barcode = :barcode")
                 .setString("barcode", palletNo);
-
-
         return (Container) q.uniqueResult();
     }
 

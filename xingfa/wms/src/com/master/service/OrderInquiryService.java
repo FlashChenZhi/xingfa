@@ -1,6 +1,7 @@
 package com.master.service;
 
 import com.util.common.PagerReturnObj;
+import com.util.common.ReturnObj;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -51,8 +52,8 @@ public class OrderInquiryService {
      * @return
      * @throws IOException
      */
-    public PagerReturnObj<List<Map<String,Object>>> getshipperId() throws IOException{
-        PagerReturnObj<List<Map<String,Object>>> s = new PagerReturnObj<List<Map<String,Object>>>();
+    public ReturnObj<List<Map<String,Object>>> getshipperId() throws IOException{
+        ReturnObj<List<Map<String,Object>>> s = new ReturnObj<List<Map<String,Object>>>();
         System.out.println("进入获取货主代码方法！");
         List<Map<String,Object>> mapList = new ArrayList<Map<String,Object>>();
         for (int i = 0; i <8 ; i++) {
@@ -70,8 +71,8 @@ public class OrderInquiryService {
      * @return
      * @throws IOException
      */
-    public PagerReturnObj<List<Map<String,Object>>> getCommodityCode() throws IOException{
-        PagerReturnObj<List<Map<String,Object>>> s = new PagerReturnObj<List<Map<String,Object>>>();
+    public ReturnObj<List<Map<String,Object>>> getCommodityCode() throws IOException{
+        ReturnObj<List<Map<String,Object>>> s = new ReturnObj<List<Map<String,Object>>>();
         System.out.println("进入获取商品代码方法！");
 
         List<Map<String,Object>> mapList = new ArrayList<Map<String,Object>>();

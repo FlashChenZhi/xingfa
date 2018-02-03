@@ -3,6 +3,7 @@ package com.master.action;
 import com.master.service.OrderInquiryService;
 import com.master.service.SkuService;
 import com.util.common.PagerReturnObj;
+import com.util.common.ReturnObj;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -44,7 +45,7 @@ public class OrderInquiryAction {
      */
     @RequestMapping(value = "/getshipperId",method = RequestMethod.POST)
     @ResponseBody
-    public PagerReturnObj<List<Map<String,Object>>> getshipperId() throws IOException{
+    public ReturnObj<List<Map<String,Object>>> getshipperId() throws IOException{
 
         return orderInquiryService.getshipperId();
     }
@@ -55,7 +56,7 @@ public class OrderInquiryAction {
      */
     @RequestMapping(value = "/getCommodityCode",method = RequestMethod.POST)
     @ResponseBody
-    public PagerReturnObj<List<Map<String,Object>>> getCommodityCode() throws IOException{
+    public ReturnObj<List<Map<String,Object>>> getCommodityCode() throws IOException{
 
         return orderInquiryService.getCommodityCode();
     }
