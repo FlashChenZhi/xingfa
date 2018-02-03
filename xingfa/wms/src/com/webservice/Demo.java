@@ -1,6 +1,7 @@
 package com.webservice;
 
 import com.util.hibernate.Transaction;
+import com.wms.domain.Sku;
 
 /**
  * Created by van on 2017/11/22.

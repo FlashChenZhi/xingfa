@@ -8,6 +8,7 @@ import java.util.Objects;
 @Entity
 @Table(name = "RETRIEVAL_ORDER_LINE", schema = "XINGFA", catalog = "")
 public class RetrievalOrderLine {
+
     private int rid;
     private String shouhuodanhao;
     private String jinhuodanhao;
@@ -24,6 +25,8 @@ public class RetrievalOrderLine {
 
     @Id
     @Column(name = "RID", nullable = false, precision = 0)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "rolseq")
+    @SequenceGenerator(name = "rolseq", sequenceName = "R_O_LSEQ", allocationSize = 1)
     public int getRid() {
         return rid;
     }
@@ -179,7 +182,7 @@ public class RetrievalOrderLine {
     }
 
 
-    public static RetrievalOrderLine getByBarcode(String jinhuodanhao,String hanghao) {
+    public static RetrievalOrderLine getByRetrievalOrderLine(String jinhuodanhao,String hanghao) {
         org.hibernate.Query q = HibernateUtil.getCurrentSession().createQuery("from RetrievalOrderLine r where r.jinhuodanhao = :jinhuodanhao and r.hanghao=:hanghao")
                 .setString("jinhuodanhao", jinhuodanhao).setString("hanghao",hanghao);
 
