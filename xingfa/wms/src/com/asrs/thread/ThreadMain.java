@@ -32,7 +32,7 @@ public class ThreadMain {
 
             try {
                 Transaction.begin();
-                Query query = HibernateUtil.getCurrentSession().createQuery("from Job  where sendReport=false and type=:tp order by fromLocation.position asc, fromLocation.bay asc,fromLocation.level asc,fromLocation.seq desc")
+                Query query = HibernateUtil.getCurrentSession().createQuery("from Job  where sendReport=false and type=:tp order by fromLocation.position asc, fromLocation.bay asc,fromLocation.level asc,fromLocation.seq2 asc")
                         .setParameter("tp", AsrsJobType.RETRIEVAL).setMaxResults(1);
 
                 Job job = (Job) query.uniqueResult();
