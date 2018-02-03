@@ -102,21 +102,19 @@ public class InMessage {
         }
     }
 
-    public static void info(String blockNo, InventoryView view) {
+    public static void info(String blockNo, String palletNo,String skuCode) {
         InMessage inMessage = (InMessage) HibernateUtil.getCurrentSession().get(InMessage.class, blockNo);
 
         if (inMessage != null) {
             org.hibernate.Query query = HibernateUtil.getCurrentSession().createQuery("from InventoryView where palletCode=:pCode");
-            query.setParameter("pCode",view.getPalletCode());
+            query.setParameter("pCode",palletNo);
             List<InventoryView> views = query.list();
             BigDecimal qcQty  = BigDecimal.ZERO;
             for(InventoryView view1 : views){
                 qcQty = qcQty.add(view1.getQty());
             }
-            inMessage.setPalletNo(view.getPalletCode());
-            inMessage.setLotNum(view.getLotNum());
-            inMessage.setPalletStatus(view.getStatus());
-            inMessage.setSku(view.getSkuCode());
+            inMessage.setPalletNo(palletNo);
+            inMessage.setSku(skuCode);
             inMessage.setPcQty(qcQty.toString());
             inMessage.setErrorMessage(null);
         }

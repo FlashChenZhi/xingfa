@@ -125,7 +125,7 @@ public class TransportOrder extends XMLProcess {
                 String fromStation = dataArea.getFromLocation().getMHA();
 
                 Station station = Station.getStation(fromStation);
-                if (!station.getType().equals(AsrsJobType.PUTAWAY)) {
+                if (!station.getMode().equals(AsrsJobType.PUTAWAY)) {
                     throw new Exception("站台不是入库站台");
                 }
 
@@ -178,7 +178,7 @@ public class TransportOrder extends XMLProcess {
                 String toStation = dataArea.getToLocation().getMHA();
 
                 Station station = Station.getStation(toStation);
-                if (!station.getType().equals(AsrsJobType.RETRIEVAL)) {
+                if (!station.getMode().equals(AsrsJobType.RETRIEVAL)) {
                     throw new Exception("站台不是出库站台");
                 }
 

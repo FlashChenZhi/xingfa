@@ -231,12 +231,6 @@ public class JobDoHelp {
         for (JobDetail detail : details) {
             Inventory inventory = detail.getInventory();
 
-            org.hibernate.Query query = HibernateUtil.getCurrentSession().createQuery("from ReceivingPlan where batchNo =:batchNo").setMaxResults(1);
-//            query.setParameter("batchNo", inventory.getBatchNo());
-            ReceivingPlan receivingPlan = (ReceivingPlan) query.uniqueResult();
-            receivingPlan.setRecvedQty(receivingPlan.getRecvedQty().subtract(inventory.getQty()));
-            HibernateUtil.getCurrentSession().update(receivingPlan);
-
             Location location = job.getFromLocation();
             location.setEmpty(true);
             location.setRetrievalRestricted(false);

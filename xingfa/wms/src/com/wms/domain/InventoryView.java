@@ -7,7 +7,7 @@ import java.math.BigDecimal;
  * Created by van on 2017/12/14.
  */
 @Entity
-@Table(name = "INVENTORY_IFAC")
+@Table(name = "RECEIVINGPLAN")
 public class InventoryView {
 
     private String id;
@@ -17,12 +17,11 @@ public class InventoryView {
     private String skuName;
     private String lotNum;
     private BigDecimal qty;
-    private BigDecimal caseQty;
-    private String caseBarCode;
-    private String status;
 
     @Id
-    @Column(name = "INV_STOR_ID")
+    @Column(name = "ID")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq")
+    @SequenceGenerator(name = "seq", sequenceName = "SEQ_RECVPLAN_ID", allocationSize = 1)
     public String getId() {
         return id;
     }
@@ -72,7 +71,7 @@ public class InventoryView {
     }
 
     @Basic
-    @Column(name = "BATCH")
+    @Column(name = "BATCH_NO")
     public String getLotNum() {
         return lotNum;
     }
@@ -89,35 +88,5 @@ public class InventoryView {
 
     public void setQty(BigDecimal qty) {
         this.qty = qty;
-    }
-
-    @Basic
-    @Column(name = "CASE_QTY")
-    public BigDecimal getCaseQty() {
-        return caseQty;
-    }
-
-    public void setCaseQty(BigDecimal caseQty) {
-        this.caseQty = caseQty;
-    }
-
-    @Basic
-    @Column(name = "LM_CODE")
-    public String getCaseBarCode() {
-        return caseBarCode;
-    }
-
-    public void setCaseBarCode(String caseBarCode) {
-        this.caseBarCode = caseBarCode;
-    }
-
-    @Basic
-    @Column(name = "STATUS")
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
     }
 }

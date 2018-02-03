@@ -1,6 +1,7 @@
 package com.asrs.domain.XMLbean.XMLList;
 
 import com.asrs.business.consts.AsrsJobStatus;
+import com.opple.WebService;
 import com.wms.domain.*;
 import com.asrs.domain.XMLbean.XMLList.ControlArea.ControlArea;
 import com.asrs.domain.XMLbean.XMLList.DataArea.DAList.MovementReportDA;
@@ -113,9 +114,7 @@ public class MovementReport extends XMLProcess {
                     inventory.setWhCode(view.getWhCode());
                     inventory.setSkuName(view.getSkuName());
                     inventory.setLotNum(view.getLotNum());
-                    inventory.setCaseBarCode(view.getCaseBarCode());
                     inventory.setQty(view.getQty());
-                    inventory.setCaseQty(view.getCaseQty());
                     inventory.setSkuCode(view.getSkuCode());
                     inventory.setContainer(container);
                     inventory.setStoreDate(DateUtils.formatDate(new Date(), "yyyy-MM-dd"));
@@ -127,13 +126,14 @@ public class MovementReport extends XMLProcess {
                     inventoryLog.setToLocation(container.getLocation().getLocationNo());
                     inventoryLog.setLotNum(inventory.getLotNum());
                     inventoryLog.setSkuName(inventory.getSkuName());
-                    container.setStatus(view.getStatus());
+
+                    session.delete(view);
                 }
 
             }
             inventoryLog.setContainer(container.getBarcode());
             inventoryLog.setCreateDate(new Date());
-            HibernateUtil.getCurrentSession().save(inventoryLog);
+            session.save(inventoryLog);
 
 
             // TODO: 放在后台
@@ -146,7 +146,7 @@ public class MovementReport extends XMLProcess {
             location.setRetrievalRestricted(false);
             session.update(location);
             j.setStatus(AsrsJobStatus.DONE);
-            OutMessage.info(j.getToStation(), j.getOrderNo(), j.getContainer());
+//            OutMessage.info(j.getToStation(), j.getOrderNo(), j.getContainer());
 
 
             //// TODO: 放在后台

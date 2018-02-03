@@ -24,7 +24,7 @@ public class WebService {
         try {
             Transaction.begin();
 
-            save("OPWJ00041");
+//            save("OPWJ00041");
 
             Transaction.commit();
 
@@ -34,64 +34,41 @@ public class WebService {
         //        finishPutaway("OPWJ00156");
     }
 
-    public static InventoryView getPutawayInfo(String palletNo) {
-        Query query = HibernateUtil.getCurrentSession().createQuery("from InventoryView where palletCode=:palletNo");
-        query.setParameter("palletNo", palletNo);
-        List<InventoryView> views = query.list();
-        String lotNo = null;
-        for (InventoryView view : views) {
-            if (lotNo != null) {
-                if (!lotNo.equals(view.getLotNum())) {
-                    return null;
-                }
-            } else if (StringUtils.isNotBlank(view.getLotNum())) {
-                lotNo = view.getLotNum();
-            }
-        }
-        if (!views.isEmpty()) {
-            return views.get(0);
-        } else {
-            return null;
-        }
-
-
-    }
-
-    public static void save(String palletNo) {
-        Container container = null;
-
-        Query query = HibernateUtil.getCurrentSession().createQuery("from InventoryView where palletCode=:palletNo");
-        query.setParameter("palletNo", palletNo);
-        List<InventoryView> views = query.list();
-
-
-        container = Container.getByBarcode(palletNo);
-
-        if (container == null) {
-            container = new Container();
-            container.setBarcode(palletNo);
-            container.setLocation(Location.getByLocationNo("000"));
-            container.setCreateDate(new Date());
-            container.setCreateUser("sys");
-            container.setReserved(true);
-            HibernateUtil.getCurrentSession().save(container);
-        }
-
-        for (InventoryView view : views) {
-
-            if (view != null) {
-                Inventory inventory = new Inventory();
-                inventory.setWhCode(view.getWhCode());
-                inventory.setLotNum(view.getLotNum());
-                inventory.setCaseBarCode(view.getCaseBarCode());
-                inventory.setQty(view.getQty());
-                inventory.setCaseQty(view.getCaseQty());
-                inventory.setSkuCode(view.getSkuCode());
-                inventory.setContainer(container);
-                HibernateUtil.getCurrentSession().save(inventory);
-            }
-        }
-    }
+//    public static void save(String palletNo) {
+//        Container container = null;
+//
+//        Query query = HibernateUtil.getCurrentSession().createQuery("from InventoryView where palletCode=:palletNo");
+//        query.setParameter("palletNo", palletNo);
+//        List<InventoryView> views = query.list();
+//
+//
+//        container = Container.getByBarcode(palletNo);
+//
+//        if (container == null) {
+//            container = new Container();
+//            container.setBarcode(palletNo);
+//            container.setLocation(Location.getByLocationNo("000"));
+//            container.setCreateDate(new Date());
+//            container.setCreateUser("sys");
+//            container.setReserved(true);
+//            HibernateUtil.getCurrentSession().save(container);
+//        }
+//
+//        for (InventoryView view : views) {
+//
+//            if (view != null) {
+//                Inventory inventory = new Inventory();
+//                inventory.setWhCode(view.getWhCode());
+//                inventory.setLotNum(view.getLotNum());
+//                inventory.setCaseBarCode(view.getCaseBarCode());
+//                inventory.setQty(view.getQty());
+//                inventory.setCaseQty(view.getCaseQty());
+//                inventory.setSkuCode(view.getSkuCode());
+//                inventory.setContainer(container);
+//                HibernateUtil.getCurrentSession().save(inventory);
+//            }
+//        }
+//    }
 
     /**
      * 出库完成

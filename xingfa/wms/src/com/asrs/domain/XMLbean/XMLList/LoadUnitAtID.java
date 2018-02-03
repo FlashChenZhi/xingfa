@@ -1,6 +1,7 @@
 package com.asrs.domain.XMLbean.XMLList;
 
 import com.asrs.Mckey;
+import com.asrs.business.consts.AsrsJobStatus;
 import com.asrs.business.consts.AsrsJobType;
 import com.asrs.business.consts.TransportType;
 import com.asrs.domain.XMLbean.Envelope;
@@ -108,155 +109,245 @@ public class LoadUnitAtID extends XMLProcess {
         Session session = HibernateUtil.getCurrentSession();
 
         //读码器15位条码，首位字符不要，后面用_补齐，全部去掉。
-        String palletNo = dataArea.getScanDate().substring(1).replaceAll("_", "");
+//        String palletNo = dataArea.getScanDate().substring(1).replaceAll("_", "");
+//
+//        org.hibernate.Query jobQuery = HibernateUtil.getCurrentSession().createQuery("from AsrsJob where barcode=:code");
+//        jobQuery.setParameter("code", palletNo);
+//        List<AsrsJob> jobs = jobQuery.list();
+//        String stationNo = dataArea.getXMLLocation().getMHA();
+//        StationBlock stationBlock = StationBlock.getByStationNo(stationNo);
+//
+//        Query invQ = HibernateUtil.getCurrentSession().createQuery("from Container c where barcode=:bcode");
+//        invQ.setParameter("bcode", palletNo);
+//        List<Container> containers = invQ.list();
+//        if (!jobs.isEmpty() || !containers.isEmpty()) {
+//            SystemLog.error("托盘" + palletNo + "已存在");
+//            InMessage.error(stationNo, "托盘" + palletNo + "已存在");
+//        } else {
+//
+//            InventoryView view = WebService.getPutawayInfo(palletNo);
+//            if (view != null) {
+//                Location newLocation = null;
+//
+//                String[] positon = stationBlock.getInPostion().split("-");
+//
+//                InStrategy inStrategy = InStrategy.getInStrategy(view.getSkuCode());
+//
+//                if (("整托").equals(view.getStatus())) {
+//
+//                    if (inStrategy != null) {
+//                        Srm srm = Srm.getSrmByPosition(inStrategy.getPosition());
+//                        if (srm.getStatus().equals(Block.STATUS_RUN))
+//                            newLocation = Location.getEmptyLocation(view.getSkuCode(), view.getLotNum(), inStrategy.getPosition(), view.getWhCode());
+//                    }
+//
+//                    if (newLocation == null) {
+//                        for (int i = 0; i < positon.length; i++) {
+//                            String po = positon[i];
+//                            Srm srm = Srm.getSrmByPosition(po);
+//                            if (!srm.getStatus().equals(Block.STATUS_RUN))
+//                                continue;
+//
+//                            newLocation = Location.getEmptyLocation(view.getSkuCode(), view.getLotNum(), po, view.getWhCode());
+//                            if (newLocation != null) {
+//                                newLocation.setReserved(true);
+//                                break;
+//                            }
+//
+//                        }
+//                    }
+//                } else if ("非整托".equals(view.getStatus())) {
+//                    //
+//                    if (newLocation == null) {
+//                        for (int i = 0; i < positon.length; i++) {
+//                            String po = positon[i];
+//                            Srm srm = Srm.getSrmByPosition(po);
+//                            if (!srm.getStatus().equals(Block.STATUS_RUN))
+//                                continue;
+//
+//                            newLocation = Location.getPartPalletLocation();
+//                            if (newLocation != null) {
+//                                newLocation.setReserved(true);
+//                                break;
+//                            }
+//                        }
+//                    }
+//
+//                } else if ("空托盘".equals(view.getStatus())) {
+//
+//
+//
+//                }
+//
+//
+//                if (newLocation == null) {
+//                    SystemLog.error("托盘" + palletNo + "找不到合适的货位");
+//                    InMessage.error(stationNo, "托盘" + palletNo + "，找不到合适的货位");
+//                }else{
+//
+//                    String mckey = Mckey.getNext();
+//                    //开始
+//                    //创建ControlArea控制域对象
+//                    ControlArea ca = new ControlArea();
+//                    Sender sd = new Sender();
+//                    sd.setDivision(XMLConstant.COM_DIVISION);
+//                    ca.setSender(sd);
+//
+//                    Receiver rv = new Receiver();
+//                    rv.setDivision("WCS1");
+//                    ca.setReceiver(rv);
+//
+//                    RefId ri = new RefId();
+//                    ri.setReferenceId(mckey);
+//                    ca.setRefId(ri);
+//                    ca.setCreationDateTime(new DateFormat().format(new Date(), DateFormat.YYYYMMDDHHMMSS));
+//
+//                    //创建TransportOrderDA数据域对象
+//                    TransportOrderDA toa = new TransportOrderDA();
+//
+//                    toa.setTransportType(TransportType.PUTAWAY);
+//                    ToLocation toLocation = new ToLocation();
+//                    Srm srm = Srm.getSrmByPosition(newLocation.getPosition());
+//                    toLocation.setMHA(srm.getBlockNo());
+//                    List<String> locations = new ArrayList<>();
+//                    locations.add(newLocation.getBank() + "");
+//                    locations.add(newLocation.getBay() + "");
+//                    locations.add(newLocation.getLevel() + "");
+//                    toLocation.setRack(locations);
+//                    toa.setToLocation(toLocation);
+//                    FromLocation fromLocation = new FromLocation();
+//                    fromLocation.setMHA(dataArea.getXMLLocation().getMHA());
+//                    toa.setFromLocation(fromLocation);
+//                    StUnit su = new StUnit();
+//                    su.setStUnitID(view.getPalletCode());
+//                    toa.setStUnit(su);
+//                    toa.setToLocation(toLocation);
+//
+//                    //创建TransportOrder核心对象
+//                    TransportOrder to = new TransportOrder();
+//                    to.setControlArea(ca);
+//                    to.setDataArea(toa);
+//                    //结束
+//                    Envelope el = new Envelope();
+//                    el.setTransportOrder(to);
+//
+//                    XMLMessage xmlMessage = new XMLMessage();
+//                    xmlMessage.setRecv("WCS");
+//                    xmlMessage.setStatus("1");
+//                    xmlMessage.setMessageInfo(XMLUtil.getSendXML(el));
+//                    HibernateUtil.getCurrentSession().save(xmlMessage);
+//
+//                    Job job = new Job();
+//                    job.setStatus("1");
+//                    job.setContainer(palletNo);
+//                    job.setToLocation(newLocation);
+//                    job.setCreateDate(new Date());
+//                    job.setCreateUser("sys");
+//                    job.setFromStation(fromLocation.getMHA());
+//                    job.setToStation(toLocation.getMHA());
+//                    job.setMcKey(mckey);
+//                    job.setType(AsrsJobType.PUTAWAY);
+//                    job.setSendReport(false);
+//
+//                    HibernateUtil.getCurrentSession().save(job);
+//
+//                    InMessage.info(stationNo, view);
+//                }
+//
+//            } else {
+//                SystemLog.error("托盘数据" + dataArea.getScanDate() + "不存在");
+//                InMessage.error(stationNo, "托盘数据" + dataArea.getScanDate() + "不存在");
+//            }
+//        }
 
-        org.hibernate.Query jobQuery = HibernateUtil.getCurrentSession().createQuery("from AsrsJob where barcode=:code");
-        jobQuery.setParameter("code", palletNo);
-        List<AsrsJob> jobs = jobQuery.list();
         String stationNo = dataArea.getXMLLocation().getMHA();
-        StationBlock stationBlock = StationBlock.getByStationNo(stationNo);
+        org.hibernate.Query jobQuery = HibernateUtil.getCurrentSession().createQuery("from Job j where j.fromStation = :station and j.status = :waiting order by j.createDate")
+                .setString("station",stationNo)
+                .setString("waiting", AsrsJobStatus.WAITING)
+                .setMaxResults(1);
 
-        Query invQ = HibernateUtil.getCurrentSession().createQuery("from Container c where barcode=:bcode");
-        invQ.setParameter("bcode", palletNo);
-        List<Container> containers = invQ.list();
-        if (!jobs.isEmpty() || !containers.isEmpty()) {
-            SystemLog.error("托盘" + palletNo + "已存在");
-            InMessage.error(stationNo, "托盘" + palletNo + "已存在");
-        } else {
+        Job j = (Job) jobQuery.uniqueResult();
+        if(j == null) {
+            SystemLog.error("入库站台" + stationNo + "不存在任务");
+            InMessage.error(stationNo, "入库站台" + stationNo + "不存在任务");
+        }else{
+            Container container = Container.getByBarcode(j.getContainer());
+            Inventory inventory = container.getInventories().iterator().next();
+            Station station = Station.getStation(stationNo);
+            Location newLocation = Location.getEmptyLocation(inventory.getSkuCode(),station.getPosition());
+            String palletNo = container.getBarcode();
+            if (newLocation == null) {
+                SystemLog.error("托盘" + palletNo + "找不到合适的货位");
+                InMessage.error(stationNo, "托盘" + palletNo + "，找不到合适的货位");
+            }else{
 
-            InventoryView view = WebService.getPutawayInfo(palletNo);
-            if (view != null) {
-                Location newLocation = null;
+                String mckey = Mckey.getNext();
+                //开始
+                //创建ControlArea控制域对象
+                ControlArea ca = new ControlArea();
+                Sender sd = new Sender();
+                sd.setDivision(XMLConstant.COM_DIVISION);
+                ca.setSender(sd);
 
-                String[] positon = stationBlock.getInPostion().split("-");
+                Receiver rv = new Receiver();
+                rv.setDivision("WCS1");
+                ca.setReceiver(rv);
 
-                InStrategy inStrategy = InStrategy.getInStrategy(view.getSkuCode());
+                RefId ri = new RefId();
+                ri.setReferenceId(mckey);
+                ca.setRefId(ri);
+                ca.setCreationDateTime(new DateFormat().format(new Date(), DateFormat.YYYYMMDDHHMMSS));
 
-                if (("整托").equals(view.getStatus())) {
+                //创建TransportOrderDA数据域对象
+                TransportOrderDA toa = new TransportOrderDA();
 
-                    if (inStrategy != null) {
-                        Srm srm = Srm.getSrmByPosition(inStrategy.getPosition());
-                        if (srm.getStatus().equals(Block.STATUS_RUN))
-                            newLocation = Location.getEmptyLocation(view.getSkuCode(), view.getLotNum(), inStrategy.getPosition(), view.getWhCode());
-                    }
+                toa.setTransportType(TransportType.PUTAWAY);
+                ToLocation toLocation = new ToLocation();
+                Srm srm = Srm.getSrmByPosition(newLocation.getPosition());
+                toLocation.setMHA(srm.getBlockNo());
+                List<String> locations = new ArrayList<>();
+                locations.add(newLocation.getBank() + "");
+                locations.add(newLocation.getBay() + "");
+                locations.add(newLocation.getLevel() + "");
+                toLocation.setRack(locations);
+                toa.setToLocation(toLocation);
+                FromLocation fromLocation = new FromLocation();
+                fromLocation.setMHA(dataArea.getXMLLocation().getMHA());
+                toa.setFromLocation(fromLocation);
+                StUnit su = new StUnit();
+                su.setStUnitID(palletNo);
+                toa.setStUnit(su);
+                toa.setToLocation(toLocation);
 
-                    if (newLocation == null) {
-                        for (int i = 0; i < positon.length; i++) {
-                            String po = positon[i];
-                            Srm srm = Srm.getSrmByPosition(po);
-                            if (!srm.getStatus().equals(Block.STATUS_RUN))
-                                continue;
+                //创建TransportOrder核心对象
+                TransportOrder to = new TransportOrder();
+                to.setControlArea(ca);
+                to.setDataArea(toa);
+                //结束
+                Envelope el = new Envelope();
+                el.setTransportOrder(to);
 
-                            newLocation = Location.getEmptyLocation(view.getSkuCode(), view.getLotNum(), po, view.getWhCode());
-                            if (newLocation != null) {
-                                newLocation.setReserved(true);
-                                break;
-                            }
+                XMLMessage xmlMessage = new XMLMessage();
+                xmlMessage.setRecv("WCS");
+                xmlMessage.setStatus("1");
+                xmlMessage.setMessageInfo(XMLUtil.getSendXML(el));
+                HibernateUtil.getCurrentSession().save(xmlMessage);
 
-                        }
-                    }
-                } else if ("非整托".equals(view.getStatus())) {
-                    //
-                    if (newLocation == null) {
-                        for (int i = 0; i < positon.length; i++) {
-                            String po = positon[i];
-                            Srm srm = Srm.getSrmByPosition(po);
-                            if (!srm.getStatus().equals(Block.STATUS_RUN))
-                                continue;
+//                Job job = new Job();
+//                job.setStatus("1");
+//                job.setContainer(palletNo);
+//                job.setToLocation(newLocation);
+//                job.setCreateDate(new Date());
+//                job.setCreateUser("sys");
+//                job.setFromStation(fromLocation.getMHA());
+//                job.setToStation(toLocation.getMHA());
+//                job.setMcKey(mckey);
+//                job.setType(AsrsJobType.PUTAWAY);
+//                job.setSendReport(false);
+//
+//                HibernateUtil.getCurrentSession().save(job);
 
-                            newLocation = Location.getPartPalletLocation();
-                            if (newLocation != null) {
-                                newLocation.setReserved(true);
-                                break;
-                            }
-                        }
-                    }
-
-                } else if ("空托盘".equals(view.getStatus())) {
-
-
-
-                }
-
-                if (newLocation == null) {
-                    SystemLog.error("托盘" + palletNo + "找不到合适的货位");
-                    InMessage.error(stationNo, "托盘" + palletNo + "，找不到合适的货位");
-                }
-
-                if(newLocation != null) {
-
-                    String mckey = Mckey.getNext();
-                    //开始
-                    //创建ControlArea控制域对象
-                    ControlArea ca = new ControlArea();
-                    Sender sd = new Sender();
-                    sd.setDivision(XMLConstant.COM_DIVISION);
-                    ca.setSender(sd);
-
-                    Receiver rv = new Receiver();
-                    rv.setDivision("WCS1");
-                    ca.setReceiver(rv);
-
-                    RefId ri = new RefId();
-                    ri.setReferenceId(mckey);
-                    ca.setRefId(ri);
-                    ca.setCreationDateTime(new DateFormat().format(new Date(), DateFormat.YYYYMMDDHHMMSS));
-
-                    //创建TransportOrderDA数据域对象
-                    TransportOrderDA toa = new TransportOrderDA();
-
-                    toa.setTransportType(TransportType.PUTAWAY);
-                    ToLocation toLocation = new ToLocation();
-                    Srm srm = Srm.getSrmByPosition(newLocation.getPosition());
-                    toLocation.setMHA(srm.getBlockNo());
-                    List<String> locations = new ArrayList<>();
-                    locations.add(newLocation.getBank() + "");
-                    locations.add(newLocation.getBay() + "");
-                    locations.add(newLocation.getLevel() + "");
-                    toLocation.setRack(locations);
-                    toa.setToLocation(toLocation);
-                    FromLocation fromLocation = new FromLocation();
-                    fromLocation.setMHA(dataArea.getXMLLocation().getMHA());
-                    toa.setFromLocation(fromLocation);
-                    StUnit su = new StUnit();
-                    su.setStUnitID(view.getPalletCode());
-                    toa.setStUnit(su);
-                    toa.setToLocation(toLocation);
-
-                    //创建TransportOrder核心对象
-                    TransportOrder to = new TransportOrder();
-                    to.setControlArea(ca);
-                    to.setDataArea(toa);
-                    //结束
-                    Envelope el = new Envelope();
-                    el.setTransportOrder(to);
-
-                    XMLMessage xmlMessage = new XMLMessage();
-                    xmlMessage.setRecv("WCS");
-                    xmlMessage.setStatus("1");
-                    xmlMessage.setMessageInfo(XMLUtil.getSendXML(el));
-                    HibernateUtil.getCurrentSession().save(xmlMessage);
-
-                    Job job = new Job();
-                    job.setStatus("1");
-                    job.setContainer(palletNo);
-                    job.setToLocation(newLocation);
-                    job.setCreateDate(new Date());
-                    job.setCreateUser("sys");
-                    job.setFromStation(fromLocation.getMHA());
-                    job.setToStation(toLocation.getMHA());
-                    job.setMcKey(mckey);
-                    job.setType(AsrsJobType.PUTAWAY);
-                    job.setSendReport(false);
-
-                    HibernateUtil.getCurrentSession().save(job);
-
-                    InMessage.info(stationNo, view);
-                }
-
-            } else {
-                SystemLog.error("托盘数据" + dataArea.getScanDate() + "不存在");
-                InMessage.error(stationNo, "托盘数据" + dataArea.getScanDate() + "不存在");
+                InMessage.info(stationNo, palletNo,inventory.getSkuCode());
             }
         }
 

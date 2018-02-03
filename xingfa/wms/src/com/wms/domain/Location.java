@@ -221,6 +221,18 @@ public class Location {
         _seq = seq;
     }
 
+    private int _seq2;
+
+    @Basic
+    @Column(name = "SEQ2")
+    public int getSeq2() {
+        return _seq2;
+    }
+
+    public void setSeq2(int seq2) {
+        _seq2 = seq2;
+    }
+
     private String _type;
 
     @Basic
@@ -541,82 +553,88 @@ public class Location {
      * 欧普要求整托，商品批次一直
      *
      * @param skuCode
-     * @param batchNo
      * @param position
-     * @param whCode
      * @return
      */
-    public static Location getEmptyLocation(String skuCode, String batchNo, String position, String whCode) {
+    public static Location getEmptyLocation(String skuCode,String position) {
         Session session = HibernateUtil.getCurrentSession();
         //存在同批次的库存同一边的可用，并且托盘是整托
-        Query q = session.createQuery("from Location l where exists( select 1 from Inventory i where l.bay=i.container.location.bay and l.actualArea=i.container.location.actualArea and i.whCode =:whCode" +
-                " and l.level =i.container.location.level  and i.skuCode=:skuCode and i.lotNum=:batchNO and i.container.status='整托' " +
+        Query q = session.createQuery("from Location l where exists( select 1 from Inventory i where l.bay=i.container.location.bay and l.actualArea=i.container.location.actualArea " +
+                " and l.level =i.container.location.level  and i.skuCode=:skuCode and i.container.status='整托' " +
                 " and  l.position=i.container.location.position and l.actualArea = i.container.location.actualArea and i.container.location.seq<l.seq  ) and not exists( select 1 from Inventory i " +
                 " where l.bay=i.container.location.bay and l.level =i.container.location.level  and l.actualArea=i.container.location.actualArea and l.position=i.container.location.position and i.orderNo is not null)  " +
                 "and l.empty=true  and l.position=:po and l.reserved=false and l.asrsFlag = true and l.putawayRestricted = false order by l.seq")
-                .setString("skuCode", skuCode).setString("batchNO", batchNo).setParameter("po", position).setParameter("whCode", whCode);
+                .setString("skuCode", skuCode).setParameter("po", position);
         if (!q.list().isEmpty()) {
             return (Location) q.list().get(0);
         } else {
             //查找正在执行的入库任务
             q = session.createQuery("from Location l where exists( select j from Job j,InventoryView  v where j.container =v.palletCode" +
-                    " and v.lotNum = :batchNo and l.actualArea= j.toLocation.actualArea and v.whCode=:whCode " +
+                    " and l.actualArea= j.toLocation.actualArea " +
                     " and l.level = j.toLocation.level and l.bay = j.toLocation.bay and v.skuCode=:skuCode and l.position=j.toLocation.position and v.status='整托' )  " +
                     "and l.empty=true and l.position=:po and l.reserved=false and l.asrsFlag = true and l.putawayRestricted = false order by l.seq asc")
-                    .setParameter("po", position).setParameter("batchNo", batchNo).setParameter("whCode", whCode).setParameter("skuCode", skuCode);
+                    .setParameter("po", position).setParameter("skuCode", skuCode);
             if (!q.list().isEmpty()) {
                 return (Location) q.list().get(0);
             } else {
-                //查找一个空的巷道
+                //查找一个空的先进先出的巷道
                 q = session.createQuery("from Location l where not exists (select 1 from Location ol where ol.bay = l.bay and (ol.reserved=true or ol.empty=false ) " +
                         "and l.level =ol.level and l.actualArea=ol.actualArea and l.position=ol.position )" +
-                        " and l.empty=true  and l.position=:po and l.reserved=false and l.asrsFlag = true and l.putawayRestricted = false order by l.bay asc,level asc,actualArea asc,seq asc ")
+                        " and l.empty=true  and l.position=:po and l.reserved=false and l.asrsFlag = true and l.putawayRestricted = false and l.seq = l.seq2 order by l.bay asc,level asc,actualArea asc,seq asc ")
                         .setParameter("po", position);
                 if (!q.list().isEmpty()) {
                     return (Location) q.list().get(0);
+                }else{
+                    //查找一个空的巷道
+                    q = session.createQuery("from Location l where not exists (select 1 from Location ol where ol.bay = l.bay and (ol.reserved=true or ol.empty=false ) " +
+                            "and l.level =ol.level and l.actualArea=ol.actualArea and l.position=ol.position )" +
+                            " and l.empty=true  and l.position=:po and l.reserved=false and l.asrsFlag = true and l.putawayRestricted = false order by l.bay asc,level asc,actualArea asc,seq asc ")
+                            .setParameter("po", position);
+                    if (!q.list().isEmpty()) {
+                        return (Location) q.list().get(0);
+                    }
                 }
             }
             return null;
         }
     }
 
-    /**
-     * @return
-     */
-    public static Location getPartPalletLocation() {
-
-        //超找非整托货位
-        Session session = HibernateUtil.getCurrentSession();
-
-        Query q = session.createQuery("from Location l where exists( select 1 rom Inventory i where l.bay=i.container.location.bay and l.actualArea=i.container.location.actualArea " +
-                " and l.level =i.container.location.level and i.container.status='非整托')");
-
-        if (!q.list().isEmpty()) {
-
-            return (Location) q.list().get(0);
-
-        }else {
-
-            //查找正在执行的入库任务
-            q = session.createQuery("from Location l where exists( select j from Job j,InventoryView  v where j.container =v.palletCode" +
-                    " and l.actualArea= j.toLocation.actualArea " +
-                    " and l.level = j.toLocation.level and l.bay = j.toLocation.bay and  l.position=j.toLocation.position and v.status='非整托' )  " +
-                    "and l.empty=true and l.position=:po and l.reserved=false and l.asrsFlag = true and l.putawayRestricted = false order by l.seq asc");
-            if (!q.list().isEmpty()) {
-                return (Location) q.list().get(0);
-            } else {
-                //查找一个空的巷道
-                q = session.createQuery("from Location l where not exists (select 1 from Location ol where ol.bay = l.bay and (ol.reserved=true or ol.empty=false ) " +
-                        "and l.level =ol.level and l.actualArea=ol.actualArea and l.position=ol.position )" +
-                        " and l.empty=true  and l.position=:po and l.reserved=false and l.asrsFlag = true and l.putawayRestricted = false order by l.bay asc,level asc,actualArea asc,seq asc ");
-                if (!q.list().isEmpty()) {
-                    return (Location) q.list().get(0);
-                }
-            }
-            return null;
-        }
-
-    }
+//    /**
+//     * @return
+//     */
+//    public static Location getPartPalletLocation() {
+//
+//        //超找非整托货位
+//        Session session = HibernateUtil.getCurrentSession();
+//
+//        Query q = session.createQuery("from Location l where exists( select 1 rom Inventory i where l.bay=i.container.location.bay and l.actualArea=i.container.location.actualArea and l.level =i.container.location.level and i.container.status='非整托')");
+//
+//        if (!q.list().isEmpty()) {
+//
+//            return (Location) q.list().get(0);
+//
+//        }else {
+//
+//            //查找正在执行的入库任务
+//            q = session.createQuery("from Location l where exists( select j from Job j,InventoryView  v where j.container =v.palletCode" +
+//                    " and l.actualArea= j.toLocation.actualArea " +
+//                    " and l.level = j.toLocation.level and l.bay = j.toLocation.bay and  l.position=j.toLocation.position and v.status='非整托' )  " +
+//                    "and l.empty=true and l.position=:po and l.reserved=false and l.asrsFlag = true and l.putawayRestricted = false order by l.seq asc");
+//            if (!q.list().isEmpty()) {
+//                return (Location) q.list().get(0);
+//            } else {
+//                //查找一个空的巷道
+//                q = session.createQuery("from Location l where not exists (select 1 from Location ol where ol.bay = l.bay and (ol.reserved=true or ol.empty=false ) " +
+//                        "and l.level =ol.level and l.actualArea=ol.actualArea and l.position=ol.position )" +
+//                        " and l.empty=true  and l.position=:po and l.reserved=false and l.asrsFlag = true and l.putawayRestricted = false order by l.bay asc,level asc,actualArea asc,seq asc ");
+//                if (!q.list().isEmpty()) {
+//                    return (Location) q.list().get(0);
+//                }
+//            }
+//            return null;
+//        }
+//
+//    }
 
     /**
      * 查找空托盘存储货位

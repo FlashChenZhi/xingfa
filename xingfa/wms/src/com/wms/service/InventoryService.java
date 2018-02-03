@@ -51,32 +51,32 @@ public class InventoryService {
         try {
             Transaction.begin();
             Session session = HibernateUtil.getCurrentSession();
-            List<ReceivingPlan> receivingPlans = session.createCriteria(ReceivingPlan.class)
-                    .add(Restrictions.and(Restrictions.eq("batchNo", batchNo),
-                            Restrictions.eq("status", "1"))).list();
-            if (receivingPlans.isEmpty()) {
-                httpMessage.setSuccess(false);
-                httpMessage.setMsg("数据出错");
-            } else {
-                ReceivingPlan receivingPlan = receivingPlans.get(0);
-                Sku sku = receivingPlan.getSku();
-                InputAreaQueryVo inputAreaQueryVo = new InputAreaQueryVo();
-                inputAreaQueryVo.setBatchNo(receivingPlan.getBatchNo());
-//                inputAreaQueryVo.setCustName(receivingPlan.getSku().getCustName());
-//                inputAreaQueryVo.setCustSkuName(receivingPlan.getSku().getCustSkuName());
-                inputAreaQueryVo.setLotNum(receivingPlan.getLotNum());
-                inputAreaQueryVo.setOrderNo(receivingPlan.getOrderNo());
-                inputAreaQueryVo.setProviderName(receivingPlan.getProviderName());
-                inputAreaQueryVo.setSkuCode(receivingPlan.getSku().getSkuCode());
-//                inputAreaQueryVo.setSkuEom(receivingPlan.getSku().getSkuEom());
-//                inputAreaQueryVo.setSkuName(receivingPlan.getSku().getSkuName());
-//                inputAreaQueryVo.setSkuSpec(receivingPlan.getSku().getSkuSpec());
-                inputAreaQueryVo.setRecvQty(receivingPlan.getRecvedQty());
-//                inputAreaQueryVo.setQty(sku.getPalletLoadQTy());
-
-                httpMessage.setSuccess(true);
-                httpMessage.setMsg(inputAreaQueryVo);
-            }
+//            List<ReceivingPlan> receivingPlans = session.createCriteria(ReceivingPlan.class)
+//                    .add(Restrictions.and(Restrictions.eq("batchNo", batchNo),
+//                            Restrictions.eq("status", "1"))).list();
+//            if (receivingPlans.isEmpty()) {
+//                httpMessage.setSuccess(false);
+//                httpMessage.setMsg("数据出错");
+//            } else {
+//                ReceivingPlan receivingPlan = receivingPlans.get(0);
+//                Sku sku = receivingPlan.getSku();
+//                InputAreaQueryVo inputAreaQueryVo = new InputAreaQueryVo();
+//                inputAreaQueryVo.setBatchNo(receivingPlan.getBatchNo());
+////                inputAreaQueryVo.setCustName(receivingPlan.getSku().getCustName());
+////                inputAreaQueryVo.setCustSkuName(receivingPlan.getSku().getCustSkuName());
+//                inputAreaQueryVo.setLotNum(receivingPlan.getLotNum());
+//                inputAreaQueryVo.setOrderNo(receivingPlan.getOrderNo());
+//                inputAreaQueryVo.setProviderName(receivingPlan.getProviderName());
+//                inputAreaQueryVo.setSkuCode(receivingPlan.getSku().getSkuCode());
+////                inputAreaQueryVo.setSkuEom(receivingPlan.getSku().getSkuEom());
+////                inputAreaQueryVo.setSkuName(receivingPlan.getSku().getSkuName());
+////                inputAreaQueryVo.setSkuSpec(receivingPlan.getSku().getSkuSpec());
+//                inputAreaQueryVo.setRecvQty(receivingPlan.getRecvedQty());
+////                inputAreaQueryVo.setQty(sku.getPalletLoadQTy());
+//
+//                httpMessage.setSuccess(true);
+//                httpMessage.setMsg(inputAreaQueryVo);
+//            }
             Transaction.commit();
         } catch (Exception e) {
             Transaction.rollback();
@@ -96,93 +96,93 @@ public class InventoryService {
         try {
             Transaction.begin();
 
-            Query q = HibernateUtil.getCurrentSession().createQuery("from AsrsJob where type=:jobtype ");
-            q.setParameter("jobtype", AsrsJobType.RETRIEVAL);
-            List<AsrsJob> jobs = q.list();
-            if (!jobs.isEmpty()) {
-                httpMessage.setSuccess(false);
-                httpMessage.setMsg("请等作业全部完成，在创建新的作业");
-            } else {
-                Session session = HibernateUtil.getCurrentSession();
-
-                SCar sCar = (SCar) Block.getByBlockNo("SC01");
-                if (!sCar.getStatus().equals("1")) {
-                    Transaction.rollback();
-                    httpMessage.setSuccess(false);
-                    httpMessage.setMsg("子车非运行状态");
-                    return httpMessage;
-                }
-
-
-                ReceivingPlan receivingPlan = (ReceivingPlan) session.createCriteria(ReceivingPlan.class)
-                        .add(Restrictions.and(Restrictions.eq("batchNo", inputAreaQueryVo.getBatchNo()),
-                                Restrictions.eq("status", "1"))).setMaxResults(1).uniqueResult();
-                if (receivingPlan != null) {
-                    receivingPlan.setRecvedQty(receivingPlan.getRecvedQty().add(inputAreaQueryVo.getQty()));
-
-                    //暂时将托盘放入虚拟货位
-                    Location locationNo = Location.getByLocationNo(Const.RECV_TEMP_LOCATION);
-                    if (locationNo == null) {
-                        Transaction.rollback();
-                        httpMessage.setSuccess(false);
-                        httpMessage.setMsg("没有找到虚拟货位");
-                        return httpMessage;
-                    }
-                    String barcode = Barcode.getNext();
-                    Container container = Container.getByBarcode(barcode);
-                    if (container != null) {
-                        Transaction.rollback();
-                        httpMessage.setSuccess(false);
-                        httpMessage.setMsg("托盘号重复");
-                        return httpMessage;
-                    }
-                    //获取一个托盘对象
-                    container = new Container();
-                    container.setBarcode(barcode);
-                    container.setLocation(locationNo);
-                    container.setReserved(false);
-                    container.setCreateDate(new Date());
-                    container.setCreateUser(userName);
-                    session.save(container);
-                    Sku sku = Sku.getByCode(inputAreaQueryVo.getSkuCode());
-                    //生成一个库存
-                    Inventory inventory = new Inventory();
-                    inventory.setProviderName(inputAreaQueryVo.getProviderName());
-                    inventory.setOrderNo(inputAreaQueryVo.getOrderNo());
-                    inventory.setLotNum(inputAreaQueryVo.getLotNum());
-                    inventory.setQty(inputAreaQueryVo.getQty());
-                    inventory.setStoreDate(DateFormat.format(new Date(), DateFormat.YYYYMMDD));
-                    inventory.setStoreTime(DateFormat.format(new Date(), DateFormat.HHMMSS));
-                    inventory.setContainer(container);
-                    session.save(inventory);
-
-                    //生成一个入库作业
-                    Job job = new Job();
-                    job.setMcKey(Mckey.getNext());
-                    //设置来自哪个站台
-                    job.setFromStation("1101");
-                    //设置托盘号
-                    job.setContainer(container.getBarcode());
-                    job.setStatus(AsrsJobStatus.WAITING);
-                    job.setType(AsrsJobType.PUTAWAY);
-                    //托盘暂时先放入虚拟货位
-                    job.setFromLocation(locationNo);
-                    //从httpSession中获取操作员名字
-                    job.setCreateUser(userName);
-                    //设置作业创建时间
-                    job.setCreateDate(new Date());
-                    JobDetail jobDetail = new JobDetail();
-                    jobDetail.setInventory(inventory);
-                    jobDetail.setQty(inventory.getQty());
-                    job.addJobDetail(jobDetail);
-                    session.save(job);
-                    httpMessage.setSuccess(true);
-                    httpMessage.setMsg("入库任务成功生成");
-                } else {
-                    httpMessage.setSuccess(false);
-                    httpMessage.setMsg("批次号不存在");
-                }
-            }
+//            Query q = HibernateUtil.getCurrentSession().createQuery("from AsrsJob where type=:jobtype ");
+//            q.setParameter("jobtype", AsrsJobType.RETRIEVAL);
+//            List<AsrsJob> jobs = q.list();
+//            if (!jobs.isEmpty()) {
+//                httpMessage.setSuccess(false);
+//                httpMessage.setMsg("请等作业全部完成，在创建新的作业");
+//            } else {
+//                Session session = HibernateUtil.getCurrentSession();
+//
+//                SCar sCar = (SCar) Block.getByBlockNo("SC01");
+//                if (!sCar.getStatus().equals("1")) {
+//                    Transaction.rollback();
+//                    httpMessage.setSuccess(false);
+//                    httpMessage.setMsg("子车非运行状态");
+//                    return httpMessage;
+//                }
+//
+//
+//                ReceivingPlan receivingPlan = (ReceivingPlan) session.createCriteria(ReceivingPlan.class)
+//                        .add(Restrictions.and(Restrictions.eq("batchNo", inputAreaQueryVo.getBatchNo()),
+//                                Restrictions.eq("status", "1"))).setMaxResults(1).uniqueResult();
+//                if (receivingPlan != null) {
+//                    receivingPlan.setRecvedQty(receivingPlan.getRecvedQty().add(inputAreaQueryVo.getQty()));
+//
+//                    //暂时将托盘放入虚拟货位
+//                    Location locationNo = Location.getByLocationNo(Const.RECV_TEMP_LOCATION);
+//                    if (locationNo == null) {
+//                        Transaction.rollback();
+//                        httpMessage.setSuccess(false);
+//                        httpMessage.setMsg("没有找到虚拟货位");
+//                        return httpMessage;
+//                    }
+//                    String barcode = Barcode.getNext();
+//                    Container container = Container.getByBarcode(barcode);
+//                    if (container != null) {
+//                        Transaction.rollback();
+//                        httpMessage.setSuccess(false);
+//                        httpMessage.setMsg("托盘号重复");
+//                        return httpMessage;
+//                    }
+//                    //获取一个托盘对象
+//                    container = new Container();
+//                    container.setBarcode(barcode);
+//                    container.setLocation(locationNo);
+//                    container.setReserved(false);
+//                    container.setCreateDate(new Date());
+//                    container.setCreateUser(userName);
+//                    session.save(container);
+//                    Sku sku = Sku.getByCode(inputAreaQueryVo.getSkuCode());
+//                    //生成一个库存
+//                    Inventory inventory = new Inventory();
+//                    inventory.setProviderName(inputAreaQueryVo.getProviderName());
+//                    inventory.setOrderNo(inputAreaQueryVo.getOrderNo());
+//                    inventory.setLotNum(inputAreaQueryVo.getLotNum());
+//                    inventory.setQty(inputAreaQueryVo.getQty());
+//                    inventory.setStoreDate(DateFormat.format(new Date(), DateFormat.YYYYMMDD));
+//                    inventory.setStoreTime(DateFormat.format(new Date(), DateFormat.HHMMSS));
+//                    inventory.setContainer(container);
+//                    session.save(inventory);
+//
+//                    //生成一个入库作业
+//                    Job job = new Job();
+//                    job.setMcKey(Mckey.getNext());
+//                    //设置来自哪个站台
+//                    job.setFromStation("1101");
+//                    //设置托盘号
+//                    job.setContainer(container.getBarcode());
+//                    job.setStatus(AsrsJobStatus.WAITING);
+//                    job.setType(AsrsJobType.PUTAWAY);
+//                    //托盘暂时先放入虚拟货位
+//                    job.setFromLocation(locationNo);
+//                    //从httpSession中获取操作员名字
+//                    job.setCreateUser(userName);
+//                    //设置作业创建时间
+//                    job.setCreateDate(new Date());
+//                    JobDetail jobDetail = new JobDetail();
+//                    jobDetail.setInventory(inventory);
+//                    jobDetail.setQty(inventory.getQty());
+//                    job.addJobDetail(jobDetail);
+//                    session.save(job);
+//                    httpMessage.setSuccess(true);
+//                    httpMessage.setMsg("入库任务成功生成");
+//                } else {
+//                    httpMessage.setSuccess(false);
+//                    httpMessage.setMsg("批次号不存在");
+//                }
+//            }
             Transaction.commit();
         } catch (Exception e) {
             Transaction.rollback();
@@ -674,12 +674,12 @@ public class InventoryService {
 
             Transaction.begin();
 
-            List<ReceivingPlan> receivingPlans = HibernateUtil.getCurrentSession().createCriteria(ReceivingPlan.class)
-                    .add(Restrictions.and(Restrictions.eq("batchNo", batchNo),
-                            Restrictions.eq("status", "1"))).list();
-            for (ReceivingPlan plan : receivingPlans) {
-                plan.setStatus("3");
-            }
+//            List<ReceivingPlan> receivingPlans = HibernateUtil.getCurrentSession().createCriteria(ReceivingPlan.class)
+//                    .add(Restrictions.and(Restrictions.eq("batchNo", batchNo),
+//                            Restrictions.eq("status", "1"))).list();
+//            for (ReceivingPlan plan : receivingPlans) {
+//                plan.setStatus("3");
+//            }
 
             Transaction.commit();
             httpMessage.setSuccess(true);
@@ -710,42 +710,42 @@ public class InventoryService {
 
             Transaction.begin();
 
-            Query query = HibernateUtil.getCurrentSession().createQuery("from ReceivingPlan where batchNo=:batchNo");
-            query.setParameter("batchNo", inputAreaQueryVo.getBatchNo());
-            query.setMaxResults(1);
-            ReceivingPlan plan = (ReceivingPlan) query.uniqueResult();
-            if (plan == null) {
-
-                plan = new ReceivingPlan();
-
-                Sku sku = Sku.getByCode(inputAreaQueryVo.getSkuCode());
-                if (sku != null) {
-
-                    plan.setSku(sku);
-                    plan.setStatus("1");
-                    plan.setProviderName(inputAreaQueryVo.getProviderName());
-                    plan.setLotNum(inputAreaQueryVo.getLotNum());
-                    plan.setRecvedQty(BigDecimal.ZERO);
-                    plan.setQty(inputAreaQueryVo.getQty());
-                    plan.setOrderNo(inputAreaQueryVo.getOrderNo());
-                    plan.setBatchNo(inputAreaQueryVo.getBatchNo());
-
-                    HibernateUtil.getCurrentSession().save(plan);
-
-                    httpMessage.setSuccess(true);
-                    httpMessage.setMsg("新建入库单成功");
-
-                } else {
-                    httpMessage.setSuccess(false);
-                    httpMessage.setMsg("商品不存在");
-
-                }
-
-            } else {
-                httpMessage.setSuccess(false);
-                httpMessage.setMsg("入库单批次已经存在");
-
-            }
+//            Query query = HibernateUtil.getCurrentSession().createQuery("from ReceivingPlan where batchNo=:batchNo");
+//            query.setParameter("batchNo", inputAreaQueryVo.getBatchNo());
+//            query.setMaxResults(1);
+//            ReceivingPlan plan = (ReceivingPlan) query.uniqueResult();
+//            if (plan == null) {
+//
+//                plan = new ReceivingPlan();
+//
+//                Sku sku = Sku.getByCode(inputAreaQueryVo.getSkuCode());
+//                if (sku != null) {
+//
+//                    plan.setSku(sku);
+//                    plan.setStatus("1");
+//                    plan.setProviderName(inputAreaQueryVo.getProviderName());
+//                    plan.setLotNum(inputAreaQueryVo.getLotNum());
+//                    plan.setRecvedQty(BigDecimal.ZERO);
+//                    plan.setQty(inputAreaQueryVo.getQty());
+//                    plan.setOrderNo(inputAreaQueryVo.getOrderNo());
+//                    plan.setBatchNo(inputAreaQueryVo.getBatchNo());
+//
+//                    HibernateUtil.getCurrentSession().save(plan);
+//
+//                    httpMessage.setSuccess(true);
+//                    httpMessage.setMsg("新建入库单成功");
+//
+//                } else {
+//                    httpMessage.setSuccess(false);
+//                    httpMessage.setMsg("商品不存在");
+//
+//                }
+//
+//            } else {
+//                httpMessage.setSuccess(false);
+//                httpMessage.setMsg("入库单批次已经存在");
+//
+//            }
 
             Transaction.commit();
 

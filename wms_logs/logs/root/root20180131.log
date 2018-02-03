@@ -1,0 +1,2 @@
+[ERROR] [2018-01-31 16:04:34,334] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] ORA-00001: 违反唯一约束条件 (XINGFA.SYS_C0016458)
+

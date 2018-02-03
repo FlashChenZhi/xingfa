@@ -254,6 +254,7 @@ public class Job {
     public void asrsDone() {
         setStatus(AsrsJobStatus.DONE);
         writeLog(AsrsJobStatus.DONE);
+        HibernateUtil.getCurrentSession().delete(this);
     }
 
     private void writeLog(String status) {

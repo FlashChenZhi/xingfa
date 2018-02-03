@@ -1,0 +1,3 @@
+[ERROR] [2018-02-03 10:15:03,150] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] Connections could not be acquired from the underlying database!
+[ERROR] [2018-02-03 10:16:08,695] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] Connections could not be acquired from the underlying database!
+[ERROR] [2018-02-03 10:17:20,456] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] Connections could not be acquired from the underlying database!

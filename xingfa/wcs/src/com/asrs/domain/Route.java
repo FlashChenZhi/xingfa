@@ -21,8 +21,9 @@ public class Route {
     private int _id;
 
     @Id
-    @SequenceGenerator(name = "seq", sequenceName = "SEQ_ROUTE", allocationSize = 1)
     @Column(name = "ID", nullable = false, length = 8)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq")
+    @SequenceGenerator(name = "seq", sequenceName = "SEQ_ROUTE", allocationSize = 1)
     public int getId() {
         return _id;
     }

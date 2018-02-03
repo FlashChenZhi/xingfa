@@ -6,6 +6,7 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 
 import javax.persistence.*;
+import java.util.Date;
 
 /**
  * Author: Zhouyue
@@ -28,14 +29,13 @@ public class Location {
 
     private static int smallCurrAisle = 0;
 
-    private int _id;
-
     public static final String MISS = "0";
     public static final String LEFT = "1";
     public static final String RIGHT = "2";
 
     private Double width;
     private Double height;
+    private int _id;
 
     @Id
     @Column(name = "ID", nullable = false, length = 8)
@@ -101,7 +101,7 @@ public class Location {
     private int _level;
 
     @Basic
-    @Column(name = "LEV")
+    @Column(name = "`LEV`")
     public int getLevel() {
         return _level;
     }
@@ -110,53 +110,16 @@ public class Location {
         _level = level;
     }
 
-    private int _version = 0;
-
-    @Version
-    @Column(name = "VERSION")
-    public int getVersion() {
-        return _version;
-    }
-
-    public void setVersion(int version) {
-        _version = version;
-    }
-
-    private String position;
+    private String _size;
 
     @Basic
-    @Column(name = "POSITION")
-    public String getPosition() {
-        return position;
+    @Column(name = "`SIZE`")
+    public String getSize() {
+        return _size;
     }
 
-    public void setPosition(String position) {
-        this.position = position;
-    }
-
-
-    private String outPosition;
-
-    @Basic
-    @Column(name = "OUTPOSITION")
-    public String getOutPosition() {
-        return outPosition;
-    }
-
-    public void setOutPosition(String outPosition) {
-        this.outPosition = outPosition;
-    }
-
-    private int _seq;
-
-    @Basic
-    @Column(name = "SEQ")
-    public int getSeq() {
-        return _seq;
-    }
-
-    public void setSeq(int seq) {
-        _seq = seq;
+    public void setSize(String size) {
+        _size = size;
     }
 
     private boolean _reserved;
@@ -173,6 +136,278 @@ public class Location {
     }
 
 
+    private boolean _putawayRestricted;
+
+    @Basic
+    @Column(name = "PUTAWAYRESTRICTED")
+    public boolean isPutawayRestricted() {
+        return _putawayRestricted;
+    }
+
+    public void setPutawayRestricted(boolean putawayRestricted) {
+        _putawayRestricted = putawayRestricted;
+    }
+
+    private boolean _retrievalRestricted;
+
+    @Basic
+    @Column(name = "RETRIEVALRESTRICTED")
+    //检索受限
+    public boolean isRetrievalRestricted() {
+        return _retrievalRestricted;
+    }
+
+    public void setRetrievalRestricted(boolean retrievalRestricted) {
+        _retrievalRestricted = retrievalRestricted;
+    }
+
+    private boolean _empty;
+
+    @Basic
+    @Column(name = "EMPTY")
+    public boolean isEmpty() {
+        return _empty;
+    }
+
+    public void setEmpty(boolean empty) {
+        _empty = empty;
+    }
+
+    private String position;
+
+    @Basic
+    @Column(name = "POSITION")
+    public String getPosition() {
+        return position;
+    }
+
+    public void setPosition(String position) {
+        this.position = position;
+    }
+
+
+    private Date _accessTime;
+
+    @Basic
+    @Column(name = "ACCESSTIME")
+    public Date getAccessTime() {
+        return _accessTime;
+    }
+
+    public void setAccessTime(Date accessTime) {
+        _accessTime = accessTime;
+    }
+
+    private int _seq;
+
+    @Basic
+    @Column(name = "SEQ")
+    public int getSeq() {
+        return _seq;
+    }
+
+    public void setSeq(int seq) {
+        _seq = seq;
+    }
+
+    private int _seq2;
+
+    @Basic
+    @Column(name = "SEQ2")
+    public int getSeq2() {
+        return _seq2;
+    }
+
+    public void setSeq2(int seq2) {
+        _seq2 = seq2;
+    }
+
+    private String _type;
+
+    @Basic
+    @Column(name = "TYPE")
+    public String getType() {
+        return _type;
+    }
+
+    public void setType(String type) {
+        _type = type;
+    }
+
+
+    private int _capacity;
+
+    @Basic
+    @Column(name = "CAPACITY")
+    //容量
+    public int getCapacity() {
+        return _capacity;
+    }
+
+    public void setCapacity(int capacity) {
+        _capacity = capacity;
+    }
+
+
+    private Date _createDate;
+
+    @Column(name = "CREATEDATE")
+    @Basic
+    public Date getCreateDate() {
+        return _createDate;
+    }
+
+    public void setCreateDate(Date createDate) {
+        _createDate = createDate;
+    }
+
+    private String _createUser;
+
+    @Column(name = "CREATEUSER")
+    @Basic
+    public String getCreateUser() {
+        return _createUser;
+    }
+
+    public void setCreateUser(String createUser) {
+        _createUser = createUser;
+    }
+
+    private Date _lastUpdateDate;
+
+    @Column(name = "LASTUPDATEDATE")
+    @Basic
+    public Date getLastUpdateDate() {
+        return _lastUpdateDate;
+    }
+
+    public void setLastUpdateDate(Date lastUpdateDate) {
+        _lastUpdateDate = lastUpdateDate;
+    }
+
+    private String _lastUpdateUser;
+
+    @Column(name = "LASTUPDATEUSER")
+    @Basic
+    public String getLastUpdateUser() {
+        return _lastUpdateUser;
+    }
+
+    public void setLastUpdateUser(String lastUpdateUser) {
+        _lastUpdateUser = lastUpdateUser;
+    }
+
+    private boolean _system;
+
+    @Basic
+    @Column(name = "SYSTEM")
+    public boolean isSystem() {
+        return _system;
+    }
+
+    public void setSystem(boolean system) {
+        _system = system;
+    }
+
+    private boolean _asrsFlag;
+
+    @Basic
+    @Column(name = "ASRSFLAG")
+    public boolean isAsrsFlag() {
+        return _asrsFlag;
+    }
+
+    public void setAsrsFlag(boolean asrsFlag) {
+        _asrsFlag = asrsFlag;
+    }
+
+    private boolean _cyclecounting;
+
+    @Basic
+    @Column(name = "CYCLECOUNTING")
+    public boolean getCyclecounting() {
+        return _cyclecounting;
+    }
+
+    public void setCyclecounting(boolean cyclecounting) {
+        _cyclecounting = cyclecounting;
+    }
+
+    private boolean _abnormal;
+
+    @Basic
+    @Column(name = "ABNORMAL")
+    //反常的，不规则的；变态的
+    public boolean isAbnormal() {
+        return _abnormal;
+    }
+
+    public void setAbnormal(boolean abnormal) {
+        _abnormal = abnormal;
+    }
+
+    private String _width;
+
+    @Basic
+    @Column(name = "WIDTH")
+    public String getWidth() {
+        return _width;
+    }
+
+    public void setWidth(String width) {
+        this._width = width;
+    }
+
+    private String _height;
+
+    @Basic
+    @Column(name = "HEIGHT")
+    public String getHeight() {
+        return _height;
+    }
+
+    public void setHeight(String height) {
+        this._height = height;
+    }
+
+    private String _orientation;
+
+    @Basic
+    @Column(name = "ORIENTATION")
+    public String getOrientation() {
+        return _orientation;
+    }
+
+    public void setOrientation(String orientation) {
+        this._orientation = orientation;
+    }
+
+    private String _weightFlag;
+
+    @Basic
+    @Column(name = "WEIGHTFLAG")
+    public String getWeightFlag() {
+        return _weightFlag;
+    }
+
+    public void setWeightFlag(String weightFlag) {
+        _weightFlag = weightFlag;
+    }
+
+    private int _version = 0;
+
+    private String _skuType;
+
+    @Basic
+    @Column(name = "SKUTYPE")
+    public String getSkuType() {
+        return _skuType;
+    }
+
+    public void setSkuType(String skuType) {
+        this._skuType = skuType;
+    }
+
     private String actualArea;
 
     @Basic
@@ -185,36 +420,28 @@ public class Location {
         this.actualArea = actureArea;
     }
 
-    private Boolean fullFlag;
+
+    @Version
+    @Column(name = "VERSION")
+    public int getVersion() {
+        return _version;
+    }
+
+    public void setVersion(int version) {
+        _version = version;
+    }
+
+
+    private String outPosition;
 
     @Basic
-    @Column(name = "FULLFLAG")
-    public Boolean getFullFlag() {
-        return fullFlag;
+    @Column(name = "OUTPOSITION")
+    public String getOutPosition() {
+        return outPosition;
     }
 
-    public void setFullFlag(Boolean fullFlag) {
-        this.fullFlag = fullFlag;
-    }
-
-    @Basic
-    @Column(name = "WIDTH")
-    public Double getWidth() {
-        return width;
-    }
-
-    public void setWidth(Double width) {
-        this.width = width;
-    }
-
-    @Basic
-    @Column(name = "HEIGHT")
-    public Double getHeight() {
-        return height;
-    }
-
-    public void setHeight(Double height) {
-        this.height = height;
+    public void setOutPosition(String outPosition) {
+        this.outPosition = outPosition;
     }
 
     public static Location getByLocationNo(String locationNo) {

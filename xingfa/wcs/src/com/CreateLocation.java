@@ -31,16 +31,91 @@ public class CreateLocation {
 
         Transaction.begin();
 
-//        oneToEight("2");
-//
-//        nightToTE();
-//
-//        TNToEng();
-//
-//        AsrsJob asrsJob = AsrsJob.getAsrsJobByMcKey("0017");
-//
-//        finishRetrieval(asrsJob);
-        oneToEight("1");
+        for (int level = 1; level <= 4; level++) {
+            //level
+            for (int bay = 1; bay <= 47; bay++) {
+                //bay
+                for (int bank = 3; bank <= 26; bank++) {
+                    if(level != 4) {
+                        if(bank == 13){
+                            if(bay == 8 || bay == 18 || bay == 28 || bay == 39){
+                                continue;
+                            }
+                        }
+                    }else {
+                        if(9 <= bay && bay <= 38){
+                            continue;
+                        }else if(bank == 13 && (bay == 39 || bay == 8)){
+                            continue;
+                        }
+                    }
+
+//                    if(level == 1){
+//                        if(1<= bay && bay <= 13){
+//                            continue;
+//                        }else if(34<= bay && bay <= 40){
+//                            continue;
+//                        }
+//                    }else if(level == 2){
+//                        if(1<= bay && bay <= 12){
+//                            continue;
+//                        }else if(34<= bay && bay <= 40){
+//                            continue;
+//                        }
+//                    }else{
+//                        if(9<= bay && bay <= 12){
+//                            continue;
+//                        }else if(34<= bay && bay <= 40){
+//                            continue;
+//                        }
+//                    }
+                    //bank
+                    String locationNo = StringUtils.leftPad(bank + "", 3, '0')
+                            + StringUtils.leftPad(bay + "", 3, '0')
+                            + StringUtils.leftPad(level + "", 3, '0');
+
+                    Location location = new Location();
+                    location.setLocationNo(locationNo);
+                    location.setActualArea("2");
+                    if(bank < 13 && (bay == 8 || bay == 18 || bay == 28 || bay == 39)){
+                        location.setPosition("1");
+                    }else {
+                        location.setPosition("2");
+                    }
+                    if(bank > 13 && (bay == 8 || bay == 18 || bay == 28 || bay == 39)){
+                        location.setOutPosition("2");
+                    }else {
+                        location.setOutPosition("1");
+                    }
+//                    location.setActualArea("1");
+//                    location.setPosition("1");
+//                    location.setOutPosition("1");
+                    location.setBank(bank);
+                    location.setBay(bay);
+                    location.setLevel(level);
+                    if(bay != 8 && bay != 18 && bay != 28 && bay != 39) {
+                        location.setSeq(bank - 2);
+                        location.setSeq2(bank - 2);
+                    }else{
+                        if(bank < 13){
+                            location.setSeq(13 - bank);
+                            location.setSeq2(bank - 2);
+                        }else{
+                            location.setSeq(bank - 13);
+                            location.setSeq2(27 - bank);
+                        }
+                    }
+//                    location.setSeq(bank);
+//                    location.setSeq2(3 - bank);
+                    location.setVersion(0);
+                    location.setEmpty(true);
+                    location.setSystem(true);
+                    location.setAsrsFlag(true);
+                    location.setCapacity(1);
+                    HibernateUtil.getCurrentSession().save(location);
+                }
+            }
+        }
 
         Transaction.commit();
 

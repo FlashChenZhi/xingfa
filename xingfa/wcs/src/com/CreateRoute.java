@@ -7,6 +7,9 @@ import com.util.hibernate.HibernateUtil;
 import com.util.hibernate.Transaction;
 import org.hibernate.Session;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by admin on 2017/6/8.
  */
@@ -17,25 +20,27 @@ public class CreateRoute {
      * @param args
      */
     public static void main(String[] args) {
-//        String[] s1 = {"0002", "0007"};
-//        String[] s2 = {"MC03", "MC04", "MC07", "MC08"};
-//        Transaction.begin();
-//        for (String s : s1) {
-//            for (String s3 : s2) {
-//                createRoute(s, s3);
-//                createRoute(s3, s);
-//            }
-//        }
-//        Transaction.commit();
 
         Transaction.begin();
-        for (int i = 1; i <= 4; i++) {
-            for (int j = 1; j <= 4; j++) {
-                if (i != j) {
-                    createChangeLevel(i, j);
-                }
-            }
+        Session session = HibernateUtil.getCurrentSession();
+        Route route = new Route();
+        session.save(route);
+        route.setFromStation("ML01");
+        route.setStatus("1");
+        route.setToStation("ML02");
+        route.setType("08");
+        List<String> routes = new ArrayList<>();
+        routes.add("ML01");
+        routes.add("ML02");
+
+        for(int i = 0;i < routes.size() - 1; i++){
+            RouteDetail routeDetail = new RouteDetail();
+            session.save(routeDetail);
+            routeDetail.setCurrentBlockNo(routes.get(i));
+            routeDetail.setNextBlockNo(routes.get(i+1));
+            routeDetail.setRoute(route);
         }
+
         Transaction.commit();
     }
 

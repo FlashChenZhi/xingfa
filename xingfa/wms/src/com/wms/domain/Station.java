@@ -155,6 +155,18 @@ public class Station
         _modeChangeTime = modeChangeTime;
     }
 
+    @Column(name = "POSITION")
+    @Basic
+    private String _position;
+
+    public String getPosition() {
+        return _position;
+    }
+
+    public void setPosition(String position) {
+        _position = position;
+    }
+
     @Override
     public boolean equals(Object o)
     {

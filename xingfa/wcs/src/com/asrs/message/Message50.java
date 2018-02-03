@@ -47,8 +47,8 @@ public class Message50 extends Message implements Serializable {
                 for (int j = 1; j <= loadCount; j++) {
                     String mcKey = str.substring(index, index + 4);
                     index += 4;
-                    String barcode = str.substring(index, index + 15);
-                    index += 15;
+                    String barcode = str.substring(index, index + 10);
+                    index += 10;
                     Map<String, String> mcKeyAndBarcodes = new HashMap<String, String>();
                     mcKeyAndBarcodes.put(mcKey, barcode);
                     block.McKeysAndBarcodes.put(j, mcKeyAndBarcodes);
