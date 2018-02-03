@@ -1,21 +1,29 @@
 package com.wms.domain;
 
 import com.util.hibernate.HibernateUtil;
+import org.hibernate.*;
 
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import java.util.Objects;
+import javax.persistence.*;
+import javax.persistence.Version;
+import java.math.BigDecimal;
 
+/**
+ * Created by wangfan
+ * Created on 2017/2/23.
+ * 商品数据
+ */
 @Entity
+@Table(name = "SKU")
 public class Sku {
+
+    public static final String __SKUCODE = "skuCode";
+    public static final String COL_CODE = "skuCode";
     private int id;
-    private String skuCode;
-    private Long shelfLife;
-    private Integer version;
-    private Long warning;
-    private String skuName;
+    private String skuCode;//商品代码
+    private String skuName;//商品名称
+    private int shelfLift;//存储周期
+    private int warning;//提前预警时间
+    private int version;
     private String shouhuodanhao;
     private String jiaohuodanhao;
     private String huozhudaima;
@@ -26,9 +34,10 @@ public class Sku {
     private Integer dingdanshuliang;
     private String danwei;
     private Integer cunfangquyu;
-
     @Id
-    @Column(name = "ID", nullable = false, precision = 0)
+    @Column(name = "ID")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq")
+    @SequenceGenerator(name = "seq", sequenceName = "SEQ_SKU_ID", allocationSize = 1)
     public int getId() {
         return id;
     }
@@ -38,7 +47,7 @@ public class Sku {
     }
 
     @Basic
-    @Column(name = "SKU_CODE", nullable = true, length = 255)
+    @Column(name = "SKU_CODE")
     public String getSkuCode() {
         return skuCode;
     }
@@ -48,37 +57,27 @@ public class Sku {
     }
 
     @Basic
-    @Column(name = "SHELF_LIFE", nullable = true, precision = 0)
-    public Long getShelfLife() {
-        return shelfLife;
+    @Column(name = "SHELF_LIFE")
+    public int getShelfLift() {
+        return shelfLift;
     }
 
-    public void setShelfLife(Long shelfLife) {
-        this.shelfLife = shelfLife;
-    }
-
-    @Basic
-    @Column(name = "VERSION", nullable = true, precision = 0)
-    public Integer getVersion() {
-        return version;
-    }
-
-    public void setVersion(Integer version) {
-        this.version = version;
+    public void setShelfLift(int shelfLift) {
+        this.shelfLift = shelfLift;
     }
 
     @Basic
-    @Column(name = "WARNING", nullable = true, precision = 0)
-    public Long getWarning() {
+    @Column(name = "WARNING")
+    public int getWarning() {
         return warning;
     }
 
-    public void setWarning(Long warning) {
+    public void setWarning(int warning) {
         this.warning = warning;
     }
 
     @Basic
-    @Column(name = "SKU_NAME", nullable = true, length = 256)
+    @Column(name = "SKU_NAME")
     public String getSkuName() {
         return skuName;
     }
@@ -87,8 +86,18 @@ public class Sku {
         this.skuName = skuName;
     }
 
+    @Version
+    @Column(name = "VERSION")
+    public int getVersion() {
+        return version;
+    }
+
+    public void setVersion(int version) {
+        this.version = version;
+    }
+
     @Basic
-    @Column(name = "SHOUHUODANHAO", nullable = true, length = 50)
+    @Column(name = "shouhuodanhao")
     public String getShouhuodanhao() {
         return shouhuodanhao;
     }
@@ -98,7 +107,7 @@ public class Sku {
     }
 
     @Basic
-    @Column(name = "JIAOHUODANHAO", nullable = true, length = 50)
+    @Column(name = "jiaohuodanhao")
     public String getJiaohuodanhao() {
         return jiaohuodanhao;
     }
@@ -108,7 +117,7 @@ public class Sku {
     }
 
     @Basic
-    @Column(name = "HUOZHUDAIMA", nullable = true, length = 50)
+    @Column(name = "huozhudaima")
     public String getHuozhudaima() {
         return huozhudaima;
     }
@@ -118,7 +127,7 @@ public class Sku {
     }
 
     @Basic
-    @Column(name = "HUOZHUMINGCHENG", nullable = true, length = 50)
+    @Column(name = "huozhumingcheng")
     public String getHuozhumingcheng() {
         return huozhumingcheng;
     }
@@ -128,7 +137,7 @@ public class Sku {
     }
 
     @Basic
-    @Column(name = "CANGKUDAIMA", nullable = true, length = 50)
+    @Column(name = "cangkudaima")
     public String getCangkudaima() {
         return cangkudaima;
     }
@@ -138,7 +147,7 @@ public class Sku {
     }
 
     @Basic
-    @Column(name = "SHOUHUOLEIXING", nullable = true, length = 50)
+    @Column(name = "shouhuoleixing")
     public String getShouhuoleixing() {
         return shouhuoleixing;
     }
@@ -148,7 +157,7 @@ public class Sku {
     }
 
     @Basic
-    @Column(name = "HANGHAO", nullable = true, length = 50)
+    @Column(name = "hanghao")
     public String getHanghao() {
         return hanghao;
     }
@@ -158,7 +167,7 @@ public class Sku {
     }
 
     @Basic
-    @Column(name = "DINGDANSHULIANG", nullable = true, precision = 0)
+    @Column(name = "dingdanshuliang")
     public Integer getDingdanshuliang() {
         return dingdanshuliang;
     }
@@ -168,7 +177,7 @@ public class Sku {
     }
 
     @Basic
-    @Column(name = "DANWEI", nullable = true, length = 50)
+    @Column(name = "danwei")
     public String getDanwei() {
         return danwei;
     }
@@ -178,7 +187,7 @@ public class Sku {
     }
 
     @Basic
-    @Column(name = "CUNFANGQUYU", nullable = true, precision = 0)
+    @Column(name = "cunfangquyu")
     public Integer getCunfangquyu() {
         return cunfangquyu;
     }
@@ -187,40 +196,11 @@ public class Sku {
         this.cunfangquyu = cunfangquyu;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Sku sku = (Sku) o;
-        return id == sku.id &&
-                Objects.equals(skuCode, sku.skuCode) &&
-                Objects.equals(shelfLife, sku.shelfLife) &&
-                Objects.equals(version, sku.version) &&
-                Objects.equals(warning, sku.warning) &&
-                Objects.equals(skuName, sku.skuName) &&
-                Objects.equals(shouhuodanhao, sku.shouhuodanhao) &&
-                Objects.equals(jiaohuodanhao, sku.jiaohuodanhao) &&
-                Objects.equals(huozhudaima, sku.huozhudaima) &&
-                Objects.equals(huozhumingcheng, sku.huozhumingcheng) &&
-                Objects.equals(cangkudaima, sku.cangkudaima) &&
-                Objects.equals(shouhuoleixing, sku.shouhuoleixing) &&
-                Objects.equals(hanghao, sku.hanghao) &&
-                Objects.equals(dingdanshuliang, sku.dingdanshuliang) &&
-                Objects.equals(danwei, sku.danwei) &&
-                Objects.equals(cunfangquyu, sku.cunfangquyu);
-    }
+    public static Sku getByCode(String skuCode) {
 
-    @Override
-    public int hashCode() {
-
-        return Objects.hash(id, skuCode, shelfLife, version, warning, skuName, shouhuodanhao, jiaohuodanhao, huozhudaima, huozhumingcheng, cangkudaima, shouhuoleixing, hanghao, dingdanshuliang, danwei, cunfangquyu);
-    }
-
-
-    public static Sku getByBarcode(String skuCode) {
-        org.hibernate.Query q = HibernateUtil.getCurrentSession().createQuery("from Sku s where s.skuCode = :skuCode")
-                .setString("skuCode", skuCode);
-
-        return (Sku) q.uniqueResult();
+        org.hibernate.Query query = HibernateUtil.getCurrentSession().createQuery("from Sku where skuCode =:skuCode");
+        query.setParameter("skuCode", skuCode);
+        query.setMaxResults(1);
+        return (Sku) query.uniqueResult();
     }
 }

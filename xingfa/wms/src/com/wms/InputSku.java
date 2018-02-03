@@ -6,6 +6,7 @@ import com.wms.domain.Sku;
 import jxl.Sheet;
 import jxl.Workbook;
 import jxl.read.biff.BiffException;
+import org.apache.commons.lang.StringUtils;
 import org.hibernate.Session;
 
 import java.io.File;
@@ -20,43 +21,45 @@ public class InputSku {
 
             Session session = HibernateUtil.getCurrentSession();
 
-            Workbook data = Workbook.getWorkbook(new File("D:/projects/xingfa_wcs/xingfa/doc/入库数据示例.xls"));
+            Workbook data = Workbook.getWorkbook(new File("D:/projects/xingfa_wcs/xingfa/doc/test1.xls"));
 
             Sheet sheet = data.getSheet(0);
-
-
             for (int i = 1; i < sheet.getRows(); i++)
             {
-                Sku sku = Sku.getByBarcode(sheet.getCell(8, i).getContents());
+                if(StringUtils.isNotBlank(sheet.getCell(7, i).getContents())){
+                    Sku sku = Sku.getByCode(sheet.getCell(7, i).getContents());
 
-                if(sku != null)
-                {
-                    continue;
-                }
+                    if(sku != null)
+                    {
+                        continue;
+                    }
 
-                sku = new Sku();
-                session.save(sku);
-                sku.setShouhuodanhao(sheet.getCell(1, i).getContents());
-                sku.setJiaohuodanhao(sheet.getCell(2, i).getContents());
-                sku.setHuozhudaima(sheet.getCell(3, i).getContents());
-                sku.setHuozhumingcheng(sheet.getCell(4, i).getContents());
-                sku.setCangkudaima(sheet.getCell(5, i).getContents());
-                sku.setShouhuoleixing(sheet.getCell(6, i).getContents());
-                sku.setHanghao(sheet.getCell(7, i).getContents());
-                sku.setSkuCode(sheet.getCell(8, i).getContents());
-                sku.setSkuName(sheet.getCell(9, i).getContents());
-                try {
-                    sku.setDingdanshuliang(Integer.parseInt(sheet.getCell(10, i).getContents()));
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-                sku.setDanwei(sheet.getCell(11, i).getContents());
-                if(sheet.getCell(12, i).getContents().equals("")&&sheet.getCell(13, i).getContents().equals("")){
-                    sku.setCunfangquyu(0);
-                }else if(sheet.getCell(12, i).getContents().equals("少量、专区1")||sheet.getCell(13, i).getContents().equals("少量、专区1")){
-                    sku.setCunfangquyu(1);
-                }else if(sheet.getCell(12, i).getContents().equals("危化品 专区2")||sheet.getCell(13, i).getContents().equals("危化品 专区2")){
-                    sku.setCunfangquyu(2);
+                    sku = new Sku();
+                    session.save(sku);
+                    sku.setShouhuodanhao(sheet.getCell(0, i).getContents());
+                    sku.setJiaohuodanhao(sheet.getCell(1, i).getContents());
+                    sku.setHuozhudaima(sheet.getCell(2, i).getContents());
+                    sku.setHuozhumingcheng(sheet.getCell(3, i).getContents());
+                    sku.setCangkudaima(sheet.getCell(4, i).getContents());
+                    sku.setShouhuoleixing(sheet.getCell(5, i).getContents());
+                    sku.setHanghao(sheet.getCell(6, i).getContents());
+                    sku.setSkuCode(sheet.getCell(7, i).getContents());
+                    sku.setSkuName(sheet.getCell(8, i).getContents());
+                    try {
+                        if(StringUtils.isNotBlank(sheet.getCell(9, i).getContents())){
+                            sku.setDingdanshuliang(Integer.parseInt(sheet.getCell(9, i).getContents()));
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                    sku.setDanwei(sheet.getCell(10, i).getContents());
+                    if(StringUtils.isBlank(sheet.getCell(11, i).getContents())&&StringUtils.isBlank(sheet.getCell(12, i).getContents())){
+                        sku.setCunfangquyu(0);
+                    }else if(StringUtils.equals(sheet.getCell(11, i).getContents(),"少量、专区1")||StringUtils.equals(sheet.getCell(12, i).getContents(),"少量、专区1")){
+                        sku.setCunfangquyu(1);
+                    }else if(StringUtils.equals(sheet.getCell(11, i).getContents(),"危化品 专区2")||StringUtils.equals(sheet.getCell(12, i).getContents(),"危化品 专区2")){
+                        sku.setCunfangquyu(2);
+                    }
                 }
             }
 

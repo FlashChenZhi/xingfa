@@ -28,14 +28,14 @@ public class InputRetrievalOrderLine
 
             Session session = HibernateUtil.getCurrentSession();
 
-            Workbook data = Workbook.getWorkbook(new File("D:/projects/xingfa_wcs/xingfa/doc/入库数据示例.xls"));
+            Workbook data = Workbook.getWorkbook(new File("D:/projects/xingfa_wcs/xingfa/doc/test.xls"));
 
             Sheet sheet = data.getSheet(0);
 
 
             for (int i = 1; i < sheet.getRows(); i++)
             {
-                RetrievalOrderLine rol = RetrievalOrderLine.getByBarcode(sheet.getCell(2, i).getContents(),sheet.getCell(7, i).getContents());
+                RetrievalOrderLine rol = RetrievalOrderLine.getByRetrievalOrderLine(sheet.getCell(1, i).getContents(),sheet.getCell(6, i).getContents());
 
                 if(rol != null)
                 {
@@ -44,21 +44,21 @@ public class InputRetrievalOrderLine
 
                 rol = new RetrievalOrderLine();
                 session.save(rol);
-                rol.setShouhuodanhao(sheet.getCell(1, i).getContents());
-                rol.setJinhuodanhao(sheet.getCell(2, i).getContents());
-                rol.setHuozhudaima(sheet.getCell(3, i).getContents());
-                rol.setHuozhumingcheng(sheet.getCell(4, i).getContents());
-                rol.setCangkudaima(sheet.getCell(5, i).getContents());
-                rol.setShouhuoleixing(sheet.getCell(6, i).getContents());
-                rol.setHanghao(sheet.getCell(7, i).getContents());
-                rol.setShangpindaima(sheet.getCell(8, i).getContents());
-                rol.setShangpinmingcheng(sheet.getCell(9, i).getContents());
+                rol.setShouhuodanhao(sheet.getCell(0, i).getContents());
+                rol.setJinhuodanhao(sheet.getCell(1, i).getContents());
+                rol.setHuozhudaima(sheet.getCell(2, i).getContents());
+                rol.setHuozhumingcheng(sheet.getCell(3, i).getContents());
+                rol.setCangkudaima(sheet.getCell(4, i).getContents());
+                rol.setShouhuoleixing(sheet.getCell(5, i).getContents());
+                rol.setHanghao(sheet.getCell(6, i).getContents());
+                rol.setShangpindaima(sheet.getCell(7, i).getContents());
+                rol.setShangpinmingcheng(sheet.getCell(8, i).getContents());
                 try {
-                    rol.setDingdanshuliang(Integer.parseInt(sheet.getCell(10, i).getContents()));
+                    rol.setDingdanshuliang(Integer.parseInt(sheet.getCell(9, i).getContents()));
                 } catch (NumberFormatException e) {
                     e.printStackTrace();
                 }
-                rol.setDanwei(sheet.getCell(11, i).getContents());
+                rol.setDanwei(sheet.getCell(10, i).getContents());
             }
 
             Transaction.commit();
