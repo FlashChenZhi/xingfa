@@ -1,5 +1,7 @@
 package com.wms.domain;
 
+import com.util.hibernate.HibernateUtil;
+
 import javax.persistence.*;
 import java.util.Objects;
 
@@ -7,14 +9,14 @@ import java.util.Objects;
 @Table(name = "RETRIEVAL_ORDER_LINE", schema = "XINGFA", catalog = "")
 public class RetrievalOrderLine {
     private int rid;
-    private Integer shouhuodanhao;
-    private Integer jinhuodanhao;
+    private String shouhuodanhao;
+    private String jinhuodanhao;
     private String huozhudaima;
     private String huozhumingcheng;
-    private Integer cangkudaima;
+    private String cangkudaima;
     private String shouhuoleixing;
-    private Integer hanghao;
-    private Integer shangpindaima;
+    private String hanghao;
+    private String shangpindaima;
     private String shangpinmingcheng;
     private Integer dingdanshuliang;
     private Integer wanchengdingdanshuliang;
@@ -31,22 +33,22 @@ public class RetrievalOrderLine {
     }
 
     @Basic
-    @Column(name = "SHOUHUODANHAO", nullable = true, precision = 0)
-    public Integer getShouhuodanhao() {
+    @Column(name = "SHOUHUODANHAO", nullable = true, length = 50)
+    public String getShouhuodanhao() {
         return shouhuodanhao;
     }
 
-    public void setShouhuodanhao(Integer shouhuodanhao) {
+    public void setShouhuodanhao(String shouhuodanhao) {
         this.shouhuodanhao = shouhuodanhao;
     }
 
     @Basic
-    @Column(name = "JINHUODANHAO", nullable = true, precision = 0)
-    public Integer getJinhuodanhao() {
+    @Column(name = "JINHUODANHAO", nullable = true, length = 50)
+    public String getJinhuodanhao() {
         return jinhuodanhao;
     }
 
-    public void setJinhuodanhao(Integer jinhuodanhao) {
+    public void setJinhuodanhao(String jinhuodanhao) {
         this.jinhuodanhao = jinhuodanhao;
     }
 
@@ -71,12 +73,12 @@ public class RetrievalOrderLine {
     }
 
     @Basic
-    @Column(name = "CANGKUDAIMA", nullable = true, precision = 0)
-    public Integer getCangkudaima() {
+    @Column(name = "CANGKUDAIMA", nullable = true, length = 50)
+    public String getCangkudaima() {
         return cangkudaima;
     }
 
-    public void setCangkudaima(Integer cangkudaima) {
+    public void setCangkudaima(String cangkudaima) {
         this.cangkudaima = cangkudaima;
     }
 
@@ -91,22 +93,22 @@ public class RetrievalOrderLine {
     }
 
     @Basic
-    @Column(name = "HANGHAO", nullable = true, precision = 0)
-    public Integer getHanghao() {
+    @Column(name = "HANGHAO", nullable = true, length = 50)
+    public String getHanghao() {
         return hanghao;
     }
 
-    public void setHanghao(Integer hanghao) {
+    public void setHanghao(String hanghao) {
         this.hanghao = hanghao;
     }
 
     @Basic
-    @Column(name = "SHANGPINDAIMA", nullable = true, precision = 0)
-    public Integer getShangpindaima() {
+    @Column(name = "SHANGPINDAIMA", nullable = true, length = 50)
+    public String getShangpindaima() {
         return shangpindaima;
     }
 
-    public void setShangpindaima(Integer shangpindaima) {
+    public void setShangpindaima(String shangpindaima) {
         this.shangpindaima = shangpindaima;
     }
 
@@ -174,5 +176,13 @@ public class RetrievalOrderLine {
     public int hashCode() {
 
         return Objects.hash(rid, shouhuodanhao, jinhuodanhao, huozhudaima, huozhumingcheng, cangkudaima, shouhuoleixing, hanghao, shangpindaima, shangpinmingcheng, dingdanshuliang, wanchengdingdanshuliang, danwei);
+    }
+
+
+    public static RetrievalOrderLine getByBarcode(String jinhuodanhao,String hanghao) {
+        org.hibernate.Query q = HibernateUtil.getCurrentSession().createQuery("from RetrievalOrderLine r where r.jinhuodanhao = :jinhuodanhao and r.hanghao=:hanghao")
+                .setString("jinhuodanhao", jinhuodanhao).setString("hanghao",hanghao);
+
+        return (RetrievalOrderLine) q.uniqueResult();
     }
 }
