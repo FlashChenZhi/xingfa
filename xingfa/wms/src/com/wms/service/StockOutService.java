@@ -49,7 +49,7 @@ public class StockOutService {
                   int dingdanshuliang = rol.getDingdanshuliang();//获取订单数量
 
                   System.out.println(rol.getShouhuodanhao());
-                  Integer shangpindaima = rol.getShangpindaima();
+                  String shangpindaima = rol.getShangpindaima();
                   Query query2 = HibernateUtil.getCurrentSession().createQuery("from Inventory i where " +
                           "i.skuCode = :skuCode and i.container.reserved = false and i.container.location.retrievalRestricted = false and i.container.location.abnormal = false");
                   query2.setParameter("skuCode",shangpindaima);
@@ -143,7 +143,7 @@ public class StockOutService {
                           job.setContainer(inventory.getContainer().getBarcode());
                           job.setFromStation(fromStation);
                           job.setMcKey(mckey);
-                          //job.setOrderNo(rol.getJinhuodanhao());
+                          job.setOrderNo(rol.getJinhuodanhao());
                           job.setSendReport(sendReport);
                           job.setStatus(status);
                           job.setToStation(toStation);

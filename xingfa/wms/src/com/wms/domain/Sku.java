@@ -1,5 +1,7 @@
 package com.wms.domain;
 
+import com.util.hibernate.HibernateUtil;
+
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -14,13 +16,13 @@ public class Sku {
     private Integer version;
     private Long warning;
     private String skuName;
-    private Integer shouhuodanhao;
-    private Integer jiaohuodanhao;
-    private Integer huozhudaima;
+    private String shouhuodanhao;
+    private String jiaohuodanhao;
+    private String huozhudaima;
     private String huozhumingcheng;
-    private Integer cangkudaima;
+    private String cangkudaima;
     private String shouhuoleixing;
-    private Integer hanghao;
+    private String hanghao;
     private Integer dingdanshuliang;
     private String danwei;
     private Integer cunfangquyu;
@@ -86,32 +88,32 @@ public class Sku {
     }
 
     @Basic
-    @Column(name = "SHOUHUODANHAO", nullable = true, precision = 0)
-    public Integer getShouhuodanhao() {
+    @Column(name = "SHOUHUODANHAO", nullable = true, length = 50)
+    public String getShouhuodanhao() {
         return shouhuodanhao;
     }
 
-    public void setShouhuodanhao(Integer shouhuodanhao) {
+    public void setShouhuodanhao(String shouhuodanhao) {
         this.shouhuodanhao = shouhuodanhao;
     }
 
     @Basic
-    @Column(name = "JIAOHUODANHAO", nullable = true, precision = 0)
-    public Integer getJiaohuodanhao() {
+    @Column(name = "JIAOHUODANHAO", nullable = true, length = 50)
+    public String getJiaohuodanhao() {
         return jiaohuodanhao;
     }
 
-    public void setJiaohuodanhao(Integer jiaohuodanhao) {
+    public void setJiaohuodanhao(String jiaohuodanhao) {
         this.jiaohuodanhao = jiaohuodanhao;
     }
 
     @Basic
-    @Column(name = "HUOZHUDAIMA", nullable = true, precision = 0)
-    public Integer getHuozhudaima() {
+    @Column(name = "HUOZHUDAIMA", nullable = true, length = 50)
+    public String getHuozhudaima() {
         return huozhudaima;
     }
 
-    public void setHuozhudaima(Integer huozhudaima) {
+    public void setHuozhudaima(String huozhudaima) {
         this.huozhudaima = huozhudaima;
     }
 
@@ -126,12 +128,12 @@ public class Sku {
     }
 
     @Basic
-    @Column(name = "CANGKUDAIMA", nullable = true, precision = 0)
-    public Integer getCangkudaima() {
+    @Column(name = "CANGKUDAIMA", nullable = true, length = 50)
+    public String getCangkudaima() {
         return cangkudaima;
     }
 
-    public void setCangkudaima(Integer cangkudaima) {
+    public void setCangkudaima(String cangkudaima) {
         this.cangkudaima = cangkudaima;
     }
 
@@ -146,12 +148,12 @@ public class Sku {
     }
 
     @Basic
-    @Column(name = "HANGHAO", nullable = true, precision = 0)
-    public Integer getHanghao() {
+    @Column(name = "HANGHAO", nullable = true, length = 50)
+    public String getHanghao() {
         return hanghao;
     }
 
-    public void setHanghao(Integer hanghao) {
+    public void setHanghao(String hanghao) {
         this.hanghao = hanghao;
     }
 
@@ -212,5 +214,13 @@ public class Sku {
     public int hashCode() {
 
         return Objects.hash(id, skuCode, shelfLife, version, warning, skuName, shouhuodanhao, jiaohuodanhao, huozhudaima, huozhumingcheng, cangkudaima, shouhuoleixing, hanghao, dingdanshuliang, danwei, cunfangquyu);
+    }
+
+
+    public static Sku getByBarcode(String skuCode) {
+        org.hibernate.Query q = HibernateUtil.getCurrentSession().createQuery("from Sku s where s.skuCode = :skuCode")
+                .setString("skuCode", skuCode);
+
+        return (Sku) q.uniqueResult();
     }
 }
