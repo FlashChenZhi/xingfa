@@ -61,7 +61,7 @@ public class PutInStorageService {
         try {
             Transaction.begin();
             Session session = HibernateUtil.getCurrentSession();
-            Sku sku = Sku.getByBarcode(commodityCode);
+            Sku sku = Sku.getByCode(commodityCode);
             if (sku == null) {
                 returnObj.setSuccess(false);
                 returnObj.setMsg("商品不存在!");
