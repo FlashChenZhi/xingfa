@@ -6,6 +6,7 @@ import org.hibernate.*;
 import javax.persistence.*;
 import javax.persistence.Version;
 import java.math.BigDecimal;
+import java.util.Date;
 
 /**
  * Created by wangfan
@@ -34,6 +35,7 @@ public class Sku {
     private Integer dingdanshuliang;
     private String danwei;
     private Integer cunfangquyu;
+    private Date changjianshijian;
     @Id
     @Column(name = "ID")
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq")
@@ -202,5 +204,13 @@ public class Sku {
         query.setParameter("skuCode", skuCode);
         query.setMaxResults(1);
         return (Sku) query.uniqueResult();
+    }
+
+    public Date getChangjianshijian() {
+        return changjianshijian;
+    }
+
+    public void setChangjianshijian(Date changjianshijian) {
+        this.changjianshijian = changjianshijian;
     }
 }
