@@ -159,19 +159,21 @@ public class PlcConnection
             bytes[0] = 0x02;
             bytes[bytes.length - 1] = 0x03;
             send(bytes);
-            LogWriter.writeInfo("ComLog", String.format("[S] [%1$s] [%2$s]", _plcName, msgStr.substring(1, msgStr.length() - 1)));
-            try{
-                Transaction.begin();
-                MessageLog log = new MessageLog();
-                log.setType(MessageLog.TYPE_SEND);
-                log.setMsg(msgStr.substring(1, msgStr.length() - 1));
-                log.setCreateDate(new Date());
-                HibernateUtil.getCurrentSession().save(log);
-                Transaction.commit();
+            if (!mb.ID.equals("06") && !mb.ID.equals("10")) {
+                  LogWriter.writeInfo("ComLog", String.format("[S] [%1$s] [%2$s]", _plcName, msgStr.substring(1, msgStr.length() - 1)));
+                  try {
+                        Transaction.begin();
+                        MessageLog log = new MessageLog();
+                        log.setType(MessageLog.TYPE_SEND);
+                        log.setMsg(msgStr.substring(1, msgStr.length() - 1));
+                        log.setCreateDate(new Date());
+                        HibernateUtil.getCurrentSession().save(log);
+                        Transaction.commit();
 
-            }catch (Exception e){
-                Transaction.rollback();
-                e.printStackTrace();
+                  } catch (Exception e) {
+                        Transaction.rollback();
+                        e.printStackTrace();
+                  }
             }
       }
 
@@ -262,22 +264,7 @@ public class PlcConnection
             {
                   return;
             }
-            LogWriter.writeInfo("ComLog", String.format("[R] [%1$s] [%2$s]", _plcName, dataStr));
 
-          try{
-
-              Transaction.begin();
-              MessageLog log = new MessageLog();
-              log.setType(MessageLog.TYPE_RECV);
-              log.setMsg(dataStr);
-              log.setCreateDate(new Date());
-              HibernateUtil.getCurrentSession().save(log);
-              Transaction.commit();
-
-          }catch (Exception e){
-              e.printStackTrace();
-              Transaction.rollback();
-          }
 
             if (dataStr.length() >= 21)
             {
@@ -292,7 +279,24 @@ public class PlcConnection
                               mb.PlcName = _plcName;
                               MessageCenter.instance().addRcvdMsg(mb);
 
+                              if(!mb.ID.equals("26") && !mb.ID.equals("30")){
+                                    LogWriter.writeInfo("ComLog", String.format("[R] [%1$s] [%2$s]", _plcName, dataStr));
 
+                                    try{
+
+                                          Transaction.begin();
+                                          MessageLog log = new MessageLog();
+                                          log.setType(MessageLog.TYPE_RECV);
+                                          log.setMsg(dataStr);
+                                          log.setCreateDate(new Date());
+                                          HibernateUtil.getCurrentSession().save(log);
+                                          Transaction.commit();
+
+                                    }catch (Exception e){
+                                          e.printStackTrace();
+                                          Transaction.rollback();
+                                    }
+                              }
                         }
                         catch (MsgException e)
                         {

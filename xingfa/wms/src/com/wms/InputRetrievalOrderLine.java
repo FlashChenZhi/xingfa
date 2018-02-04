@@ -28,7 +28,7 @@ public class InputRetrievalOrderLine
 
             Session session = HibernateUtil.getCurrentSession();
 
-            Workbook data = Workbook.getWorkbook(new File("D:/projects/xingfa_wcs/xingfa/doc/test.xls"));
+            Workbook data = Workbook.getWorkbook(new File("E:/test/zhu/test.xls"));
 
             Sheet sheet = data.getSheet(0);
 

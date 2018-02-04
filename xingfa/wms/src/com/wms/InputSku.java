@@ -21,7 +21,7 @@ public class InputSku {
 
             Session session = HibernateUtil.getCurrentSession();
 
-            Workbook data = Workbook.getWorkbook(new File("D:/projects/xingfa_wcs/xingfa/doc/test1.xls"));
+            Workbook data = Workbook.getWorkbook(new File("E:/test/zhu/test1.xls"));
 
             Sheet sheet = data.getSheet(0);
             for (int i = 1; i < sheet.getRows(); i++)

@@ -10,7 +10,7 @@ import java.math.BigDecimal;
 @Table(name = "RECEIVINGPLAN")
 public class InventoryView {
 
-    private String id;
+    private int id;
     private String whCode;
     private String palletCode;
     private String skuCode;
@@ -22,11 +22,11 @@ public class InventoryView {
     @Column(name = "ID")
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq")
     @SequenceGenerator(name = "seq", sequenceName = "SEQ_RECVPLAN_ID", allocationSize = 1)
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 
