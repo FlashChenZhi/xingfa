@@ -1,5 +1,6 @@
 package com.web.service;
 
+import com.asrs.business.consts.AsrsJobType;
 import com.asrs.communication.MessageProxy;
 import com.asrs.domain.Station;
 import com.asrs.message.Message40;
@@ -45,7 +46,7 @@ public class PlatformSwitchService {
             }
             Message40 message40 = new Message40();
             message40.setPlcName(block.getPlcName());
-            message40.Mode = pattern;
+            message40.Mode = pattern.equals(AsrsJobType.PUTAWAY) ? "01" : "02";
             message40.Station = zhantai;
             MessageProxy _wcsproxy = (MessageProxy) Naming.lookup(Const.WCSPROXY);
             _wcsproxy.addSndMsg(message40);

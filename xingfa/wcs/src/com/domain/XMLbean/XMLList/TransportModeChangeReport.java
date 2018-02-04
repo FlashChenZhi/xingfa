@@ -1,5 +1,6 @@
 package com.domain.XMLbean.XMLList;
 
+import com.asrs.business.consts.AsrsJobType;
 import com.asrs.communication.MessageProxy;
 import com.asrs.domain.Station;
 import com.asrs.message.Message40;
@@ -83,7 +84,7 @@ public class TransportModeChangeReport extends XMLProcess {
             }
             Message40 message40 = new Message40();
             message40.setPlcName(block.getPlcName());
-            message40.Mode = model;
+            message40.Mode = model.equals(AsrsJobType.PUTAWAY) ? "01" : "02";
             message40.Station = stationNo;
             MessageProxy _wcsproxy = (MessageProxy) Naming.lookup(Const.WCSPROXY);
             _wcsproxy.addSndMsg(message40);

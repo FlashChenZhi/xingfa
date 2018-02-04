@@ -36,12 +36,18 @@ public class Msg10Send {
 
                 }
                 Transaction.commit();
-                Thread.sleep(1000);
 
             } catch (Exception e) {
                 Transaction.rollback();
                 e.printStackTrace();
             }
+
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
         }
     }
 }
