@@ -46,7 +46,6 @@ public class OrderInquiryAction {
     @RequestMapping(value = "/getshipperId",method = RequestMethod.POST)
     @ResponseBody
     public ReturnObj<List<Map<String,Object>>> getshipperId() throws IOException{
-
         return orderInquiryService.getshipperId();
     }
     /**

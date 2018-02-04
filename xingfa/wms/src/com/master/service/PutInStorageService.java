@@ -9,6 +9,7 @@ import com.util.common.ReturnObj;
 import com.util.hibernate.HibernateUtil;
 import com.util.hibernate.Transaction;
 import com.wms.domain.*;
+import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.exception.JDBCConnectionException;
@@ -30,7 +31,7 @@ public class PutInStorageService {
      * @return
      * @throws IOException
      */
-    public ReturnObj<List<Map<String,String>>> getCommodityCode() throws IOException{
+    public ReturnObj<List<Map<String,String>>> getCommodityCode() {
         System.out.println("进入获取商品代码方法！");
 
         ReturnObj<List<Map<String,String>>> s = new ReturnObj<List<Map<String,String>>>();
@@ -61,7 +62,7 @@ public class PutInStorageService {
         try {
             Transaction.begin();
             Session session = HibernateUtil.getCurrentSession();
-            Sku sku = Sku.getByBarcode(commodityCode);
+            Sku sku = Sku.getByCode(commodityCode);
             if (sku == null) {
                 returnObj.setSuccess(false);
                 returnObj.setMsg("商品不存在!");
