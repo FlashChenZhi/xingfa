@@ -3,6 +3,7 @@ package com.wms.domain;
 import com.util.hibernate.HibernateUtil;
 
 import javax.persistence.*;
+import java.util.Date;
 import java.util.Objects;
 
 @Entity
@@ -22,7 +23,7 @@ public class RetrievalOrderLine {
     private Integer dingdanshuliang;
     private Integer wanchengdingdanshuliang;
     private String danwei;
-
+    private Date chuangjianshijian;
     @Id
     @Column(name = "RID", nullable = false, precision = 0)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "rolseq")
@@ -187,5 +188,13 @@ public class RetrievalOrderLine {
                 .setString("jinhuodanhao", jinhuodanhao).setString("hanghao",hanghao);
 
         return (RetrievalOrderLine) q.uniqueResult();
+    }
+
+    public Date getChuangjianshijian() {
+        return chuangjianshijian;
+    }
+
+    public void setChuangjianshijian(Date chuangjianshijian) {
+        this.chuangjianshijian = chuangjianshijian;
     }
 }
