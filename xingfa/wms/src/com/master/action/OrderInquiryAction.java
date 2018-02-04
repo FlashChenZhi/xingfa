@@ -1,7 +1,7 @@
 package com.master.action;
 
 import com.master.service.OrderInquiryService;
-import com.master.service.SkuService;
+import com.master.service.PutInStorageService;
 import com.util.common.PagerReturnObj;
 import com.util.common.ReturnObj;
 import org.springframework.stereotype.Controller;
@@ -11,8 +11,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -22,7 +20,7 @@ public class OrderInquiryAction {
 
     @Resource
     private OrderInquiryService orderInquiryService;
-
+    private PutInStorageService putInStorageService;
     /**
      * 查询定单
      * @param orderNo 订单号（条件）
@@ -45,7 +43,7 @@ public class OrderInquiryAction {
      */
     @RequestMapping(value = "/getshipperId",method = RequestMethod.POST)
     @ResponseBody
-    public ReturnObj<List<Map<String,Object>>> getshipperId() throws IOException{
+    public ReturnObj<List<Map<String, Object>>> getshipperId() throws IOException{
         return orderInquiryService.getshipperId();
     }
     /**
