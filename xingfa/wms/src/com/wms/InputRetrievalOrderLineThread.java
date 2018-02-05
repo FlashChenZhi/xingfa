@@ -1,7 +1,5 @@
 package com.wms;
 
-import com.util.hibernate.HibernateUtil;
-import com.util.hibernate.Transaction;
 import com.wms.domain.RetrievalOrderLine;
 import jxl.Sheet;
 import jxl.Workbook;
@@ -9,7 +7,6 @@ import jxl.read.biff.BiffException;
 import jxl.write.Label;
 import jxl.write.WritableSheet;
 import jxl.write.WritableWorkbook;
-import org.hibernate.Session;
 
 import java.io.*;
 import java.text.SimpleDateFormat;
@@ -22,77 +19,95 @@ import java.util.*;
  * Time: 19:39:39
  * To change this template use File | Settings | File Templates.
  */
-public class InputRetrievalOrderLine
+public class InputRetrievalOrderLineThread implements Runnable
 {
+
     public static void main(String[] args)
     {
-        try
-        {
+
+        InputRetrievalOrderLineThread thread = new InputRetrievalOrderLineThread();
+        thread.run();
+    }
+    @Override
+    public void run() {
+        while (true) {
+            try
+            {
 //            Transaction.begin();
 
 //            Session session = HibernateUtil.getCurrentSession();
-            String oldPath="E:/test/zhu/test.xls";
-            Workbook data = Workbook.getWorkbook(new File(oldPath));
+                String oldPath="E:/test/zhu/test.xls";
+                Workbook data = Workbook.getWorkbook(new File(oldPath));
 
-            Sheet sheet = data.getSheet(0);
+                Sheet sheet = data.getSheet(0);
 
-            Date d = new Date();
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
-            System.out.println("当前时间：" + sdf.format(d));
-            String newPath="E:/test/fu/test_"+sdf.format(d)+".xls";
-            copyFile(oldPath,newPath);
-            deleteFile(oldPath);
-            List<ErrorMessage> list=new ArrayList();
-            for (int i = 1; i < sheet.getRows(); i++)
-            {
-                RetrievalOrderLine rol = RetrievalOrderLine.getByRetrievalOrderLine(sheet.getCell(1, i).getContents(),sheet.getCell(6, i).getContents());
-
-                if(rol != null)
+                Date d = new Date();
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
+                System.out.println("当前时间：" + sdf.format(d));
+                String newPath="E:/test/fu/test_"+sdf.format(d)+".xls";
+                copyFile(oldPath,newPath);
+                deleteFile(oldPath);
+                List<ErrorMessage> list=new ArrayList();
+                for (int i = 1; i < sheet.getRows(); i++)
                 {
-                    list.add(new ErrorMessage(rol,"交货单号和行号重复"));
-                    continue;
-                }
+                    RetrievalOrderLine rol = RetrievalOrderLine.getByRetrievalOrderLine(sheet.getCell(1, i).getContents(),sheet.getCell(6, i).getContents());
 
-                rol = new RetrievalOrderLine();
+                    if(rol != null)
+                    {
+                        list.add(new ErrorMessage(rol,"交货单号和行号重复"));
+                        continue;
+                    }
+
+                    rol = new RetrievalOrderLine();
 //                session.save(rol);
-                rol.setShouhuodanhao(sheet.getCell(0, i).getContents());
-                rol.setJinhuodanhao(sheet.getCell(1, i).getContents());
-                rol.setHuozhudaima(sheet.getCell(2, i).getContents());
-                rol.setHuozhumingcheng(sheet.getCell(3, i).getContents());
-                rol.setCangkudaima(sheet.getCell(4, i).getContents());
-                rol.setShouhuoleixing(sheet.getCell(5, i).getContents());
-                rol.setHanghao(sheet.getCell(6, i).getContents());
-                rol.setShangpindaima(sheet.getCell(7, i).getContents());
-                rol.setShangpinmingcheng(sheet.getCell(8, i).getContents());
-                try {
-                    rol.setDingdanshuliang(Integer.parseInt(sheet.getCell(9, i).getContents()));
-                } catch (NumberFormatException e) {
-                    list.add(new ErrorMessage(rol,"parseInt转换异常"));
+                    rol.setShouhuodanhao(sheet.getCell(0, i).getContents());
+                    rol.setJinhuodanhao(sheet.getCell(1, i).getContents());
+                    rol.setHuozhudaima(sheet.getCell(2, i).getContents());
+                    rol.setHuozhumingcheng(sheet.getCell(3, i).getContents());
+                    rol.setCangkudaima(sheet.getCell(4, i).getContents());
+                    rol.setShouhuoleixing(sheet.getCell(5, i).getContents());
+                    rol.setHanghao(sheet.getCell(6, i).getContents());
+                    rol.setShangpindaima(sheet.getCell(7, i).getContents());
+                    rol.setShangpinmingcheng(sheet.getCell(8, i).getContents());
+                    try {
+                        rol.setDingdanshuliang(Integer.parseInt(sheet.getCell(9, i).getContents()));
+                    } catch (NumberFormatException e) {
+                        list.add(new ErrorMessage(rol,"parseInt转换异常"));
+                    }
+                    rol.setDanwei(sheet.getCell(10, i).getContents());
                 }
-                rol.setDanwei(sheet.getCell(10, i).getContents());
-            }
-            cuoWu( sdf.format(d), list);
+                cuoWu( sdf.format(d), list);
 //            Transaction.commit();
-        }
-        catch (IOException e)
-        {
+            }
+            catch (IOException e)
+            {
 //            Transaction.rollback();
 
-            System.out.println("IO错误");
-        }
-        catch (BiffException e)
-        {
+                System.out.println("IO错误");
+            }
+            catch (BiffException e)
+            {
 //            Transaction.rollback();
 
-            System.out.println("Biff错误");
-        }
-        catch (Exception e)
-        {
+                System.out.println("Biff错误");
+            }
+            catch (Exception e)
+            {
 //            Transaction.rollback();
 
-            System.out.println(e.getMessage());
+                System.out.println(e.getMessage());
+            }finally {
+                try {
+                    Thread.sleep(10000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+
         }
+
     }
+
     public static void copyFile(String oldPath, String newPath) {
         try {
             int bytesum = 0;
