@@ -20,7 +20,7 @@ import java.util.List;
  * Copyright Daifuku Shanghai Ltd.
  */
 @Entity
-@Table(name = "LOCATION")
+@Table(name = "XINGFA.LOCATION")
 public class Location {
 
     public static final String __LOCATIONNO = "locationNo";
@@ -50,8 +50,7 @@ public class Location {
 
     @Id
     @Column(name = "ID", nullable = false, length = 8)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq")
-    @SequenceGenerator(name = "seq", sequenceName = "SEQ_LOCATION_ID", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public int getId() {
         return _id;
     }
@@ -560,7 +559,7 @@ public class Location {
         Session session = HibernateUtil.getCurrentSession();
         //存在同批次的库存同一边的可用，并且托盘是整托
         Query q = session.createQuery("from Location l where exists( select 1 from Inventory i where l.bay=i.container.location.bay and l.actualArea=i.container.location.actualArea " +
-                " and l.level =i.container.location.level  and i.skuCode=:skuCode and i.container.status='整托' " +
+                " and l.level =i.container.location.level  and i.skuCode=:skuCode " +
                 " and  l.position=i.container.location.position and l.actualArea = i.container.location.actualArea and i.container.location.seq<l.seq  ) and not exists( select 1 from Inventory i " +
                 " where l.bay=i.container.location.bay and l.level =i.container.location.level  and l.actualArea=i.container.location.actualArea and l.position=i.container.location.position and i.orderNo is not null)  " +
                 "and l.empty=true  and l.position=:po and l.reserved=false and l.asrsFlag = true and l.putawayRestricted = false order by l.seq")
@@ -571,7 +570,7 @@ public class Location {
             //查找正在执行的入库任务
             q = session.createQuery("from Location l where exists( select j from Job j,InventoryView  v where j.container =v.palletCode" +
                     " and l.actualArea= j.toLocation.actualArea " +
-                    " and l.level = j.toLocation.level and l.bay = j.toLocation.bay and v.skuCode=:skuCode and l.position=j.toLocation.position and v.status='整托' )  " +
+                    " and l.level = j.toLocation.level and l.bay = j.toLocation.bay and v.skuCode=:skuCode and l.position=j.toLocation.position )  " +
                     "and l.empty=true and l.position=:po and l.reserved=false and l.asrsFlag = true and l.putawayRestricted = false order by l.seq asc")
                     .setParameter("po", position).setParameter("skuCode", skuCode);
             if (!q.list().isEmpty()) {

@@ -46,7 +46,7 @@ import java.util.List;
  * To change this template use File | Settings | File Templates.
  */
 @Entity
-@Table(name = "LoadUnitAtID")
+@Table(name = "XINGFA.LoadUnitAtID")
 public class LoadUnitAtID extends XMLProcess {
 
 
@@ -93,8 +93,7 @@ public class LoadUnitAtID extends XMLProcess {
     private int id;
 
     @Id
-    @SequenceGenerator(name = "sequenceGenerator", sequenceName = "LOADUNITATID_SEQ", allocationSize = 1)
-    @GeneratedValue(generator = "sequenceGenerator", strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID")
     public int getId() {
         return id;
@@ -271,17 +270,19 @@ public class LoadUnitAtID extends XMLProcess {
             SystemLog.error("入库站台" + stationNo + "不存在任务");
             InMessage.error(stationNo, "入库站台" + stationNo + "不存在任务");
         }else{
-            Container container = Container.getByBarcode(j.getContainer());
-            Inventory inventory = container.getInventories().iterator().next();
+//            Container container = Container.getByBarcode(j.getContainer());
+//            Inventory inventory = container.getInventories().iterator().next();
+            j.setStatus(AsrsJobStatus.RUNNING);
+            InventoryView view = InventoryView.getByPalletNo(j.getContainer());
             Station station = Station.getStation(stationNo);
-            Location newLocation = Location.getEmptyLocation(inventory.getSkuCode(),station.getPosition());
-            String palletNo = container.getBarcode();
+            Location newLocation = Location.getEmptyLocation(view.getSkuCode(),station.getPosition());
+            String palletNo = j.getContainer();
             if (newLocation == null) {
                 SystemLog.error("托盘" + palletNo + "找不到合适的货位");
                 InMessage.error(stationNo, "托盘" + palletNo + "，找不到合适的货位");
             }else{
 
-                String mckey = Mckey.getNext();
+//                String mckey = Mckey.getNext();
                 //开始
                 //创建ControlArea控制域对象
                 ControlArea ca = new ControlArea();
@@ -294,7 +295,7 @@ public class LoadUnitAtID extends XMLProcess {
                 ca.setReceiver(rv);
 
                 RefId ri = new RefId();
-                ri.setReferenceId(mckey);
+                ri.setReferenceId(j.getMcKey());
                 ca.setRefId(ri);
                 ca.setCreationDateTime(new DateFormat().format(new Date(), DateFormat.YYYYMMDDHHMMSS));
 
@@ -347,7 +348,7 @@ public class LoadUnitAtID extends XMLProcess {
 //
 //                HibernateUtil.getCurrentSession().save(job);
 
-                InMessage.info(stationNo, palletNo,inventory.getSkuCode());
+                InMessage.info(stationNo, palletNo,view.getSkuCode());
             }
         }
 

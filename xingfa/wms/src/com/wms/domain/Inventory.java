@@ -10,7 +10,7 @@ import java.math.BigDecimal;
  * Copyright Daifuku Shanghai Ltd.
  */
 @Entity
-@Table(name = "INVENTORY")
+@Table(name = "XINGFA.INVENTORY")
 public class Inventory {
 
     public static final String __CONTAINER = "container";
@@ -43,8 +43,7 @@ public class Inventory {
 
     @Id
     @Column(name = "ID")
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq")
-    @SequenceGenerator(name = "seq", sequenceName = "SEQ_INVENTORY_ID", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public int getId() {
         return id;
     }

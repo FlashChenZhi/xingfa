@@ -7,7 +7,7 @@ import java.math.BigDecimal;
  * Created by van on 2017/11/22.
  */
 @Entity
-@Table(name = "RETRIEVAL_ORDER_DETAIL")
+@Table(name = "XINGFA.RETRIEVAL_ORDER_DETAIL")
 public class RetrievalOrderDetail {
     private int id;
     private BigDecimal qty;//总只数
@@ -23,8 +23,7 @@ public class RetrievalOrderDetail {
 
     @Id
     @Column(name = "ID")
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq")
-    @SequenceGenerator(name = "seq", sequenceName = "SEQ_RETRIEVALORDERDETAIL_ID", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public int getId() {
         return id;
     }

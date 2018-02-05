@@ -15,7 +15,7 @@ import java.io.Serializable;
  * envelope of WMS_WCS
  */
 @Entity
-@Table(name = "WcsEnvelope")
+@Table(name = "XINGFA.WcsEnvelope")
 @XStreamAlias("WmsWcsXML_Envelope")
 public class Envelope implements Serializable {
     @XStreamAlias("TransportModeChange")
@@ -150,8 +150,7 @@ public class Envelope implements Serializable {
     private int id;
 
     @Id
-    @SequenceGenerator(name = "sequenceGenerator", sequenceName = "ENVELOPE_SEQ", allocationSize = 1)
-    @GeneratedValue(generator = "sequenceGenerator", strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID")
     public int getId() {
         return id;

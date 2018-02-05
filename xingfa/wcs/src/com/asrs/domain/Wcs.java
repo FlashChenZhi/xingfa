@@ -12,7 +12,7 @@ import javax.persistence.*;
  * Copyright Daifuku Shanghai Ltd.
  */
 @Entity
-@Table(name = "WCS")
+@Table(name = "XINGFA.WCS")
 public class Wcs
 {
     public static final String ONLINE = "1";

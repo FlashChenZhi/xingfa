@@ -18,7 +18,7 @@ import javax.persistence.*;
  * To change this template use File | Settings | File Templates.
  */
 @Entity
-@Table(name = "MovementReportDA")
+@Table(name = "XINGFA.MovementReportDA")
 public class MovementReportDA {
     /**
      * ReasonCode:Carried out as requested
@@ -115,8 +115,7 @@ public class MovementReportDA {
     private int id;
 
     @Id
-    @SequenceGenerator(name = "sequenceGenerator", sequenceName = "MOVEMENTREPORT_DA_SEQ", allocationSize = 1)
-    @GeneratedValue(generator = "sequenceGenerator", strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID")
     public int getId() {
         return id;

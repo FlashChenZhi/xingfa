@@ -17,7 +17,7 @@ import java.util.Set;
  * Created by xiongying on 2015/8/16.
  */
 @Entity
-@Table(name = "\"USER\"")
+@Table(name = "\"XINGFA.USER\"")
 public class User {
     private int id;
     private String code;
@@ -52,8 +52,7 @@ public class User {
     public static final String DEFAILT_THEME = "gray";
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq")
-    @SequenceGenerator(name = "seq", sequenceName = "SEQ_USER_ID", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID")
     public int getId() {
         return id;

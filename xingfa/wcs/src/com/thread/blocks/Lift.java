@@ -7,7 +7,7 @@ import javax.persistence.*;
  * 固定提升机
  */
 @Entity
-@Table(name = "Block")
+@Table(name = "XINGFA.Block")
 @DiscriminatorValue(value = "2")
 public class Lift extends Block {
     private int level;

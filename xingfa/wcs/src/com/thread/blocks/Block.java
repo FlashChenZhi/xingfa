@@ -17,7 +17,7 @@ import java.util.List;
  * Created by Administrator on 2016/10/26.
  */
 @Entity
-@Table(name = "Block")
+@Table(name = "XINGFA.Block")
 @DiscriminatorColumn(name = "type")
 public abstract class Block {
     protected String blockNo;

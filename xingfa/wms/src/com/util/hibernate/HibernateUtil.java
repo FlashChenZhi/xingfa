@@ -44,8 +44,12 @@ public class HibernateUtil {
 
     public static int nextSeq(String seqName) {
         Session session = HibernateUtil.getCurrentSession();
-        Query q = session.createSQLQuery("select " + seqName + ".nextval as seq from dual");
+//        Query q = session.createSQLQuery("select " + seqName + ".nextval as seq from dual");
+//        String a = String.valueOf(q.uniqueResult());
+
+        Query q = session.createSQLQuery("select next value for " + seqName);
         String a = String.valueOf(q.uniqueResult());
+
         return Integer.parseInt(a);
     }
 

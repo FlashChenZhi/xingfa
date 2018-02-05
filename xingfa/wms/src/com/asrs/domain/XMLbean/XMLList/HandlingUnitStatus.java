@@ -18,7 +18,7 @@ import javax.persistence.*;
  * To change this template use File | Settings | File Templates.
  */
 @Entity
-@Table(name = "HandlingUnitStatus")
+@Table(name = "XINGFA.HandlingUnitStatus")
 public class HandlingUnitStatus extends XMLProcess {
     @XStreamAsAttribute
 
@@ -52,8 +52,7 @@ public class HandlingUnitStatus extends XMLProcess {
     private int id;
 
     @Id
-    @SequenceGenerator(name = "sequenceGenerator", sequenceName = "HANDLINGUNITSTATUS_SEQ", allocationSize = 1)
-    @GeneratedValue(generator = "sequenceGenerator", strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID")
     public int getId() {
         return id;

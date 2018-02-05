@@ -6,14 +6,13 @@ import javax.persistence.*;
  * Created by Administrator on 2016/11/7.
  */
 @Entity
-@Table(name = "ROUTEDETAIL")
+@Table(name = "XINGFA.ROUTEDETAIL")
 public class RouteDetail {
     private int _id;
 
     @Id
     @Column(name = "ID", nullable = false, length = 8)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq")
-    @SequenceGenerator(name = "seq", sequenceName = "SEQ_ROUTEDETAIL", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public int getId() {
         return _id;
     }

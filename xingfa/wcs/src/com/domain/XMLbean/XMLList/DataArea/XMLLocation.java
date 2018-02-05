@@ -16,7 +16,7 @@ import java.util.List;
  * To change this template use File | Settings | File Templates.
  */
 @Entity
-@Table(name = "XMLLocation")
+@Table(name = "XINGFA.XMLLocation")
 public class XMLLocation {
     @XStreamAlias("MHA")
     private String MHA = StringUtils.EMPTY;
@@ -45,8 +45,7 @@ public class XMLLocation {
     private int id;
 
     @Id
-    @SequenceGenerator(name = "sequenceGenerator", sequenceName = "XMLLOCATION_SEQ", allocationSize = 1)
-    @GeneratedValue(generator = "sequenceGenerator", strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID")
     public int getId() {
         return id;

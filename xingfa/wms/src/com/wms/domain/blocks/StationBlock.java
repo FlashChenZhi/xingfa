@@ -10,7 +10,7 @@ import javax.persistence.*;
  * 站台
  */
 @Entity
-@Table(name = "Block")
+@Table(name = "XINGFA.Block")
 @DiscriminatorValue(value = "3")
 public class StationBlock extends Block {
     protected String stationNo;

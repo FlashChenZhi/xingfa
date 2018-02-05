@@ -43,7 +43,7 @@ import java.util.List;
  * To change this template use File | Settings | File Templates.
  */
 @Entity
-@Table(name = "TransportOrderLog")
+@Table(name = "XINGFA.TransportOrderLog")
 public class TransportOrder extends XMLProcess {
 
     @XStreamAlias("version")
@@ -91,8 +91,7 @@ public class TransportOrder extends XMLProcess {
 
 
     @Id
-    @SequenceGenerator(name = "sequenceGenerator", sequenceName = "MOVEMENTREPORT_SEQ", allocationSize = 1)
-    @GeneratedValue(generator = "sequenceGenerator", strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID")
     public int getId() {
         return id;

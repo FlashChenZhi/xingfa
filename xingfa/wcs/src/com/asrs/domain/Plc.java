@@ -13,7 +13,7 @@ import java.util.Date;
  * Copyright Daifuku Shanghai Ltd.
  */
 @Entity
-@Table(name = "PLC")
+@Table(name = "XINGFA.PLC")
 public class Plc
 {
     private String _plcName;

@@ -7,7 +7,7 @@ import javax.persistence.*;
  * 输送机
  */
 @Entity
-@Table(name = "Block")
+@Table(name = "XINGFA.Block")
 @DiscriminatorValue(value = "1")
 public class Conveyor extends Block {
     private String dock;

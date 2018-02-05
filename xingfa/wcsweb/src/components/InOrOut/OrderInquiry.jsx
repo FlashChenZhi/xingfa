@@ -41,7 +41,7 @@ let OutputArea = React.createClass({
                 })
             }.bind(this),
             error: function (err) {
-                message.error("设定任务失败！");
+                message.error("初始化商品代码失败！");
             }.bind(this)
         })
     },
@@ -60,7 +60,7 @@ let OutputArea = React.createClass({
                 })
             }.bind(this),
             error: function (err) {
-                message.error("设定任务失败！");
+                message.error("初始化货主代码失败！");
             }.bind(this)
         })
     },
@@ -94,6 +94,7 @@ let OutputArea = React.createClass({
             }.bind(this),
             error: function (err) {
                 reqwestError(err);
+                message.error("加载数据失败！");
             }.bind(this)
         });
     },

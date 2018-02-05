@@ -16,7 +16,7 @@ import java.util.List;
  * Time: 下午1:40
  */
 @Entity
-@Table(name = "messageSendstatus")
+@Table(name = "XINGFA.messageSendstatus")
 public class XMLMessage {
 
     public static final String __REQUESTTYPE = "type";
@@ -82,8 +82,7 @@ public class XMLMessage {
     public static final String __SENDDATE = "sendDate";
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq")
-    @SequenceGenerator(name = "seq", sequenceName = "SEQ_MESSAGESENDSTATUS")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID")
     public int getId() {
         return id;

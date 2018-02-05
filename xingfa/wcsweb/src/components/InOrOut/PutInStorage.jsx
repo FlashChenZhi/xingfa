@@ -35,7 +35,7 @@ let PutInStorage = React.createClass({
                 })
             }.bind(this),
             error: function (err) {
-                message.error("设定任务失败！");
+                message.error("初始化商品代码失败！");
             }.bind(this)
         })
     },

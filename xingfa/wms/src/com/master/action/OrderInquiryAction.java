@@ -4,6 +4,7 @@ import com.master.service.OrderInquiryService;
 import com.master.service.SkuService;
 import com.util.common.PagerReturnObj;
 import com.util.common.ReturnObj;
+import org.junit.Test;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -59,5 +60,4 @@ public class OrderInquiryAction {
 
         return orderInquiryService.getCommodityCode();
     }
-
 }

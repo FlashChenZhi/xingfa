@@ -15,7 +15,7 @@ import javax.persistence.*;
  * To change this template use File | Settings | File Templates.
  */
 @Entity
-@Table(name = "LoadUnitAtIdDA")
+@Table(name = "XINGFA.LoadUnitAtIdDA")
 public class LoadUnitAtIdDA {
     @XStreamAlias("WcsLoadId")
     private String wcsLoadId;
@@ -104,8 +104,7 @@ public class LoadUnitAtIdDA {
     private int id;
 
     @Id
-    @SequenceGenerator(name = "sequenceGenerator", sequenceName = "LOADUNITATID_DA_SEQ", allocationSize = 1)
-    @GeneratedValue(generator = "sequenceGenerator", strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID")
     public int getId() {
         return id;

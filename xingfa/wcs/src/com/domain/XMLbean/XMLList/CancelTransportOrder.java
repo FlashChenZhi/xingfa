@@ -23,7 +23,7 @@ import javax.persistence.*;
  * To change this template use File | Settings | File Templates.
  */
 @Entity
-@Table(name = "CancelTransportOrder")
+@Table(name = "XINGFA.CancelTransportOrder")
 public class CancelTransportOrder extends XMLProcess {
     @XStreamAsAttribute
     @XStreamAlias("version")
@@ -68,8 +68,7 @@ public class CancelTransportOrder extends XMLProcess {
     private int id;
 
     @Id
-    @SequenceGenerator(name = "sequenceGenerator", sequenceName = "CANCELTRANSPORTORDER_SEQ", allocationSize = 1)
-    @GeneratedValue(generator = "sequenceGenerator", strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID")
     public int getId() {
         return id;
