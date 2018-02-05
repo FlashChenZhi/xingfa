@@ -14,7 +14,7 @@ import javax.persistence.*;
  * To change this template use File | Settings | File Templates.
  */
 @Entity
-@Table(name = "HandlingUnitInfo")
+@Table(name = "XINGFA.HandlingUnitInfo")
 public class HandlingUnitInfo {
     /**
      * HandlingUnitType:Rack
@@ -98,8 +98,7 @@ public class HandlingUnitInfo {
     private Integer id;
 
     @Id
-    @SequenceGenerator(name = "sequenceGenerator", sequenceName = "HANDLINGUNITINFO_SEQ", allocationSize = 1)
-    @GeneratedValue(generator = "sequenceGenerator", strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID")
     public Integer getId() {
         return id;

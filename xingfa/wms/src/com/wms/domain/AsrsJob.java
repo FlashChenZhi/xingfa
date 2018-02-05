@@ -14,7 +14,7 @@ import java.util.Date;
  * Copyright Daifuku Shanghai Ltd.
  */
 @Entity
-@Table(name = "ASRSJOB")
+@Table(name = "XINGFA.ASRSJOB")
 public class AsrsJob {
     public static final String __FROMSTATION = "fromStation";
 
@@ -31,8 +31,7 @@ public class AsrsJob {
     private int _id;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq")
-    @SequenceGenerator(name = "seq", sequenceName = "SEQ_ASRSJOB", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID", nullable = false, length = 8)
     public int getId() {
         return _id;

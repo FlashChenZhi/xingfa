@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 [ERROR] [2018-02-05 15:25:58,994] [com.asrs.communication.ConnectionManager] cannot connectionSC03
 [ERROR] [2018-02-05 15:25:59,229] [com.asrs.communication.ConnectionManager] cannot connectionML03
 [ERROR] [2018-02-05 15:25:59,232] [com.asrs.communication.ConnectionManager] cannot connectionML01
@@ -2857,3 +2858,1562 @@
 [ERROR] [2018-02-05 17:08:22,558] [com.asrs.communication.ConnectionManager] cannot connectionML01
 [ERROR] [2018-02-05 17:08:22,559] [com.asrs.communication.ConnectionManager] cannot connectionML03
 [ERROR] [2018-02-05 17:08:22,561] [com.asrs.communication.ConnectionManager] cannot connectionBL01
+=======
+[ERROR] [2018-02-05 10:51:50,570] [com.asrs.communication.ConnectionManager] cannot connectionMC01
+[ERROR] [2018-02-05 10:52:11,651] [com.asrs.communication.ConnectionManager] cannot connectionML02
+[ERROR] [2018-02-05 10:52:32,695] [com.asrs.communication.ConnectionManager] cannot connectionSC02
+[ERROR] [2018-02-05 10:52:46,036] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 不能将值 NULL 插入列 'ID'，表 'xingfa.XINGFA.MESSAGELOG'；列不允许有 Null 值。INSERT 失败。
+[ERROR] [2018-02-05 10:52:46,036] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 不能将值 NULL 插入列 'ID'，表 'xingfa.XINGFA.MESSAGELOG'；列不允许有 Null 值。INSERT 失败。
+[ERROR] [2018-02-05 10:52:46,036] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 不能将值 NULL 插入列 'ID'，表 'xingfa.XINGFA.MESSAGELOG'；列不允许有 Null 值。INSERT 失败。
+[ERROR] [2018-02-05 10:52:46,566] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 不能将值 NULL 插入列 'ID'，表 'xingfa.XINGFA.MESSAGELOG'；列不允许有 Null 值。INSERT 失败。
+[ERROR] [2018-02-05 10:52:47,077] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 不能将值 NULL 插入列 'ID'，表 'xingfa.XINGFA.MESSAGELOG'；列不允许有 Null 值。INSERT 失败。
+[ERROR] [2018-02-05 10:52:47,102] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 不能将值 NULL 插入列 'ID'，表 'xingfa.XINGFA.MESSAGELOG'；列不允许有 Null 值。INSERT 失败。
+[ERROR] [2018-02-05 10:52:47,121] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 不能将值 NULL 插入列 'ID'，表 'xingfa.XINGFA.MESSAGELOG'；列不允许有 Null 值。INSERT 失败。
+[ERROR] [2018-02-05 10:52:47,142] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 不能将值 NULL 插入列 'ID'，表 'xingfa.XINGFA.MESSAGELOG'；列不允许有 Null 值。INSERT 失败。
+[ERROR] [2018-02-05 10:52:47,163] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 不能将值 NULL 插入列 'ID'，表 'xingfa.XINGFA.MESSAGELOG'；列不允许有 Null 值。INSERT 失败。
+[ERROR] [2018-02-05 10:52:47,185] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 不能将值 NULL 插入列 'ID'，表 'xingfa.XINGFA.MESSAGELOG'；列不允许有 Null 值。INSERT 失败。
+[ERROR] [2018-02-05 10:52:47,205] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 不能将值 NULL 插入列 'ID'，表 'xingfa.XINGFA.MESSAGELOG'；列不允许有 Null 值。INSERT 失败。
+[ERROR] [2018-02-05 10:52:47,230] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 不能将值 NULL 插入列 'ID'，表 'xingfa.XINGFA.MESSAGELOG'；列不允许有 Null 值。INSERT 失败。
+[ERROR] [2018-02-05 10:52:47,250] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 不能将值 NULL 插入列 'ID'，表 'xingfa.XINGFA.MESSAGELOG'；列不允许有 Null 值。INSERT 失败。
+[ERROR] [2018-02-05 10:52:47,273] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 不能将值 NULL 插入列 'ID'，表 'xingfa.XINGFA.MESSAGELOG'；列不允许有 Null 值。INSERT 失败。
+[ERROR] [2018-02-05 10:52:47,293] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 不能将值 NULL 插入列 'ID'，表 'xingfa.XINGFA.MESSAGELOG'；列不允许有 Null 值。INSERT 失败。
+[ERROR] [2018-02-05 10:52:47,315] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 不能将值 NULL 插入列 'ID'，表 'xingfa.XINGFA.MESSAGELOG'；列不允许有 Null 值。INSERT 失败。
+[ERROR] [2018-02-05 10:52:47,334] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 不能将值 NULL 插入列 'ID'，表 'xingfa.XINGFA.MESSAGELOG'；列不允许有 Null 值。INSERT 失败。
+[ERROR] [2018-02-05 10:52:47,357] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 不能将值 NULL 插入列 'ID'，表 'xingfa.XINGFA.MESSAGELOG'；列不允许有 Null 值。INSERT 失败。
+[ERROR] [2018-02-05 10:52:47,376] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 不能将值 NULL 插入列 'ID'，表 'xingfa.XINGFA.MESSAGELOG'；列不允许有 Null 值。INSERT 失败。
+[ERROR] [2018-02-05 10:52:47,398] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 不能将值 NULL 插入列 'ID'，表 'xingfa.XINGFA.MESSAGELOG'；列不允许有 Null 值。INSERT 失败。
+[ERROR] [2018-02-05 10:52:47,419] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 不能将值 NULL 插入列 'ID'，表 'xingfa.XINGFA.MESSAGELOG'；列不允许有 Null 值。INSERT 失败。
+[ERROR] [2018-02-05 10:52:47,439] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 不能将值 NULL 插入列 'ID'，表 'xingfa.XINGFA.MESSAGELOG'；列不允许有 Null 值。INSERT 失败。
+[ERROR] [2018-02-05 10:52:47,463] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 不能将值 NULL 插入列 'ID'，表 'xingfa.XINGFA.MESSAGELOG'；列不允许有 Null 值。INSERT 失败。
+[ERROR] [2018-02-05 10:52:47,486] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 不能将值 NULL 插入列 'ID'，表 'xingfa.XINGFA.MESSAGELOG'；列不允许有 Null 值。INSERT 失败。
+[ERROR] [2018-02-05 10:52:47,506] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 不能将值 NULL 插入列 'ID'，表 'xingfa.XINGFA.MESSAGELOG'；列不允许有 Null 值。INSERT 失败。
+[ERROR] [2018-02-05 10:52:47,526] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 不能将值 NULL 插入列 'ID'，表 'xingfa.XINGFA.MESSAGELOG'；列不允许有 Null 值。INSERT 失败。
+[ERROR] [2018-02-05 10:52:47,545] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 不能将值 NULL 插入列 'ID'，表 'xingfa.XINGFA.MESSAGELOG'；列不允许有 Null 值。INSERT 失败。
+[ERROR] [2018-02-05 10:52:47,569] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 不能将值 NULL 插入列 'ID'，表 'xingfa.XINGFA.MESSAGELOG'；列不允许有 Null 值。INSERT 失败。
+[ERROR] [2018-02-05 10:52:47,587] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 不能将值 NULL 插入列 'ID'，表 'xingfa.XINGFA.MESSAGELOG'；列不允许有 Null 值。INSERT 失败。
+[ERROR] [2018-02-05 10:52:47,602] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 不能将值 NULL 插入列 'ID'，表 'xingfa.XINGFA.MESSAGELOG'；列不允许有 Null 值。INSERT 失败。
+[ERROR] [2018-02-05 10:52:47,619] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 不能将值 NULL 插入列 'ID'，表 'xingfa.XINGFA.MESSAGELOG'；列不允许有 Null 值。INSERT 失败。
+[ERROR] [2018-02-05 10:52:58,709] [com.asrs.communication.ConnectionManager] cannot connectionMC01
+[ERROR] [2018-02-05 10:53:19,719] [com.asrs.communication.ConnectionManager] cannot connectionSC02
+[ERROR] [2018-02-05 10:53:40,730] [com.asrs.communication.ConnectionManager] cannot connectionML02
+[ERROR] [2018-02-05 10:54:06,743] [com.asrs.communication.ConnectionManager] cannot connectionMC01
+[ERROR] [2018-02-05 10:54:27,764] [com.asrs.communication.ConnectionManager] cannot connectionSC02
+[ERROR] [2018-02-05 10:54:48,776] [com.asrs.communication.ConnectionManager] cannot connectionML02
+[ERROR] [2018-02-05 10:55:14,790] [com.asrs.communication.ConnectionManager] cannot connectionMC01
+[ERROR] [2018-02-05 10:55:35,800] [com.asrs.communication.ConnectionManager] cannot connectionSC02
+[ERROR] [2018-02-05 10:55:56,811] [com.asrs.communication.ConnectionManager] cannot connectionML02
+[ERROR] [2018-02-05 10:56:22,817] [com.asrs.communication.ConnectionManager] cannot connectionMC01
+[ERROR] [2018-02-05 10:56:43,830] [com.asrs.communication.ConnectionManager] cannot connectionSC02
+[ERROR] [2018-02-05 11:04:25,521] [com.asrs.communication.ConnectionManager] cannot connectionMC01
+[ERROR] [2018-02-05 11:04:46,550] [com.asrs.communication.ConnectionManager] cannot connectionML02
+[ERROR] [2018-02-05 11:05:07,592] [com.asrs.communication.ConnectionManager] cannot connectionSC02
+[ERROR] [2018-02-05 11:05:33,602] [com.asrs.communication.ConnectionManager] cannot connectionMC01
+[ERROR] [2018-02-05 11:05:54,614] [com.asrs.communication.ConnectionManager] cannot connectionSC02
+[ERROR] [2018-02-05 11:06:15,624] [com.asrs.communication.ConnectionManager] cannot connectionML02
+[ERROR] [2018-02-05 11:06:41,638] [com.asrs.communication.ConnectionManager] cannot connectionMC01
+[ERROR] [2018-02-05 11:07:02,661] [com.asrs.communication.ConnectionManager] cannot connectionSC02
+[ERROR] [2018-02-05 11:07:23,675] [com.asrs.communication.ConnectionManager] cannot connectionML02
+[ERROR] [2018-02-05 11:07:49,687] [com.asrs.communication.ConnectionManager] cannot connectionMC01
+[ERROR] [2018-02-05 11:08:10,700] [com.asrs.communication.ConnectionManager] cannot connectionSC02
+[ERROR] [2018-02-05 11:08:31,712] [com.asrs.communication.ConnectionManager] cannot connectionML02
+[ERROR] [2018-02-05 11:08:57,724] [com.asrs.communication.ConnectionManager] cannot connectionMC01
+[ERROR] [2018-02-05 11:09:18,730] [com.asrs.communication.ConnectionManager] cannot connectionSC02
+[ERROR] [2018-02-05 11:09:39,743] [com.asrs.communication.ConnectionManager] cannot connectionML02
+[ERROR] [2018-02-05 11:10:05,754] [com.asrs.communication.ConnectionManager] cannot connectionMC01
+[ERROR] [2018-02-05 11:10:26,766] [com.asrs.communication.ConnectionManager] cannot connectionSC02
+[ERROR] [2018-02-05 11:10:47,773] [com.asrs.communication.ConnectionManager] cannot connectionML02
+[ERROR] [2018-02-05 11:11:13,785] [com.asrs.communication.ConnectionManager] cannot connectionMC01
+[ERROR] [2018-02-05 11:11:34,799] [com.asrs.communication.ConnectionManager] cannot connectionSC02
+[ERROR] [2018-02-05 11:11:55,814] [com.asrs.communication.ConnectionManager] cannot connectionML02
+[ERROR] [2018-02-05 11:12:21,827] [com.asrs.communication.ConnectionManager] cannot connectionMC01
+[ERROR] [2018-02-05 11:12:42,835] [com.asrs.communication.ConnectionManager] cannot connectionSC02
+[ERROR] [2018-02-05 11:13:03,846] [com.asrs.communication.ConnectionManager] cannot connectionML02
+[ERROR] [2018-02-05 11:13:29,853] [com.asrs.communication.ConnectionManager] cannot connectionMC01
+[ERROR] [2018-02-05 11:13:50,867] [com.asrs.communication.ConnectionManager] cannot connectionSC02
+[ERROR] [2018-02-05 11:14:11,878] [com.asrs.communication.ConnectionManager] cannot connectionML02
+[ERROR] [2018-02-05 11:14:37,890] [com.asrs.communication.ConnectionManager] cannot connectionMC01
+[ERROR] [2018-02-05 11:14:58,904] [com.asrs.communication.ConnectionManager] cannot connectionSC02
+[ERROR] [2018-02-05 11:15:19,916] [com.asrs.communication.ConnectionManager] cannot connectionML02
+[ERROR] [2018-02-05 11:15:45,923] [com.asrs.communication.ConnectionManager] cannot connectionMC01
+[ERROR] [2018-02-05 11:16:06,935] [com.asrs.communication.ConnectionManager] cannot connectionSC02
+[ERROR] [2018-02-05 11:16:27,948] [com.asrs.communication.ConnectionManager] cannot connectionML02
+[ERROR] [2018-02-05 11:16:53,959] [com.asrs.communication.ConnectionManager] cannot connectionMC01
+[ERROR] [2018-02-05 11:17:14,966] [com.asrs.communication.ConnectionManager] cannot connectionSC02
+[ERROR] [2018-02-05 11:17:35,976] [com.asrs.communication.ConnectionManager] cannot connectionML02
+[ERROR] [2018-02-05 11:18:01,992] [com.asrs.communication.ConnectionManager] cannot connectionMC01
+[ERROR] [2018-02-05 11:18:23,003] [com.asrs.communication.ConnectionManager] cannot connectionSC02
+[ERROR] [2018-02-05 11:18:44,015] [com.asrs.communication.ConnectionManager] cannot connectionML02
+[ERROR] [2018-02-05 11:19:10,024] [com.asrs.communication.ConnectionManager] cannot connectionMC01
+[ERROR] [2018-02-05 11:19:31,037] [com.asrs.communication.ConnectionManager] cannot connectionSC02
+[ERROR] [2018-02-05 11:19:52,052] [com.asrs.communication.ConnectionManager] cannot connectionML02
+[ERROR] [2018-02-05 11:20:18,063] [com.asrs.communication.ConnectionManager] cannot connectionMC01
+[ERROR] [2018-02-05 11:20:39,075] [com.asrs.communication.ConnectionManager] cannot connectionSC02
+[ERROR] [2018-02-05 11:21:00,087] [com.asrs.communication.ConnectionManager] cannot connectionML02
+[ERROR] [2018-02-05 11:21:26,095] [com.asrs.communication.ConnectionManager] cannot connectionMC01
+[ERROR] [2018-02-05 11:21:47,103] [com.asrs.communication.ConnectionManager] cannot connectionSC02
+[ERROR] [2018-02-05 11:22:08,116] [com.asrs.communication.ConnectionManager] cannot connectionML02
+[ERROR] [2018-02-05 11:22:34,128] [com.asrs.communication.ConnectionManager] cannot connectionMC01
+[ERROR] [2018-02-05 11:22:55,139] [com.asrs.communication.ConnectionManager] cannot connectionSC02
+[ERROR] [2018-02-05 11:23:16,150] [com.asrs.communication.ConnectionManager] cannot connectionML02
+[ERROR] [2018-02-05 11:25:24,253] [com.asrs.communication.ConnectionManager] cannot connectionMC01
+[ERROR] [2018-02-05 11:25:45,280] [com.asrs.communication.ConnectionManager] cannot connectionML02
+[ERROR] [2018-02-05 11:26:06,332] [com.asrs.communication.ConnectionManager] cannot connectionSC02
+[ERROR] [2018-02-05 11:26:32,345] [com.asrs.communication.ConnectionManager] cannot connectionMC01
+[ERROR] [2018-02-05 11:26:53,356] [com.asrs.communication.ConnectionManager] cannot connectionSC02
+[ERROR] [2018-02-05 11:27:38,470] [com.asrs.communication.ConnectionManager] cannot connectionMC01
+[ERROR] [2018-02-05 11:27:59,513] [com.asrs.communication.ConnectionManager] cannot connectionML02
+[ERROR] [2018-02-05 11:28:20,556] [com.asrs.communication.ConnectionManager] cannot connectionSC02
+[ERROR] [2018-02-05 11:28:46,569] [com.asrs.communication.ConnectionManager] cannot connectionMC01
+[ERROR] [2018-02-05 11:29:07,578] [com.asrs.communication.ConnectionManager] cannot connectionSC02
+[ERROR] [2018-02-05 11:29:28,592] [com.asrs.communication.ConnectionManager] cannot connectionML02
+[ERROR] [2018-02-05 11:29:54,604] [com.asrs.communication.ConnectionManager] cannot connectionMC01
+[ERROR] [2018-02-05 11:37:53,502] [com.asrs.communication.ConnectionManager] cannot connectionMC01
+[ERROR] [2018-02-05 11:38:23,545] [com.asrs.communication.ConnectionManager] cannot connectionML02
+[ERROR] [2018-02-05 11:38:44,684] [com.asrs.communication.ConnectionManager] cannot connectionSC02
+[ERROR] [2018-02-05 11:39:10,691] [com.asrs.communication.ConnectionManager] cannot connectionMC01
+[ERROR] [2018-02-05 11:39:31,705] [com.asrs.communication.ConnectionManager] cannot connectionSC02
+[ERROR] [2018-02-05 11:39:52,721] [com.asrs.communication.ConnectionManager] cannot connectionML02
+[ERROR] [2018-02-05 11:40:18,733] [com.asrs.communication.ConnectionManager] cannot connectionMC01
+[ERROR] [2018-02-05 11:40:39,745] [com.asrs.communication.ConnectionManager] cannot connectionSC02
+[ERROR] [2018-02-05 11:41:00,757] [com.asrs.communication.ConnectionManager] cannot connectionML02
+[ERROR] [2018-02-05 11:41:26,765] [com.asrs.communication.ConnectionManager] cannot connectionMC01
+[ERROR] [2018-02-05 11:41:47,780] [com.asrs.communication.ConnectionManager] cannot connectionSC02
+[ERROR] [2018-02-05 11:42:08,791] [com.asrs.communication.ConnectionManager] cannot connectionML02
+[ERROR] [2018-02-05 11:42:58,230] [com.asrs.communication.ConnectionManager] cannot connectionMC01
+[ERROR] [2018-02-05 11:43:19,272] [com.asrs.communication.ConnectionManager] cannot connectionML02
+[ERROR] [2018-02-05 11:43:40,320] [com.asrs.communication.ConnectionManager] cannot connectionSC02
+[ERROR] [2018-02-05 11:44:06,333] [com.asrs.communication.ConnectionManager] cannot connectionMC01
+[ERROR] [2018-02-05 11:44:27,348] [com.asrs.communication.ConnectionManager] cannot connectionSC02
+[ERROR] [2018-02-05 11:44:48,359] [com.asrs.communication.ConnectionManager] cannot connectionML02
+[ERROR] [2018-02-05 11:45:14,375] [com.asrs.communication.ConnectionManager] cannot connectionMC01
+[ERROR] [2018-02-05 11:45:35,396] [com.asrs.communication.ConnectionManager] cannot connectionSC02
+[ERROR] [2018-02-05 11:45:56,404] [com.asrs.communication.ConnectionManager] cannot connectionML02
+[ERROR] [2018-02-05 11:46:22,420] [com.asrs.communication.ConnectionManager] cannot connectionMC01
+[ERROR] [2018-02-05 11:46:43,431] [com.asrs.communication.ConnectionManager] cannot connectionSC02
+[ERROR] [2018-02-05 11:47:04,445] [com.asrs.communication.ConnectionManager] cannot connectionML02
+[ERROR] [2018-02-05 11:47:30,460] [com.asrs.communication.ConnectionManager] cannot connectionMC01
+[ERROR] [2018-02-05 11:47:51,473] [com.asrs.communication.ConnectionManager] cannot connectionSC02
+[ERROR] [2018-02-05 11:48:12,485] [com.asrs.communication.ConnectionManager] cannot connectionML02
+[ERROR] [2018-02-05 11:48:38,497] [com.asrs.communication.ConnectionManager] cannot connectionMC01
+[ERROR] [2018-02-05 11:48:59,508] [com.asrs.communication.ConnectionManager] cannot connectionSC02
+[ERROR] [2018-02-05 11:49:20,521] [com.asrs.communication.ConnectionManager] cannot connectionML02
+[ERROR] [2018-02-05 11:49:46,534] [com.asrs.communication.ConnectionManager] cannot connectionMC01
+[ERROR] [2018-02-05 11:50:07,547] [com.asrs.communication.ConnectionManager] cannot connectionSC02
+[ERROR] [2018-02-05 11:50:28,559] [com.asrs.communication.ConnectionManager] cannot connectionML02
+[ERROR] [2018-02-05 11:50:54,573] [com.asrs.communication.ConnectionManager] cannot connectionMC01
+[ERROR] [2018-02-05 11:51:15,586] [com.asrs.communication.ConnectionManager] cannot connectionSC02
+[ERROR] [2018-02-05 11:51:36,599] [com.asrs.communication.ConnectionManager] cannot connectionML02
+[ERROR] [2018-02-05 11:52:02,611] [com.asrs.communication.ConnectionManager] cannot connectionMC01
+[ERROR] [2018-02-05 11:52:23,624] [com.asrs.communication.ConnectionManager] cannot connectionSC02
+[ERROR] [2018-02-05 11:52:44,632] [com.asrs.communication.ConnectionManager] cannot connectionML02
+[ERROR] [2018-02-05 11:53:10,640] [com.asrs.communication.ConnectionManager] cannot connectionMC01
+[ERROR] [2018-02-05 11:53:31,651] [com.asrs.communication.ConnectionManager] cannot connectionSC02
+[ERROR] [2018-02-05 11:53:52,668] [com.asrs.communication.ConnectionManager] cannot connectionML02
+[ERROR] [2018-02-05 11:54:18,674] [com.asrs.communication.ConnectionManager] cannot connectionMC01
+[ERROR] [2018-02-05 11:54:39,686] [com.asrs.communication.ConnectionManager] cannot connectionSC02
+[ERROR] [2018-02-05 11:55:00,700] [com.asrs.communication.ConnectionManager] cannot connectionML02
+[ERROR] [2018-02-05 11:55:26,710] [com.asrs.communication.ConnectionManager] cannot connectionMC01
+[ERROR] [2018-02-05 11:55:47,720] [com.asrs.communication.ConnectionManager] cannot connectionSC02
+[ERROR] [2018-02-05 11:56:08,730] [com.asrs.communication.ConnectionManager] cannot connectionML02
+[ERROR] [2018-02-05 11:56:34,743] [com.asrs.communication.ConnectionManager] cannot connectionMC01
+[ERROR] [2018-02-05 11:56:55,756] [com.asrs.communication.ConnectionManager] cannot connectionSC02
+[ERROR] [2018-02-05 11:57:16,768] [com.asrs.communication.ConnectionManager] cannot connectionML02
+[ERROR] [2018-02-05 11:57:42,780] [com.asrs.communication.ConnectionManager] cannot connectionMC01
+[ERROR] [2018-02-05 11:58:03,792] [com.asrs.communication.ConnectionManager] cannot connectionSC02
+[ERROR] [2018-02-05 11:58:24,806] [com.asrs.communication.ConnectionManager] cannot connectionML02
+[ERROR] [2018-02-05 11:58:50,817] [com.asrs.communication.ConnectionManager] cannot connectionMC01
+[ERROR] [2018-02-05 11:59:11,829] [com.asrs.communication.ConnectionManager] cannot connectionSC02
+[ERROR] [2018-02-05 11:59:32,844] [com.asrs.communication.ConnectionManager] cannot connectionML02
+[ERROR] [2018-02-05 11:59:58,858] [com.asrs.communication.ConnectionManager] cannot connectionMC01
+[ERROR] [2018-02-05 12:00:19,871] [com.asrs.communication.ConnectionManager] cannot connectionSC02
+[ERROR] [2018-02-05 12:00:40,884] [com.asrs.communication.ConnectionManager] cannot connectionML02
+[ERROR] [2018-02-05 12:07:41,662] [com.asrs.communication.ConnectionManager] cannot connectionMC01
+[ERROR] [2018-02-05 12:08:02,706] [com.asrs.communication.ConnectionManager] cannot connectionML02
+[ERROR] [2018-02-05 12:08:23,749] [com.asrs.communication.ConnectionManager] cannot connectionSC02
+[ERROR] [2018-02-05 12:08:49,762] [com.asrs.communication.ConnectionManager] cannot connectionMC01
+[ERROR] [2018-02-05 12:09:10,771] [com.asrs.communication.ConnectionManager] cannot connectionSC02
+[ERROR] [2018-02-05 12:09:31,782] [com.asrs.communication.ConnectionManager] cannot connectionML02
+[ERROR] [2018-02-05 12:09:57,805] [com.asrs.communication.ConnectionManager] cannot connectionMC01
+[ERROR] [2018-02-05 12:10:18,829] [com.asrs.communication.ConnectionManager] cannot connectionSC02
+[ERROR] [2018-02-05 12:10:39,839] [com.asrs.communication.ConnectionManager] cannot connectionML02
+[ERROR] [2018-02-05 12:11:05,852] [com.asrs.communication.ConnectionManager] cannot connectionMC01
+[ERROR] [2018-02-05 12:11:50,086] [com.asrs.communication.ConnectionManager] cannot connectionMC01
+[ERROR] [2018-02-05 12:12:33,241] [com.asrs.communication.ConnectionManager] cannot connectionMC01
+[ERROR] [2018-02-05 12:12:54,281] [com.asrs.communication.ConnectionManager] cannot connectionML02
+[ERROR] [2018-02-05 12:13:15,320] [com.asrs.communication.ConnectionManager] cannot connectionSC02
+[ERROR] [2018-02-05 12:13:41,334] [com.asrs.communication.ConnectionManager] cannot connectionMC01
+[ERROR] [2018-02-05 12:14:02,346] [com.asrs.communication.ConnectionManager] cannot connectionSC02
+[ERROR] [2018-02-05 12:14:23,360] [com.asrs.communication.ConnectionManager] cannot connectionML02
+[ERROR] [2018-02-05 12:14:49,374] [com.asrs.communication.ConnectionManager] cannot connectionMC01
+[ERROR] [2018-02-05 12:15:10,395] [com.asrs.communication.ConnectionManager] cannot connectionSC02
+[ERROR] [2018-02-05 12:15:31,407] [com.asrs.communication.ConnectionManager] cannot connectionML02
+[ERROR] [2018-02-05 12:15:57,417] [com.asrs.communication.ConnectionManager] cannot connectionMC01
+[ERROR] [2018-02-05 12:16:18,431] [com.asrs.communication.ConnectionManager] cannot connectionSC02
+[ERROR] [2018-02-05 12:16:39,444] [com.asrs.communication.ConnectionManager] cannot connectionML02
+[ERROR] [2018-02-05 12:17:05,454] [com.asrs.communication.ConnectionManager] cannot connectionMC01
+[ERROR] [2018-02-05 12:17:26,462] [com.asrs.communication.ConnectionManager] cannot connectionSC02
+[ERROR] [2018-02-05 12:17:47,476] [com.asrs.communication.ConnectionManager] cannot connectionML02
+[ERROR] [2018-02-05 12:18:13,486] [com.asrs.communication.ConnectionManager] cannot connectionMC01
+[ERROR] [2018-02-05 12:18:34,494] [com.asrs.communication.ConnectionManager] cannot connectionSC02
+[ERROR] [2018-02-05 12:18:55,511] [com.asrs.communication.ConnectionManager] cannot connectionML02
+[ERROR] [2018-02-05 12:19:21,523] [com.asrs.communication.ConnectionManager] cannot connectionMC01
+[ERROR] [2018-02-05 12:19:42,536] [com.asrs.communication.ConnectionManager] cannot connectionSC02
+[ERROR] [2018-02-05 12:20:03,545] [com.asrs.communication.ConnectionManager] cannot connectionML02
+[ERROR] [2018-02-05 12:20:29,564] [com.asrs.communication.ConnectionManager] cannot connectionMC01
+[ERROR] [2018-02-05 12:20:50,639] [com.asrs.communication.ConnectionManager] cannot connectionSC02
+[ERROR] [2018-02-05 12:21:11,651] [com.asrs.communication.ConnectionManager] cannot connectionML02
+[ERROR] [2018-02-05 12:21:37,657] [com.asrs.communication.ConnectionManager] cannot connectionMC01
+[ERROR] [2018-02-05 12:21:58,666] [com.asrs.communication.ConnectionManager] cannot connectionSC02
+[ERROR] [2018-02-05 12:22:19,680] [com.asrs.communication.ConnectionManager] cannot connectionML02
+[ERROR] [2018-02-05 12:22:45,693] [com.asrs.communication.ConnectionManager] cannot connectionMC01
+[ERROR] [2018-02-05 12:23:06,710] [com.asrs.communication.ConnectionManager] cannot connectionSC02
+[ERROR] [2018-02-05 12:23:27,722] [com.asrs.communication.ConnectionManager] cannot connectionML02
+[ERROR] [2018-02-05 12:23:53,729] [com.asrs.communication.ConnectionManager] cannot connectionMC01
+[ERROR] [2018-02-05 12:24:14,739] [com.asrs.communication.ConnectionManager] cannot connectionSC02
+[ERROR] [2018-02-05 12:24:22,685] [com.asrs.communication.PlcConnection] Read timed out
+[ERROR] [2018-02-05 12:24:22,688] [com.asrs.communication.PlcConnection] SendHandler被中断
+[ERROR] [2018-02-05 12:24:35,750] [com.asrs.communication.ConnectionManager] cannot connectionML02
+[ERROR] [2018-02-05 12:24:36,763] [com.asrs.communication.ConnectionManager] cannot connectionML01
+[ERROR] [2018-02-05 12:25:02,809] [com.asrs.communication.ConnectionManager] cannot connectionMC01
+[ERROR] [2018-02-05 12:25:23,820] [com.asrs.communication.ConnectionManager] cannot connectionSC02
+[ERROR] [2018-02-05 12:25:44,830] [com.asrs.communication.ConnectionManager] cannot connectionML02
+[ERROR] [2018-02-05 12:26:10,870] [com.asrs.communication.ConnectionManager] cannot connectionMC01
+[ERROR] [2018-02-05 12:26:31,882] [com.asrs.communication.ConnectionManager] cannot connectionSC02
+[ERROR] [2018-02-05 12:26:52,899] [com.asrs.communication.ConnectionManager] cannot connectionML02
+[ERROR] [2018-02-05 12:27:18,911] [com.asrs.communication.ConnectionManager] cannot connectionMC01
+[ERROR] [2018-02-05 12:27:39,922] [com.asrs.communication.ConnectionManager] cannot connectionSC02
+[ERROR] [2018-02-05 12:28:00,935] [com.asrs.communication.ConnectionManager] cannot connectionML02
+[ERROR] [2018-02-05 12:28:26,947] [com.asrs.communication.ConnectionManager] cannot connectionMC01
+[ERROR] [2018-02-05 12:28:47,958] [com.asrs.communication.ConnectionManager] cannot connectionSC02
+[ERROR] [2018-02-05 12:29:08,969] [com.asrs.communication.ConnectionManager] cannot connectionML02
+[ERROR] [2018-02-05 12:29:34,974] [com.asrs.communication.ConnectionManager] cannot connectionMC01
+[ERROR] [2018-02-05 12:29:55,985] [com.asrs.communication.ConnectionManager] cannot connectionSC02
+[ERROR] [2018-02-05 12:30:16,997] [com.asrs.communication.ConnectionManager] cannot connectionML02
+[ERROR] [2018-02-05 12:30:43,008] [com.asrs.communication.ConnectionManager] cannot connectionMC01
+[ERROR] [2018-02-05 12:31:04,015] [com.asrs.communication.ConnectionManager] cannot connectionSC02
+[ERROR] [2018-02-05 12:31:25,026] [com.asrs.communication.ConnectionManager] cannot connectionML02
+[ERROR] [2018-02-05 12:31:51,036] [com.asrs.communication.ConnectionManager] cannot connectionMC01
+[ERROR] [2018-02-05 12:32:12,052] [com.asrs.communication.ConnectionManager] cannot connectionSC02
+[ERROR] [2018-02-05 12:32:33,062] [com.asrs.communication.ConnectionManager] cannot connectionML02
+[ERROR] [2018-02-05 12:32:59,076] [com.asrs.communication.ConnectionManager] cannot connectionMC01
+[ERROR] [2018-02-05 12:33:20,086] [com.asrs.communication.ConnectionManager] cannot connectionSC02
+[ERROR] [2018-02-05 12:33:41,099] [com.asrs.communication.ConnectionManager] cannot connectionML02
+[ERROR] [2018-02-05 12:34:07,109] [com.asrs.communication.ConnectionManager] cannot connectionMC01
+[ERROR] [2018-02-05 12:34:28,122] [com.asrs.communication.ConnectionManager] cannot connectionSC02
+[ERROR] [2018-02-05 12:34:49,135] [com.asrs.communication.ConnectionManager] cannot connectionML02
+[ERROR] [2018-02-05 12:35:15,146] [com.asrs.communication.ConnectionManager] cannot connectionMC01
+[ERROR] [2018-02-05 12:35:36,160] [com.asrs.communication.ConnectionManager] cannot connectionSC02
+[ERROR] [2018-02-05 12:35:57,170] [com.asrs.communication.ConnectionManager] cannot connectionML02
+[ERROR] [2018-02-05 12:36:23,177] [com.asrs.communication.ConnectionManager] cannot connectionMC01
+[ERROR] [2018-02-05 12:36:44,189] [com.asrs.communication.ConnectionManager] cannot connectionSC02
+[ERROR] [2018-02-05 12:37:05,201] [com.asrs.communication.ConnectionManager] cannot connectionML02
+[ERROR] [2018-02-05 12:37:31,210] [com.asrs.communication.ConnectionManager] cannot connectionMC01
+[ERROR] [2018-02-05 12:37:52,222] [com.asrs.communication.ConnectionManager] cannot connectionSC02
+[ERROR] [2018-02-05 12:38:13,231] [com.asrs.communication.ConnectionManager] cannot connectionML02
+[ERROR] [2018-02-05 12:38:39,242] [com.asrs.communication.ConnectionManager] cannot connectionMC01
+[ERROR] [2018-02-05 12:39:00,253] [com.asrs.communication.ConnectionManager] cannot connectionSC02
+[ERROR] [2018-02-05 12:39:21,264] [com.asrs.communication.ConnectionManager] cannot connectionML02
+[ERROR] [2018-02-05 12:39:47,275] [com.asrs.communication.ConnectionManager] cannot connectionMC01
+[ERROR] [2018-02-05 12:40:08,286] [com.asrs.communication.ConnectionManager] cannot connectionSC02
+[ERROR] [2018-02-05 12:40:29,297] [com.asrs.communication.ConnectionManager] cannot connectionML02
+[ERROR] [2018-02-05 12:40:55,307] [com.asrs.communication.ConnectionManager] cannot connectionMC01
+[ERROR] [2018-02-05 12:41:16,317] [com.asrs.communication.ConnectionManager] cannot connectionSC02
+[ERROR] [2018-02-05 12:41:37,329] [com.asrs.communication.ConnectionManager] cannot connectionML02
+[ERROR] [2018-02-05 12:42:03,341] [com.asrs.communication.ConnectionManager] cannot connectionMC01
+[ERROR] [2018-02-05 12:42:24,352] [com.asrs.communication.ConnectionManager] cannot connectionSC02
+[ERROR] [2018-02-05 12:42:45,362] [com.asrs.communication.ConnectionManager] cannot connectionML02
+[ERROR] [2018-02-05 12:43:11,373] [com.asrs.communication.ConnectionManager] cannot connectionMC01
+[ERROR] [2018-02-05 12:43:32,385] [com.asrs.communication.ConnectionManager] cannot connectionSC02
+[ERROR] [2018-02-05 12:43:53,398] [com.asrs.communication.ConnectionManager] cannot connectionML02
+[ERROR] [2018-02-05 12:44:19,409] [com.asrs.communication.ConnectionManager] cannot connectionMC01
+[ERROR] [2018-02-05 12:44:40,420] [com.asrs.communication.ConnectionManager] cannot connectionSC02
+[ERROR] [2018-02-05 12:45:01,424] [com.asrs.communication.ConnectionManager] cannot connectionML02
+[ERROR] [2018-02-05 12:45:27,436] [com.asrs.communication.ConnectionManager] cannot connectionMC01
+[ERROR] [2018-02-05 12:45:48,448] [com.asrs.communication.ConnectionManager] cannot connectionSC02
+[ERROR] [2018-02-05 12:46:09,456] [com.asrs.communication.ConnectionManager] cannot connectionML02
+[ERROR] [2018-02-05 12:46:35,468] [com.asrs.communication.ConnectionManager] cannot connectionMC01
+[ERROR] [2018-02-05 12:46:56,480] [com.asrs.communication.ConnectionManager] cannot connectionSC02
+[ERROR] [2018-02-05 12:47:17,490] [com.asrs.communication.ConnectionManager] cannot connectionML02
+[ERROR] [2018-02-05 12:47:43,500] [com.asrs.communication.ConnectionManager] cannot connectionMC01
+[ERROR] [2018-02-05 12:48:04,510] [com.asrs.communication.ConnectionManager] cannot connectionSC02
+[ERROR] [2018-02-05 12:48:25,516] [com.asrs.communication.ConnectionManager] cannot connectionML02
+[ERROR] [2018-02-05 12:48:51,526] [com.asrs.communication.ConnectionManager] cannot connectionMC01
+[ERROR] [2018-02-05 12:49:12,535] [com.asrs.communication.ConnectionManager] cannot connectionSC02
+[ERROR] [2018-02-05 12:49:33,545] [com.asrs.communication.ConnectionManager] cannot connectionML02
+[ERROR] [2018-02-05 12:49:59,559] [com.asrs.communication.ConnectionManager] cannot connectionMC01
+[ERROR] [2018-02-05 12:50:20,570] [com.asrs.communication.ConnectionManager] cannot connectionSC02
+[ERROR] [2018-02-05 12:50:41,583] [com.asrs.communication.ConnectionManager] cannot connectionML02
+[ERROR] [2018-02-05 12:51:07,594] [com.asrs.communication.ConnectionManager] cannot connectionMC01
+[ERROR] [2018-02-05 12:51:28,607] [com.asrs.communication.ConnectionManager] cannot connectionSC02
+[ERROR] [2018-02-05 12:51:33,949] [com.asrs.communication.PlcConnection] Read timed out
+[ERROR] [2018-02-05 12:51:33,951] [com.asrs.communication.PlcConnection] SendHandler被中断
+[ERROR] [2018-02-05 12:51:49,619] [com.asrs.communication.ConnectionManager] cannot connectionML02
+[ERROR] [2018-02-05 12:52:15,629] [com.asrs.communication.ConnectionManager] cannot connectionMC01
+[ERROR] [2018-02-05 12:52:36,641] [com.asrs.communication.ConnectionManager] cannot connectionSC02
+[ERROR] [2018-02-05 12:52:57,652] [com.asrs.communication.ConnectionManager] cannot connectionSC01
+[ERROR] [2018-02-05 12:53:18,675] [com.asrs.communication.ConnectionManager] cannot connectionML02
+[ERROR] [2018-02-05 12:53:44,685] [com.asrs.communication.ConnectionManager] cannot connectionMC01
+[ERROR] [2018-02-05 12:54:05,695] [com.asrs.communication.ConnectionManager] cannot connectionSC02
+[ERROR] [2018-02-05 12:54:26,707] [com.asrs.communication.ConnectionManager] cannot connectionSC01
+[ERROR] [2018-02-05 14:14:59,313] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] Read timed out
+[ERROR] [2018-02-05 14:14:59,315] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] Read timed out
+[ERROR] [2018-02-05 14:14:59,313] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] Read timed out
+[ERROR] [2018-02-05 14:14:59,317] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] Read timed out
+[ERROR] [2018-02-05 14:15:09,262] [com.asrs.communication.PlcConnection] Connection reset
+[ERROR] [2018-02-05 14:15:09,263] [com.asrs.communication.PlcConnection] SendHandler被中断
+[ERROR] [2018-02-05 14:15:09,967] [com.asrs.communication.PlcConnection] Connection reset
+[ERROR] [2018-02-05 14:15:09,968] [com.asrs.communication.PlcConnection] SendHandler被中断
+[ERROR] [2018-02-05 14:15:13,673] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] Read timed out
+[ERROR] [2018-02-05 14:15:34,678] [com.asrs.communication.ConnectionManager] cannot connectionML02
+[ERROR] [2018-02-05 14:16:00,714] [com.asrs.communication.ConnectionManager] cannot connectionMC01
+[ERROR] [2018-02-05 14:16:21,730] [com.asrs.communication.ConnectionManager] cannot connectionSC02
+[ERROR] [2018-02-05 14:16:42,985] [com.asrs.communication.ConnectionManager] cannot connectionML02
+[ERROR] [2018-02-05 14:17:08,993] [com.asrs.communication.ConnectionManager] cannot connectionMC01
+[ERROR] [2018-02-05 14:17:30,000] [com.asrs.communication.ConnectionManager] cannot connectionSC02
+[ERROR] [2018-02-05 14:17:51,027] [com.asrs.communication.ConnectionManager] cannot connectionML02
+[ERROR] [2018-02-05 14:18:17,038] [com.asrs.communication.ConnectionManager] cannot connectionMC01
+[ERROR] [2018-02-05 14:18:38,049] [com.asrs.communication.ConnectionManager] cannot connectionSC02
+[ERROR] [2018-02-05 14:18:59,064] [com.asrs.communication.ConnectionManager] cannot connectionML02
+[ERROR] [2018-02-05 14:19:25,075] [com.asrs.communication.ConnectionManager] cannot connectionMC01
+[ERROR] [2018-02-05 14:19:46,089] [com.asrs.communication.ConnectionManager] cannot connectionSC02
+[ERROR] [2018-02-05 14:20:07,117] [com.asrs.communication.ConnectionManager] cannot connectionML02
+[ERROR] [2018-02-05 14:20:33,128] [com.asrs.communication.ConnectionManager] cannot connectionMC01
+[ERROR] [2018-02-05 14:20:54,141] [com.asrs.communication.ConnectionManager] cannot connectionSC02
+[ERROR] [2018-02-05 14:21:15,151] [com.asrs.communication.ConnectionManager] cannot connectionML02
+[ERROR] [2018-02-05 14:21:41,158] [com.asrs.communication.ConnectionManager] cannot connectionMC01
+[ERROR] [2018-02-05 14:22:02,174] [com.asrs.communication.ConnectionManager] cannot connectionSC02
+[ERROR] [2018-02-05 14:22:23,189] [com.asrs.communication.ConnectionManager] cannot connectionML02
+[ERROR] [2018-02-05 14:22:49,200] [com.asrs.communication.ConnectionManager] cannot connectionMC01
+[ERROR] [2018-02-05 14:23:10,218] [com.asrs.communication.ConnectionManager] cannot connectionSC02
+[ERROR] [2018-02-05 14:23:31,234] [com.asrs.communication.ConnectionManager] cannot connectionML02
+[ERROR] [2018-02-05 14:23:57,251] [com.asrs.communication.ConnectionManager] cannot connectionMC01
+[ERROR] [2018-02-05 14:24:18,275] [com.asrs.communication.ConnectionManager] cannot connectionSC02
+[ERROR] [2018-02-05 14:24:39,290] [com.asrs.communication.ConnectionManager] cannot connectionML02
+[ERROR] [2018-02-05 14:25:05,306] [com.asrs.communication.ConnectionManager] cannot connectionMC01
+[ERROR] [2018-02-05 14:25:26,322] [com.asrs.communication.ConnectionManager] cannot connectionSC02
+[ERROR] [2018-02-05 14:25:47,333] [com.asrs.communication.ConnectionManager] cannot connectionML02
+[ERROR] [2018-02-05 14:26:13,347] [com.asrs.communication.ConnectionManager] cannot connectionMC01
+[ERROR] [2018-02-05 14:26:34,352] [com.asrs.communication.ConnectionManager] cannot connectionSC02
+[ERROR] [2018-02-05 14:26:55,356] [com.asrs.communication.ConnectionManager] cannot connectionML02
+[ERROR] [2018-02-05 14:27:21,363] [com.asrs.communication.ConnectionManager] cannot connectionMC01
+[ERROR] [2018-02-05 14:27:42,370] [com.asrs.communication.ConnectionManager] cannot connectionSC02
+[ERROR] [2018-02-05 14:28:03,374] [com.asrs.communication.ConnectionManager] cannot connectionML02
+[ERROR] [2018-02-05 14:28:29,378] [com.asrs.communication.ConnectionManager] cannot connectionMC01
+[ERROR] [2018-02-05 14:28:50,387] [com.asrs.communication.ConnectionManager] cannot connectionSC02
+[ERROR] [2018-02-05 14:29:11,396] [com.asrs.communication.ConnectionManager] cannot connectionML02
+[ERROR] [2018-02-05 14:29:37,402] [com.asrs.communication.ConnectionManager] cannot connectionMC01
+[ERROR] [2018-02-05 14:29:58,407] [com.asrs.communication.ConnectionManager] cannot connectionSC02
+[ERROR] [2018-02-05 14:30:19,415] [com.asrs.communication.ConnectionManager] cannot connectionML02
+[ERROR] [2018-02-05 14:30:45,420] [com.asrs.communication.ConnectionManager] cannot connectionMC01
+[ERROR] [2018-02-05 14:31:06,424] [com.asrs.communication.ConnectionManager] cannot connectionSC02
+[ERROR] [2018-02-05 14:31:27,429] [com.asrs.communication.ConnectionManager] cannot connectionML02
+[ERROR] [2018-02-05 14:31:53,434] [com.asrs.communication.ConnectionManager] cannot connectionMC01
+[ERROR] [2018-02-05 14:32:14,439] [com.asrs.communication.ConnectionManager] cannot connectionSC02
+[ERROR] [2018-02-05 14:32:35,444] [com.asrs.communication.ConnectionManager] cannot connectionML02
+[ERROR] [2018-02-05 14:33:01,451] [com.asrs.communication.ConnectionManager] cannot connectionMC01
+[ERROR] [2018-02-05 14:33:22,456] [com.asrs.communication.ConnectionManager] cannot connectionSC02
+[ERROR] [2018-02-05 14:33:43,461] [com.asrs.communication.ConnectionManager] cannot connectionML02
+[ERROR] [2018-02-05 14:34:09,465] [com.asrs.communication.ConnectionManager] cannot connectionMC01
+[ERROR] [2018-02-05 14:34:30,478] [com.asrs.communication.ConnectionManager] cannot connectionSC02
+[ERROR] [2018-02-05 14:34:51,494] [com.asrs.communication.ConnectionManager] cannot connectionML02
+[ERROR] [2018-02-05 14:35:17,513] [com.asrs.communication.ConnectionManager] cannot connectionMC01
+[ERROR] [2018-02-05 14:35:38,528] [com.asrs.communication.ConnectionManager] cannot connectionSC02
+[ERROR] [2018-02-05 14:35:59,538] [com.asrs.communication.ConnectionManager] cannot connectionML02
+[ERROR] [2018-02-05 14:36:25,555] [com.asrs.communication.ConnectionManager] cannot connectionMC01
+[ERROR] [2018-02-05 14:36:46,570] [com.asrs.communication.ConnectionManager] cannot connectionSC02
+[ERROR] [2018-02-05 14:37:07,581] [com.asrs.communication.ConnectionManager] cannot connectionML02
+[ERROR] [2018-02-05 14:37:33,590] [com.asrs.communication.ConnectionManager] cannot connectionMC01
+[ERROR] [2018-02-05 14:38:05,887] [com.asrs.communication.ConnectionManager] cannot connectionMC01
+[ERROR] [2018-02-05 14:38:26,949] [com.asrs.communication.ConnectionManager] cannot connectionML02
+[ERROR] [2018-02-05 14:38:48,003] [com.asrs.communication.ConnectionManager] cannot connectionSC02
+[ERROR] [2018-02-05 14:39:14,022] [com.asrs.communication.ConnectionManager] cannot connectionMC01
+[ERROR] [2018-02-05 14:39:35,035] [com.asrs.communication.ConnectionManager] cannot connectionSC02
+[ERROR] [2018-02-05 14:39:56,051] [com.asrs.communication.ConnectionManager] cannot connectionML02
+[ERROR] [2018-02-05 14:40:22,067] [com.asrs.communication.ConnectionManager] cannot connectionMC01
+[ERROR] [2018-02-05 14:40:43,096] [com.asrs.communication.ConnectionManager] cannot connectionSC02
+[ERROR] [2018-02-05 14:41:04,113] [com.asrs.communication.ConnectionManager] cannot connectionML02
+[ERROR] [2018-02-05 14:41:30,129] [com.asrs.communication.ConnectionManager] cannot connectionMC01
+[ERROR] [2018-02-05 14:41:51,147] [com.asrs.communication.ConnectionManager] cannot connectionSC02
+[ERROR] [2018-02-05 14:42:12,164] [com.asrs.communication.ConnectionManager] cannot connectionML02
+[ERROR] [2018-02-05 14:42:38,178] [com.asrs.communication.ConnectionManager] cannot connectionMC01
+[ERROR] [2018-02-05 14:42:59,199] [com.asrs.communication.ConnectionManager] cannot connectionSC02
+[ERROR] [2018-02-05 14:43:20,213] [com.asrs.communication.ConnectionManager] cannot connectionML02
+[ERROR] [2018-02-05 14:43:46,225] [com.asrs.communication.ConnectionManager] cannot connectionMC01
+[ERROR] [2018-02-05 14:44:33,026] [com.asrs.communication.ConnectionManager] cannot connectionMC01
+[ERROR] [2018-02-05 14:44:54,044] [com.asrs.communication.ConnectionManager] cannot connectionML02
+[ERROR] [2018-02-05 14:45:15,089] [com.asrs.communication.ConnectionManager] cannot connectionSC02
+[ERROR] [2018-02-05 14:45:41,102] [com.asrs.communication.ConnectionManager] cannot connectionMC01
+[ERROR] [2018-02-05 14:46:02,120] [com.asrs.communication.ConnectionManager] cannot connectionSC02
+[ERROR] [2018-02-05 14:46:23,135] [com.asrs.communication.ConnectionManager] cannot connectionML02
+[ERROR] [2018-02-05 14:46:49,146] [com.asrs.communication.ConnectionManager] cannot connectionMC01
+[ERROR] [2018-02-05 14:47:10,182] [com.asrs.communication.ConnectionManager] cannot connectionSC02
+[ERROR] [2018-02-05 14:47:31,198] [com.asrs.communication.ConnectionManager] cannot connectionML02
+[ERROR] [2018-02-05 14:47:57,209] [com.asrs.communication.ConnectionManager] cannot connectionMC01
+[ERROR] [2018-02-05 14:48:18,225] [com.asrs.communication.ConnectionManager] cannot connectionSC02
+[ERROR] [2018-02-05 14:48:39,236] [com.asrs.communication.ConnectionManager] cannot connectionML02
+[ERROR] [2018-02-05 14:49:05,251] [com.asrs.communication.ConnectionManager] cannot connectionMC01
+[ERROR] [2018-02-05 14:49:26,267] [com.asrs.communication.ConnectionManager] cannot connectionSC02
+[ERROR] [2018-02-05 14:49:47,277] [com.asrs.communication.ConnectionManager] cannot connectionML02
+[ERROR] [2018-02-05 14:50:13,282] [com.asrs.communication.ConnectionManager] cannot connectionMC01
+[ERROR] [2018-02-05 14:50:34,287] [com.asrs.communication.ConnectionManager] cannot connectionSC02
+[ERROR] [2018-02-05 14:50:55,292] [com.asrs.communication.ConnectionManager] cannot connectionML02
+[ERROR] [2018-02-05 14:51:21,297] [com.asrs.communication.ConnectionManager] cannot connectionMC01
+[ERROR] [2018-02-05 14:51:42,301] [com.asrs.communication.ConnectionManager] cannot connectionSC02
+[ERROR] [2018-02-05 14:52:03,305] [com.asrs.communication.ConnectionManager] cannot connectionML02
+[ERROR] [2018-02-05 14:52:29,310] [com.asrs.communication.ConnectionManager] cannot connectionMC01
+[ERROR] [2018-02-05 14:52:50,315] [com.asrs.communication.ConnectionManager] cannot connectionSC02
+[ERROR] [2018-02-05 14:53:11,320] [com.asrs.communication.ConnectionManager] cannot connectionML02
+[ERROR] [2018-02-05 14:53:37,326] [com.asrs.communication.ConnectionManager] cannot connectionMC01
+[ERROR] [2018-02-05 14:54:05,284] [com.asrs.communication.ConnectionManager] cannot connectionMC01
+[ERROR] [2018-02-05 14:54:26,338] [com.asrs.communication.ConnectionManager] cannot connectionML02
+[ERROR] [2018-02-05 14:54:47,389] [com.asrs.communication.ConnectionManager] cannot connectionSC02
+[ERROR] [2018-02-05 14:55:13,406] [com.asrs.communication.ConnectionManager] cannot connectionMC01
+[ERROR] [2018-02-05 14:55:34,413] [com.asrs.communication.ConnectionManager] cannot connectionSC02
+[ERROR] [2018-02-05 14:55:55,423] [com.asrs.communication.ConnectionManager] cannot connectionML02
+[ERROR] [2018-02-05 14:56:21,433] [com.asrs.communication.ConnectionManager] cannot connectionMC01
+[ERROR] [2018-02-05 14:56:42,462] [com.asrs.communication.ConnectionManager] cannot connectionSC02
+[ERROR] [2018-02-05 14:57:03,481] [com.asrs.communication.ConnectionManager] cannot connectionML02
+[ERROR] [2018-02-05 14:57:29,494] [com.asrs.communication.ConnectionManager] cannot connectionMC01
+[ERROR] [2018-02-05 14:57:50,499] [com.asrs.communication.ConnectionManager] cannot connectionSC02
+[ERROR] [2018-02-05 14:58:11,511] [com.asrs.communication.ConnectionManager] cannot connectionML02
+[ERROR] [2018-02-05 14:58:37,527] [com.asrs.communication.ConnectionManager] cannot connectionMC01
+[ERROR] [2018-02-05 14:58:58,540] [com.asrs.communication.ConnectionManager] cannot connectionSC02
+[ERROR] [2018-02-05 14:59:19,560] [com.asrs.communication.ConnectionManager] cannot connectionML02
+[ERROR] [2018-02-05 14:59:45,576] [com.asrs.communication.ConnectionManager] cannot connectionMC01
+[ERROR] [2018-02-05 15:00:06,594] [com.asrs.communication.ConnectionManager] cannot connectionSC02
+[ERROR] [2018-02-05 15:00:27,609] [com.asrs.communication.ConnectionManager] cannot connectionML02
+[ERROR] [2018-02-05 15:00:53,625] [com.asrs.communication.ConnectionManager] cannot connectionMC01
+[ERROR] [2018-02-05 15:01:14,642] [com.asrs.communication.ConnectionManager] cannot connectionSC02
+[ERROR] [2018-02-05 15:01:35,657] [com.asrs.communication.ConnectionManager] cannot connectionML02
+[ERROR] [2018-02-05 15:02:01,675] [com.asrs.communication.ConnectionManager] cannot connectionMC01
+[ERROR] [2018-02-05 15:02:22,691] [com.asrs.communication.ConnectionManager] cannot connectionSC02
+[ERROR] [2018-02-05 15:02:43,696] [com.asrs.communication.ConnectionManager] cannot connectionML02
+[ERROR] [2018-02-05 15:03:09,701] [com.asrs.communication.ConnectionManager] cannot connectionMC01
+[ERROR] [2018-02-05 15:03:30,706] [com.asrs.communication.ConnectionManager] cannot connectionSC02
+[ERROR] [2018-02-05 15:03:51,711] [com.asrs.communication.ConnectionManager] cannot connectionML02
+[ERROR] [2018-02-05 15:04:17,715] [com.asrs.communication.ConnectionManager] cannot connectionMC01
+[ERROR] [2018-02-05 15:04:38,719] [com.asrs.communication.ConnectionManager] cannot connectionSC02
+[ERROR] [2018-02-05 15:04:59,724] [com.asrs.communication.ConnectionManager] cannot connectionML02
+[ERROR] [2018-02-05 15:05:25,730] [com.asrs.communication.ConnectionManager] cannot connectionMC01
+[ERROR] [2018-02-05 15:05:46,735] [com.asrs.communication.ConnectionManager] cannot connectionSC02
+[ERROR] [2018-02-05 15:06:07,740] [com.asrs.communication.ConnectionManager] cannot connectionML02
+[ERROR] [2018-02-05 15:06:33,746] [com.asrs.communication.ConnectionManager] cannot connectionMC01
+[ERROR] [2018-02-05 15:06:54,761] [com.asrs.communication.ConnectionManager] cannot connectionSC02
+[ERROR] [2018-02-05 15:07:15,766] [com.asrs.communication.ConnectionManager] cannot connectionML02
+[ERROR] [2018-02-05 15:07:41,773] [com.asrs.communication.ConnectionManager] cannot connectionMC01
+[ERROR] [2018-02-05 15:08:02,778] [com.asrs.communication.ConnectionManager] cannot connectionSC02
+[ERROR] [2018-02-05 15:08:23,783] [com.asrs.communication.ConnectionManager] cannot connectionML02
+[ERROR] [2018-02-05 15:08:49,789] [com.asrs.communication.ConnectionManager] cannot connectionMC01
+[ERROR] [2018-02-05 15:09:10,794] [com.asrs.communication.ConnectionManager] cannot connectionSC02
+[ERROR] [2018-02-05 15:09:31,799] [com.asrs.communication.ConnectionManager] cannot connectionML02
+[ERROR] [2018-02-05 15:09:57,803] [com.asrs.communication.ConnectionManager] cannot connectionMC01
+[ERROR] [2018-02-05 15:10:18,807] [com.asrs.communication.ConnectionManager] cannot connectionSC02
+[ERROR] [2018-02-05 15:10:39,811] [com.asrs.communication.ConnectionManager] cannot connectionML02
+[ERROR] [2018-02-05 15:11:05,822] [com.asrs.communication.ConnectionManager] cannot connectionMC01
+[ERROR] [2018-02-05 15:11:26,838] [com.asrs.communication.ConnectionManager] cannot connectionSC02
+[ERROR] [2018-02-05 15:11:47,855] [com.asrs.communication.ConnectionManager] cannot connectionML02
+[ERROR] [2018-02-05 15:12:13,863] [com.asrs.communication.ConnectionManager] cannot connectionMC01
+[ERROR] [2018-02-05 15:12:34,871] [com.asrs.communication.ConnectionManager] cannot connectionSC02
+[ERROR] [2018-02-05 15:12:55,888] [com.asrs.communication.ConnectionManager] cannot connectionML02
+[ERROR] [2018-02-05 15:13:21,904] [com.asrs.communication.ConnectionManager] cannot connectionMC01
+[ERROR] [2018-02-05 15:13:42,919] [com.asrs.communication.ConnectionManager] cannot connectionSC02
+[ERROR] [2018-02-05 15:14:03,928] [com.asrs.communication.ConnectionManager] cannot connectionML02
+[ERROR] [2018-02-05 15:14:29,940] [com.asrs.communication.ConnectionManager] cannot connectionMC01
+[ERROR] [2018-02-05 15:14:50,956] [com.asrs.communication.ConnectionManager] cannot connectionSC02
+[ERROR] [2018-02-05 15:15:11,973] [com.asrs.communication.ConnectionManager] cannot connectionML02
+[ERROR] [2018-02-05 15:15:37,990] [com.asrs.communication.ConnectionManager] cannot connectionMC01
+[ERROR] [2018-02-05 15:15:59,008] [com.asrs.communication.ConnectionManager] cannot connectionSC02
+[ERROR] [2018-02-05 15:16:20,022] [com.asrs.communication.ConnectionManager] cannot connectionML02
+[ERROR] [2018-02-05 15:16:46,039] [com.asrs.communication.ConnectionManager] cannot connectionMC01
+[ERROR] [2018-02-05 15:17:07,055] [com.asrs.communication.ConnectionManager] cannot connectionSC02
+[ERROR] [2018-02-05 15:17:28,072] [com.asrs.communication.ConnectionManager] cannot connectionML02
+[ERROR] [2018-02-05 15:17:54,086] [com.asrs.communication.ConnectionManager] cannot connectionMC01
+[ERROR] [2018-02-05 15:18:15,092] [com.asrs.communication.ConnectionManager] cannot connectionSC02
+[ERROR] [2018-02-05 15:18:36,109] [com.asrs.communication.ConnectionManager] cannot connectionML02
+[ERROR] [2018-02-05 15:19:02,123] [com.asrs.communication.ConnectionManager] cannot connectionMC01
+[ERROR] [2018-02-05 15:19:23,130] [com.asrs.communication.ConnectionManager] cannot connectionSC02
+[ERROR] [2018-02-05 15:19:44,136] [com.asrs.communication.ConnectionManager] cannot connectionML02
+[ERROR] [2018-02-05 15:20:17,035] [com.asrs.communication.ConnectionManager] cannot connectionMC01
+[ERROR] [2018-02-05 15:20:38,050] [com.asrs.communication.ConnectionManager] cannot connectionML01
+[ERROR] [2018-02-05 15:20:59,110] [com.asrs.communication.ConnectionManager] cannot connectionML02
+[ERROR] [2018-02-05 15:21:20,182] [com.asrs.communication.ConnectionManager] cannot connectionSC02
+[ERROR] [2018-02-05 15:21:46,203] [com.asrs.communication.ConnectionManager] cannot connectionMC01
+[ERROR] [2018-02-05 15:22:07,219] [com.asrs.communication.ConnectionManager] cannot connectionSC02
+[ERROR] [2018-02-05 15:22:28,239] [com.asrs.communication.ConnectionManager] cannot connectionML02
+[ERROR] [2018-02-05 15:22:49,257] [com.asrs.communication.ConnectionManager] cannot connectionML01
+[ERROR] [2018-02-05 15:23:15,288] [com.asrs.communication.ConnectionManager] cannot connectionMC01
+[ERROR] [2018-02-05 15:23:36,304] [com.asrs.communication.ConnectionManager] cannot connectionSC02
+[ERROR] [2018-02-05 15:23:57,322] [com.asrs.communication.ConnectionManager] cannot connectionML02
+[ERROR] [2018-02-05 15:24:18,341] [com.asrs.communication.ConnectionManager] cannot connectionML01
+[ERROR] [2018-02-05 15:24:44,358] [com.asrs.communication.ConnectionManager] cannot connectionMC01
+[ERROR] [2018-02-05 15:25:05,373] [com.asrs.communication.ConnectionManager] cannot connectionSC02
+[ERROR] [2018-02-05 15:25:26,393] [com.asrs.communication.ConnectionManager] cannot connectionML02
+[ERROR] [2018-02-05 15:25:47,403] [com.asrs.communication.ConnectionManager] cannot connectionML01
+[ERROR] [2018-02-05 15:26:13,418] [com.asrs.communication.ConnectionManager] cannot connectionMC01
+[ERROR] [2018-02-05 15:26:34,435] [com.asrs.communication.ConnectionManager] cannot connectionSC02
+[ERROR] [2018-02-05 15:26:55,452] [com.asrs.communication.ConnectionManager] cannot connectionML02
+[ERROR] [2018-02-05 15:27:16,470] [com.asrs.communication.ConnectionManager] cannot connectionML01
+[ERROR] [2018-02-05 15:27:42,486] [com.asrs.communication.ConnectionManager] cannot connectionMC01
+[ERROR] [2018-02-05 15:28:03,503] [com.asrs.communication.ConnectionManager] cannot connectionSC02
+[ERROR] [2018-02-05 15:28:24,520] [com.asrs.communication.ConnectionManager] cannot connectionML02
+[ERROR] [2018-02-05 15:28:50,567] [com.asrs.communication.ConnectionManager] cannot connectionMC01
+[ERROR] [2018-02-05 15:29:11,585] [com.asrs.communication.ConnectionManager] cannot connectionSC02
+[ERROR] [2018-02-05 15:30:10,409] [com.asrs.communication.ConnectionManager] cannot connectionMC01
+[ERROR] [2018-02-05 15:30:59,829] [com.asrs.communication.ConnectionManager] cannot connectionMC01
+[ERROR] [2018-02-05 15:31:20,843] [com.asrs.communication.ConnectionManager] cannot connectionML01
+[ERROR] [2018-02-05 15:31:41,861] [com.asrs.communication.ConnectionManager] cannot connectionML02
+[ERROR] [2018-02-05 15:32:02,914] [com.asrs.communication.ConnectionManager] cannot connectionSC02
+[ERROR] [2018-02-05 15:32:28,926] [com.asrs.communication.ConnectionManager] cannot connectionMC01
+[ERROR] [2018-02-05 15:32:49,943] [com.asrs.communication.ConnectionManager] cannot connectionSC02
+[ERROR] [2018-02-05 15:33:10,949] [com.asrs.communication.ConnectionManager] cannot connectionML02
+[ERROR] [2018-02-05 15:33:31,962] [com.asrs.communication.ConnectionManager] cannot connectionML01
+[ERROR] [2018-02-05 15:33:57,992] [com.asrs.communication.ConnectionManager] cannot connectionMC01
+[ERROR] [2018-02-05 15:34:18,999] [com.asrs.communication.ConnectionManager] cannot connectionSC02
+[ERROR] [2018-02-05 15:34:40,016] [com.asrs.communication.ConnectionManager] cannot connectionML02
+[ERROR] [2018-02-05 15:35:01,031] [com.asrs.communication.ConnectionManager] cannot connectionML01
+[ERROR] [2018-02-05 15:35:27,046] [com.asrs.communication.ConnectionManager] cannot connectionMC01
+[ERROR] [2018-02-05 15:35:48,064] [com.asrs.communication.ConnectionManager] cannot connectionSC02
+[ERROR] [2018-02-05 15:36:09,081] [com.asrs.communication.ConnectionManager] cannot connectionML02
+[ERROR] [2018-02-05 15:36:30,098] [com.asrs.communication.ConnectionManager] cannot connectionML01
+[ERROR] [2018-02-05 15:36:36,508] [com.asrs.business.msgProc.WcsMsgProcCenter] RMI发生错误,MsgProcCenter终止
+[ERROR] [2018-02-05 15:37:07,790] [com.asrs.communication.ConnectionManager] cannot connectionMC01
+[ERROR] [2018-02-05 15:37:28,797] [com.asrs.communication.ConnectionManager] cannot connectionML01
+[ERROR] [2018-02-05 15:37:49,815] [com.asrs.communication.ConnectionManager] cannot connectionML02
+[ERROR] [2018-02-05 15:38:10,841] [com.asrs.communication.ConnectionManager] cannot connectionSC02
+[ERROR] [2018-02-05 15:38:36,860] [com.asrs.communication.ConnectionManager] cannot connectionMC01
+[ERROR] [2018-02-05 15:38:57,880] [com.asrs.communication.ConnectionManager] cannot connectionSC02
+[ERROR] [2018-02-05 15:39:18,900] [com.asrs.communication.ConnectionManager] cannot connectionML02
+[ERROR] [2018-02-05 15:39:39,916] [com.asrs.communication.ConnectionManager] cannot connectionML01
+[ERROR] [2018-02-05 15:40:05,946] [com.asrs.communication.ConnectionManager] cannot connectionMC01
+[ERROR] [2018-02-05 15:40:26,964] [com.asrs.communication.ConnectionManager] cannot connectionSC02
+[ERROR] [2018-02-05 15:40:47,978] [com.asrs.communication.ConnectionManager] cannot connectionML02
+[ERROR] [2018-02-05 15:41:08,995] [com.asrs.communication.ConnectionManager] cannot connectionML01
+[ERROR] [2018-02-05 15:41:35,011] [com.asrs.communication.ConnectionManager] cannot connectionMC01
+[ERROR] [2018-02-05 15:41:56,028] [com.asrs.communication.ConnectionManager] cannot connectionSC02
+[ERROR] [2018-02-05 15:42:17,047] [com.asrs.communication.ConnectionManager] cannot connectionML02
+[ERROR] [2018-02-05 15:42:38,059] [com.asrs.communication.ConnectionManager] cannot connectionML01
+[ERROR] [2018-02-05 15:43:04,074] [com.asrs.communication.ConnectionManager] cannot connectionMC01
+[ERROR] [2018-02-05 15:43:25,091] [com.asrs.communication.ConnectionManager] cannot connectionSC02
+[ERROR] [2018-02-05 15:43:46,105] [com.asrs.communication.ConnectionManager] cannot connectionML02
+[ERROR] [2018-02-05 15:44:07,111] [com.asrs.communication.ConnectionManager] cannot connectionML01
+[ERROR] [2018-02-05 15:44:33,126] [com.asrs.communication.ConnectionManager] cannot connectionMC01
+[ERROR] [2018-02-05 15:44:54,134] [com.asrs.communication.ConnectionManager] cannot connectionSC02
+[ERROR] [2018-02-05 15:45:15,150] [com.asrs.communication.ConnectionManager] cannot connectionML02
+[ERROR] [2018-02-05 15:45:36,166] [com.asrs.communication.ConnectionManager] cannot connectionML01
+[ERROR] [2018-02-05 15:46:02,181] [com.asrs.communication.ConnectionManager] cannot connectionMC01
+[ERROR] [2018-02-05 15:46:15,502] [com.asrs.business.msgProc.WcsMsgProcCenter] RMI发生错误,MsgProcCenter终止
+[ERROR] [2018-02-05 15:46:42,527] [com.asrs.communication.ConnectionManager] cannot connectionMC01
+[ERROR] [2018-02-05 15:47:03,538] [com.asrs.communication.ConnectionManager] cannot connectionML01
+[ERROR] [2018-02-05 15:47:21,719] [com.asrs.business.msgProc.WcsMsgProcCenter] RMI发生错误,MsgProcCenter终止
+[ERROR] [2018-02-05 15:47:44,484] [com.asrs.business.msgProc.WcsMsgProcCenter] RMI发生错误,MsgProcCenter终止
+[ERROR] [2018-02-05 15:48:22,783] [com.asrs.communication.ConnectionManager] cannot connectionMC01
+[ERROR] [2018-02-05 15:48:30,388] [com.asrs.business.msgProc.WcsMsgProcCenter] RMI发生错误,MsgProcCenter终止
+[ERROR] [2018-02-05 15:49:05,971] [com.asrs.communication.ConnectionManager] cannot connectionMC01
+[ERROR] [2018-02-05 15:49:27,040] [com.asrs.communication.ConnectionManager] cannot connectionML02
+[ERROR] [2018-02-05 15:49:48,099] [com.asrs.communication.ConnectionManager] cannot connectionSC02
+[ERROR] [2018-02-05 15:50:14,115] [com.asrs.communication.ConnectionManager] cannot connectionMC01
+[ERROR] [2018-02-05 15:50:35,130] [com.asrs.communication.ConnectionManager] cannot connectionSC02
+[ERROR] [2018-02-05 15:50:56,149] [com.asrs.communication.ConnectionManager] cannot connectionML02
+[ERROR] [2018-02-05 15:51:22,169] [com.asrs.communication.ConnectionManager] cannot connectionMC01
+[ERROR] [2018-02-05 15:51:43,198] [com.asrs.communication.ConnectionManager] cannot connectionSC02
+[ERROR] [2018-02-05 15:51:51,282] [com.asrs.business.msgProc.WcsMsgProcCenter] RMI发生错误,MsgProcCenter终止
+[ERROR] [2018-02-05 15:52:22,326] [com.asrs.communication.ConnectionManager] cannot connectionMC01
+[ERROR] [2018-02-05 15:52:43,338] [com.asrs.communication.ConnectionManager] cannot connectionML01
+[ERROR] [2018-02-05 15:53:04,425] [com.asrs.communication.ConnectionManager] cannot connectionML02
+[ERROR] [2018-02-05 15:53:53,092] [com.asrs.business.msgProc.WcsMsgProcCenter] RMI发生错误,MsgProcCenter终止
+[ERROR] [2018-02-05 15:54:21,118] [com.asrs.business.msgProc.WcsMsgProcCenter] RMI发生错误,MsgProcCenter终止
+[ERROR] [2018-02-05 15:55:19,903] [com.asrs.communication.ConnectionManager] cannot connectionMC01
+[ERROR] [2018-02-05 15:55:24,790] [com.asrs.business.msgProc.WcsMsgProcCenter] RMI发生错误,MsgProcCenter终止
+[ERROR] [2018-02-05 15:55:54,370] [com.asrs.communication.ConnectionManager] cannot connectionMC01
+[ERROR] [2018-02-05 15:56:12,425] [com.asrs.business.msgProc.WcsMsgProcCenter] RMI发生错误,MsgProcCenter终止
+[ERROR] [2018-02-05 15:58:35,094] [com.asrs.communication.ConnectionManager] cannot connectionMC01
+[ERROR] [2018-02-05 15:58:56,104] [com.asrs.communication.ConnectionManager] cannot connectionML01
+[ERROR] [2018-02-05 16:01:22,789] [com.asrs.communication.ConnectionManager] cannot connectionMC01
+[ERROR] [2018-02-05 16:15:49,750] [com.asrs.business.msgProc.WcsMsgProcCenter] RMI发生错误,MsgProcCenter终止
+[ERROR] [2018-02-05 16:20:49,815] [com.asrs.business.msgProc.WcsMsgProcCenter] RMI发生错误,MsgProcCenter终止
+[ERROR] [2018-02-05 17:41:55,313] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:41:55,434] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:41:55,555] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:41:55,681] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:41:55,801] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:41:55,927] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:41:56,046] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:41:56,163] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:41:56,280] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:41:56,395] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:41:56,512] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:41:56,631] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:41:56,751] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:41:56,872] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:41:56,988] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:41:57,111] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:41:57,236] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:41:57,353] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:41:57,473] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:41:57,595] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:41:57,714] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:41:57,839] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:41:57,962] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:41:58,079] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:41:58,194] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:41:58,309] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:41:58,424] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:41:58,541] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:41:58,657] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:41:58,773] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:41:58,890] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:41:59,005] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:41:59,120] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:41:59,238] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:41:59,363] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:41:59,486] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:41:59,617] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:41:59,744] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:41:59,871] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:41:59,993] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:00,111] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:00,231] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:00,349] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:00,464] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:00,581] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:00,699] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:00,820] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:00,938] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:01,058] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:01,174] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:01,293] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:01,413] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:01,532] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:01,665] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:01,787] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:01,908] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:02,027] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:02,153] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:02,286] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:02,412] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:02,533] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:02,657] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:02,783] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:02,908] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:03,031] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:03,153] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:03,272] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:03,389] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:03,511] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:03,631] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:03,758] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:03,878] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:03,995] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:04,118] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:04,240] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:04,365] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:04,480] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:04,597] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:04,713] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:04,839] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:04,963] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:05,080] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:05,196] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:05,312] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:05,428] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:05,543] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:05,658] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:05,775] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:05,889] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:06,005] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:06,123] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:06,237] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:06,351] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:06,465] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:06,582] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:06,703] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:06,821] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:06,937] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:07,054] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:07,173] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:07,300] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:07,424] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:07,550] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:07,674] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:07,795] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:07,921] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:08,045] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:08,169] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:08,292] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:08,415] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:08,537] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:08,657] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:08,779] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:08,903] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:09,036] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:09,162] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:09,290] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:09,404] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:09,530] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:09,655] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:09,788] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:09,922] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:10,058] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:10,181] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:10,309] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:10,425] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:10,546] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:10,665] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:10,779] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:10,896] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:11,015] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:11,128] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:11,243] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:11,363] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:11,485] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:11,603] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:11,730] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:11,856] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:11,980] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:12,094] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:12,212] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:12,334] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:12,458] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:12,588] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:12,713] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:12,838] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:12,969] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:13,090] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:13,208] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:13,324] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:13,438] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:13,554] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:13,669] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:13,785] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:13,900] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:14,015] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:14,131] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:14,247] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:14,362] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:14,479] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:14,599] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:14,724] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:14,841] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:14,963] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:15,090] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:15,216] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:15,347] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:15,469] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:15,585] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:15,703] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:15,822] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:15,948] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:16,069] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:16,186] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:16,308] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:16,433] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:16,558] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:16,690] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:16,816] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:16,933] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:17,055] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:17,189] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:17,305] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:17,427] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:17,545] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:17,663] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:17,785] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:17,910] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:18,031] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:18,148] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:18,273] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:18,399] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:18,517] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:18,637] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:18,754] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:18,875] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:18,996] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:19,120] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:19,240] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:19,369] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:19,489] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:19,613] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:19,741] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:19,863] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:19,991] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:20,119] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:20,249] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:20,374] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:20,493] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:20,611] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:20,734] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:20,850] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:20,978] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:21,103] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:21,224] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:21,343] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:21,464] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:21,590] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:21,720] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:21,840] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:21,968] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:22,088] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:22,208] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:22,336] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:22,461] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:22,584] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:22,708] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:22,828] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:22,946] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:23,065] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:23,180] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:23,301] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:23,418] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:23,538] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:23,657] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:23,775] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:23,895] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:24,019] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:24,140] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:24,255] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:24,376] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:24,496] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:24,618] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:24,738] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:24,855] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:24,975] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:25,088] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:25,205] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:25,325] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:25,442] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:25,560] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:25,678] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:25,791] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:25,906] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:26,022] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:26,142] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:26,260] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:26,373] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:26,491] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:26,611] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:26,730] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:26,846] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:26,962] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:27,084] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:27,205] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:27,323] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:27,446] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:27,568] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:27,685] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:27,800] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:27,920] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:28,038] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:28,162] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:28,281] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:28,398] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:28,518] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:28,638] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:28,760] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:28,878] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:28,994] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:29,108] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:29,222] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:29,339] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:29,454] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:29,568] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:29,684] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:29,797] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:29,911] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:30,026] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:30,142] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:30,256] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:30,390] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:30,512] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:30,628] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:30,748] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:30,867] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:30,989] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:31,106] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:31,225] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:31,340] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:31,453] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:31,567] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:31,681] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:31,796] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:31,914] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:32,034] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:32,151] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:32,267] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:32,384] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:32,498] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:32,614] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:32,739] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:32,854] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:32,970] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:33,086] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:33,200] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:33,318] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:33,433] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:33,549] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:33,664] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:33,780] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:33,893] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:34,012] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:34,127] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:34,244] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:34,364] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:34,479] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:34,595] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:34,712] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:34,827] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:34,945] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:35,060] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:35,176] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:35,291] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:35,410] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:35,526] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:35,643] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:35,761] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:35,875] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:35,988] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:36,106] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:36,222] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:36,339] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:36,461] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:36,592] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:36,707] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:36,823] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:36,937] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:37,053] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:37,169] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:37,282] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:37,398] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:37,519] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:37,633] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:37,748] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:37,867] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:37,981] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:38,096] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:38,216] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:38,336] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:38,457] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:38,578] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:38,695] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:38,810] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:38,932] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:39,049] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:39,162] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:39,279] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:39,394] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:39,508] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:39,626] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:39,744] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:39,859] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:39,982] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:40,102] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:40,222] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:40,334] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:40,449] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:40,569] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:40,688] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:40,803] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:40,927] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:41,054] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:41,175] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:41,289] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:41,403] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:41,519] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:41,631] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:41,745] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:41,858] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:41,979] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:42,096] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:42,211] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:42,325] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:42,445] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:42,558] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:42,682] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:42,801] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:42,919] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:43,038] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:43,152] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:43,266] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:43,379] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:43,497] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:43,612] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:43,726] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:43,845] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:43,961] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:44,081] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:44,195] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:44,318] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:44,436] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:44,554] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:44,677] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:44,796] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:44,910] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:45,030] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:45,146] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:45,262] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:45,375] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:45,495] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:45,610] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:45,724] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:45,845] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:45,962] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:46,076] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:46,189] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:46,305] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:46,424] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:46,538] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:46,655] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:46,770] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:46,889] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:47,010] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:47,124] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:47,245] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:47,364] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:47,480] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:47,598] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:47,718] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:47,854] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:47,968] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:48,087] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:48,200] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:48,320] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:48,433] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:48,547] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:48,662] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:48,777] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:48,889] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:49,009] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:49,128] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:49,244] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:49,358] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:49,477] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:49,592] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:49,714] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:49,837] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:49,961] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:50,079] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:50,194] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:50,307] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:50,420] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:50,533] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:50,650] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:50,763] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:50,879] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:50,998] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:51,118] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:51,233] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:51,353] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:51,472] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:51,592] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:51,706] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:51,825] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:51,943] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:52,057] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:52,179] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:52,298] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:52,414] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:52,534] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:52,660] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:52,778] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:52,900] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:53,023] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:53,145] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:53,267] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:53,390] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:53,505] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:53,618] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:53,730] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:53,848] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:53,968] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:54,085] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:54,198] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:54,312] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:54,430] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:54,549] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:54,669] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:54,783] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:54,898] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:55,011] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:55,128] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:55,242] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:55,357] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:55,477] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:55,594] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:55,708] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:55,829] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:55,947] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:56,063] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:56,180] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:56,297] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:56,420] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:56,548] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:56,666] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:56,787] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:56,902] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:57,027] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:57,143] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:57,257] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:57,372] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:57,484] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:57,601] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:57,716] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:57,830] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:57,946] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:58,060] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:58,175] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:58,295] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:58,413] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:58,533] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:58,655] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:58,772] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:58,895] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:59,011] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:59,127] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:59,247] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:59,365] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:59,484] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:59,599] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:59,714] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:59,826] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:42:59,944] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:00,061] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:00,174] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:00,287] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:00,408] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:00,533] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:00,651] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:00,764] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:00,877] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:00,992] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:01,104] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:01,219] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:01,336] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:01,449] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:01,562] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:01,675] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:01,791] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:01,909] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:02,025] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:02,142] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:02,257] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:02,384] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:02,505] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:02,621] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:02,744] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:02,863] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:02,982] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:03,099] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:03,216] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:03,333] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:03,455] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:03,577] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:03,694] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:03,811] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:03,925] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:04,043] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:04,157] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:04,274] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:04,387] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:04,503] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:04,622] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:04,738] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:04,858] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:04,975] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:05,092] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:05,211] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:05,327] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:05,442] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:05,555] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:05,671] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:05,790] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:05,908] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:06,029] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:06,143] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:06,260] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:06,379] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:06,498] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:06,618] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:06,736] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:06,856] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:06,972] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:07,088] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:07,204] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:07,318] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:07,431] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:07,550] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:07,665] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:07,786] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:07,904] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:08,020] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:08,133] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:08,249] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:08,364] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:08,479] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:08,601] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:08,724] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:08,842] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:08,957] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:09,073] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:09,193] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:09,313] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:09,428] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:09,541] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:09,659] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:09,771] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:09,885] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:09,997] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:10,113] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:10,226] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:10,342] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:10,461] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:10,581] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:10,703] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:10,822] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:10,941] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:11,060] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:11,177] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:11,298] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:11,413] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:11,533] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:11,648] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:11,764] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:11,884] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:12,009] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:12,127] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:12,247] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:12,365] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:12,491] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:12,613] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:12,734] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:12,854] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:12,976] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:13,096] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:13,216] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:13,338] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:13,457] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:13,574] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:13,696] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:13,813] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:13,931] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:14,048] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:14,169] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:14,282] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:14,399] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:14,524] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:14,648] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:14,764] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:14,892] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:15,018] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:15,138] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:15,257] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:15,374] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:15,489] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:15,604] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:15,721] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:15,841] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:15,962] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:16,079] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:16,200] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:16,315] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:16,435] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:16,549] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:16,664] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:16,784] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:16,901] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:17,019] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:17,133] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:17,249] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:17,370] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:17,485] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:17,602] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:17,715] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:17,829] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:17,953] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:18,071] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:18,194] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:18,316] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:18,430] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:18,541] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:18,666] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:18,782] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:18,896] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:19,012] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:19,130] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:19,248] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:19,365] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:19,481] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:19,594] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:19,713] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:19,831] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:19,949] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:20,065] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:20,188] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:20,309] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:20,426] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:20,539] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:20,657] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:20,773] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:20,887] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:21,001] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:21,119] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:21,233] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:21,350] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:21,464] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:21,577] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:21,701] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:21,815] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:21,928] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:22,045] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:22,158] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:22,278] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:22,393] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:22,510] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:22,628] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:22,750] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:22,868] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:22,992] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:23,117] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:23,241] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:23,363] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:23,490] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:23,610] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:23,737] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:23,859] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:23,977] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:24,091] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:24,209] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:24,322] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:24,435] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:24,548] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:24,668] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:24,781] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:24,909] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:25,034] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:25,150] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:25,263] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:25,383] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:25,499] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:25,620] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:25,745] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:25,862] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:25,976] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:26,092] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:26,204] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:26,321] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:26,435] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:26,547] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:26,663] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:26,784] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:26,909] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:27,036] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:27,159] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:27,280] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:27,400] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:27,519] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:27,631] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:27,748] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:27,865] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:27,986] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:28,103] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:28,219] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:28,334] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:28,450] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:28,566] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:28,684] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:28,805] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:28,919] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:29,032] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:29,151] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:29,263] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:29,389] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:29,505] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:29,621] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:29,735] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:29,848] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:29,962] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:30,078] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:30,191] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:30,316] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:30,441] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:30,558] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:30,681] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:30,800] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:30,915] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:31,040] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:31,155] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:31,280] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:31,394] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:31,506] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:31,619] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:31,731] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:31,844] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:31,957] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:32,071] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:32,183] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:32,299] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:32,416] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:32,546] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:32,670] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:32,809] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:32,923] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:33,041] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:33,155] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:33,267] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:33,380] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:33,494] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:33,611] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:33,734] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:33,853] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:33,984] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:34,104] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:34,221] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:34,340] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:34,455] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:34,571] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:34,689] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:34,810] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:34,928] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:35,046] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:35,167] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:35,289] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:35,405] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:35,523] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:35,647] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:35,774] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:35,895] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:36,016] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:36,134] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:36,255] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:36,374] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:36,488] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:36,611] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:36,731] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:36,852] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:36,969] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:37,094] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:37,209] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:37,327] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:37,450] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:37,572] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:37,690] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:37,808] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:37,928] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:38,054] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:38,170] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:38,293] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:38,412] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:38,529] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:38,644] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:38,757] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:38,873] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:38,986] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:39,103] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:39,219] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:39,337] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:39,451] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:39,573] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:39,693] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:39,815] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:39,930] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:40,049] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:40,165] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:40,283] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:40,407] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:40,520] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:40,641] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:40,761] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:40,878] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:40,991] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:41,107] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:41,220] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:41,337] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:41,455] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:41,572] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:41,691] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:41,811] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:41,930] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:42,045] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:42,159] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:42,272] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:42,385] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:42,499] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:42,618] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:42,733] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:42,852] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:42,972] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:43,090] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:43,211] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:43,328] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:43,452] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:43,575] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:43,698] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:43,816] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:43,933] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:44,048] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:44,160] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:44,272] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:44,386] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:44,501] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:44,613] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:44,728] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:44,843] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:44,957] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:45,072] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:45,185] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:45,301] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:45,417] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:45,534] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:45,647] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:45,759] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:45,879] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:45,997] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:46,116] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:46,229] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:46,343] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:46,457] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:46,575] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:46,689] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:46,806] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:46,918] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:47,036] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:47,151] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:47,266] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:47,403] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:47,523] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:47,635] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:47,751] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:47,871] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:47,987] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:48,101] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:48,215] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:48,329] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:48,440] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:48,552] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:48,665] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:48,780] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:48,893] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:49,008] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:49,120] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:49,235] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:49,348] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:49,460] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:49,574] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:49,697] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:49,810] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:49,922] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:50,034] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:50,149] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:50,263] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:50,379] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:50,494] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:50,614] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:50,730] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:50,846] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:50,957] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:51,076] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:51,194] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:51,312] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:51,428] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:51,544] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:51,657] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+[ERROR] [2018-02-05 17:43:51,777] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
+>>>>>>> ded64941c0c3dd2b7073d4d975e0d7f591ec3ae2

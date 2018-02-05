@@ -10,7 +10,7 @@ import java.math.BigDecimal;
  * Copyright Daifuku Shanghai Ltd.
  */
 @Entity
-@Table(name = "JOBDETAIL")
+@Table(name = "XINGFA.JOBDETAIL")
 public class JobDetail {
     public static final String __INVENTORY = "inventory";
     public static final String __JOB = "job";
@@ -18,8 +18,7 @@ public class JobDetail {
 
     @Id
     @Column(name = "ID", nullable = false, length = 8)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq")
-    @SequenceGenerator(name = "seq", sequenceName = "SEQ_JOBDETAIL_ID", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public int getId() {
         return _id;
     }

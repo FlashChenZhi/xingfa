@@ -17,7 +17,7 @@ import java.util.Date;
  * Copyright Daifuku Shanghai Ltd.
  */
 @Entity
-@Table(name = "CONTAINER")
+@Table(name = "XINGFA.CONTAINER")
 public class Container {
     public static final String __BARCODE = "barcode";
 
@@ -34,8 +34,7 @@ public class Container {
 
     @Id
     @Column(name = "ID", nullable = false, length = 8)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq")
-    @SequenceGenerator(name = "seq", sequenceName = "SEQ_CONTAINER_ID", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public int getId() {
         return _id;
     }

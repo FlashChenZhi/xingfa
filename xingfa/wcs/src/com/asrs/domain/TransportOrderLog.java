@@ -6,7 +6,7 @@ import javax.persistence.*;
  * Created by van on 2017/6/15.
  */
 @Entity
-@Table(name = "TRANSPORTORDER")
+@Table(name = "XINGFA.TRANSPORTORDER")
 public class TransportOrderLog {
 
     private int id;

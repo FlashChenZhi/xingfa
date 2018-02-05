@@ -6,7 +6,7 @@ import javax.persistence.*;
  * Created by van on 2017/12/15.
  */
 @Entity
-@Table(name = "OUTSEA_BATCH")
+@Table(name = "XINGFA.OUTSEA_BATCH")
 public class OutSeaBatch {
 
     private int id;
@@ -15,8 +15,7 @@ public class OutSeaBatch {
 
     @Id
     @Column(name = "ID")
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq")
-    @SequenceGenerator(name = "seq", sequenceName = "SEQ_OUTSEA_BATCH_ID", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public int getId() {
         return id;
     }

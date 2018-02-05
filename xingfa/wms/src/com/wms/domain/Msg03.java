@@ -6,7 +6,7 @@ import java.util.Date;
 
 
 @Entity
-@Table(name = "MSG03")
+@Table(name = "XINGFA.MSG03")
 public class Msg03 {
     private int id;
     private String plcName = "";
@@ -34,8 +34,7 @@ public class Msg03 {
 
     @Id
     @Column(name = "ID", nullable = false, length = 8)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq")
-    @SequenceGenerator(name = "seq", sequenceName = "SEQ_MSG03_ID", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public int getId() {
         return id;
     }

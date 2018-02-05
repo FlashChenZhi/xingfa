@@ -40,7 +40,7 @@ let PlatformSwitch = React.createClass({
 
             }.bind(this),
             error: function (err) {
-                message.error("设定任务失败！");
+                message.error("初始化站台模式失败！");
                 this.handleReset(e);
             }.bind(this)
         })

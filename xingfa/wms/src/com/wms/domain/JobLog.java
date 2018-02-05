@@ -7,7 +7,7 @@ import java.util.Date;
  * Created by van on 2018/1/14.
  */
 @Entity
-@Table(name = "JOBLOG")
+@Table(name = "XINGFA.JOBLOG")
 public class JobLog {
     public static final String __TYPE = "type";
     public static final String __CONTAINER = "container";
@@ -33,8 +33,7 @@ public class JobLog {
 
     @Id
     @Column(name = "ID")
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq")
-    @SequenceGenerator(name = "seq", sequenceName = "SEQ_JOBLOG_ID", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
 
     public int getId() {
         return id;

@@ -18,7 +18,7 @@ import javax.persistence.*;
  * Time: 上午9:30
  */
 @Entity
-@Table(name = "TransportOrderDA")
+@Table(name = "XINGFA.TransportOrderDA")
 public class TransportOrderDA {
     /**
      * transportType:出库
@@ -230,8 +230,7 @@ public class TransportOrderDA {
     private int id;
 
     @Id
-    @SequenceGenerator(name = "sequenceGenerator", sequenceName = "TRANSPORTORDER_DA_SEQ", allocationSize = 1)
-    @GeneratedValue(generator = "sequenceGenerator", strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID")
     public int getId() {
         return id;

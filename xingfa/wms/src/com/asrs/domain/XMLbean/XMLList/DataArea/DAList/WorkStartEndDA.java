@@ -13,7 +13,7 @@ import javax.persistence.*;
  * To change this template use File | Settings | File Templates.
  */
 @Entity
-@Table(name = "WorkStartEndDA")
+@Table(name = "XINGFA.WorkStartEndDA")
 public class WorkStartEndDA {
     @XStreamAlias("RequestId")
     private String requestId;
@@ -43,8 +43,7 @@ public class WorkStartEndDA {
     private int id;
 
     @Id
-    @SequenceGenerator(name = "sequenceGenerator", sequenceName = "CANCELTRANSPORTORDER_DA_SEQ", allocationSize = 1)
-    @GeneratedValue(generator = "sequenceGenerator", strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID")
     public int getId() {
         return id;

@@ -7,7 +7,7 @@ import java.math.BigDecimal;
  * Created by van on 2017/3/17.
  */
 @Entity
-@Table(name = "SKU_IFAC")
+@Table(name = "XINGFA.SKU_IFAC")
 public class SkuView {
     public static final String COL_CODE = "skuCode";
     private String id;
@@ -16,8 +16,7 @@ public class SkuView {
 
     @Id
     @Column(name = "BASE_ITEM_ID")
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq")
-    @SequenceGenerator(name = "seq", sequenceName = "SEQ_SKUIFAC_ID", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public String getId() {
         return id;
     }

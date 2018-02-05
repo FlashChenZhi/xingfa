@@ -52,20 +52,20 @@ public class Msg42Proc implements MsgProcess {
     public void Do(Message42 message42) {
 
         //应答
-        Sender sender = new Sender();
-        sender.setDivision(XMLConstant.COM_DIVISION);
-        ControlArea controlArea = new ControlArea();
-        controlArea.setSender(sender);
-        TransportModeChangeDA transportModeChangeDA = new TransportModeChangeDA();
-        transportModeChangeDA.setMha(message42.Station);
-        transportModeChangeDA.setTransportType(message42.Mode.equals("00") ? StationMode.UNKNOWN : message42.Mode);
-        transportModeChangeDA.setInformation("01");
-        TransportModeChangeReport transportModeChange = new TransportModeChangeReport();
-        transportModeChange.setDate(new Date());
-        transportModeChange.setControlArea(controlArea);
-        transportModeChange.setDataArea(transportModeChangeDA);
-        Envelope envelope = new Envelope();
-        envelope.setTransportModeChangeReport(transportModeChange);
+//        Sender sender = new Sender();
+//        sender.setDivision(XMLConstant.COM_DIVISION);
+//        ControlArea controlArea = new ControlArea();
+//        controlArea.setSender(sender);
+//        TransportModeChangeDA transportModeChangeDA = new TransportModeChangeDA();
+//        transportModeChangeDA.setMha(message42.Station);
+//        transportModeChangeDA.setTransportType(message42.Mode.equals("00") ? StationMode.UNKNOWN : message42.Mode);
+//        transportModeChangeDA.setInformation("01");
+//        TransportModeChangeReport transportModeChange = new TransportModeChangeReport();
+//        transportModeChange.setDate(new Date());
+//        transportModeChange.setControlArea(controlArea);
+//        transportModeChange.setDataArea(transportModeChangeDA);
+//        Envelope envelope = new Envelope();
+//        envelope.setTransportModeChangeReport(transportModeChange);
         try {
             Transaction.begin();
 
@@ -81,7 +81,7 @@ public class Msg42Proc implements MsgProcess {
             }
 
             Transaction.commit();
-            XMLUtil.sendEnvelope(envelope);
+//            XMLUtil.sendEnvelope(envelope);
         } catch (Exception e) {
             Transaction.rollback();
             e.printStackTrace();

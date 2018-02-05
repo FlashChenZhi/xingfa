@@ -15,7 +15,7 @@ import java.util.Set;
  * Created by xiongying on 2015/8/16.
  */
 @Entity
-@Table(name = "ROLE")
+@Table(name = "XINGFA.ROLE")
 public class Role {
     private int id;
     private String name;
@@ -46,8 +46,7 @@ public class Role {
 
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq")
-    @SequenceGenerator(name = "seq", sequenceName = "SEQ_ROLE_ID", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID")
     public int getId() {
         return id;

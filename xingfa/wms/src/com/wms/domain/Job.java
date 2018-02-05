@@ -19,7 +19,7 @@ import java.util.Date;
  * Copyright Daifuku Shanghai Ltd.
  */
 @Entity
-@Table(name = "JOB")
+@Table(name = "XINGFA.JOB")
 public class Job {
     public static final String __CONTAINER = "container";
 
@@ -37,8 +37,7 @@ public class Job {
 
     @Id
     @Column(name = "ID", nullable = false, length = 8)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq")
-    @SequenceGenerator(name = "seq", sequenceName = "SEQ_JOB_ID", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public int getId() {
         return _id;
     }

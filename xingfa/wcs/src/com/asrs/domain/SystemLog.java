@@ -9,7 +9,7 @@ import java.util.Date;
  * Created by van on 2018/1/6.
  */
 @Entity
-@Table(name = "SYSTEM_LOG")
+@Table(name = "XINGFA.SYSTEM_LOG")
 public class SystemLog {
     private int id;
     private String message;
@@ -21,8 +21,7 @@ public class SystemLog {
 
     @Id
     @Column(name = "ID")
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq")
-    @SequenceGenerator(name = "seq", sequenceName = "SEQ_SYSTEMLOG_ID", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public int getId() {
         return id;
     }

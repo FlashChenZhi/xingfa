@@ -8,7 +8,7 @@ import javax.persistence.*;
  * Created by van on 2017/5/3.
  */
 @Entity
-@Table(name = "DOCK")
+@Table(name = "XINGFA.DOCK")
 public class Dock {
     private int id;
     private String liftNo;

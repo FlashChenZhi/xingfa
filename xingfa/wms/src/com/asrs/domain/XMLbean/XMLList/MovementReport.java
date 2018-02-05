@@ -30,7 +30,7 @@ import java.util.List;
  * To change this template use File | Settings | File Templates.
  */
 @Entity
-@Table(name = "MovementReport")
+@Table(name = "XINGFA.MovementReport")
 public class MovementReport extends XMLProcess {
 
     @XStreamAlias("ControlArea")
@@ -64,8 +64,7 @@ public class MovementReport extends XMLProcess {
 
 
     @Id
-    @SequenceGenerator(name = "sequenceGenerator", sequenceName = "MOVEMENTREPORT_SEQ", allocationSize = 1)
-    @GeneratedValue(generator = "sequenceGenerator", strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID")
     public int getId() {
         return id;
