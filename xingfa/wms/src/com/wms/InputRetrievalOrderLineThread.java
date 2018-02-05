@@ -33,51 +33,60 @@ public class InputRetrievalOrderLineThread implements Runnable
         while (true) {
             try
             {
+                File file = new File("E:/test/zhu1");
+                File[] filelist = file.listFiles();
+                for (File f:filelist){
+                    if (f.isFile() && (f.getName().endsWith(".xls")|| f.getName().endsWith(".xlsx"))) {
 //            Transaction.begin();
 
 //            Session session = HibernateUtil.getCurrentSession();
-                String oldPath="E:/test/zhu/test.xls";
-                Workbook data = Workbook.getWorkbook(new File(oldPath));
+                        String oldPath = "E:/test/zhu1/"+f.getName();
+                        Workbook data = Workbook.getWorkbook(new File(oldPath));
 
-                Sheet sheet = data.getSheet(0);
+                        Sheet sheet = data.getSheet(0);
 
-                Date d = new Date();
-                SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
-                System.out.println("当前时间：" + sdf.format(d));
-                String newPath="E:/test/fu/test_"+sdf.format(d)+".xls";
-                copyFile(oldPath,newPath);
-                deleteFile(oldPath);
-                List<ErrorMessage> list=new ArrayList();
-                for (int i = 1; i < sheet.getRows(); i++)
-                {
-                    RetrievalOrderLine rol = RetrievalOrderLine.getByRetrievalOrderLine(sheet.getCell(1, i).getContents(),sheet.getCell(6, i).getContents());
+                        Date d = new Date();
+                        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
+                        System.out.println("当前时间：" + sdf.format(d));
+                        String newPath = "E:/test/fu/"+f.getName().split("\\.")[0]+"_" + sdf.format(d) + ".xls";
+                        copyFile(oldPath, newPath);
+                        deleteFile(oldPath);
+                        List<ErrorMessage> list = new ArrayList();
+                        for (int i = 1; i < sheet.getRows(); i++) {
+                            RetrievalOrderLine rol = null;
+                            try {
+                                rol = RetrievalOrderLine.getByRetrievalOrderLine(sheet.getCell(1, i).getContents(), sheet.getCell(6, i).getContents());
+                            } catch (Exception e) {
+                                list.add(new ErrorMessage(rol,"与查询表不符"));
+                            }
 
-                    if(rol != null)
-                    {
-                        list.add(new ErrorMessage(rol,"交货单号和行号重复"));
-                        continue;
-                    }
+                            if (rol != null) {
+                                list.add(new ErrorMessage(rol, "交货单号和行号重复"));
+                                continue;
+                            }
 
-                    rol = new RetrievalOrderLine();
+                            rol = new RetrievalOrderLine();
 //                session.save(rol);
-                    rol.setShouhuodanhao(sheet.getCell(0, i).getContents());
-                    rol.setJinhuodanhao(sheet.getCell(1, i).getContents());
-                    rol.setHuozhudaima(sheet.getCell(2, i).getContents());
-                    rol.setHuozhumingcheng(sheet.getCell(3, i).getContents());
-                    rol.setCangkudaima(sheet.getCell(4, i).getContents());
-                    rol.setShouhuoleixing(sheet.getCell(5, i).getContents());
-                    rol.setHanghao(sheet.getCell(6, i).getContents());
-                    rol.setShangpindaima(sheet.getCell(7, i).getContents());
-                    rol.setShangpinmingcheng(sheet.getCell(8, i).getContents());
-                    try {
-                        rol.setDingdanshuliang(Integer.parseInt(sheet.getCell(9, i).getContents()));
-                    } catch (NumberFormatException e) {
-                        list.add(new ErrorMessage(rol,"parseInt转换异常"));
-                    }
-                    rol.setDanwei(sheet.getCell(10, i).getContents());
-                }
-                cuoWu( sdf.format(d), list);
+                            rol.setShouhuodanhao(sheet.getCell(0, i).getContents());
+                            rol.setJinhuodanhao(sheet.getCell(1, i).getContents());
+                            rol.setHuozhudaima(sheet.getCell(2, i).getContents());
+                            rol.setHuozhumingcheng(sheet.getCell(3, i).getContents());
+                            rol.setCangkudaima(sheet.getCell(4, i).getContents());
+                            rol.setShouhuoleixing(sheet.getCell(5, i).getContents());
+                            rol.setHanghao(sheet.getCell(6, i).getContents());
+                            rol.setShangpindaima(sheet.getCell(7, i).getContents());
+                            rol.setShangpinmingcheng(sheet.getCell(8, i).getContents());
+                            try {
+                                rol.setDingdanshuliang(Integer.parseInt(sheet.getCell(9, i).getContents()));
+                            } catch (NumberFormatException e) {
+                                list.add(new ErrorMessage(rol, "parseInt转换异常"));
+                            }
+                            rol.setDanwei(sheet.getCell(10, i).getContents());
+                        }
+                        cuoWu(f.getName().split(".")[0],sdf.format(d), list);
 //            Transaction.commit();
+                    }
+                }
             }
             catch (IOException e)
             {
@@ -142,8 +151,8 @@ public class InputRetrievalOrderLineThread implements Runnable
             file.delete();
         }
     }
-    public static  void cuoWu(String shiJian,List<ErrorMessage> list) throws Exception{
-        WritableWorkbook book1 = Workbook.createWorkbook(new File("E:/test/cuowu/test_"+shiJian+".xls"));
+    public static  void cuoWu(String wenJianMing,String shiJian,List<ErrorMessage> list) throws Exception{
+        WritableWorkbook book1 = Workbook.createWorkbook(new File("E:/test/cuowu/"+wenJianMing+"_"+shiJian+".xls"));
         // 生成名为“sheet1”的工作表，参数0表示这是第一页
         WritableSheet sheet1 = book1.createSheet("sheet2", 0);
         Label label = new Label(0, 0, "收货单号");
