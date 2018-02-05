@@ -98,22 +98,22 @@ public class OrderInquiryService {
                 Map<String, Object> map = new HashMap<>();
                 map.put("id", object[0]);
                 map.put("name", object[1]);
+                System.out.println("第一个："+object[0]+"第二个："+object[1]);
                 mapList.add(map);
             }
                 s.setSuccess(true);
                 s.setRes(mapList);
                 Transaction.commit();
-            }catch (JDBCConnectionException ex) {
+        }catch (JDBCConnectionException ex) {
             s.setSuccess(false);
             s.setMsg(LogMessage.DB_DISCONNECTED.getName());
-
         } catch (Exception ex) {
             Transaction.rollback();
             s.setSuccess(false);
             s.setMsg(LogMessage.UNEXPECTED_ERROR.getName());
         }
-                return s;
-        }
+        return s;
+ }
     /**
      * 获取商品代码
      * @return
@@ -122,11 +122,13 @@ public class OrderInquiryService {
     public ReturnObj<List<Map<String,Object>>> getCommodityCode() throws IOException{
         ReturnObj<List<Map<String,Object>>> s = new ReturnObj<List<Map<String,Object>>>();
         System.out.println("进入获取商品代码方法！");
-        List<Map<String,Object>> mapList = new ArrayList<Map<String,Object>>();
-        for (int i = 0; i <10 ; i++) {
+        Session session=HibernateUtil.getCurrentSession();
+        List<Object[]> list= session.createQuery("select skuName,skuCode from Sku").list();
+        List<Map<String, Object>> mapList = null;
+        for (Object objects[]:list) {
             Map<String,Object> map = new HashMap<String,Object>();
-            map.put("id",i);
-            map.put("name","商品代码"+i);
+            map.put("id",objects[0]);
+            map.put("name",objects[1]);
             mapList.add(map);
         }
         s.setSuccess(true);

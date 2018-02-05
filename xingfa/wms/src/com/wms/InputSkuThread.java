@@ -28,52 +28,64 @@ public class InputSkuThread  implements Runnable{
         while (true){
             try
             {
-                Transaction.begin();
 
-                Session session = HibernateUtil.getCurrentSession();
-                String oldPath="E:/test/zhu/test1.xls";
-                Workbook data = Workbook.getWorkbook(new File(oldPath));
+                File file = new File("E:/test/zhu");
+                File[] filelist = file.listFiles();
+                for (File f:filelist){
+                    if (f.isFile() && (f.getName().endsWith(".xls")|| f.getName().endsWith(".xlsx"))){
+                        Transaction.begin();
+                        Session session = HibernateUtil.getCurrentSession();
+                        String oldPath="E:/test/zhu/"+f.getName();
+                        Workbook data = Workbook.getWorkbook(new File(oldPath));
 
-                Sheet sheet = data.getSheet(0);
+                        Sheet sheet = data.getSheet(0);
 
-                Date d = new Date();
-                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-                System.out.println("当前时间：" + sdf.format(d));
-                String newPath="E:/test/fu/test1_"+sdf.format(d)+".xls";
-                copyFile(oldPath,newPath);
-                deleteFile(oldPath);
-                List<ErrorMessage> list=new ArrayList();
-                for (int i = 1; i < sheet.getRows(); i++)
-                {
-                    if(StringUtils.isNotBlank(sheet.getCell(7, i).getContents())){
-                        Sku sku = Sku.getByCode(sheet.getCell(7, i).getContents());
-                        if(sku != null)
+                        Date d = new Date();
+                        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                        System.out.println("当前时间：" + sdf.format(d));
+                        String newPath="E:/test/fu/"+f.getName().split("\\.")[0]+"_"+sdf.format(d)+".xls";
+                        copyFile(oldPath,newPath);
+                        deleteFile(oldPath);
+                        List<ErrorMessage> list=new ArrayList();
+                        for (int i = 1; i < sheet.getRows(); i++)
                         {
-                            list.add(new ErrorMessage(sku,"商品代码重复"));
-                            continue;
+                            if(StringUtils.isNotBlank(sheet.getCell(7, i).getContents())){
+                                Sku sku = null;
+                                try {
+                                    sku = Sku.getByCode(sheet.getCell(7, i).getContents());
+                                } catch (Exception e) {
+                                    list.add(new ErrorMessage(sku,"与查询表不符"));
+                                }
+                                if(sku != null)
+                                {
+                                    list.add(new ErrorMessage(sku,"商品代码重复"));
+                                    continue;
+                                }
+                                sku = new Sku();
+                                session.save(sku);
+                                sku.setHuozhudaima(sheet.getCell(2, i).getContents());
+                                sku.setHuozhumingcheng(sheet.getCell(3, i).getContents());
+                                sku.setCangkudaima(sheet.getCell(4, i).getContents());
+                                sku.setShouhuoleixing(sheet.getCell(5, i).getContents());
+                                sku.setSkuCode(sheet.getCell(7, i).getContents());
+                                sku.setSkuName(sheet.getCell(8, i).getContents());
+                                sku.setDanwei(sheet.getCell(10, i).getContents());
+                                if(StringUtils.isBlank(sheet.getCell(11, i).getContents())&&StringUtils.isBlank(sheet.getCell(12, i).getContents())){
+                                    sku.setCunfangquyu(0);
+                                }else if(StringUtils.equals(sheet.getCell(11, i).getContents(),"少量、专区1")||StringUtils.equals(sheet.getCell(12, i).getContents(),"少量、专区1")){
+                                    sku.setCunfangquyu(1);
+                                }else if(StringUtils.equals(sheet.getCell(11, i).getContents(),"危化品 专区2")||StringUtils.equals(sheet.getCell(12, i).getContents(),"危化品 专区2")){
+                                    sku.setCunfangquyu(2);
+                                }
+                            }
                         }
-                        sku = new Sku();
-                        session.save(sku);
-                        sku.setHuozhudaima(sheet.getCell(2, i).getContents());
-                        sku.setHuozhumingcheng(sheet.getCell(3, i).getContents());
-                        sku.setCangkudaima(sheet.getCell(4, i).getContents());
-                        sku.setShouhuoleixing(sheet.getCell(5, i).getContents());
-                        sku.setSkuCode(sheet.getCell(7, i).getContents());
-                        sku.setSkuName(sheet.getCell(8, i).getContents());
-                        sku.setDanwei(sheet.getCell(10, i).getContents());
-                        if(StringUtils.isBlank(sheet.getCell(11, i).getContents())&&StringUtils.isBlank(sheet.getCell(12, i).getContents())){
-                            sku.setCunfangquyu(0);
-                        }else if(StringUtils.equals(sheet.getCell(11, i).getContents(),"少量、专区1")||StringUtils.equals(sheet.getCell(12, i).getContents(),"少量、专区1")){
-                            sku.setCunfangquyu(1);
-                        }else if(StringUtils.equals(sheet.getCell(11, i).getContents(),"危化品 专区2")||StringUtils.equals(sheet.getCell(12, i).getContents(),"危化品 专区2")){
-                            sku.setCunfangquyu(2);
+                        if(list.isEmpty()){
+                            cuoWu(f.getName().split(".")[0],sdf.format(d),list);
                         }
+                        Transaction.commit();
                     }
                 }
-                if(list.isEmpty()){
-                    cuoWu(sdf.format(d),list);
-                }
-                Transaction.commit();
+
             }
             catch (IOException e)
             {
@@ -126,9 +138,9 @@ public class InputSkuThread  implements Runnable{
         }
 
     }
-    public static void cuoWu(String shiJian,List<ErrorMessage> list) throws Exception {
+    public static void cuoWu(String wenJianMing,String shiJian,List<ErrorMessage> list) throws Exception {
 
-        WritableWorkbook book1 = Workbook.createWorkbook(new File("E:/test/cuowu/test1_" + shiJian+ ".xls"));
+        WritableWorkbook book1 = Workbook.createWorkbook(new File("E:/test/cuowu/"+wenJianMing+"_" + shiJian+ ".xls"));
         // 生成名为“sheet1”的工作表，参数0表示这是第一页
         WritableSheet sheet1 = book1.createSheet("sheet3", 0);
         Label label = new Label(0, 0, "收货单号");

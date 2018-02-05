@@ -14,6 +14,7 @@ import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.junit.Test;
 
 public class ExcelWrite {
     private static HSSFWorkbook workbook = null;
@@ -221,25 +222,41 @@ public class ExcelWrite {
 //                 book.write();
 //                 book.close();
 //             }
-public static void main(String[] args) {
+//public static void main(String[] args) {
+//
+//    List<Map<String,Sku>> list=new ArrayList();
+//    Sku sku=new Sku();
+//    sku.setDanwei("fdas");
+//    for(int i=0;i<20;i++){
+//
+//        Map map=new HashMap();
+//        map.put("Sku",sku);
+//        map.put("cuoWuHao",1);
+//        list.add(map);
+//    }
+//
+//    System.out.println();
+//        System.out.println(list.get(1).get("Sku").getDanwei());
+//
+//
+//
+//}
 
-    List<Map<String,Sku>> list=new ArrayList();
-    Sku sku=new Sku();
-    sku.setDanwei("fdas");
-    for(int i=0;i<20;i++){
-
-        Map map=new HashMap();
-        map.put("Sku",sku);
-        map.put("cuoWuHao",1);
-        list.add(map);
+    public static void main(String[] args) {
+        File file = new File("E:/test/zhu");
+        File[] filelist = file.listFiles();
+        for (File f:filelist){
+            if (f.isFile() && (f.getName().endsWith(".xls")|| f.getName().endsWith(".xlsx"))){
+                System.out.println(f.getName());
+                String[] s = f.getName().split("\\.");
+                System.out.println(s.length+";"+s[0]);
+            }
+        }
     }
-
-    System.out.println();
-        System.out.println(list.get(1).get("Sku").getDanwei());
-
-
-
-}
-
+    @Test
+    public  void test(){
+        String s ="test.xls";
+        System.out.println(s.split("\\.")[0]);
+    }
 }
 

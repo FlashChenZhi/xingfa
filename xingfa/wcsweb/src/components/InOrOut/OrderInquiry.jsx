@@ -53,7 +53,8 @@ let OutputArea = React.createClass({
             data: {},
             success: function (json) {
                 console.log(json);
-                console.log(json.res);
+                debugger;
+                console.log("货主代码："+json.res);
                 this.setState({
                     shipperIdList:json.res,
                     shipperIdFirst:json.res[0],
