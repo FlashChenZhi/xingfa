@@ -6,7 +6,7 @@ import javax.persistence.*;
  * Created by van on 2018/1/9.
  */
 @Entity
-@Table(name = "XMLMESSAGE")
+@Table(name = "XINGFA.XMLMESSAGE")
 public class XMLMessage {
     private int id;
     private String messageInfo;
@@ -16,8 +16,7 @@ public class XMLMessage {
 
     @Id
     @Column(name = "ID")
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq")
-    @SequenceGenerator(name = "seq", sequenceName = "SEQ_XMLMESSGE_ID", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public int getId() {
         return id;
     }

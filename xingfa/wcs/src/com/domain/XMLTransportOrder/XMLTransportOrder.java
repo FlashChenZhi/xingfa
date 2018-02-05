@@ -16,7 +16,7 @@ import java.util.List;
  * To change this template use File | Settings | File Templates.
  */
 @Entity
-@Table(name = "xmlTransportOrer")
+@Table(name = "XINGFA.xmlTransportOrer")
 public class XMLTransportOrder {
 
     public static final String _FROMLOCATION = "fromLocationNo";
@@ -66,8 +66,7 @@ public class XMLTransportOrder {
 
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq")
-    @SequenceGenerator(name = "seq", sequenceName = "SEQ_TRANSPORTORDER")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID")
     public int getId() {
         return id;

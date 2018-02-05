@@ -14,7 +14,7 @@ import java.util.Date;
  * 商品数据
  */
 @Entity
-@Table(name = "SKU")
+@Table(name = "XINGFA.SKU")
 public class Sku {
 
     public static final String __SKUCODE = "skuCode";
@@ -35,11 +35,10 @@ public class Sku {
     private Integer dingdanshuliang;
     private String danwei;
     private Integer cunfangquyu;
-    private Date changjianshijian;
+    private Date chuangjianshijian;
     @Id
     @Column(name = "ID")
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq")
-    @SequenceGenerator(name = "seq", sequenceName = "SEQ_SKU_ID", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public int getId() {
         return id;
     }
@@ -206,11 +205,13 @@ public class Sku {
         return (Sku) query.uniqueResult();
     }
 
-    public Date getChangjianshijian() {
-        return changjianshijian;
+    @Basic
+    @Column(name = "chuangjianshijian")
+    public Date getChuangjianshijian() {
+        return chuangjianshijian;
     }
 
-    public void setChangjianshijian(Date changjianshijian) {
-        this.changjianshijian = changjianshijian;
+    public void setChuangjianshijian(Date chuangjianshijian) {
+        this.chuangjianshijian = chuangjianshijian;
     }
 }

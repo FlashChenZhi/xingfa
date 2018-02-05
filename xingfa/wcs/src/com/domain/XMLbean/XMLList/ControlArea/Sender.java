@@ -14,7 +14,7 @@ import javax.persistence.*;
  * To change this template use File | Settings | File Templates.
  */
 @Entity
-@Table(name = "Sender")
+@Table(name = "XINGFA.Sender")
 public class Sender {
     @XStreamAlias("Division")
     private String division = XMLConstant.COM_DIVISION;
@@ -26,8 +26,7 @@ public class Sender {
     private int id;
 
     @Id
-    @SequenceGenerator(name = "sequenceGenerator", sequenceName = "SENDER_SEQ", allocationSize = 1)
-    @GeneratedValue(generator = "sequenceGenerator", strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID")
     public int getId() {
         return id;

@@ -7,7 +7,7 @@ import java.util.Date;
  * Created by van on 2017/5/10.
  */
 @Entity
-@Table(name = "MESSAGELOG")
+@Table(name = "XINGFA.MESSAGELOG")
 public class MessageLog {
     public static final String __MESSAGETYPE = "type";
     public static final String __CREATEDATE = "createDate";
@@ -20,8 +20,7 @@ public class MessageLog {
     public static final String TYPE_RECV = "R";
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq")
-    @SequenceGenerator(name = "seq", sequenceName = "SEQ_MESSAGELOG", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID", nullable = false)
     public int getId() {
         return id;

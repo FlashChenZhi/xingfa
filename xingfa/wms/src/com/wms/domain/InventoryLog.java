@@ -8,7 +8,7 @@ import java.util.Date;
  * Created by van on 2018/1/15.
  */
 @Entity
-@Table(name = "INVENTORY_LOG")
+@Table(name = "XINGFA.INVENTORY_LOG")
 public class InventoryLog {
 
     public static final String COL_ID = "id";
@@ -40,8 +40,7 @@ public class InventoryLog {
 
     @Id
     @Column(name = "ID")
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq")
-    @SequenceGenerator(name = "seq", sequenceName = "SEQ_INVENTORY_LOG_ID", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public int getId() {
         return id;
     }

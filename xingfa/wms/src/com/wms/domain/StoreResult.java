@@ -9,7 +9,7 @@ import java.math.BigDecimal;
  * 入库实绩
  */
 @Entity
-@Table(name = "STORE_RESULT")
+@Table(name = "XINGFA.STORE_RESULT")
 public class StoreResult {
     private int id;
     private String skuCode;
@@ -32,8 +32,7 @@ public class StoreResult {
 
     @Id
     @Column(name = "ID")
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq")
-    @SequenceGenerator(name = "seq", sequenceName = "SEQ_STORERESULT_ID", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public int getId() {
         return id;
     }

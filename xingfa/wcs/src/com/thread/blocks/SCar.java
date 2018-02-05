@@ -10,7 +10,7 @@ import javax.persistence.*;
  * 子车
  */
 @Entity
-@Table(name = "Block")
+@Table(name = "XINGFA.Block")
 @DiscriminatorValue(value = "5")
 public class SCar extends Block {
     private int level;

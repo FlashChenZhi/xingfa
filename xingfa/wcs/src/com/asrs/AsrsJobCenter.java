@@ -79,6 +79,13 @@ public class AsrsJobCenter {
                 _wcsproxy.addSndMsg(message40);
             }
 
+//            StationBlock stationBlock = StationBlock.getByStationNo("1301");
+//            Message40 message40 = new Message40();
+//            message40.setPlcName(stationBlock.getPlcName());
+//            message40.Mode = "01";
+//            message40.Station = "1301";
+//            _wcsproxy.addSndMsg(message40);
+
             Transaction.commit();
         } catch (Exception ex) {
             ex.printStackTrace();

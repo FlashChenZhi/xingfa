@@ -7,7 +7,7 @@ import javax.persistence.*;
  */
 
 @Entity
-@Table(name = "RETRIEVAL_FINISH")
+@Table(name = "XINGFA.RETRIEVAL_FINISH")
 public class RetrievalFinishLog {
     private int id;
     private String orderNo;
@@ -15,8 +15,7 @@ public class RetrievalFinishLog {
 
     @Id
     @Column(name = "ID")
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq")
-    @SequenceGenerator(name = "seq", sequenceName = "SEQ_RETRIEVAL_FINISH_ID", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public int getId() {
         return id;
     }

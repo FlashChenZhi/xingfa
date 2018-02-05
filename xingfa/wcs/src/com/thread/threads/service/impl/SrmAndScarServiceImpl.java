@@ -1,5 +1,6 @@
 package com.thread.threads.service.impl;
 
+import com.AllBinding.utils.BlockStatus;
 import com.asrs.Mckey;
 import com.asrs.business.consts.AsrsJobStatus;
 import com.asrs.business.consts.AsrsJobStatusDetail;
@@ -104,7 +105,9 @@ public abstract class SrmAndScarServiceImpl implements SrmService {
                     boolean hasJob = false;
 
                     //堆垛机上的子车电量不足，生成充电任务
-                    if (sCar.getPower() < 40) {
+                    Query q = HibernateUtil.getCurrentSession().createQuery("from SCar s where s.status = :status")
+                            .setString("status", SCar.STATUS_CHARGE);
+                    if (sCar.getPower() < 40 && q.list().isEmpty()) {
                         AsrsJob asrsJob = new AsrsJob();
                         asrsJob.setMcKey(Mckey.getNext());
                         asrsJob.setToLocation(sCar.getChargeLocation());

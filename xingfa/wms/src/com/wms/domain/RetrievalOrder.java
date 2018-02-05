@@ -16,7 +16,7 @@ import java.util.Set;
  * 出库数据
  */
 @Entity
-@Table(name = "RETRIEVAL_ORDER")
+@Table(name = "XINGFA.RETRIEVAL_ORDER")
 public class RetrievalOrder {
 
     public static final String COL_ORDER_NO = "orderNo";
@@ -45,8 +45,7 @@ public class RetrievalOrder {
 
     @Id
     @Column(name = "ID")
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq")
-    @SequenceGenerator(name = "seq", sequenceName = "SEQ_RETRIEVALORDER_ID", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public int getId() {
         return id;
     }

@@ -19,7 +19,7 @@ import java.util.Date;
  * Created by Administrator on 2016/10/26.
  */
 @Entity
-@Table(name = "TransportModeChange")
+@Table(name = "XINGFA.TransportModeChange")
 public class TransportModeChange extends XMLProcess {
 
     @XStreamAlias("ControlArea")
@@ -52,8 +52,7 @@ public class TransportModeChange extends XMLProcess {
     private int id;
 
     @Id
-    @SequenceGenerator(name = "sequenceGenerator", sequenceName = "WORKSTARTEND_SEQ", allocationSize = 1)
-    @GeneratedValue(generator = "sequenceGenerator", strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID")
     public int getId() {
         return id;

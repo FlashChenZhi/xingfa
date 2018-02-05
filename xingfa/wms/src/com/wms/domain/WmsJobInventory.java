@@ -6,7 +6,7 @@ import javax.persistence.*;
  * Created by van on 2017/12/15.
  */
 @Entity
-@Table(name = "WMS_JOB_INVENTORY")
+@Table(name = "XINGFA.WMS_JOB_INVENTORY")
 public class WmsJobInventory {
 
     private int id;
@@ -15,8 +15,7 @@ public class WmsJobInventory {
 
     @Id
     @Column(name = "ID")
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq")
-    @SequenceGenerator(name = "seq", sequenceName = "SEQ_WMS_JOB_INVENTORY_ID", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public int getId() {
         return id;
     }

@@ -10,7 +10,7 @@ import java.util.List;
  * Created by van on 2018/1/19.
  */
 @Entity
-@Table(name = "INMESSAGE")
+@Table(name = "XINGFA.INMESSAGE")
 public class InMessage {
     private String stationNo;
     private String palletNo;

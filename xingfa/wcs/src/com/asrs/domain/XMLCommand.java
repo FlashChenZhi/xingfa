@@ -14,7 +14,7 @@ import java.util.List;
  * Copyright Daifuku Shanghai Ltd.
  */
 @Entity
-@Table(name = "XMLCOMMAND")
+@Table(name = "XINGFA.XMLCOMMAND")
 public class XMLCommand {
     private int _id;
 

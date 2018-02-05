@@ -18,7 +18,7 @@ import java.util.List;
  * Copyright Daifuku Shanghai Ltd.
  */
 @Entity
-@Table(name = "STATION")
+@Table(name = "XINGFA.STATION")
 public class Station
 {
     public static final String __STATIONNO = "stationNo";

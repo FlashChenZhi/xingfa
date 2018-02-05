@@ -15,7 +15,7 @@ import java.util.Set;
  * Created by xiongying on 2015/8/16.
  */
 @Entity
-@Table(name = "MENU")
+@Table(name = "XINGFA.MENU")
 public class Menu {
     private int id;
     private String code;
@@ -64,8 +64,7 @@ public class Menu {
 
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq")
-    @SequenceGenerator(name = "seq", sequenceName = "SEQ_MENU_ID", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID")
     public int getId() {
         return id;

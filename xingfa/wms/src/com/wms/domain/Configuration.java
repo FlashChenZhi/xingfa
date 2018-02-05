@@ -8,7 +8,7 @@ import javax.persistence.*;
  * Created by van on 2017/5/15.
  */
 @Entity
-@Table(name = "CONFIGURATION")
+@Table(name = "XINGFA.CONFIGURATION")
 public class Configuration {
     private String key;
     private String value;

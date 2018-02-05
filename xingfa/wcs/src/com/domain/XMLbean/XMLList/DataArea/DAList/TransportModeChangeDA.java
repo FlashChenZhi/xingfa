@@ -13,7 +13,7 @@ import javax.persistence.*;
  * To change this template use File | Settings | File Templates.
  */
 @Entity
-@Table(name = "TransportModeChange")
+@Table(name = "XINGFA.TransportModeChange")
 public class TransportModeChangeDA {
 
     @XStreamAlias("TransportType")
@@ -56,8 +56,7 @@ public class TransportModeChangeDA {
     private int id;
 
     @Id
-    @SequenceGenerator(name = "sequenceGenerator", sequenceName = "TRANSPORTMODECHANGE_DA_SEQ", allocationSize = 1)
-    @GeneratedValue(generator = "sequenceGenerator", strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID")
     public int getId() {
         return id;

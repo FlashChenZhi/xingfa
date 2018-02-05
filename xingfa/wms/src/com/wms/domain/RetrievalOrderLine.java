@@ -7,7 +7,7 @@ import java.util.Date;
 import java.util.Objects;
 
 @Entity
-@Table(name = "RETRIEVAL_ORDER_LINE", schema = "XINGFA", catalog = "")
+@Table(name = "XINGFA.RETRIEVAL_ORDER_LINE", schema = "XINGFA", catalog = "")
 public class RetrievalOrderLine {
 
     private int rid;
@@ -26,8 +26,7 @@ public class RetrievalOrderLine {
     private Date chuangjianshijian;
     @Id
     @Column(name = "RID", nullable = false, precision = 0)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "rolseq")
-    @SequenceGenerator(name = "rolseq", sequenceName = "R_O_LSEQ", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public int getRid() {
         return rid;
     }

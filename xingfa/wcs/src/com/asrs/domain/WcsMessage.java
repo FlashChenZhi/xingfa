@@ -9,7 +9,7 @@ import java.util.Date;
 import java.util.List;
 
 @Entity
-@Table(name = "WSG")
+@Table(name = "XINGFA.WSG")
 public class WcsMessage {
     private int id;
     private String plcName = "";
@@ -35,8 +35,7 @@ public class WcsMessage {
 
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq")
-    @SequenceGenerator(name = "seq", sequenceName = "SEQ_MSG03", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID", nullable = false, length = 8)
     public int getId() {
         return id;

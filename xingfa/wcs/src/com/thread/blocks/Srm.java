@@ -10,7 +10,7 @@ import javax.persistence.*;
  * 移动提升机
  */
 @Entity
-@Table(name = "Block")
+@Table(name = "XINGFA.Block")
 @DiscriminatorValue(value = "6")
 public class Srm extends Block {
 

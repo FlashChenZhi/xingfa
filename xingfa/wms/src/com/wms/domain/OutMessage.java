@@ -11,7 +11,7 @@ import java.util.List;
  * Created by van on 2018/1/19.
  */
 @Entity
-@Table(name = "OUTMESSAGE")
+@Table(name = "XINGFA.OUTMESSAGE")
 public class OutMessage {
     private String stationNo;
     private String sku;

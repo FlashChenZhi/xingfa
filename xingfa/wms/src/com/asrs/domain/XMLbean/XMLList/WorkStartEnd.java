@@ -14,7 +14,7 @@ import javax.persistence.*;
  * Created by Administrator on 2016/10/26.
  */
 @Entity
-@Table(name = "WorkStartEnd")
+@Table(name = "XINGFA.WorkStartEnd")
 public class WorkStartEnd extends XMLProcess {
 
     @XStreamAlias("ControlArea")
@@ -47,8 +47,7 @@ public class WorkStartEnd extends XMLProcess {
     private int id;
 
     @Id
-    @SequenceGenerator(name = "sequenceGenerator", sequenceName = "WORKSTARTEND_SEQ", allocationSize = 1)
-    @GeneratedValue(generator = "sequenceGenerator", strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID")
     public int getId() {
         return id;

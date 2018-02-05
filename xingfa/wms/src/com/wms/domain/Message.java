@@ -7,7 +7,7 @@ import java.util.Date;
  * Created by wangfan on 2017/1/5.
  */
 @Entity
-@Table(name = "MESSAGE")
+@Table(name = "XINGFA.MESSAGE")
 public class Message {
     private int id;
     private String machineNo;
@@ -34,8 +34,7 @@ public class Message {
 
     @Id
     @Column(name = "ID", nullable = false, length = 8)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq")
-    @SequenceGenerator(name = "seq", sequenceName = "SEQ_MESSAGE_ID", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public int getId() {
         return id;
     }

@@ -9,7 +9,7 @@ import javax.persistence.*;
  * Created by van on 2018/1/15.
  */
 @Entity
-@Table(name = "IN_STRATEGY")
+@Table(name = "XINGFA.IN_STRATEGY")
 public class InStrategy {
 
     private int id;
@@ -19,8 +19,7 @@ public class InStrategy {
 
     @Id
     @Column(name = "ID")
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq")
-    @SequenceGenerator(name = "seq", sequenceName = "SEQ_IN_STRATEGY_ID", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public int getId() {
         return id;
     }

@@ -1,5 +1,8 @@
 package com.wms.domain;
 
+import com.util.hibernate.HibernateUtil;
+import org.hibernate.Query;
+
 import javax.persistence.*;
 import java.math.BigDecimal;
 
@@ -7,7 +10,7 @@ import java.math.BigDecimal;
  * Created by van on 2017/12/14.
  */
 @Entity
-@Table(name = "RECEIVINGPLAN")
+@Table(name = "XINGFA.RECEIVINGPLAN")
 public class InventoryView {
 
     private int id;
@@ -20,8 +23,7 @@ public class InventoryView {
 
     @Id
     @Column(name = "ID")
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq")
-    @SequenceGenerator(name = "seq", sequenceName = "SEQ_RECVPLAN_ID", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public int getId() {
         return id;
     }
@@ -88,5 +90,11 @@ public class InventoryView {
 
     public void setQty(BigDecimal qty) {
         this.qty = qty;
+    }
+
+    public static InventoryView getByPalletNo(String palletNo) {
+        Query query = HibernateUtil.getCurrentSession().createQuery("from InventoryView iv where iv.palletCode = :palletCode")
+                .setString("palletCode",palletNo);
+        return (InventoryView) query.uniqueResult();
     }
 }

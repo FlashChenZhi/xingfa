@@ -15,7 +15,7 @@ import javax.persistence.*;
  * To change this template use File | Settings | File Templates.
  */
 @Entity
-@Table(name = "ScanData")
+@Table(name = "XINGFA.ScanData")
 public class ScanData {
     @XStreamAsAttribute
     @XStreamAlias("ScanFlag")
@@ -47,8 +47,7 @@ public class ScanData {
     private int id;
 
     @Id
-    @SequenceGenerator(name = "sequenceGenerator", sequenceName = "SCANDATA_SEQ", allocationSize = 1)
-    @GeneratedValue(generator = "sequenceGenerator", strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID")
     public int getId() {
         return id;
