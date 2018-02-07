@@ -82,8 +82,8 @@ public class InputRetrievalOrderLineThread implements Runnable
                     }else{
                         list.add(new ErrorMessage(new RetrievalOrderLine(),"与RetrievalOrderLine表不匹配"));
                     }
-                    if(list.isEmpty()) {
-                        cuoWu(f.getName().split(".")[0], sdf.format(d), list);
+                    if(!list.isEmpty()) {
+                        cuoWu(f.getName().split("\\.")[0], sdf.format(d), list);
                     }
             Transaction.commit();
                     }
@@ -169,19 +169,19 @@ public class InputRetrievalOrderLineThread implements Runnable
         sheet1.addCell(new Label(9, 0, "订单数量"));
         sheet1.addCell(new Label(10, 0, "单位"));
         sheet1.addCell(new Label(11, 0, "错误信息"));
-        for (int i=1;i<=list.size();i++){
-            sheet1.addCell(new Label(0, i, list.get(i).retrievalOrderLine.getShouhuodanhao()));
-            sheet1.addCell(new Label(1, i, list.get(i).retrievalOrderLine.getJinhuodanhao()));
-            sheet1.addCell(new Label(2, i, list.get(i).retrievalOrderLine.getHuozhudaima()));
-            sheet1.addCell(new Label(3, i, list.get(i).retrievalOrderLine.getHuozhumingcheng()));
-            sheet1.addCell(new Label(4, i, list.get(i).retrievalOrderLine.getCangkudaima()));
-            sheet1.addCell(new Label(5, i, list.get(i).retrievalOrderLine.getShouhuoleixing()));
-            sheet1.addCell(new Label(6, i, list.get(i).retrievalOrderLine.getHanghao()));
-            sheet1.addCell(new Label(7, i, list.get(i).retrievalOrderLine.getShangpindaima()));
-            sheet1.addCell(new Label(8, i, list.get(i).retrievalOrderLine.getShangpinmingcheng()));
-            sheet1.addCell(new Label(9, i, list.get(i).retrievalOrderLine.getDingdanshuliang()+""));
-            sheet1.addCell(new Label(10,i, list.get(i).retrievalOrderLine.getDanwei()));
-            sheet1.addCell(new Label(11,i, list.get(i).message));
+        for (int i=0;i<list.size();i++){
+            sheet1.addCell(new Label(0, i+1, list.get(i).retrievalOrderLine.getShouhuodanhao()));
+            sheet1.addCell(new Label(1, i+1, list.get(i).retrievalOrderLine.getJinhuodanhao()));
+            sheet1.addCell(new Label(2, i+1, list.get(i).retrievalOrderLine.getHuozhudaima()));
+            sheet1.addCell(new Label(3, i+1, list.get(i).retrievalOrderLine.getHuozhumingcheng()));
+            sheet1.addCell(new Label(4, i+1, list.get(i).retrievalOrderLine.getCangkudaima()));
+            sheet1.addCell(new Label(5, i+1, list.get(i).retrievalOrderLine.getShouhuoleixing()));
+            sheet1.addCell(new Label(6, i+1, list.get(i).retrievalOrderLine.getHanghao()));
+            sheet1.addCell(new Label(7, i+1, list.get(i).retrievalOrderLine.getShangpindaima()));
+            sheet1.addCell(new Label(8, i+1, list.get(i).retrievalOrderLine.getShangpinmingcheng()));
+            sheet1.addCell(new Label(9, i+1, list.get(i).retrievalOrderLine.getDingdanshuliang()+""));
+            sheet1.addCell(new Label(10,i+1, list.get(i).retrievalOrderLine.getDanwei()));
+            sheet1.addCell(new Label(11,i+1, list.get(i).message));
         }
         book1.write();
         book1.close();

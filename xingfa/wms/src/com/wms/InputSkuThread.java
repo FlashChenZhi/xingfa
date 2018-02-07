@@ -78,8 +78,8 @@ public class InputSkuThread  implements Runnable{
                         }else{
                             list.add(new ErrorMessage(new Sku(),"与Sku表不匹配"));
                         }
-                        if(list.isEmpty()){
-                            cuoWu(f.getName().split(".")[0],sdf.format(d),list);
+                        if(!list.isEmpty()){
+                            cuoWu(f.getName().split("\\.")[0]+"",sdf.format(d)+"",list);
                         }
                         Transaction.commit();
                     }
@@ -103,6 +103,7 @@ public class InputSkuThread  implements Runnable{
                 Transaction.rollback();
 
                 System.out.println(e.getMessage());
+                e.printStackTrace();
             }finally {
                 try {
                     Thread.sleep(10000);
@@ -137,11 +138,12 @@ public class InputSkuThread  implements Runnable{
         }
 
     }
-    public static void cuoWu(String wenJianMing,String shiJian,List<ErrorMessage> list) throws Exception {
+    public  void cuoWu(String wenJianMing,String shiJian,List<ErrorMessage> list1) throws Exception {
 
         WritableWorkbook book1 = Workbook.createWorkbook(new File("E:/test/cuowu/"+wenJianMing+"_" + shiJian+ ".xls"));
+        System.out.println(wenJianMing+":"+shiJian);
         // 生成名为“sheet1”的工作表，参数0表示这是第一页
-        WritableSheet sheet1 = book1.createSheet("sheet3", 0);
+        WritableSheet sheet1 = book1.createSheet("sheet9", 0);
         Label label = new Label(0, 0, "收货单号");
         sheet1.addCell(label);
         sheet1.addCell(new Label(1, 0, "交货单号"));
@@ -156,20 +158,20 @@ public class InputSkuThread  implements Runnable{
         sheet1.addCell(new Label(10, 0, "单位"));
         sheet1.addCell(new Label(11, 0, "存放区域"));
         sheet1.addCell(new Label(12, 0, "错误信息"));
-        for (int i = 1; i <=list.size(); i++) {
-            sheet1.addCell(new Label(0, i, list.get(i).sku.getShouhuodanhao()));
-            sheet1.addCell(new Label(1, i, list.get(i).sku.getJiaohuodanhao()));
-            sheet1.addCell(new Label(2, i, list.get(i).sku.getHuozhudaima()));
-            sheet1.addCell(new Label(3, i, list.get(i).sku.getHuozhumingcheng()));
-            sheet1.addCell(new Label(4, i, list.get(i).sku.getCangkudaima()));
-            sheet1.addCell(new Label(5, i, list.get(i).sku.getShouhuoleixing()));
-            sheet1.addCell(new Label(6, i, list.get(i).sku.getHanghao()));
-            sheet1.addCell(new Label(7, i, list.get(i).sku.getSkuCode()));
-            sheet1.addCell(new Label(8, i,list.get(i).sku.getSkuName()));
-            sheet1.addCell(new Label(9, i, list.get(i).sku.getDingdanshuliang() + ""));
-            sheet1.addCell(new Label(10, i, list.get(i).sku.getDanwei()));
-            sheet1.addCell(new Label(11, i, list.get(i).sku.getCunfangquyu()+""));
-            sheet1.addCell(new Label(12, i, list.get(i).message));
+        for (int i = 0; i <list1.size(); i++) {
+            sheet1.addCell(new Label(0, i+1, list1.get(i).sku.getShouhuodanhao()));
+            sheet1.addCell(new Label(1, i+1, list1.get(i).sku.getJiaohuodanhao()));
+            sheet1.addCell(new Label(2, i+1, list1.get(i).sku.getHuozhudaima()));
+            sheet1.addCell(new Label(3, i+1, list1.get(i).sku.getHuozhumingcheng()));
+            sheet1.addCell(new Label(4, i+1, list1.get(i).sku.getCangkudaima()));
+            sheet1.addCell(new Label(5, i+1, list1.get(i).sku.getShouhuoleixing()));
+            sheet1.addCell(new Label(6, i+1, list1.get(i).sku.getHanghao()));
+            sheet1.addCell(new Label(7, i+1, list1.get(i).sku.getSkuCode()));
+            sheet1.addCell(new Label(8, i+1,list1.get(i).sku.getSkuName()));
+            sheet1.addCell(new Label(9, i+1, list1.get(i).sku.getDingdanshuliang() + ""));
+            sheet1.addCell(new Label(10, i+1, list1.get(i).sku.getDanwei()));
+            sheet1.addCell(new Label(11, i+1, list1.get(i).sku.getCunfangquyu()+""));
+            sheet1.addCell(new Label(12, i+1, list1.get(i).message));
         }
         book1.write();
         book1.close();
