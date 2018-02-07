@@ -53,7 +53,7 @@ let OutputArea = React.createClass({
             data: {},
             success: function (json) {
                 console.log(json);
-                console.log(json.res);
+                console.log("货主代码："+json.res);
                 this.setState({
                     shipperIdList:json.res,
                     shipperIdFirst:json.res[0],
@@ -136,10 +136,10 @@ let OutputArea = React.createClass({
         //     initialValue: this.state.productId.id
         // });
         const commodityCodeProps = getFieldProps('productId', {
-            initialValue:this.state.commodityCodeFirst.id,
+            initialValue:"",
         });
         const shipperIdProps = getFieldProps('shipperId',{
-            initialValue: this.state.shipperIdFirst.id,
+            initialValue: "",
         });
         const orderNoProps = getFieldProps('orderNo',{ initialValue: '' });
         const formItemLayout = {
@@ -147,10 +147,12 @@ let OutputArea = React.createClass({
             wrapperCol: {span: 14},
         };
         const commodityCodeListSelect =[];
+        commodityCodeListSelect.push(<Option value="">---请选择---</Option>);
         this.state.commodityCodeList.forEach((commodityCode)=>{
             commodityCodeListSelect.push(<Option value={commodityCode.id}>{commodityCode.name}</Option>);
         });
         const shipperIdList =[];
+        shipperIdList.push(<Option value="">---请选择---</Option>);
         this.state.shipperIdList.forEach((shipperId)=>{
             shipperIdList.push(<Option value={shipperId.id}>{shipperId.name}</Option>);
         });

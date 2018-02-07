@@ -62,7 +62,6 @@ public class SkuService {
             }
 
             Transaction.commit();
-
             returnObj.setSuccess(true);
             returnObj.setRes(vos);
             returnObj.setCount(count);
@@ -74,19 +73,15 @@ public class SkuService {
             Transaction.rollback();
             returnObj.setSuccess(false);
             returnObj.setMsg(LogMessage.UNEXPECTED_ERROR.getName());
-
         }
-
         return returnObj;
     }
-
 
     public PagerReturnObj<List<SkuShelfLifeVo>> getShelfLife(String skuCode, GridPages pages) {
 
         PagerReturnObj<List<SkuShelfLifeVo>> returnObj = new PagerReturnObj<List<SkuShelfLifeVo>>();
         try {
             Transaction.begin();
-
             StringBuilder sb = new StringBuilder("select i.ITEM_CODE,i.item_name,s.SHELF_LIFE,s.WARNING from SKU_IFAC i left join sku s on i.ITEM_CODE = s.SKU_CODE ");
             StringBuilder coutSb = new StringBuilder("select count(1) from SKU_IFAC i left join sku s on i.ITEM_CODE = s.SKU_CODE");
             if (org.apache.commons.lang.StringUtils.isNotBlank(skuCode)) {
