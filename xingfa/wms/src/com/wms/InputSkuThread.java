@@ -79,7 +79,7 @@ public class InputSkuThread  implements Runnable{
                             list.add(new ErrorMessage(new Sku(),"与Sku表不匹配"));
                         }
                         if(!list.isEmpty()){
-                            cuoWu(f.getName().split("\\.")[0]+"",sdf.format(d)+"",list);
+                            cuoWu(oldPath,newPath,f.getName().split("\\.")[0]+"",sdf.format(d)+"",list);
                         }
                         Transaction.commit();
                     }
@@ -138,8 +138,9 @@ public class InputSkuThread  implements Runnable{
         }
 
     }
-    public  void cuoWu(String wenJianMing,String shiJian,List<ErrorMessage> list1) throws Exception {
-
+    public static void cuoWu(String oldPath,String newPath,String wenJianMing,String shiJian,List<ErrorMessage> list1) throws Exception {
+        copyFile(newPath,oldPath);
+        deleteFile(newPath);
         WritableWorkbook book1 = Workbook.createWorkbook(new File("E:/test/cuowu/"+wenJianMing+"_" + shiJian+ ".xls"));
         System.out.println(wenJianMing+":"+shiJian);
         // 生成名为“sheet1”的工作表，参数0表示这是第一页

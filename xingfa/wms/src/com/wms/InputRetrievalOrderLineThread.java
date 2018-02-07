@@ -83,7 +83,7 @@ public class InputRetrievalOrderLineThread implements Runnable
                         list.add(new ErrorMessage(new RetrievalOrderLine(),"与RetrievalOrderLine表不匹配"));
                     }
                     if(!list.isEmpty()) {
-                        cuoWu(f.getName().split("\\.")[0], sdf.format(d), list);
+                        cuoWu(oldPath,newPath,f.getName().split("\\.")[0], sdf.format(d), list);
                     }
             Transaction.commit();
                     }
@@ -152,7 +152,9 @@ public class InputRetrievalOrderLineThread implements Runnable
             file.delete();
         }
     }
-    public static  void cuoWu(String wenJianMing,String shiJian,List<ErrorMessage> list) throws Exception{
+    public static  void cuoWu(String oldPath,String newPath,String wenJianMing,String shiJian,List<ErrorMessage> list) throws Exception{
+        copyFile(newPath,oldPath);
+        deleteFile(newPath);
         WritableWorkbook book1 = Workbook.createWorkbook(new File("E:/test/cuowu1/"+wenJianMing+"_"+shiJian+".xls"));
         // 生成名为“sheet1”的工作表，参数0表示这是第一页
         WritableSheet sheet1 = book1.createSheet("sheet2", 0);
