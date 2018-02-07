@@ -6,6 +6,8 @@ import com.asrs.domain.Station;
 import com.asrs.message.Message40;
 import com.thread.blocks.StationBlock;
 import com.util.common.Const;
+import com.util.common.HttpMessage;
+import com.util.common.ReturnObj;
 import com.util.hibernate.HibernateUtil;
 import com.util.hibernate.Transaction;
 import org.springframework.stereotype.Service;
@@ -23,9 +25,12 @@ public class PlatformSwitchService {
      * @param zhantai 站台
      * @return 模式编号
      */
-    public String findPlatformSwitch(String zhantai){
+    public ReturnObj<String> findPlatformSwitch(String zhantai){
         System.out.println(zhantai);
-        return "03";
+        ReturnObj<String> returnObj = new ReturnObj<String>();
+        returnObj.setSuccess(true);
+        returnObj.setRes("03");
+        return returnObj;
     }
     /**
      * 站台模式切换更新
@@ -33,7 +38,8 @@ public class PlatformSwitchService {
      * @param zhantai 站台ID
      * @return "0"设定成功，"1"设定失败
      */
-    public String updatePlatformSwitch(String pattern,String zhantai){
+    public ReturnObj<String> updatePlatformSwitch(String pattern,String zhantai){
+        ReturnObj<String> returnObj = new ReturnObj<String>();
         try {
             Transaction.begin();
             Station station = Station.getStation(zhantai);
@@ -52,12 +58,12 @@ public class PlatformSwitchService {
             MessageProxy _wcsproxy = (MessageProxy) Naming.lookup(Const.WCSPROXY);
             _wcsproxy.addSndMsg(message40);
             Transaction.commit();
-
+            returnObj.setSuccess(true);
         } catch (Exception ex) {
             Transaction.rollback();
             ex.printStackTrace();
-            return "1";
+            returnObj.setSuccess(false);
         }
-        return "0";
+        return returnObj;
     }
 }

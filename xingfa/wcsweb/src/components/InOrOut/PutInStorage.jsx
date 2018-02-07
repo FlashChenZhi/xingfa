@@ -27,12 +27,16 @@ let PutInStorage = React.createClass({
             method: 'post',
             data: {},
             success: function (json) {
-                console.log(json);
-                console.log(json.res);
-                this.setState({
-                    commodityCodeList:json.res,
-                    commodityCodeFirst:json.res[0],
-                })
+                if(json.success){
+                    console.log(json);
+                    console.log(json.res);
+                    this.setState({
+                        commodityCodeList:json.res,
+                        commodityCodeFirst:json.res[0],
+                    })
+                }else{
+                    message.error("初始化商品代码失败！");
+                }
             }.bind(this),
             error: function (err) {
                 message.error("初始化商品代码失败！");

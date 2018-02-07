@@ -33,12 +33,16 @@ let OutputArea = React.createClass({
             method: 'post',
             data: {},
             success: function (json) {
-                console.log(json);
-                console.log(json.res);
-                this.setState({
-                    commodityCodeList:json.res,
-                    commodityCodeFirst:json.res[0],
-                })
+                if(json.success) {
+                    console.log(json);
+                    console.log(json.res);
+                    this.setState({
+                        commodityCodeList: json.res,
+                        commodityCodeFirst: json.res[0],
+                    })
+                }else{
+                    message.error("初始化商品代码失败！");
+                }
             }.bind(this),
             error: function (err) {
                 message.error("初始化商品代码失败！");
@@ -52,12 +56,16 @@ let OutputArea = React.createClass({
             method: 'post',
             data: {},
             success: function (json) {
-                console.log(json);
-                console.log("货主代码："+json.res);
-                this.setState({
-                    shipperIdList:json.res,
-                    shipperIdFirst:json.res[0],
-                })
+                if(json.success){
+                    console.log(json);
+                    console.log("货主代码："+json.res);
+                    this.setState({
+                        shipperIdList:json.res,
+                        shipperIdFirst:json.res[0],
+                    })
+                }else{
+                    message.error("初始化货主代码失败！");
+                }
             }.bind(this),
             error: function (err) {
                 message.error("初始化货主代码失败！");
@@ -89,8 +97,12 @@ let OutputArea = React.createClass({
             data: {orderNo:values.orderNo,currentPage:values.currentPage,productId:values.productId
                 ,shipperId:values.shipperId, PageSize:defaultPageSize},
             success: function (json) {
-                console.log("数据："+json.res);
-                this.setState({data: json.res, total: json.count, loading: false});
+                if(json.success){
+                    console.log("数据："+json.res);
+                    this.setState({data: json.res, total: json.count, loading: false});
+                }else{
+                    message.error("加载数据失败！");
+                }
             }.bind(this),
             error: function (err) {
                 reqwestError(err);

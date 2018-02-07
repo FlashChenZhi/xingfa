@@ -28,16 +28,19 @@ let PlatformSwitch = React.createClass({
             data: {zhantai:zhantai},
             success: function (json) {
                 console.log(json);
-                if(json==3){
-                    this.props.form.setFieldsValue({
-                        pattern: "03",
-                    });
-                }else if (json==1){
-                    this.props.form.setFieldsValue({
-                        pattern: "01",
-                    });
+                if(json.success){
+                    if(json.res==3){
+                        this.props.form.setFieldsValue({
+                            pattern: "03",
+                        });
+                    }else if (json.res==1){
+                        this.props.form.setFieldsValue({
+                            pattern: "01",
+                        });
+                    }
+                }else{
+                    message.error("初始化站台模式失败！");
                 }
-
             }.bind(this),
             error: function (err) {
                 message.error("初始化站台模式失败！");
@@ -58,7 +61,7 @@ let PlatformSwitch = React.createClass({
                     method: 'post',
                     data: {pattern: pattern,zhantai:zhantai},
                     success: function (json) {
-                        if (json!="0") {
+                        if (!json.success) {
                             message.error("模式切换失败！");
                         } else {
                             message.success("模式切换成功！");

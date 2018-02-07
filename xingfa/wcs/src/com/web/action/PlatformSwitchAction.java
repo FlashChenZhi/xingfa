@@ -1,5 +1,7 @@
 package com.web.action;
 
+import com.util.common.HttpMessage;
+import com.util.common.ReturnObj;
 import com.web.service.PlatformSwitchService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,8 +25,9 @@ public class PlatformSwitchAction {
      */
     @RequestMapping(value = "findPlatformSwitch.do",method = RequestMethod.POST)
     @ResponseBody
-    public String findPlatformSwitch(String zhantai){
+    public ReturnObj<String> findPlatformSwitch(String zhantai){
         System.out.println(zhantai);
+
         return platformSwitchService.findPlatformSwitch(zhantai);
     }
 
@@ -36,7 +39,7 @@ public class PlatformSwitchAction {
      */
     @RequestMapping(value = "updatePlatformSwitch.do",method = RequestMethod.POST)
     @ResponseBody
-    public String updatePlatformSwitch(String pattern,String zhantai){
+    public ReturnObj<String> updatePlatformSwitch(String pattern,String zhantai){
         System.out.println(pattern+";"+zhantai);
         return platformSwitchService.updatePlatformSwitch(pattern,zhantai);
     }

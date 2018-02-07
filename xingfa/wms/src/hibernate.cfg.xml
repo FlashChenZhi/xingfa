@@ -8,15 +8,9 @@
         <!--<property name="hibernate.connection.driver_class">oracle.jdbc.driver.OracleDriver</property>-->
         <property name="hibernate.connection.driver_class">com.microsoft.sqlserver.jdbc.SQLServerDriver</property>
         <!--<property name="hibernate.connection.url">jdbc:oracle:thin:@localhost:1521:orcl</property>-->
-<<<<<<< HEAD
-        <property name="hibernate.connection.url">jdbc:sqlserver://localhost:1433;DatabaseName=xingfa</property>
-=======
-<<<<<<< HEAD
-        <property name="hibernate.connection.url">jdbc:sqlserver://192.168.10.211:1433;DatabaseName=xingfa</property>
-=======
-        <property name="hibernate.connection.url">jdbc:sqlserver://172.16.200.100:1433;DatabaseName=xingfa</property>
->>>>>>> 112a69b2c9942ac9d246ef53f4dee0176658c1f6
->>>>>>> 2e96d489977526f251ba329ae6902f305a8b280a
+
+        <property name="hibernate.connection.url">jdbc:sqlserver://xingfa:1433;DatabaseName=xingfa</property>
+
         <property name="hibernate.connection.username">xingfa</property>
         <property name="connection.password">wms</property>
         <!--<property name="hibernate.dialect">org.hibernate.dialect.Oracle10gDialect</property>-->

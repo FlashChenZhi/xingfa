@@ -115,8 +115,6 @@ public class StockOutThread {
                           String toStation = position.equals("1") ? "1201" : "1301";//到达站台
                           String fromStation = position.equals("1") ? "ML01" : "ML02";//出发地点
                           String type = AsrsJobType.RETRIEVAL; //出库
-                          String status = "1";
-                          Boolean sendReport = true;
                           //存入jobDetail
                           jobDetail.setInventory(inventory);
                           jobDetail.setQty(inventory.getQty());
@@ -125,11 +123,12 @@ public class StockOutThread {
                           job.setFromStation(fromStation);
                           job.setMcKey(mckey);
                           job.setOrderNo(rol.getJinhuodanhao());
-                          job.setSendReport(sendReport);
-                          job.setStatus(status);
+                          job.setSendReport(false);
+                          job.setStatus("1");
                           job.setToStation(toStation);
                           job.setType(type);
                           job.addJobDetail(jobDetail);
+                          job.setFromLocation(inventory.getContainer().getLocation());
                           //修改订单表中的数据
                           rol.setWanchengdingdanshuliang(rol.getWanchengdingdanshuliang()+qty);
                           session.saveOrUpdate(rol);
