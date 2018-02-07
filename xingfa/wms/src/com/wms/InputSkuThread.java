@@ -44,40 +44,39 @@ public class InputSkuThread  implements Runnable{
                         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                         System.out.println("当前时间：" + sdf.format(d));
                         String newPath="E:/test/fu/"+f.getName().split("\\.")[0]+"_"+sdf.format(d)+".xls";
-                        copyFile(oldPath,newPath);
-                        deleteFile(oldPath);
                         List<ErrorMessage> list=new ArrayList();
-                        for (int i = 1; i < sheet.getRows(); i++)
-                        {
-                            if(StringUtils.isNotBlank(sheet.getCell(7, i).getContents())){
-                                Sku sku = null;
-                                try {
-                                    sku = Sku.getByCode(sheet.getCell(7, i).getContents());
-                                } catch (Exception e) {
-                                    list.add(new ErrorMessage(sku,"与查询表不符"));
-                                }
-                                if(sku != null)
-                                {
-                                    list.add(new ErrorMessage(sku,"商品代码重复"));
-                                    continue;
-                                }
-                                sku = new Sku();
-                                session.save(sku);
-                                sku.setHuozhudaima(sheet.getCell(2, i).getContents());
-                                sku.setHuozhumingcheng(sheet.getCell(3, i).getContents());
-                                sku.setCangkudaima(sheet.getCell(4, i).getContents());
-                                sku.setShouhuoleixing(sheet.getCell(5, i).getContents());
-                                sku.setSkuCode(sheet.getCell(7, i).getContents());
-                                sku.setSkuName(sheet.getCell(8, i).getContents());
-                                sku.setDanwei(sheet.getCell(10, i).getContents());
-                                if(StringUtils.isBlank(sheet.getCell(11, i).getContents())&&StringUtils.isBlank(sheet.getCell(12, i).getContents())){
-                                    sku.setCunfangquyu(0);
-                                }else if(StringUtils.equals(sheet.getCell(11, i).getContents(),"少量、专区1")||StringUtils.equals(sheet.getCell(12, i).getContents(),"少量、专区1")){
-                                    sku.setCunfangquyu(1);
-                                }else if(StringUtils.equals(sheet.getCell(11, i).getContents(),"危化品 专区2")||StringUtils.equals(sheet.getCell(12, i).getContents(),"危化品 专区2")){
-                                    sku.setCunfangquyu(2);
+                        if(StringUtils.isNotBlank(sheet.getCell(1, 1).getContents())){
+                            copyFile(oldPath,newPath);
+                            deleteFile(oldPath);
+                            for (int i = 1; i < sheet.getRows(); i++)
+                            {
+                                if(StringUtils.isNotBlank(sheet.getCell(7, i).getContents())){
+                                    Sku sku = Sku.getByCode(sheet.getCell(7, i).getContents());
+                                    if(sku != null)
+                                    {
+                                        list.add(new ErrorMessage(sku,"商品代码重复"));
+                                        continue;
+                                    }
+                                    sku = new Sku();
+                                    session.save(sku);
+                                    sku.setHuozhudaima(sheet.getCell(2, i).getContents());
+                                    sku.setHuozhumingcheng(sheet.getCell(3, i).getContents());
+                                    sku.setCangkudaima(sheet.getCell(4, i).getContents());
+                                    sku.setShouhuoleixing(sheet.getCell(5, i).getContents());
+                                    sku.setSkuCode(sheet.getCell(7, i).getContents());
+                                    sku.setSkuName(sheet.getCell(8, i).getContents());
+                                    sku.setDanwei(sheet.getCell(10, i).getContents());
+                                    if(StringUtils.isBlank(sheet.getCell(11, i).getContents())&&StringUtils.isBlank(sheet.getCell(12, i).getContents())){
+                                        sku.setCunfangquyu(0);
+                                    }else if(StringUtils.equals(sheet.getCell(11, i).getContents(),"少量、专区1")||StringUtils.equals(sheet.getCell(12, i).getContents(),"少量、专区1")){
+                                        sku.setCunfangquyu(1);
+                                    }else if(StringUtils.equals(sheet.getCell(11, i).getContents(),"危化品 专区2")||StringUtils.equals(sheet.getCell(12, i).getContents(),"危化品 专区2")){
+                                        sku.setCunfangquyu(2);
+                                    }
                                 }
                             }
+                        }else{
+                            list.add(new ErrorMessage(new Sku(),"与Sku表不匹配"));
                         }
                         if(list.isEmpty()){
                             cuoWu(f.getName().split(".")[0],sdf.format(d),list);
