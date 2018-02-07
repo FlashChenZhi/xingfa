@@ -73,4 +73,16 @@ public class StationOperator {
             MsgSender.send03(Message03._CycleOrder.moveUnloadGoods, mckey, stationBlock, "", nextBlock.getBlockNo(), "", "");
         }
     }
+
+    /**
+     * 从移动提升机上移栽取货
+     * 如果移动提升机的dock和输送机的dock一致
+     *
+     * @throws Exception
+     */
+    public void tryMoveCarryGoodsFromSrm(Srm preBlock) throws Exception {
+        if (preBlock.getDock() != null && preBlock.getDock().equals(stationBlock.getBlockNo())) {
+            MsgSender.send03(Message03._CycleOrder.moveCarryGoods, mckey, stationBlock, "", preBlock.getBlockNo(), "", "");
+        }
+    }
 }

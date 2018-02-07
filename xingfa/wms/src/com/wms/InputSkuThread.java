@@ -41,11 +41,11 @@ public class InputSkuThread  implements Runnable{
                         Sheet sheet = data.getSheet(0);
 
                         Date d = new Date();
-                        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
                         System.out.println("当前时间：" + sdf.format(d));
                         String newPath="E:/test/fu/"+f.getName().split("\\.")[0]+"_"+sdf.format(d)+".xls";
                         List<ErrorMessage> list=new ArrayList();
-                        if(StringUtils.isNotBlank(sheet.getCell(1, 1).getContents())){
+                        if(StringUtils.isBlank(sheet.getCell(1, 1).getContents())){
                             copyFile(oldPath,newPath);
                             deleteFile(oldPath);
                             for (int i = 1; i < sheet.getRows(); i++)

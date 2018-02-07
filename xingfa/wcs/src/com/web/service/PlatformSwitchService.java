@@ -37,7 +37,8 @@ public class PlatformSwitchService {
         try {
             Transaction.begin();
             Station station = Station.getStation(zhantai);
-            StationBlock block = (StationBlock) HibernateUtil.getCurrentSession().createQuery("from StationBlock sb where sb.stationNo = :stationNo").uniqueResult();
+            StationBlock block = (StationBlock) HibernateUtil.getCurrentSession().createQuery("from StationBlock sb where sb.stationNo = :stationNo")
+                    .setString("stationNo",zhantai).uniqueResult();
 
             if (!pattern.equals(station.getMode())) {
                 station.setOldMode(station.getMode());

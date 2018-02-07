@@ -112,8 +112,8 @@ public abstract class SrmAndScarServiceImpl implements SrmService {
                         asrsJob.setMcKey(Mckey.getNext());
                         asrsJob.setToLocation(sCar.getChargeLocation());
                         asrsJob.setFromStation(srm.getBlockNo());
-                        Location location = Location.getByLocationNo(sCar.getChargeLocation());
-                        Srm chargeSrm = srm.getSrmByPosition(location.getPosition());
+//                        Location location = Location.getByLocationNo(sCar.getChargeLocation());
+                        Srm chargeSrm = srm.getSrmByPosition("1");
                         asrsJob.setToStation(chargeSrm.getBlockNo());
                         asrsJob.setStatus(AsrsJobStatus.RUNNING);
                         asrsJob.setStatusDetail(AsrsJobStatusDetail.ACCEPTED);

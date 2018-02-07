@@ -143,6 +143,9 @@ public class MovementReport extends XMLProcess {
             Location location = j.getFromLocation();
             location.setEmpty(true);
             location.setRetrievalRestricted(false);
+            for(Container container : location.getContainers()){
+                session.delete(container);
+            }
             session.update(location);
             j.setStatus(AsrsJobStatus.DONE);
 //            OutMessage.info(j.getToStation(), j.getOrderNo(), j.getContainer());

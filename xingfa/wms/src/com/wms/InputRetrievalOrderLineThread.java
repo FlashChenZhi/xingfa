@@ -1,5 +1,7 @@
 package com.wms;
 
+import com.util.hibernate.HibernateUtil;
+import com.util.hibernate.Transaction;
 import com.wms.domain.RetrievalOrderLine;
 import jxl.Sheet;
 import jxl.Workbook;
@@ -8,6 +10,7 @@ import jxl.write.Label;
 import jxl.write.WritableSheet;
 import jxl.write.WritableWorkbook;
 import org.apache.commons.lang.StringUtils;
+import org.hibernate.Session;
 
 import java.io.*;
 import java.text.SimpleDateFormat;
@@ -38,9 +41,9 @@ public class InputRetrievalOrderLineThread implements Runnable
                 File[] filelist = file.listFiles();
                 for (File f:filelist){
                     if (f.isFile() && (f.getName().endsWith(".xls")|| f.getName().endsWith(".xlsx"))) {
-//            Transaction.begin();
+            Transaction.begin();
 
-//            Session session = HibernateUtil.getCurrentSession();
+            Session session = HibernateUtil.getCurrentSession();
                         String oldPath = "E:/test/zhu1/"+f.getName();
                         Workbook data = Workbook.getWorkbook(new File(oldPath));
                         Sheet sheet = data.getSheet(0);
@@ -49,7 +52,7 @@ public class InputRetrievalOrderLineThread implements Runnable
                         System.out.println("当前时间：" + sdf.format(d));
                         String newPath = "E:/test/fu1/"+f.getName().split("\\.")[0]+"_" + sdf.format(d) + ".xls";
                         List<ErrorMessage> list = new ArrayList();
-                        if(StringUtils.isNotBlank(sheet.getCell(11, 1).getContents())){
+                        if(StringUtils.isBlank(sheet.getCell(11, 1).getContents())){
                             copyFile(oldPath, newPath);
                             deleteFile(oldPath);
                         for (int i = 1; i < sheet.getRows(); i++) {
@@ -59,7 +62,7 @@ public class InputRetrievalOrderLineThread implements Runnable
                                 continue;
                             }
                             rol = new RetrievalOrderLine();
-//                session.save(rol);
+                session.save(rol);
                             rol.setShouhuodanhao(sheet.getCell(0, i).getContents());
                             rol.setJinhuodanhao(sheet.getCell(1, i).getContents());
                             rol.setHuozhudaima(sheet.getCell(2, i).getContents());
@@ -82,25 +85,25 @@ public class InputRetrievalOrderLineThread implements Runnable
                     if(list.isEmpty()) {
                         cuoWu(f.getName().split(".")[0], sdf.format(d), list);
                     }
-//            Transaction.commit();
+            Transaction.commit();
                     }
                 }
             }
             catch (IOException e)
             {
-//            Transaction.rollback();
+            Transaction.rollback();
 
                 System.out.println("IO错误");
             }
             catch (BiffException e)
             {
-//            Transaction.rollback();
+            Transaction.rollback();
 
                 System.out.println("Biff错误");
             }
             catch (Exception e)
             {
-//            Transaction.rollback();
+            Transaction.rollback();
 
                 System.out.println(e.getMessage());
             }finally {

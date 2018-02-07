@@ -3,10 +3,7 @@ package com.thread.threads.operator;
 import com.asrs.domain.AsrsJob;
 import com.asrs.domain.Location;
 import com.asrs.message.Message03;
-import com.thread.blocks.Block;
-import com.thread.blocks.Conveyor;
-import com.thread.blocks.SCar;
-import com.thread.blocks.Srm;
+import com.thread.blocks.*;
 import com.thread.utils.MsgSender;
 import org.apache.commons.lang.StringUtils;
 
@@ -161,8 +158,13 @@ public class SrmOperator {
             //从block移栽卸货
             if (StringUtils.isBlank(block.getMcKey()) && StringUtils.isBlank(block.getReservedMcKey())) {
                 this.moveUnloadGoods(block.getBlockNo());
-                ConveyorOperator conveyorOperator = new ConveyorOperator((Conveyor) block, job.getMcKey());
-                conveyorOperator.tryMoveCarryGoodsFromSrm(srm);
+                if(block instanceof Conveyor) {
+                    ConveyorOperator conveyorOperator = new ConveyorOperator((Conveyor) block, job.getMcKey());
+                    conveyorOperator.tryMoveCarryGoodsFromSrm(srm);
+                }else if(block instanceof StationBlock){
+                    StationOperator stationOperator = new StationOperator((StationBlock) block,job.getMcKey());
+                    stationOperator.tryMoveCarryGoodsFromSrm(srm);
+                }
             }
         }
     }

@@ -1,4 +1,4 @@
-package com.wms.service;
+package com.wms;
 
 import com.asrs.Mckey;
 import com.asrs.business.consts.AsrsJobType;
@@ -14,7 +14,7 @@ import java.util.*;
  * 各个组seq2最小值降序排列，将所剩货物最小的组，先出库，尽快腾出空间。
  * 将本组seq2升序排列，由近到远依次出库。
  */
-public class StockOutService {
+public class StockOutThread {
 
   public static void main(String[] args) {
       while (true){

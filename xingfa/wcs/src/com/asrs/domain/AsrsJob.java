@@ -6,6 +6,7 @@ import org.hibernate.Query;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Author: Zhouyue
@@ -324,8 +325,13 @@ public class AsrsJob {
     public void delete(){
         Session session = HibernateUtil.getCurrentSession();
         session.delete(this);
-        Query query = session.createQuery("from WcsMessage wm where wm.McKey = :mcKey")
+        Query query = session.createQuery("from WcsMessage wm where wm.mcKey = :mcKey")
                 .setString("mcKey",this._mcKey);
+
+        List<WcsMessage> wms = query.list();
+        for(WcsMessage wm : wms){
+            session.delete(wm);
+        }
     }
 }
 
