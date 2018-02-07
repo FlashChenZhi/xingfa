@@ -197,7 +197,7 @@ public class Msg50Proc implements MsgProcess {
                                 String mckey = entry2.getKey();
                                 AsrsJob asrsJob = AsrsJob.getAsrsJobByMcKey(mckey);
                                 if (asrsJob != null) {
-                                    session.delete(asrsJob);
+                                    asrsJob.delete();
                                     block1.setMcKey(null);
                                 }
                             }

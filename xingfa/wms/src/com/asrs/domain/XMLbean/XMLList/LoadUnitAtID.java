@@ -348,6 +348,8 @@ public class LoadUnitAtID extends XMLProcess {
 //
 //                HibernateUtil.getCurrentSession().save(job);
 
+                j.setToLocation(newLocation);
+
                 InMessage.info(stationNo, palletNo,view.getSkuCode());
             }
         }

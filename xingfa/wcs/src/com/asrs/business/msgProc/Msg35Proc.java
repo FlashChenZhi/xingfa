@@ -144,7 +144,7 @@ public class Msg35Proc implements MsgProcess {
 
                                 sCar.setBank(location.getBank());
                                 if (aj.getStatus().equals(AsrsJobStatus.DONE)) {
-                                    session.delete(aj);
+                                    aj.delete();
                                 } else {
                                     aj.setStatus(AsrsJobStatus.DONE);
                                 }
@@ -485,7 +485,7 @@ public class Msg35Proc implements MsgProcess {
                                 sCar.setBank(Integer.parseInt(message35.Bank));
                                 sCar.clearMckeyAndReservMckey();
                                 if (aj.getStatus().equals(AsrsJobStatus.DONE)) {
-                                    session.delete(aj);
+                                    aj.delete();
                                 } else {
                                     aj.setStatus(AsrsJobStatus.DONE);
                                 }

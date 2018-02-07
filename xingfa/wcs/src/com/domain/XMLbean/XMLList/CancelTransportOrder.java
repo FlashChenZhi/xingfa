@@ -85,7 +85,7 @@ public class CancelTransportOrder extends XMLProcess {
             Session session= HibernateUtil.getCurrentSession();
             String mcKey=controlArea.getRefId().getReferenceId();
             AsrsJob aj=AsrsJob.getAsrsJobByMcKey(mcKey);
-            session.delete(aj);
+            aj.delete();
             Transaction.commit();
         }catch (Exception e){
             Transaction.rollback();
