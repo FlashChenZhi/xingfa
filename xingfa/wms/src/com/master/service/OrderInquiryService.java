@@ -11,6 +11,8 @@ import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.criterion.Order;
+import org.hibernate.criterion.Projection;
+import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.hibernate.exception.JDBCConnectionException;
 import org.springframework.stereotype.Service;
@@ -18,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.persistence.Convert;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -38,36 +41,43 @@ public class OrderInquiryService {
      * @param PageSize 每页条数
      * @return
      * 排序查询
-     *
      */
     public PagerReturnObj<List<Map<String,Object>>> findOrder(String orderNo, int currentPage, String productId, String shipperId, int PageSize){
-//        System.out.println(orderNo+";"+currentPage+";"+productId+";"+shipperId+";"+PageSize);
-        PagerReturnObj<List<Map<String,Object>>> s = new PagerReturnObj<List<Map<String,Object>>>();
+       System.out.println(orderNo+";"+currentPage+";"+productId+";"+shipperId+";"+PageSize);
+        PagerReturnObj<List<Map<String,Object>>> s = new PagerReturnObj();
         try {
             Session session = HibernateUtil.getCurrentSession();
             Transaction.begin();
             Criteria criteria = session.createCriteria(RetrievalOrderLine.class);
-            criteria.add(Restrictions.eq("jinhuodanhao",orderNo)).
-                     add(Restrictions.eq("shangpindaima",productId)).
-                     add(Restrictions.eq("huozhudaima",shipperId)).addOrder(Order.desc("chuangjianshijian"));
-            criteria.setFirstResult(PageSize);
-            criteria.setMaxResults(currentPage);
-            List<Map<String, Object>> maplist =criteria.list();
-            int count= (int) session.createQuery("select count(rid) from RetrievalOrderLine").uniqueResult();
-            List<Map<String, Object>> list=null;
+            if(!orderNo.equals("")&&orderNo!=null){
+                criteria.add(Restrictions.eq("jinhuodanhao",orderNo));
+            }
+            if(!productId.equals("")&&productId!=null){
+                criteria.add(Restrictions.eq("shangpindaima",productId));
+            }
+            if(!shipperId.equals("")&&shipperId!=null){
+                criteria.add(Restrictions.eq("huozhudaima",shipperId));
+            }
+            Long count = (Long)  criteria.setProjection(Projections.rowCount()).uniqueResult();
+            criteria.setProjection(null);
+            criteria.addOrder(Order.desc("rid"));
+            criteria.setFirstResult((currentPage-1)*PageSize);
+            criteria.setMaxResults(PageSize);
+            List<RetrievalOrderLine> maplist =criteria.list();
+            List<Map<String, Object>> list=new ArrayList<>();
             for (int i=0;i<maplist.size();i++) {
-                Map<String, Object> map = new HashMap<String, Object>();
-                map.put("orderNo", maplist.get(i).get("jinhuodanhao"));
-                map.put("productId", maplist.get(i).get("shangpindaima"));
-                map.put("productName",maplist.get(i).get("shangpinmingcheng"));
-                map.put("shipperId", maplist.get(i).get("huozhudaima"));
-                map.put("shipperName",maplist.get(i).get("huozhumingcheng"));
-                map.put("productNum", maplist.get(i).get("dingdanshuliang"));
-                map.put("allcatedNum", maplist.get(i).get("wanchengdingdanshuliang"));
+                Map<String, Object> map = new HashMap();
+                map.put("orderNo", maplist.get(i).getJinhuodanhao());
+                map.put("productId", maplist.get(i).getShangpindaima());
+                map.put("productName",maplist.get(i).getShangpinmingcheng());
+                map.put("shipperId", maplist.get(i).getHuozhudaima());
+                map.put("shipperName",maplist.get(i).getHuozhudaima());
+                map.put("productNum", maplist.get(i).getDingdanshuliang());
+                map.put("allcatedNum", maplist.get(i).getDingdanshuliang());
                 list.add(map);
             }
                 s.setSuccess(true);
-                s.setRes(maplist);
+                s.setRes(list);
                 s.setCount(count);
                 Transaction.commit();
         }catch (JDBCConnectionException ex) {
@@ -87,13 +97,13 @@ public class OrderInquiryService {
      * @throws IOException
      */
     public ReturnObj<List<Map<String,Object>>> getshipperId() {
-        ReturnObj<List<Map<String,Object>>> s = new ReturnObj<List<Map<String,Object>>>();
+        ReturnObj<List<Map<String,Object>>> s = new ReturnObj();
         System.out.println("进入获取货主代码方法！");
         try {
             Session session = HibernateUtil.getCurrentSession();
             Transaction.begin();
-            List<Object[]> skuList = session.createQuery(" select distinct huozhudaima,huozhumingcheng from Sku").list();
-            List<Map<String, Object>> mapList = null;
+            List<Object[]> skuList = session.createQuery(" select distinct huozhudaima,huozhumingcheng from RetrievalOrderLine").list();
+            List<Map<String, Object>> mapList =new ArrayList<>();
             for (Object[] object : skuList) {
                 Map<String, Object> map = new HashMap<>();
                 map.put("id", object[0]);
@@ -119,20 +129,33 @@ public class OrderInquiryService {
      * @return
      * @throws IOException
      */
-    public ReturnObj<List<Map<String,Object>>> getCommodityCode() throws IOException{
-        ReturnObj<List<Map<String,Object>>> s = new ReturnObj<List<Map<String,Object>>>();
+    public ReturnObj<List<Map<String,String>>> getCommodityCode() throws IOException {
+        ReturnObj<List<Map<String, String>>> s = new ReturnObj();
         System.out.println("进入获取商品代码方法！");
-        Session session=HibernateUtil.getCurrentSession();
-        List<Object[]> list= session.createQuery("select skuName,skuCode from Sku").list();
-        List<Map<String, Object>> mapList = null;
-        for (Object objects[]:list) {
-            Map<String,Object> map = new HashMap<String,Object>();
-            map.put("id",objects[0]);
-            map.put("name",objects[1]);
-            mapList.add(map);
+        try {
+            Transaction.begin();
+            Session session = HibernateUtil.getCurrentSession();
+            Query query = session.createQuery("from RetrievalOrderLine");
+            List<RetrievalOrderLine> retList = query.list();
+            List<Map<String,String>> mapList = new ArrayList<>();
+            for (RetrievalOrderLine retrievalOrderLine : retList) {
+                Map<String, String> map = new HashMap();
+                map.put("id", retrievalOrderLine.getShangpindaima());
+                map.put("name", retrievalOrderLine.getShangpinmingcheng());
+                mapList.add(map);
+            }
+            s.setSuccess(true);
+            s.setRes(mapList);
+            Transaction.commit();
+        } catch (JDBCConnectionException ex) {
+            s.setSuccess(false);
+            s.setMsg(LogMessage.DB_DISCONNECTED.getName());
+
+        } catch (Exception ex) {
+            Transaction.rollback();
+            s.setSuccess(false);
+            s.setMsg(LogMessage.UNEXPECTED_ERROR.getName());
         }
-        s.setSuccess(true);
-        s.setRes(mapList);
         return s;
     }
 }

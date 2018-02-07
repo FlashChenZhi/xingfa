@@ -5,6 +5,7 @@ import com.master.service.PutInStorageService;
 import com.util.common.PagerReturnObj;
 import com.util.common.ReturnObj;
 import org.junit.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -21,6 +22,7 @@ public class OrderInquiryAction {
 
     @Resource
     private OrderInquiryService orderInquiryService;
+    @Resource
     private PutInStorageService putInStorageService;
     /**
      * 查询定单
@@ -54,8 +56,7 @@ public class OrderInquiryAction {
      */
     @RequestMapping(value = "/getCommodityCode",method = RequestMethod.POST)
     @ResponseBody
-    public ReturnObj<List<Map<String,Object>>> getCommodityCode() throws IOException{
-
+    public ReturnObj<List<Map<String,String>>> getCommodityCode() throws IOException{
         return orderInquiryService.getCommodityCode();
     }
 }

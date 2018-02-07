@@ -12,12 +12,11 @@ import com.wms.domain.*;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.exception.JDBCConnectionException;
+import org.junit.Test;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-
-
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.*;
@@ -59,14 +58,11 @@ public class PutInStorageService {
             returnObj.setSuccess(false);
             returnObj.setMsg(LogMessage.UNEXPECTED_ERROR.getName());
         }
-
-
         return returnObj;
     }
 
     /**
      * 设定任务
-     *
      * @param tuopanhao     托盘号
      * @param zhantai       站台
      * @param commodityCode 货品代码
@@ -145,7 +141,6 @@ public class PutInStorageService {
             returnObj.setMsg(LogMessage.UNEXPECTED_ERROR.getName());
         }
         return returnObj;
-
     }
 
 }
