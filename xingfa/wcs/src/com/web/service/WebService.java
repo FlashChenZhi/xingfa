@@ -743,7 +743,7 @@ public class WebService {
                 }
             }
 
-            HibernateUtil.getCurrentSession().delete(job);
+            job.delete();
 
             Transaction.commit();
 

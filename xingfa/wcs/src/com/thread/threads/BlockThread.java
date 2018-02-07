@@ -37,7 +37,7 @@ public abstract class BlockThread<T> extends Thread {
             query.setParameter("mckey", job.getMcKey());
             List<Block> blocks = query.list();
             if (blocks.isEmpty()) {
-                HibernateUtil.getCurrentSession().delete(job);
+                job.delete();
             }
         }
     }

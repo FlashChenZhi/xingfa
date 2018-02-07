@@ -69,7 +69,7 @@ public class StationOperator {
      * @throws Exception
      */
     public void tryMoveToSrm(Srm nextBlock) throws Exception {
-        if (stationBlock.getBlockNo().equals(nextBlock.getDock()) && StringUtils.isBlank(nextBlock.getMcKey())) {
+        if (stationBlock.getBlockNo().equals(nextBlock.getDock()) && StringUtils.isBlank(nextBlock.getMcKey()) && stationBlock.getMcKey().equals(nextBlock.getReservedMcKey())) {
             MsgSender.send03(Message03._CycleOrder.moveUnloadGoods, mckey, stationBlock, "", nextBlock.getBlockNo(), "", "");
         }
     }

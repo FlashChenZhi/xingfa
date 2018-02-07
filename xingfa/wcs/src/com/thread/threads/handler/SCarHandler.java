@@ -60,7 +60,7 @@ public class SCarHandler extends MsgHandler {
 
         sCar.setBank(location.getBank());
         if (aj.getStatus().equals(AsrsJobStatus.DONE)) {
-            HibernateUtil.getCurrentSession().delete(aj);
+            aj.delete();
         } else {
             aj.setStatus(AsrsJobStatus.DONE);
         }

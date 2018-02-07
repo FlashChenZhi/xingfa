@@ -13,6 +13,7 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 
 import java.rmi.Naming;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 /**
@@ -29,9 +30,10 @@ public class Msg03Resender {
                 int overSeconds = 3000;
                 long overTimeSecond = nowSecond - overSeconds;
                 Date overTime = new Date(overTimeSecond);
-
-                Query q = session.createQuery("from WcsMessage m where m.received = false and m.lastSendDate <:overTime order by m.lastSendDate")
-                        .setDate("overTime", overTime);
+//
+//                Query q = session.createQuery("from WcsMessage m where m.received = false and m.lastSendDate <:overTime order by m.lastSendDate")
+//                        .setDate("overTime", new Date());
+                Query q = session.createQuery("from WcsMessage m where m.received = false  order by m.lastSendDate");
 
                 List<WcsMessage> msg03s = q.list();
                 for (WcsMessage msg03 : msg03s) {
@@ -55,6 +57,7 @@ public class Msg03Resender {
                     System.out.println("resendId: " + msg03.getId());
 
                     msg03.setLastSendDate(new Date());
+
 
                     Thread.sleep(500);
                 }

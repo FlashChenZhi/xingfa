@@ -165,6 +165,7 @@ public class Msg03 {
 
 
     @Column(name = "LASTSENDDATE")
+    @Temporal(TemporalType.TIME)
     @Basic
     public Date getLastSendDate() {
         return lastSendDate;

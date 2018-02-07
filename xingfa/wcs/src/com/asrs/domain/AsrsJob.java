@@ -321,5 +321,11 @@ public class AsrsJob {
         return (AsrsJob) q.uniqueResult();
     }
 
+    public void delete(){
+        Session session = HibernateUtil.getCurrentSession();
+        session.delete(this);
+        Query query = session.createQuery("from WcsMessage wm where wm.McKey = :mcKey")
+                .setString("mcKey",this._mcKey);
+    }
 }
 

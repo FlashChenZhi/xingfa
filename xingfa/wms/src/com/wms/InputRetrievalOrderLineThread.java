@@ -7,6 +7,7 @@ import jxl.read.biff.BiffException;
 import jxl.write.Label;
 import jxl.write.WritableSheet;
 import jxl.write.WritableWorkbook;
+import org.apache.commons.lang.StringUtils;
 
 import java.io.*;
 import java.text.SimpleDateFormat;
@@ -42,29 +43,21 @@ public class InputRetrievalOrderLineThread implements Runnable
 //            Session session = HibernateUtil.getCurrentSession();
                         String oldPath = "E:/test/zhu1/"+f.getName();
                         Workbook data = Workbook.getWorkbook(new File(oldPath));
-
                         Sheet sheet = data.getSheet(0);
-
                         Date d = new Date();
                         SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
                         System.out.println("当前时间：" + sdf.format(d));
-                        String newPath = "E:/test/fu/"+f.getName().split("\\.")[0]+"_" + sdf.format(d) + ".xls";
-                        copyFile(oldPath, newPath);
-                        deleteFile(oldPath);
+                        String newPath = "E:/test/fu1/"+f.getName().split("\\.")[0]+"_" + sdf.format(d) + ".xls";
                         List<ErrorMessage> list = new ArrayList();
+                        if(StringUtils.isNotBlank(sheet.getCell(11, 1).getContents())){
+                            copyFile(oldPath, newPath);
+                            deleteFile(oldPath);
                         for (int i = 1; i < sheet.getRows(); i++) {
-                            RetrievalOrderLine rol = null;
-                            try {
-                                rol = RetrievalOrderLine.getByRetrievalOrderLine(sheet.getCell(1, i).getContents(), sheet.getCell(6, i).getContents());
-                            } catch (Exception e) {
-                                list.add(new ErrorMessage(rol,"与查询表不符"));
-                            }
-
+                            RetrievalOrderLine rol = RetrievalOrderLine.getByRetrievalOrderLine(sheet.getCell(1, i).getContents(), sheet.getCell(6, i).getContents());
                             if (rol != null) {
                                 list.add(new ErrorMessage(rol, "交货单号和行号重复"));
                                 continue;
                             }
-
                             rol = new RetrievalOrderLine();
 //                session.save(rol);
                             rol.setShouhuodanhao(sheet.getCell(0, i).getContents());
@@ -83,7 +76,12 @@ public class InputRetrievalOrderLineThread implements Runnable
                             }
                             rol.setDanwei(sheet.getCell(10, i).getContents());
                         }
-                        cuoWu(f.getName().split(".")[0],sdf.format(d), list);
+                    }else{
+                        list.add(new ErrorMessage(new RetrievalOrderLine(),"与RetrievalOrderLine表不匹配"));
+                    }
+                    if(list.isEmpty()) {
+                        cuoWu(f.getName().split(".")[0], sdf.format(d), list);
+                    }
 //            Transaction.commit();
                     }
                 }
@@ -152,7 +150,7 @@ public class InputRetrievalOrderLineThread implements Runnable
         }
     }
     public static  void cuoWu(String wenJianMing,String shiJian,List<ErrorMessage> list) throws Exception{
-        WritableWorkbook book1 = Workbook.createWorkbook(new File("E:/test/cuowu/"+wenJianMing+"_"+shiJian+".xls"));
+        WritableWorkbook book1 = Workbook.createWorkbook(new File("E:/test/cuowu1/"+wenJianMing+"_"+shiJian+".xls"));
         // 生成名为“sheet1”的工作表，参数0表示这是第一页
         WritableSheet sheet1 = book1.createSheet("sheet2", 0);
         Label label = new Label(0, 0, "收货单号");

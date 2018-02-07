@@ -4417,3 +4417,58 @@
 [ERROR] [2018-02-05 17:43:51,657] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
 [ERROR] [2018-02-05 17:43:51,777] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 对象名 'seq_xml' 无效。
 >>>>>>> ded64941c0c3dd2b7073d4d975e0d7f591ec3ae2
+[ERROR] [2018-02-06 09:49:03,278] [com.asrs.communication.PlcConnection] Read timed out
+[ERROR] [2018-02-06 09:49:03,280] [com.asrs.communication.PlcConnection] SendHandler被中断
+[ERROR] [2018-02-06 09:49:29,121] [com.asrs.communication.ConnectionManager] cannot connectionML01
+[ERROR] [2018-02-06 09:49:55,151] [com.asrs.communication.ConnectionManager] cannot connectionML01
+[ERROR] [2018-02-06 09:50:21,160] [com.asrs.communication.ConnectionManager] cannot connectionML01
+[ERROR] [2018-02-06 09:50:47,175] [com.asrs.communication.ConnectionManager] cannot connectionML01
+[ERROR] [2018-02-06 09:51:13,186] [com.asrs.communication.ConnectionManager] cannot connectionML01
+[ERROR] [2018-02-06 09:51:39,196] [com.asrs.communication.ConnectionManager] cannot connectionML01
+[ERROR] [2018-02-06 09:52:05,207] [com.asrs.communication.ConnectionManager] cannot connectionML01
+[ERROR] [2018-02-06 09:52:31,219] [com.asrs.communication.ConnectionManager] cannot connectionML01
+[ERROR] [2018-02-06 09:52:57,231] [com.asrs.communication.ConnectionManager] cannot connectionML01
+[ERROR] [2018-02-06 09:53:23,242] [com.asrs.communication.ConnectionManager] cannot connectionML01
+[ERROR] [2018-02-06 09:53:49,263] [com.asrs.communication.ConnectionManager] cannot connectionML01
+[ERROR] [2018-02-06 09:54:15,276] [com.asrs.communication.ConnectionManager] cannot connectionML01
+[ERROR] [2018-02-06 09:54:41,288] [com.asrs.communication.ConnectionManager] cannot connectionML01
+[ERROR] [2018-02-06 09:55:07,297] [com.asrs.communication.ConnectionManager] cannot connectionML01
+[ERROR] [2018-02-06 09:55:33,308] [com.asrs.communication.ConnectionManager] cannot connectionML01
+[ERROR] [2018-02-06 09:55:59,318] [com.asrs.communication.ConnectionManager] cannot connectionML01
+[ERROR] [2018-02-06 09:56:25,331] [com.asrs.communication.ConnectionManager] cannot connectionML01
+[ERROR] [2018-02-06 09:56:51,343] [com.asrs.communication.ConnectionManager] cannot connectionML01
+[ERROR] [2018-02-06 09:57:17,354] [com.asrs.communication.ConnectionManager] cannot connectionML01
+[ERROR] [2018-02-06 09:57:43,366] [com.asrs.communication.ConnectionManager] cannot connectionML01
+[ERROR] [2018-02-06 09:58:09,377] [com.asrs.communication.ConnectionManager] cannot connectionML01
+[ERROR] [2018-02-06 09:58:35,387] [com.asrs.communication.ConnectionManager] cannot connectionML01
+[ERROR] [2018-02-06 09:59:01,402] [com.asrs.communication.ConnectionManager] cannot connectionML01
+[ERROR] [2018-02-06 09:59:27,419] [com.asrs.communication.ConnectionManager] cannot connectionML01
+[ERROR] [2018-02-06 09:59:53,435] [com.asrs.communication.ConnectionManager] cannot connectionML01
+[ERROR] [2018-02-06 10:00:19,441] [com.asrs.communication.ConnectionManager] cannot connectionML01
+[ERROR] [2018-02-06 10:00:45,450] [com.asrs.communication.ConnectionManager] cannot connectionML01
+[ERROR] [2018-02-06 10:01:11,460] [com.asrs.communication.ConnectionManager] cannot connectionML01
+[ERROR] [2018-02-06 10:01:37,465] [com.asrs.communication.ConnectionManager] cannot connectionML01
+[ERROR] [2018-02-06 10:02:03,477] [com.asrs.communication.ConnectionManager] cannot connectionML01
+[ERROR] [2018-02-06 10:02:29,497] [com.asrs.communication.ConnectionManager] cannot connectionML01
+[ERROR] [2018-02-06 10:02:55,509] [com.asrs.communication.ConnectionManager] cannot connectionML01
+[ERROR] [2018-02-06 10:03:21,521] [com.asrs.communication.ConnectionManager] cannot connectionML01
+[ERROR] [2018-02-06 10:03:47,533] [com.asrs.communication.ConnectionManager] cannot connectionML01
+[ERROR] [2018-02-06 10:03:53,544] [com.asrs.communication.ConnectionManager] cannot connectionML01
+[ERROR] [2018-02-06 10:03:59,557] [com.asrs.communication.ConnectionManager] cannot connectionML01
+[ERROR] [2018-02-06 10:04:05,568] [com.asrs.communication.ConnectionManager] cannot connectionML01
+[ERROR] [2018-02-06 14:04:27,114] [com.asrs.communication.PlcConnection] Connection reset
+[ERROR] [2018-02-06 14:04:27,114] [com.asrs.communication.PlcConnection] SendHandler被中断
+[ERROR] [2018-02-06 14:04:27,120] [com.asrs.communication.PlcConnection] Connection reset
+[ERROR] [2018-02-06 14:04:27,120] [com.asrs.communication.PlcConnection] SendHandler被中断
+[ERROR] [2018-02-06 14:04:27,126] [com.asrs.communication.PlcConnection] Connection reset
+[ERROR] [2018-02-06 14:04:27,126] [com.asrs.communication.PlcConnection] SendHandler被中断
+[ERROR] [2018-02-06 14:04:31,568] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] Read timed out
+[ERROR] [2018-02-06 14:04:31,712] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] Read timed out
+[ERROR] [2018-02-06 14:04:31,712] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] Read timed out
+[ERROR] [2018-02-06 14:04:31,947] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] Read timed out
+[ERROR] [2018-02-06 14:04:31,947] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] Read timed out
+[ERROR] [2018-02-06 14:04:32,048] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] Read timed out
+[ERROR] [2018-02-06 14:04:32,317] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] Read timed out
+[ERROR] [2018-02-06 15:18:18,774] [com.asrs.communication.PlcConnection] Read timed out
+[ERROR] [2018-02-06 15:18:18,774] [com.asrs.communication.PlcConnection] SendHandler被中断
+[ERROR] [2018-02-06 15:18:28,507] [com.asrs.communication.ConnectionManager] cannot connectionML01
