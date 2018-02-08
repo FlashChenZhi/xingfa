@@ -15,6 +15,7 @@ import org.hibernate.criterion.Projection;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.hibernate.exception.JDBCConnectionException;
+import org.junit.Test;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -22,10 +23,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.persistence.Convert;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import static org.hibernate.criterion.CriteriaSpecification.DISTINCT_ROOT_ENTITY;
 import static org.hibernate.criterion.CriteriaSpecification.PROJECTION;
@@ -157,5 +155,26 @@ public class OrderInquiryService {
             s.setMsg(LogMessage.UNEXPECTED_ERROR.getName());
         }
         return s;
+    }
+    @Test
+    public  void test(){
+        try {
+            Transaction.begin();
+            Session session = HibernateUtil.getCurrentSession();
+            Query query = session.createQuery("from RetrievalOrderLine where chuangjianshijian <:chuangjianshijian");
+            query.setParameter("chuangjianshijian",new Date());
+            List<RetrievalOrderLine> retList = query.list();
+            List<Map<String,String>> mapList = new ArrayList<>();
+            for (RetrievalOrderLine retrievalOrderLine : retList) {
+                Map<String, String> map = new HashMap();
+                map.put("id", retrievalOrderLine.getShangpindaima());
+                map.put("name", retrievalOrderLine.getShangpinmingcheng());
+                mapList.add(map);
+            }
+            Transaction.commit();
+        }catch (Exception ex) {
+            Transaction.rollback();
+            ex.printStackTrace();
+        }
     }
 }

@@ -5,6 +5,7 @@ import com.util.hibernate.HibernateUtil;
 import com.wms.domain.*;
 import com.wms.domain.blocks.*;
 import org.hibernate.Query;
+import org.hibernate.Session;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -86,43 +87,57 @@ public class JobDoHelp {
      */
     public static void cancelPutaway(String mckey) {
         LogWriter.info(LoggerType.WMS, "强制取消入库任务mckey" + mckey);
-        Srm crane = (Srm) Block.getByBlockNo("ML01");
-        SCar sCar = (SCar) Block.getByBlockNo("SC01");
-        StationBlock station = (StationBlock) Block.getByBlockNo("0001");
+        Session session = HibernateUtil.getCurrentSession();
+        Query q = session.createQuery("from Block b where b.mckey = :mckey")
+                .setString("mckey",mckey);
+        Block block = (Block) q.uniqueResult();
+        q = session.createQuery("from Block b where b.reservedMcKey = :mckey")
+                .setString("mckey",mckey);
+        Block reservedBlock = (Block) q.uniqueResult();
+        if(block != null){
+            if(block instanceof SCar){
+                SCar sCar = (SCar) block;
 
-        if (mckey != null) {
-
-
-            sCar.setMcKey(null);
-            sCar.setReservedMcKey(null);
-
-            if (mckey.equals(sCar.getMcKey())
-                    || mckey.equals(sCar.getReservedMcKey())) {
                 sCar.setMcKey(null);
                 sCar.setReservedMcKey(null);
 
                 sCar.setOnMCar("ML01");
                 sCar.setWaitingResponse(false);
-
-
             }
-            if (mckey.equals(crane.getMcKey())
-                    || mckey.equals(crane.getReservedMcKey())) {
+        }
 
-                crane.setMcKey(null);
-                crane.setReservedMcKey(null);
+        if (mckey != null) {
 
-                crane.setsCarBlockNo("SC01");
-                crane.setWaitingResponse(false);
 
-                crane.setBay(2);
-                crane.setLevel(0);
 
-            }
 
-            if (mckey.equals(station.getMcKey())) {
-                station.setMcKey(null);
-            }
+//            if (mckey.equals(sCar.getMcKey())
+//                    || mckey.equals(sCar.getReservedMcKey())) {
+//                sCar.setMcKey(null);
+//                sCar.setReservedMcKey(null);
+//
+//                sCar.setOnMCar("ML01");
+//                sCar.setWaitingResponse(false);
+//
+//
+//            }
+//            if (mckey.equals(crane.getMcKey())
+//                    || mckey.equals(crane.getReservedMcKey())) {
+//
+//                crane.setMcKey(null);
+//                crane.setReservedMcKey(null);
+//
+//                crane.setsCarBlockNo("SC01");
+//                crane.setWaitingResponse(false);
+//
+//                crane.setBay(2);
+//                crane.setLevel(0);
+//
+//            }
+//
+//            if (mckey.equals(station.getMcKey())) {
+//                station.setMcKey(null);
+//            }
 
             Query query = HibernateUtil.getCurrentSession().createQuery("from Job where mcKey=:mckey");
             query.setMaxResults(1);

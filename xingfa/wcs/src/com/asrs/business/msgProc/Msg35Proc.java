@@ -166,6 +166,20 @@ public class Msg35Proc implements MsgProcess {
                                 }
                             }
 
+                        } else if (block instanceof MCar) {
+                            MCar mCar = (MCar) block;
+                            if (message35.isMove()) {
+                                if (message35.Station.equals("0000")) {
+                                    mCar.setDock(null);
+                                } else {
+                                    mCar.setDock(message35.Station);
+                                }
+                                mCar.setCheckLocation(true);
+                            } else if (message35.isMoveCarryGoods()) {
+                                mCar.generateMckey(message35.McKey);
+                            } else if (message35.isMoveUnloadGoods()) {
+                                mCar.clearMckeyAndReservMckey();
+                            }
                         } else if (block instanceof StationBlock) {
 
                             StationBlock station = (StationBlock) block;
@@ -198,7 +212,7 @@ public class Msg35Proc implements MsgProcess {
                                 Query query = HibernateUtil.getCurrentSession().createQuery("from AsrsJob where type=:ajType and status=:st and statusDetail=:detail and fromStation=:frs order by id asc ");
                                 query.setParameter("ajType", AsrsJobType.RETRIEVAL);
                                 query.setParameter("detail", AsrsJobStatusDetail.WAITING);
-                                query.setParameter("st",AsrsJobStatus.RUNNING);
+                                query.setParameter("st", AsrsJobStatus.RUNNING);
                                 query.setParameter("frs", srm.getBlockNo());
 
                                 query.setMaxResults(1);
@@ -310,6 +324,20 @@ public class Msg35Proc implements MsgProcess {
                                         }
                                     }
                                 }
+                            }
+                        } else if (block instanceof MCar) {
+                            MCar mCar = (MCar) block;
+                            if (message35.isMove()) {
+                                if (message35.Station.equals("0000")) {
+                                    mCar.setDock(null);
+                                } else {
+                                    mCar.setDock(message35.Station);
+                                }
+                                mCar.setCheckLocation(true);
+                            } else if (message35.isMoveCarryGoods()) {
+                                mCar.generateMckey(message35.McKey);
+                            } else if (message35.isMoveUnloadGoods()) {
+                                mCar.clearMckeyAndReservMckey();
                             }
                         } else if (block instanceof Conveyor) {
                             Conveyor conveyor = (Conveyor) block;
@@ -461,7 +489,7 @@ public class Msg35Proc implements MsgProcess {
                                 srm.setBay(Integer.parseInt(message35.Bay));
                                 srm.setDock(message35.Station);
                                 srm.setCheckLocation(true);
-                                Location location = Location.getByBankBayLevel(Integer.parseInt(message35.Bank),Integer.parseInt(message35.Bay),Integer.parseInt(message35.Level),srm.getPosition());
+                                Location location = Location.getByBankBayLevel(Integer.parseInt(message35.Bank), Integer.parseInt(message35.Bay), Integer.parseInt(message35.Level), srm.getPosition());
                                 srm.setActualArea(location.getActualArea());
                                 if (StringUtils.isNotBlank(srm.getsCarBlockNo())) {
                                     SCar sCar = (SCar) Block.getByBlockNo(srm.getsCarBlockNo());

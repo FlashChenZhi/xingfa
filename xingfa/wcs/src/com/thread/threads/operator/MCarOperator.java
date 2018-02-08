@@ -39,8 +39,9 @@ public class MCarOperator {
      * @throws Exception
      */
     public void moveUnloadGoods(String block) throws Exception {
+        Block nextBlock = Block.getByBlockNo(block);
         MsgSender.send03(Message03._CycleOrder.moveUnloadGoods, mckey, mCar, "", block, "", "");
-
+        MsgSender.send03(Message03._CycleOrder.moveCarryGoods, mckey, nextBlock, "", mCar.getBlockNo(), "", "");
     }
 
     /**
@@ -70,7 +71,7 @@ public class MCarOperator {
      */
     public void tryLoadGoodsFromConveryor(Block block) throws Exception {
 
-        if (block.getBlockNo().equals(mCar.getDock()) || !mCar.getCheckLocation()) {
+        if (!block.getBlockNo().equals(mCar.getDock()) || !mCar.getCheckLocation()) {
             move(block.getBlockNo());
         } else {
             moveCarryGoods(block.getBlockNo());
@@ -85,7 +86,7 @@ public class MCarOperator {
      */
     public void tryUnloadGoodToConveryor(Block block) throws Exception {
 
-        if (block.getBlockNo().equals(mCar.getDock()) || !mCar.getCheckLocation()) {
+        if (!block.getBlockNo().equals(mCar.getDock()) || !mCar.getCheckLocation()) {
             move(block.getBlockNo());
         } else {
             moveUnloadGoods(block.getBlockNo());

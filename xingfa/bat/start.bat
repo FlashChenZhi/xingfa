@@ -4,6 +4,7 @@ set JAVAHOME=D:\Program Files (x86)\Java\jdk1.7.0_51
 set XINGFAPATH=D:\gitRepository\xingfa_wcs
 set BATPATH=C:\Users\ed_chen\Desktop\bat\utilbat
 
+
 echo CommunicationLauncher开始启动！
 call %BATPATH%\CommunicationLauncher.bat %JAVAHOME%,%XINGFAPATH%
 ::if errorlevel == 0 (echo CommunicationLauncher.bat运行结果:%errorlevel%;CommunicationLauncher.bat启动成功!) else (goto CommunicationLauncherEnd)
@@ -36,7 +37,22 @@ echo ThreadMain开始启动！
 call %BATPATH%\ThreadMain.bat %JAVAHOME%,%XINGFAPATH%
 ::if errorlevel == 0 (echo ThreadMain.bat运行结果:%errorlevel%;ThreadMain.bat启动成功!) else (goto ThreadMainEnd)
 
+echo InputRetrievalOrderLineThread开始启动！
+call %BATPATH%\InputRetrievalOrderLineThread.bat %JAVAHOME%,%XINGFAPATH%
+::if errorlevel == 0 (echo InputRetrievalOrderLineThread.bat运行结果:%errorlevel%;InputRetrievalOrderLineThread.bat启动成功!) else (goto InputRetrievalOrderLineThreadEnd)
+
+echo InputSkuThread开始启动！
+call %BATPATH%\InputSkuThread.bat %JAVAHOME%,%XINGFAPATH%
+::if errorlevel == 0 (echo InputSkuThread.bat运行结果:%errorlevel%;InputSkuThread.bat启动成功!) else (goto InputSkuThreadEnd)
+
+echo StockOutThread开始启动！
+call %BATPATH%\StockOutThread.bat %JAVAHOME%,%XINGFAPATH%
+::if errorlevel == 0 (echo StockOutThread.bat运行结果:%errorlevel%;StockOutThread.bat启动成功!) else (goto StockOutThreadEnd)
+
 echo 启动完成 & pause >nul
+exit
+:rmiEnd
+echo rmi运行结果:%errorlevel%;rmi.bat启动失败! & pause >nul
 exit
 :CommunicationLauncherEnd
 echo CommunicationLauncher运行结果:%errorlevel%;CommunicationLauncher.bat启动失败! & pause >nul
@@ -61,4 +77,13 @@ echo XmlThread运行结果:%errorlevel%;XmlThread.bat启动失败! & pause >nul
 exit
 :ThreadMainEnd
 echo ThreadMain运行结果:%errorlevel%;ThreadMain.bat启动失败! & pause >nul
+exit
+:InputRetrievalOrderLineThreadEnd
+echo InputRetrievalOrderLineThread运行结果:%errorlevel%;InputRetrievalOrderLineThread.bat启动失败! & pause >nul
+exit
+:InputSkuThreadEnd
+echo InputSkuThread运行结果:%errorlevel%;InputSkuThread.bat启动失败! & pause >nul
+exit
+:StockOutThreadEnd
+echo StockOutThread运行结果:%errorlevel%;StockOutThread.bat启动失败! & pause >nul
 exit

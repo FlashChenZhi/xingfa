@@ -74,7 +74,7 @@ public class ConveyorOperator {
      * @param nextBlock
      */
     public void tryMoveUnloadGoodsToMCar(MCar nextBlock) throws Exception {
-        if (nextBlock.getDock() != null && nextBlock.getDock().equals(conveyor.getDock()) && StringUtils.isBlank(nextBlock.getMcKey())) {
+        if (nextBlock.getDock() != null && nextBlock.getDock().equals(conveyor.getBlockNo()) && StringUtils.isBlank(nextBlock.getMcKey())) {
             MsgSender.send03(Message03._CycleOrder.moveUnloadGoods, mckey, conveyor, "", nextBlock.getBlockNo(), "", "");
         }
     }

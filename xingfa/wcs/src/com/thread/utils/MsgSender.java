@@ -99,6 +99,9 @@ public class MsgSender {
         if (block instanceof Srm) {
             HibernateUtil.getCurrentSession().createQuery("update Srm set waitingResponse=true,checkLocation = false where blockNo =:blockNo ")
                     .setParameter("blockNo", block.getBlockNo()).executeUpdate();
+        }else if (block instanceof MCar) {
+            HibernateUtil.getCurrentSession().createQuery("update MCar set waitingResponse=true,checkLocation = false where blockNo =:blockNo ")
+                    .setParameter("blockNo", block.getBlockNo()).executeUpdate();
         } else {
 
             HibernateUtil.getCurrentSession().createQuery("update Block set waitingResponse=true where blockNo =:blockNo ")
