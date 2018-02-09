@@ -1,50 +1,103 @@
 package com;
 
 import com.asrs.Mckey;
+import com.asrs.business.consts.AsrsJobStatus;
 import com.asrs.business.consts.AsrsJobType;
+import com.asrs.business.consts.ReasonCode;
 import com.util.hibernate.HibernateUtil;
 import com.util.hibernate.Transaction;
 import com.wms.domain.*;
+import com.wms.domain.blocks.SCar;
+import com.wms.domain.blocks.Srm;
+import org.apache.http.client.utils.DateUtils;
+import org.hibernate.Query;
 import org.hibernate.Session;
+
+import java.math.BigDecimal;
+import java.util.Date;
+import java.util.List;
 
 public class Test2 {
     public static void main(String[] args) {
             try {
                 Transaction.begin();
+
+
                 Session session = HibernateUtil.getCurrentSession();
+                String mcKey = "0076";
 
-                Location location = Location.getByLocationNo("001033001");
-                Container container = location.getContainers().iterator().next();
-                Inventory inventory = container.getInventories().iterator().next();
-                String position = inventory.getContainer().getLocation().getPosition();
+                AsrsJob aj = AsrsJob.getAsrsJobByMcKey(mcKey);
+                SCar sCar = (SCar) SCar.getByBlockNo("SC01");
+                Srm srm = (Srm) Srm.getByBlockNo("ML01");
+                sCar.setMcKey(null);
+                sCar.setReservedMcKey(null);
+                sCar.setOnMCar(null);
 
-                JobDetail jobDetail = new JobDetail();
-                Job job = new Job();
-                //session准备存入job，commit时才会执行sql
-                session.save(job);
-                //数据准备
+                sCar.setBank(0);
+                sCar.setOnMCar("ML01");
 
-                String mckey = Mckey.getNext();
-                String toStation = position.equals("1") ? "1201" : "1301";//到达站台
-                String fromStation = position.equals("1") ? "ML01" : "ML02";//出发地点
-                String type = AsrsJobType.RETRIEVAL; //出库
-                //存入jobDetail
-                jobDetail.setInventory(inventory);
-                jobDetail.setQty(inventory.getQty());
-                //存入job
-                job.setContainer(inventory.getContainer().getBarcode());
-                job.setFromStation(fromStation);
-                job.setMcKey(mckey);
-                job.setOrderNo("123");
-                job.setSendReport(false);
-                job.setStatus("1");
-                job.setToStation(toStation);
-                job.setType(type);
-                job.addJobDetail(jobDetail);
-                job.setFromLocation(location);
+                srm.setsCarBlockNo(sCar.getBlockNo());
 
-                //修改此托盘
-                container.setReserved(true);
+                aj.delete();
+
+
+                sCar.setWaitingResponse(false);
+
+                Job j = Job.getByMcKey(mcKey);
+                Location l = j.getToLocation();
+                l.setReserved(false);
+                l.setEmpty(false);
+                session.update(l);
+
+                Container container = null;
+
+                Query query = HibernateUtil.getCurrentSession().createQuery("from InventoryView where palletCode=:palletNo");
+                query.setParameter("palletNo", j.getContainer());
+                List<InventoryView> views = query.list();
+
+
+                container = Container.getByBarcode(j.getContainer());
+
+                if (container == null) {
+                    container = new Container();
+                    container.setBarcode(j.getContainer());
+                    container.setLocation(l);
+                    container.setCreateDate(new Date());
+                    container.setCreateUser("sys");
+                    container.setReserved(true);
+                    HibernateUtil.getCurrentSession().save(container);
+                }
+                InventoryLog inventoryLog = new InventoryLog();
+                inventoryLog.setQty(BigDecimal.ZERO);
+                inventoryLog.setType(InventoryLog.TYPE_IN);
+                for (InventoryView view : views) {
+
+                    if (view != null) {
+                        Inventory inventory = new Inventory();
+                        inventory.setWhCode(view.getWhCode());
+                        inventory.setSkuName(view.getSkuName());
+                        inventory.setLotNum(view.getLotNum());
+                        inventory.setQty(view.getQty());
+                        inventory.setSkuCode(view.getSkuCode());
+                        inventory.setContainer(container);
+                        inventory.setStoreDate(DateUtils.formatDate(new Date(), "yyyy-MM-dd"));
+                        inventory.setStoreTime(DateUtils.formatDate(new Date(), "HH:mm:ss"));
+                        HibernateUtil.getCurrentSession().save(inventory);
+                        inventoryLog.setQty(inventoryLog.getQty().add(inventory.getQty()));
+                        inventoryLog.setSkuCode(inventory.getSkuCode());
+                        inventoryLog.setWhCode(inventory.getWhCode());
+                        inventoryLog.setToLocation(container.getLocation().getLocationNo());
+                        inventoryLog.setLotNum(inventory.getLotNum());
+                        inventoryLog.setSkuName(inventory.getSkuName());
+
+                        session.delete(view);
+                    }
+
+                }
+                inventoryLog.setContainer(container.getBarcode());
+                inventoryLog.setCreateDate(new Date());
+                session.save(inventoryLog);
+                j.asrsDone();
 
                 Transaction.commit();
             } catch (Exception e) {

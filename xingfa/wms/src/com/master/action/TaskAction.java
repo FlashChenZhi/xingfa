@@ -1,4 +1,4 @@
-package com.wms.action;
+package com.master.action;
 
 import com.util.common.HttpMessage;
 import com.wms.service.BlockQueryService;
@@ -20,10 +20,10 @@ public class TaskAction {
     @Resource
     private TaskService taskService;
 
-    @RequestMapping("cancelJob.do")
+    @RequestMapping("/cancelJob")
     @ResponseBody
-    public HttpMessage cancelJob(String mcKey) {
-        HttpMessage httpMessage = taskService.cancelJob(mcKey);
+    public HttpMessage cancelJob(String mckey) {
+        HttpMessage httpMessage = taskService.cancelJob(mckey);
         return httpMessage;
     }
 

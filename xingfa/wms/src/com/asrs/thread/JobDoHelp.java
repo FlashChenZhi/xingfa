@@ -7,6 +7,7 @@ import com.wms.domain.blocks.*;
 import org.hibernate.Query;
 import org.hibernate.Session;
 
+import javax.persistence.criteria.CriteriaBuilder;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -88,98 +89,38 @@ public class JobDoHelp {
     public static void cancelPutaway(String mckey) {
         LogWriter.info(LoggerType.WMS, "强制取消入库任务mckey" + mckey);
         Session session = HibernateUtil.getCurrentSession();
-        Query q = session.createQuery("from Block b where b.mckey = :mckey")
-                .setString("mckey",mckey);
-        Block block = (Block) q.uniqueResult();
-        q = session.createQuery("from Block b where b.reservedMcKey = :mckey")
-                .setString("mckey",mckey);
-        Block reservedBlock = (Block) q.uniqueResult();
-        if(block != null){
-            if(block instanceof SCar){
-                SCar sCar = (SCar) block;
+        cancelBlockData(mckey);
 
-                sCar.setMcKey(null);
-                sCar.setReservedMcKey(null);
 
-                sCar.setOnMCar("ML01");
-                sCar.setWaitingResponse(false);
+        Job job = Job.getByMcKey(mckey);
+
+        if (job != null) {
+
+            InventoryView inventoryView = InventoryView.getByPalletNo(job.getContainer());
+            session.delete(inventoryView);
+
+
+            Location location = job.getToLocation();
+            if (location != null) {
+                location.setReserved(false);
+                location.setEmpty(true);
             }
-        }
-
-        if (mckey != null) {
-
-
-
-
-//            if (mckey.equals(sCar.getMcKey())
-//                    || mckey.equals(sCar.getReservedMcKey())) {
-//                sCar.setMcKey(null);
-//                sCar.setReservedMcKey(null);
-//
-//                sCar.setOnMCar("ML01");
-//                sCar.setWaitingResponse(false);
-//
-//
-//            }
-//            if (mckey.equals(crane.getMcKey())
-//                    || mckey.equals(crane.getReservedMcKey())) {
-//
-//                crane.setMcKey(null);
-//                crane.setReservedMcKey(null);
-//
-//                crane.setsCarBlockNo("SC01");
-//                crane.setWaitingResponse(false);
-//
-//                crane.setBay(2);
-//                crane.setLevel(0);
-//
-//            }
-//
-//            if (mckey.equals(station.getMcKey())) {
-//                station.setMcKey(null);
-//            }
-
-            Query query = HibernateUtil.getCurrentSession().createQuery("from Job where mcKey=:mckey");
-            query.setMaxResults(1);
-            query.setParameter("mckey", mckey);
-            Job job = (Job) query.uniqueResult();
-
-            if (job != null) {
-
-                List<JobDetail> detailSet = new ArrayList<JobDetail>(job.getJobDetails());
-                for (JobDetail jobDetail : detailSet) {
-                    Inventory inventory = jobDetail.getInventory();
-                    HibernateUtil.getCurrentSession().delete(inventory);
-
-//                    if (inventory.getSku() != null) {
-//                        ReceivingPlan receivingPlan = ReceivingPlan.getByLotNum(inventory.getBatchNo(), inventory.getSku().getSkuCode());
-//                        if (receivingPlan != null) {
-//                            receivingPlan.setRecvedQty(receivingPlan.getRecvedQty().subtract(inventory.getQty()));
-//                            HibernateUtil.getCurrentSession().update(receivingPlan);
-//                        }
-//                    }
-                }
-
-                Location location = job.getToLocation();
-                if (location != null) {
-                    location.setReserved(false);
-                    location.setEmpty(true);
-                }
-                HibernateUtil.getCurrentSession().delete(job);
-
-            }
-
-            Query asrsJobQ = HibernateUtil.getCurrentSession().createQuery("from AsrsJob where mcKey=:mckey");
-            asrsJobQ.setParameter("mckey", mckey);
-            asrsJobQ.setMaxResults(1);
-            AsrsJob asrsJob = (AsrsJob) asrsJobQ.uniqueResult();
-            if (asrsJob != null)
-                HibernateUtil.getCurrentSession().delete(asrsJob);
+            session.delete(job);
 
         }
 
+        Query asrsJobQ = session.createQuery("from AsrsJob where mcKey=:mckey");
+        asrsJobQ.setParameter("mckey", mckey);
+        asrsJobQ.setMaxResults(1);
+        AsrsJob asrsJob = (AsrsJob) asrsJobQ.uniqueResult();
+        if (asrsJob != null){
+            asrsJob.delete();
+        }
 
     }
+
+
+
 
     /**
      * 出库取消
@@ -188,35 +129,121 @@ public class JobDoHelp {
      */
     public static void retirevalCancel(String mckey) {
         LogWriter.info(LoggerType.WMS, "强制取消出库任务mckey" + mckey);
+        Session session = HibernateUtil.getCurrentSession();
+        cancelBlockData(mckey);
+
         Job job = Job.getByMcKey(mckey);
         AsrsJob asrsJob = AsrsJob.getAsrsJobByMcKey(mckey);
 
-        Srm crane = (Srm) Block.getByBlockNo("ML01");
-        SCar sCar = (SCar) Block.getByBlockNo("SC01");
-        StationBlock station = (StationBlock) Block.getByBlockNo("0003");
 
-        if (mckey.equals(station.getMcKey()) || mckey.equals(station.getReservedMcKey())) {
-            station.setWaitingResponse(false);
-            station.setMcKey(null);
-            station.setReservedMcKey(null);
+        if (job != null){
+            Container container = Container.getByBarcode(job.getContainer());
+            container.setReserved(false);
+            session.delete(job);
         }
-        if (mckey.equals(sCar.getMcKey()) || mckey.equals(sCar.getReservedMcKey())) {
-            sCar.setMcKey(null);
-            sCar.setReservedMcKey(null);
-            sCar.setWaitingResponse(false);
-            sCar.setOnMCar("ML01");
-        }
-        if (mckey.equals(crane.getMcKey()) || mckey.equals(crane.getReservedMcKey())) {
-            crane.setWaitingResponse(false);
-            crane.setMcKey(null);
-            crane.setReservedMcKey(null);
-            crane.setsCarBlockNo("SC01");
-        }
-        if (job != null)
-            HibernateUtil.getCurrentSession().delete(job);
-        if (asrsJob != null)
-            HibernateUtil.getCurrentSession().delete(asrsJob);
 
+        if (asrsJob != null){
+            asrsJob.delete();
+        }
+    }
+
+    private static void cancelBlockData(String mckey) {
+        Session session = HibernateUtil.getCurrentSession();
+        List<Block> blocks = new ArrayList<>();
+        List<Block> reservedBlocks = new ArrayList<>();
+        addBlock("Conveyor",mckey,blocks,reservedBlocks);
+        addBlock("Lift",mckey,blocks,reservedBlocks);
+        addBlock("MCar",mckey,blocks,reservedBlocks);
+        addBlock("SCar",mckey,blocks,reservedBlocks);
+        addBlock("Srm",mckey,blocks,reservedBlocks);
+        addBlock("StationBlock",mckey,blocks,reservedBlocks);
+
+        for(Block block : blocks) {
+            block.setWaitingResponse(false);
+            if (block instanceof SCar) {
+                SCar sCar = (SCar) block;
+
+                sCar.setMcKey(null);
+
+                Query q = session.createQuery("from Srm b where b.groupNo = :groupNo")
+                        .setInteger("groupNo", sCar.getGroupNo());
+                Srm srm = (Srm) q.uniqueResult();
+                if (srm != null) {
+                    sCar.setOnMCar(srm.getBlockNo());
+                } else {
+                    q = session.createQuery("from MCar b where b.groupNo = :groupNo")
+                            .setInteger("groupNo", sCar.getGroupNo());
+                    MCar mCar = (MCar) q.uniqueResult();
+                    if (mCar != null) {
+                        sCar.setOnMCar(mCar.getBlockNo());
+                    }
+                }
+
+            } else if (block instanceof Conveyor) {
+                Conveyor conveyor = (Conveyor) block;
+                conveyor.setMcKey(null);
+            } else if (block instanceof MCar) {
+                MCar mCar = (MCar) block;
+                mCar.setMcKey(null);
+                mCar.setCheckLocation(false);
+            } else if (block instanceof Srm) {
+                Srm srm = (Srm) block;
+                srm.setMcKey(null);
+                srm.setBay(0);
+                srm.setLevel(1);
+                srm.setCheckLocation(false);
+            } else if (block instanceof StationBlock) {
+                StationBlock stationBlock = (StationBlock) block;
+                stationBlock.setMcKey(null);
+            }
+        }
+
+        for(Block reservedBlock : reservedBlocks) {
+            reservedBlock.setWaitingResponse(false);
+            if (reservedBlock instanceof SCar) {
+                SCar sCar = (SCar) reservedBlock;
+
+                sCar.setReservedMcKey(null);
+
+
+                Query q = session.createQuery("from Srm b where b.groupNo = :groupNo")
+                        .setInteger("groupNo", sCar.getGroupNo());
+                Srm srm = (Srm) q.uniqueResult();
+                if (srm != null) {
+                    sCar.setOnMCar(srm.getBlockNo());
+                } else {
+                    q = session.createQuery("from MCar b where b.groupNo = :groupNo")
+                            .setInteger("groupNo", sCar.getGroupNo());
+                    MCar mCar = (MCar) q.uniqueResult();
+                    if (mCar != null) {
+                        sCar.setOnMCar(mCar.getBlockNo());
+                    }
+                }
+
+            } else if (reservedBlock instanceof MCar) {
+                MCar mCar = (MCar) reservedBlock;
+                mCar.setReservedMcKey(null);
+                mCar.setCheckLocation(false);
+            } else if (reservedBlock instanceof Srm) {
+                Srm srm = (Srm) reservedBlock;
+                srm.setReservedMcKey(null);
+                srm.setBay(0);
+                srm.setLevel(1);
+                srm.setCheckLocation(false);
+            }
+        }
+
+
+    }
+
+    private static void addBlock(String table,String mckey,List<Block> blocks,List<Block> reservedBlocks) {
+        Session session = HibernateUtil.getCurrentSession();
+        Query q = session.createQuery("from " + table +" b where b.mcKey = :mckey")
+                .setString("mckey", mckey);
+        blocks.addAll(q.list());
+        q = session.createQuery("from " + table +" b where b.reservedMcKey = :mckey")
+                .setString("mckey", mckey);
+        reservedBlocks.addAll(q.list());
     }
 
     /**

@@ -111,6 +111,10 @@ public class Msg35Proc implements MsgProcess {
                                     }
                                 } else {
                                     srm.setDock(message35.Station);
+                                    if (StringUtils.isNotBlank(srm.getsCarBlockNo())) {
+                                        SCar sCar = (SCar) Block.getByBlockNo(srm.getsCarBlockNo());
+                                        sCar.setBay(0);
+                                    }
                                 }
                                 srm.setCheckLocation(true);
                             } else if (message35.isMoveCarryGoods()) {

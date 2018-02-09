@@ -85,6 +85,7 @@ let OnlineTaskQuery = React.createClass({
                 } else {
                     message.error(resp.msg);
                 }
+                this.getTableData(1);
             }
         });
     },
@@ -104,6 +105,7 @@ let OnlineTaskQuery = React.createClass({
                 } else {
                     message.error(resp.msg);
                 }
+                this.getTableData(1);
             }
         });
     },

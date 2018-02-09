@@ -177,15 +177,16 @@ public class Container {
         inventory.setContainer(this);
     }
 
-    public static Container getByBarcode(String palletNo) {
-        Query q = HibernateUtil.getCurrentSession().createQuery("from Container c where c.barcode = :barcode")
-                .setString("barcode", palletNo);
-        return (Container) q.uniqueResult();
-    }
 
     public static Container getById(int id) {
         Session session = HibernateUtil.getCurrentSession();
 
         return (Container) session.get(Container.class, id);
+    }
+
+    public static Container getByBarcode(String palletNo) {
+        Query q = HibernateUtil.getCurrentSession().createQuery("from Container c where c.barcode = :barcode")
+                .setString("barcode", palletNo);
+        return (Container) q.uniqueResult();
     }
 }

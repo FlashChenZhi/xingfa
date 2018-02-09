@@ -38,7 +38,8 @@ let AsrsJobQuery = React.createClass({
 
     deleteJob(mckey) {
         reqwest({
-            url: '/wcs/webService/deleteJob.do',
+            // url: '/wcs/webService/deleteJob.do',
+            url: '/wms/task/cancelJob',
             method: 'POST',
             data: {mckey: mckey},
             type: 'json',

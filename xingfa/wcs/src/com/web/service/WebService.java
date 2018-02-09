@@ -87,14 +87,15 @@ public class WebService {
             Transaction.begin();
             Session session = HibernateUtil.getCurrentSession();
             Criteria criteria = session.createCriteria(AsrsJob.class);
-            criteria.addOrder(Order.asc(AsrsJob.__ID));
             //获取总行数
             Long total = (Long) criteria.setProjection(Projections.rowCount()).uniqueResult();
 //            获取分页数据
             criteria.setProjection(null);
+            criteria.addOrder(Order.asc(AsrsJob.__ID));
+
             criteria.setFirstResult((currentPage - 1) * 10);
             criteria.setMaxResults(10);
-            criteria.setResultTransformer(CriteriaSpecification.ROOT_ENTITY);
+//            criteria.setResultTransformer(CriteriaSpecification.ROOT_ENTITY);
             List<AsrsJob> jobs = criteria.list();
 
             List<OnlineTaskVo> onlineTaskVos = new ArrayList<>();

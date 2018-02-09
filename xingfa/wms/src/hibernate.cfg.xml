@@ -49,7 +49,11 @@
         <mapping class="com.wms.domain.blocks.Dock"/>
         <mapping class="com.wms.domain.blocks.Block"/>
         <mapping class="com.wms.domain.blocks.SCar"/>
+        <mapping class="com.wms.domain.blocks.MCar"/>
+        <mapping class="com.wms.domain.blocks.Conveyor"/>
         <mapping class="com.wms.domain.blocks.StationBlock"/>
+        <mapping class="com.wms.domain.blocks.Srm"/>
+        <mapping class="com.wms.domain.blocks.Lift"/>
         <mapping class="com.wms.domain.Message"/>
         <mapping class="com.wms.domain.AsrsJob"/>
         <mapping class="com.wms.domain.Msg03"/>
@@ -59,8 +63,6 @@
         <mapping class="com.wms.domain.OutSeaBatch"/>
         <mapping class="com.wms.domain.WmsJobInventory"/>
         <mapping class="com.wms.domain.SystemLog"/>
-        <mapping class="com.wms.domain.blocks.Srm"/>
-        <mapping class="com.wms.domain.blocks.Dock"/>
         <mapping class="com.wms.domain.XMLMessage"/>
         <mapping class="com.wms.domain.Role"/>
         <mapping class="com.wms.domain.Menu"/>
