@@ -118,7 +118,7 @@ public class Msg50Proc implements MsgProcess {
                                             LoadUnitAtIdDA loadUnitAtIdDA = new LoadUnitAtIdDA();
                                             loadUnitAtIdDA.setXMLLocation(xmlLocation);
                                             loadUnitAtIdDA.setScanDate(entry2.getValue());
-                                            loadUnitAtIdDA.setLoadType("00");
+                                            loadUnitAtIdDA.setLoadType(StringUtils.leftPad(entry.getValue().height,2,'0'));
                                             loadUnitAtIdDA.setWeight(entry.getValue().weight);
 
                                             LoadUnitAtID loadUnitAtID = new LoadUnitAtID();

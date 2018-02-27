@@ -29,7 +29,6 @@ public class PutInStorageService {
      * @return
      * @throws IOException
      */
-
     public ReturnObj<List<Map<String,String>>> getCommodityCode() {
         System.out.println("进入获取商品代码方法！");
         ReturnObj<List<Map<String, String>>> returnObj = new ReturnObj<List<Map<String, String>>>();

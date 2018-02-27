@@ -59,7 +59,7 @@ let PutInStorage = React.createClass({
                     data: {tuopanhao: tuopanhao,zhantai:zhantai,commodityCode:commodityCode,num:num},
                     success: function (json) {
                         if (!json.success) {
-                            message.error("设定任务失败！");
+                            message.error(json.msg);
                         } else {
                             message.success("设定任务成功！");
                         }

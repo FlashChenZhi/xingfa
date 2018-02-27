@@ -275,7 +275,7 @@ public class LoadUnitAtID extends XMLProcess {
             j.setStatus(AsrsJobStatus.RUNNING);
             InventoryView view = InventoryView.getByPalletNo(j.getContainer());
             Station station = Station.getStation(stationNo);
-            Location newLocation = Location.getEmptyLocation(view.getSkuCode(),station.getPosition());
+            Location newLocation = Location.getEmptyLocation(view.getSkuCode(),station.getPosition(),dataArea.getLoadType());
             String palletNo = j.getContainer();
             if (newLocation == null) {
                 SystemLog.error("托盘" + palletNo + "找不到合适的货位");

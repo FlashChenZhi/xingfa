@@ -4,6 +4,7 @@ package com.wms.domain;
 import com.asrs.business.consts.AsrsJobStatus;
 import com.asrs.business.consts.AsrsJobType;
 import com.util.hibernate.HibernateUtil;
+import org.apache.commons.lang.StringUtils;
 import org.hibernate.Query;
 import org.hibernate.Session;
 
@@ -60,6 +61,7 @@ public class Location {
     }
 
     private String _locationNo;
+
 
     @Basic
     @Column(name = "LOCATIONNO")
@@ -430,6 +432,17 @@ public class Location {
         this.actualArea = actureArea;
     }
 
+    private String positionType;
+
+    @Basic
+    @Column(name = "POSITIONTYPE")
+    public String getPositionType() {
+        return positionType;
+    }
+
+    public void setPositionType(String positionType) {
+        this.positionType = positionType;
+    }
 
     @Version
     @Column(name = "VERSION")
@@ -440,6 +453,8 @@ public class Location {
     public void setVersion(int version) {
         _version = version;
     }
+
+
 
     @Override
     public boolean equals(Object o) {
@@ -555,15 +570,28 @@ public class Location {
      * @param position
      * @return
      */
-    public static Location getEmptyLocation(String skuCode,String position) {
+    public static Location getEmptyLocation(String skuCode,String position,String loadType) {
+        //loadType = 01 高 02 低
+        Location location=null;
+
+        if(StringUtils.isNotBlank(loadType)){
+            location = getLocation(skuCode,position,loadType);
+            if(location == null && "02".equals(loadType)){
+                location = getLocation(skuCode,position,"01");
+            }
+        }
+        return location;
+    }
+
+    public static Location getLocation(String skuCode,String position,String loadType){
         Session session = HibernateUtil.getCurrentSession();
         //存在同批次的库存同一边的可用，并且托盘是整托
         Query q = session.createQuery("from Location l where exists( select 1 from Inventory i where l.bay=i.container.location.bay and l.actualArea=i.container.location.actualArea " +
                 " and l.level =i.container.location.level  and i.skuCode=:skuCode " +
                 " and  l.position=i.container.location.position and l.actualArea = i.container.location.actualArea and i.container.location.seq<l.seq  ) and not exists( select 1 from Inventory i " +
                 " where l.bay=i.container.location.bay and l.level =i.container.location.level  and l.actualArea=i.container.location.actualArea and l.position=i.container.location.position and i.orderNo is not null)  " +
-                "and l.empty=true  and l.position=:po and l.reserved=false and l.asrsFlag = true and l.putawayRestricted = false order by l.seq")
-                .setString("skuCode", skuCode).setParameter("po", position);
+                " and l.empty=true  and l.position=:po and l.reserved=false and l.asrsFlag = true and l.putawayRestricted = false and l.positionType = :positionType order by l.seq")
+                .setString("skuCode", skuCode).setParameter("po", position).setParameter("positionType",loadType);
         if (!q.list().isEmpty()) {
             return (Location) q.list().get(0);
         } else {
@@ -571,24 +599,24 @@ public class Location {
             q = session.createQuery("from Location l where exists( select j from Job j,InventoryView  v where j.container =v.palletCode" +
                     " and l.actualArea= j.toLocation.actualArea " +
                     " and l.level = j.toLocation.level and l.bay = j.toLocation.bay and v.skuCode=:skuCode and l.position=j.toLocation.position )  " +
-                    "and l.empty=true and l.position=:po and l.reserved=false and l.asrsFlag = true and l.putawayRestricted = false order by l.seq asc")
-                    .setParameter("po", position).setParameter("skuCode", skuCode);
+                    "and l.empty=true and l.position=:po and l.reserved=false and l.asrsFlag = true and l.putawayRestricted = false and l.positionType = :positionType order by l.seq asc")
+                    .setParameter("po", position).setParameter("skuCode", skuCode).setParameter("positionType",loadType);
             if (!q.list().isEmpty()) {
                 return (Location) q.list().get(0);
             } else {
                 //查找一个空的先进先出的巷道
                 q = session.createQuery("from Location l where not exists (select 1 from Location ol where ol.bay = l.bay and (ol.reserved=true or ol.empty=false ) " +
                         "and l.level =ol.level and l.actualArea=ol.actualArea and l.position=ol.position )" +
-                        " and l.empty=true  and l.position=:po and l.reserved=false and l.asrsFlag = true and l.putawayRestricted = false and l.seq = l.seq2 order by l.bay asc,level asc,actualArea asc,seq asc ")
-                        .setParameter("po", position);
+                        " and l.empty=true  and l.position=:po and l.reserved=false and l.asrsFlag = true and l.putawayRestricted = false and l.seq = l.seq2 and l.positionType = :positionType  order by l.bay asc,level asc,actualArea asc,seq asc ")
+                        .setParameter("po", position).setParameter("positionType",loadType);
                 if (!q.list().isEmpty()) {
                     return (Location) q.list().get(0);
                 }else{
                     //查找一个空的巷道
                     q = session.createQuery("from Location l where not exists (select 1 from Location ol where ol.bay = l.bay and (ol.reserved=true or ol.empty=false ) " +
                             "and l.level =ol.level and l.actualArea=ol.actualArea and l.position=ol.position )" +
-                            " and l.empty=true  and l.position=:po and l.reserved=false and l.asrsFlag = true and l.putawayRestricted = false order by l.bay asc,level asc,actualArea asc,seq asc ")
-                            .setParameter("po", position);
+                            " and l.empty=true  and l.position=:po and l.reserved=false and l.asrsFlag = true and l.putawayRestricted = false and l.positionType = :positionType order by l.bay asc,level asc,actualArea asc,seq asc ")
+                            .setParameter("po", position).setParameter("positionType",loadType);
                     if (!q.list().isEmpty()) {
                         return (Location) q.list().get(0);
                     }
@@ -597,7 +625,6 @@ public class Location {
             return null;
         }
     }
-
 //    /**
 //     * @return
 //     */

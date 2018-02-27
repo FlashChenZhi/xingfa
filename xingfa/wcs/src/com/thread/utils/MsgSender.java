@@ -25,6 +25,7 @@ import com.util.common.Const;
 import com.util.common.LogWriter;
 import com.util.hibernate.HibernateUtil;
 import org.apache.commons.lang.StringUtils;
+import org.junit.Test;
 
 import java.rmi.Naming;
 import java.text.SimpleDateFormat;
@@ -91,7 +92,7 @@ public class MsgSender {
 
         HibernateUtil.getCurrentSession().save(msg03);
 
-        LogWriter.writeInfo("WMS_INFO", m3.toString());
+        //LogWriter.writeInfo("WMS_INFO", m3.toString());
         MessageProxy _wcsproxy = (MessageProxy) Naming.lookup(Const.WCSPROXY);
         _wcsproxy.addSndMsg(m3);
         block.setWaitingResponse(true);
