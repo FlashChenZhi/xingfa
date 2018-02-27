@@ -222,9 +222,14 @@ public class Msg35Proc implements MsgProcess {
                                 query.setMaxResults(1);
                                 AsrsJob asrsJob = (AsrsJob) query.uniqueResult();
                                 if (asrsJob != null) {
-                                    sCar.setReservedMcKey(asrsJob.getMcKey());
-                                    asrsJob.setStatusDetail(AsrsJobStatusDetail.ACCEPTED);
-                                    asrsJob.setStatus(AsrsJobStatus.ACCEPT);
+
+                                    Location location = Location.getByLocationNo(asrsJob.getFromLocation());
+                                    if(location.getBay() == sCar.getBay() && location.getLevel() == sCar.getLevel()) {
+
+                                        sCar.setReservedMcKey(asrsJob.getMcKey());
+                                        asrsJob.setStatusDetail(AsrsJobStatusDetail.ACCEPTED);
+                                        asrsJob.setStatus(AsrsJobStatus.ACCEPT);
+                                    }
                                 }
 
                             } else if (message35.isOnCar()) {

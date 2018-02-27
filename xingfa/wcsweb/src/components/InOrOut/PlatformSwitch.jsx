@@ -62,7 +62,7 @@ let PlatformSwitch = React.createClass({
                     data: {pattern: pattern,zhantai:zhantai},
                     success: function (json) {
                         if (!json.success) {
-                            message.error("模式切换失败！");
+                            message.error(json.msg);
                         } else {
                             message.success("模式切换成功！");
                         }

@@ -585,11 +585,11 @@ public class Location {
 
     public static Location getLocation(String skuCode,String position,String loadType){
         Session session = HibernateUtil.getCurrentSession();
-        //存在同批次的库存同一边的可用，并且托盘是整托
+        //存在同批次的库存同一边的可用
         Query q = session.createQuery("from Location l where exists( select 1 from Inventory i where l.bay=i.container.location.bay and l.actualArea=i.container.location.actualArea " +
                 " and l.level =i.container.location.level  and i.skuCode=:skuCode " +
-                " and  l.position=i.container.location.position and l.actualArea = i.container.location.actualArea and i.container.location.seq<l.seq  ) and not exists( select 1 from Inventory i " +
-                " where l.bay=i.container.location.bay and l.level =i.container.location.level  and l.actualArea=i.container.location.actualArea and l.position=i.container.location.position and i.orderNo is not null)  " +
+                " and  l.position=i.container.location.position and i.container.location.seq<l.seq ) and not exists (select 1 from Container c where l.bay=c.location.bay and l.actualArea=c.location.actualArea " +
+                " and l.level =c.location.level and  l.position=c.location.position and c.location.seq<l.seq and c.location.seq2>l.seq2 and c.reserved = true ) " +
                 " and l.empty=true  and l.position=:po and l.reserved=false and l.asrsFlag = true and l.putawayRestricted = false and l.positionType = :positionType order by l.seq")
                 .setString("skuCode", skuCode).setParameter("po", position).setParameter("positionType",loadType);
         if (!q.list().isEmpty()) {
@@ -607,7 +607,8 @@ public class Location {
                 //查找一个空的先进先出的巷道
                 q = session.createQuery("from Location l where not exists (select 1 from Location ol where ol.bay = l.bay and (ol.reserved=true or ol.empty=false ) " +
                         "and l.level =ol.level and l.actualArea=ol.actualArea and l.position=ol.position )" +
-                        " and l.empty=true  and l.position=:po and l.reserved=false and l.asrsFlag = true and l.putawayRestricted = false and l.seq = l.seq2 and l.positionType = :positionType  order by l.bay asc,level asc,actualArea asc,seq asc ")
+                        " and l.empty=true  and l.position=:po and l.reserved=false and l.asrsFlag = true and l.putawayRestricted = false and not exists (select 1 from Location l2 where l.bay=l2.bay and l.actualArea=l2.actualArea " +
+                        " and l.level =l2.level and  l.position=l2.position and l2.seq <> l2.seq2 ) and l.positionType = :positionType  order by l.bay asc,level asc,actualArea asc,seq asc ")
                         .setParameter("po", position).setParameter("positionType",loadType);
                 if (!q.list().isEmpty()) {
                     return (Location) q.list().get(0);

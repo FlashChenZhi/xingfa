@@ -32,7 +32,8 @@ public class StockOutThread {
                   System.out.println(rol.getShouhuodanhao());
                   String shangpindaima = rol.getShangpindaima();
                   Query query2 = HibernateUtil.getCurrentSession().createQuery("from Inventory i where " +
-                          "i.skuCode = :skuCode and i.container.reserved = false and i.container.location.retrievalRestricted = false and i.container.location.abnormal = false");
+                          "i.skuCode = :skuCode and i.container.reserved = false and i.container.location.retrievalRestricted = false and i.container.location.abnormal = false and not exists (select 1 from Location l where l.bay=i.container.location.bay and l.actualArea=i.container.location.actualArea " +
+                          " and l.level =i.container.location.level and  l.position=i.container.location.position and l.seq2 < i.container.seq2 and l.seq > i.container.seq and l.reserved = true )");
                   query2.setParameter("skuCode",shangpindaima);
                   List<Inventory>  inventoryList = query2.list();
                   //所有单元格货品位置的集合，四坐标为值
