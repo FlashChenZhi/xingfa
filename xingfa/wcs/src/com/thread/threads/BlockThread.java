@@ -28,17 +28,4 @@ public abstract class BlockThread<T> extends Thread {
     @Override
     public abstract void run();
 
-    public void Message26Proc(Block block) {
-
-        Query jobQuery = HibernateUtil.getCurrentSession().createQuery("from AsrsJob where status=:status").setParameter("status", AsrsJobStatus.DONE);
-        List<AsrsJob> jobs = jobQuery.list();
-        for (AsrsJob job : jobs) {
-            Query query = HibernateUtil.getCurrentSession().createQuery("from Block where reservedMcKey=:mckey or mcKey=:mckey");
-            query.setParameter("mckey", job.getMcKey());
-            List<Block> blocks = query.list();
-            if (blocks.isEmpty()) {
-                job.delete();
-            }
-        }
-    }
 }

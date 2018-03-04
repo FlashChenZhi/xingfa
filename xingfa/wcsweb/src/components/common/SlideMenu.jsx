@@ -84,6 +84,11 @@ const SlideMenu = React.createClass({
                                 <Icon type="ellipsis" /><span className="nav-text">站台模式切换</span>
                             </Link>
                         </Menu.Item>
+                        <Menu.Item key='64'>
+                            <Link to='FindInventory'>
+                                <Icon type="solution" /><span className="nav-text">库存展示</span>
+                            </Link>
+                        </Menu.Item>
                     </SubMenu>
                 </Menu>
             </aside>

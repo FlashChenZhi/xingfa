@@ -6,6 +6,7 @@ import com.asrs.domain.XMLbean.XMLList.DataArea.DAList.AcceptTransportOrderDA;
 import com.asrs.domain.XMLbean.XMLProcess;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.util.hibernate.HibernateUtil;
+import com.wms.domain.InventoryView;
 import com.wms.domain.Job;
 import com.wms.domain.Location;
 
@@ -49,6 +50,8 @@ public class AcceptTransportOrder extends XMLProcess {
             if (job.getType().equals(AsrsJobType.PUTAWAY)) {
                 Location location = job.getToLocation();
                 location.setReserved(false);
+                InventoryView inventoryView = InventoryView.getByPalletNo(job.getContainer());
+                HibernateUtil.getCurrentSession().delete(inventoryView);
             } else {
 
             }

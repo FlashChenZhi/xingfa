@@ -10,6 +10,7 @@ import com.asrs.domain.Location;
 import com.thread.blocks.*;
 import com.thread.threads.operator.SrmOperator;
 import com.thread.threads.service.SrmService;
+import com.util.common.Const;
 import com.util.hibernate.HibernateUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.hibernate.Query;
@@ -20,6 +21,8 @@ import org.hibernate.Query;
 public abstract class SrmAndScarServiceImpl implements SrmService {
 
     private Srm srm;
+
+    private int minPower = Const.LOW_POWER;
 
     public SrmAndScarServiceImpl(Block block) {
         this.srm = (Srm) block;
@@ -90,7 +93,7 @@ public abstract class SrmAndScarServiceImpl implements SrmService {
 
         } else {
             //仓库里没有充电作业，执行正常操作
-            //移动提升机上没有子车
+            //移动提升机上有子车
             if (StringUtils.isNotBlank(srm.getsCarBlockNo())) {
                 //获取子车
                 SCar sCar = SCar.getScarByGroup(srm.getGroupNo());
@@ -100,14 +103,13 @@ public abstract class SrmAndScarServiceImpl implements SrmService {
                     srm.setReservedMcKey(sCar.getReservedMcKey());
 
                 } else {
-                    //子车不在提升机上
-                    //获取入库任务
+
                     boolean hasJob = false;
 
                     //堆垛机上的子车电量不足，生成充电任务
                     Query q = HibernateUtil.getCurrentSession().createQuery("from SCar s where s.status = :status")
                             .setString("status", SCar.STATUS_CHARGE);
-                    if (sCar.getPower() < 40 && q.list().isEmpty()) {
+                    if (sCar.getPower() < minPower && q.list().isEmpty()) {
                         AsrsJob asrsJob = new AsrsJob();
                         asrsJob.setMcKey(Mckey.getNext());
                         asrsJob.setToLocation(sCar.getChargeLocation());
@@ -125,98 +127,103 @@ public abstract class SrmAndScarServiceImpl implements SrmService {
                         hasJob = true;
                     }
 
+                    if (sCar.getPower() >= minPower){
+                        //子车在提升机上
+                        //获取入库任务
 
-                    Block block = srm.getPreBlockHasMckey(AsrsJobType.PUTAWAY);
-                    if (!hasJob) {
-                        if (block != null) {
-                            //如果上一段block有mckey，
-                            if (block instanceof Conveyor) {
-                                Conveyor conveyor = (Conveyor) block;
-                                if (StringUtils.isNotBlank(conveyor.getMcKey()) && (!conveyor.isWaitingResponse() || (!conveyor.isMantWaiting() && conveyor.isManty()))) {
-                                    AsrsJob asrsJob = AsrsJob.getAsrsJobByMcKey(block.getMcKey());
-                                    //如果提升机的上一节是入库作业，设置提升机reservedmckey
-                                    if (asrsJob.getType().equals(AsrsJobType.PUTAWAY)) {
-                                        srm.setReservedMcKey(block.getMcKey());
-                                        hasJob = true;
+                        Block block = srm.getPreBlockHasMckey(AsrsJobType.PUTAWAY);
+                        if (!hasJob) {
+                            if (block != null) {
+                                //如果上一段block有mckey，
+                                if (block instanceof Conveyor) {
+                                    Conveyor conveyor = (Conveyor) block;
+                                    if (StringUtils.isNotBlank(conveyor.getMcKey()) && (!conveyor.isWaitingResponse() || (!conveyor.isMantWaiting() && conveyor.isManty()))) {
+                                        AsrsJob asrsJob = AsrsJob.getAsrsJobByMcKey(block.getMcKey());
+                                        //如果提升机的上一节是入库作业，设置提升机reservedmckey
+                                        if (asrsJob.getType().equals(AsrsJobType.PUTAWAY)) {
+                                            srm.setReservedMcKey(block.getMcKey());
+                                            hasJob = true;
+                                        }
                                     }
-                                }
-                            } else if (block instanceof StationBlock) {
-                                if (StringUtils.isNotBlank(block.getMcKey()) && !block.isWaitingResponse()) {
-                                    //如果提升机的上一节是入库作业，设置提升机reservedmckey
-                                    AsrsJob asrsJob = AsrsJob.getAsrsJobByMcKey(block.getMcKey());
-                                    if (asrsJob.getType().equals(AsrsJobType.PUTAWAY)) {
-                                        srm.setReservedMcKey(block.getMcKey());
-                                        hasJob = true;
-                                    }
-                                }
-                            }
-                        }
-                    }
-
-                    //获取出库任务
-                    if (!hasJob) {
-                        Query query = HibernateUtil.getCurrentSession().createQuery(" from AsrsJob where type=:tp and statusDetail = '0' and fromStation=:fStation order by id asc ").setMaxResults(1);
-                        query.setParameter("tp", AsrsJobType.RETRIEVAL);
-                        query.setParameter("fStation", srm.getBlockNo());
-                        AsrsJob asrsJob = (AsrsJob) query.uniqueResult();
-                        if (asrsJob != null) {
-                            srm.setReservedMcKey(asrsJob.getMcKey());
-                            hasJob = true;
-                        }
-                    }
-
-                    //获取出库任务
-                    if (!hasJob) {
-                        Query query = HibernateUtil.getCurrentSession().createQuery(" from AsrsJob where type=:tp and statusDetail = '0' and fromStation=:fStation order by id asc ").setMaxResults(1);
-                        query.setParameter("tp", AsrsJobType.LOCATIONTOLOCATION);
-                        query.setParameter("fStation", srm.getBlockNo());
-                        AsrsJob asrsJob = (AsrsJob) query.uniqueResult();
-                        if (asrsJob != null) {
-                            srm.setReservedMcKey(asrsJob.getMcKey());
-                            hasJob = true;
-                        }
-                    }
-                    if (!hasJob) {
-                        Block bb = srm.getPreBlockHasMckey(AsrsJobType.ST2ST);
-                        if (bb != null) {
-                            //如果上一段block有mckey，
-                            if (bb instanceof Conveyor) {
-                                Conveyor conveyor = (Conveyor) bb;
-                                if (StringUtils.isNotBlank(conveyor.getMcKey()) && (!conveyor.isWaitingResponse() || (!conveyor.isMantWaiting() && conveyor.isManty()))) {
-                                    AsrsJob asrsJob = AsrsJob.getAsrsJobByMcKey(bb.getMcKey());
-                                    //如果提升机的上一节是入库作业，设置提升机reservedmckey
-                                    if (asrsJob.getType().equals(AsrsJobType.ST2ST)) {
-                                        srm.setReservedMcKey(bb.getMcKey());
-                                        hasJob = true;
-                                    }
-                                }
-                            } else if (bb instanceof StationBlock) {
-                                if (StringUtils.isNotBlank(bb.getMcKey()) && !bb.isWaitingResponse()) {
-                                    //如果提升机的上一节是入库作业，设置提升机reservedmckey
-                                    AsrsJob asrsJob = AsrsJob.getAsrsJobByMcKey(bb.getMcKey());
-                                    if (asrsJob.getType().equals(AsrsJobType.ST2ST)) {
-                                        srm.setReservedMcKey(bb.getMcKey());
-                                        hasJob = true;
+                                } else if (block instanceof StationBlock) {
+                                    if (StringUtils.isNotBlank(block.getMcKey()) && !block.isWaitingResponse()) {
+                                        //如果提升机的上一节是入库作业，设置提升机reservedmckey
+                                        AsrsJob asrsJob = AsrsJob.getAsrsJobByMcKey(block.getMcKey());
+                                        if (asrsJob.getType().equals(AsrsJobType.PUTAWAY)) {
+                                            srm.setReservedMcKey(block.getMcKey());
+                                            hasJob = true;
+                                        }
                                     }
                                 }
                             }
                         }
-                    }
+
+                        //获取出库任务
+                        if (!hasJob) {
+                            Query query = HibernateUtil.getCurrentSession().createQuery(" from AsrsJob where type=:tp and statusDetail = '0' and fromStation=:fStation order by id asc ").setMaxResults(1);
+                            query.setParameter("tp", AsrsJobType.RETRIEVAL);
+                            query.setParameter("fStation", srm.getBlockNo());
+                            AsrsJob asrsJob = (AsrsJob) query.uniqueResult();
+                            if (asrsJob != null) {
+                                srm.setReservedMcKey(asrsJob.getMcKey());
+                                hasJob = true;
+                            }
+                        }
+
+                        //获取出库任务
+                        if (!hasJob) {
+                            Query query = HibernateUtil.getCurrentSession().createQuery(" from AsrsJob where type=:tp and statusDetail = '0' and fromStation=:fStation order by id asc ").setMaxResults(1);
+                            query.setParameter("tp", AsrsJobType.LOCATIONTOLOCATION);
+                            query.setParameter("fStation", srm.getBlockNo());
+                            AsrsJob asrsJob = (AsrsJob) query.uniqueResult();
+                            if (asrsJob != null) {
+                                srm.setReservedMcKey(asrsJob.getMcKey());
+                                hasJob = true;
+                            }
+                        }
+                        if (!hasJob) {
+                            Block bb = srm.getPreBlockHasMckey(AsrsJobType.ST2ST);
+                            if (bb != null) {
+                                //如果上一段block有mckey，
+                                if (bb instanceof Conveyor) {
+                                    Conveyor conveyor = (Conveyor) bb;
+                                    if (StringUtils.isNotBlank(conveyor.getMcKey()) && (!conveyor.isWaitingResponse() || (!conveyor.isMantWaiting() && conveyor.isManty()))) {
+                                        AsrsJob asrsJob = AsrsJob.getAsrsJobByMcKey(bb.getMcKey());
+                                        //如果提升机的上一节是入库作业，设置提升机reservedmckey
+                                        if (asrsJob.getType().equals(AsrsJobType.ST2ST)) {
+                                            srm.setReservedMcKey(bb.getMcKey());
+                                            hasJob = true;
+                                        }
+                                    }
+                                } else if (bb instanceof StationBlock) {
+                                    if (StringUtils.isNotBlank(bb.getMcKey()) && !bb.isWaitingResponse()) {
+                                        //如果提升机的上一节是入库作业，设置提升机reservedmckey
+                                        AsrsJob asrsJob = AsrsJob.getAsrsJobByMcKey(bb.getMcKey());
+                                        if (asrsJob.getType().equals(AsrsJobType.ST2ST)) {
+                                            srm.setReservedMcKey(bb.getMcKey());
+                                            hasJob = true;
+                                        }
+                                    }
+                                }
+                            }
+                        }
 
 
-                    if (hasJob) {
-                        AsrsJob asrsJob = null;
-                        if (StringUtils.isNotBlank(srm.getReservedMcKey()))
-                            asrsJob = AsrsJob.getAsrsJobByMcKey(srm.getReservedMcKey());
-                        else if (StringUtils.isNotBlank(srm.getMcKey()))
-                            asrsJob = AsrsJob.getAsrsJobByMcKey(srm.getMcKey());
-                        asrsJob.setStatusDetail(AsrsJobStatusDetail.ACCEPTED);
-                    } else {
-                        if (!srm.getCycle().equals(srm.getDock())) {
+                        if (hasJob) {
+                            AsrsJob asrsJob = null;
+                            if (StringUtils.isNotBlank(srm.getReservedMcKey()))
+                                asrsJob = AsrsJob.getAsrsJobByMcKey(srm.getReservedMcKey());
+                            else if (StringUtils.isNotBlank(srm.getMcKey()))
+                                asrsJob = AsrsJob.getAsrsJobByMcKey(srm.getMcKey());
+                            asrsJob.setStatusDetail(AsrsJobStatusDetail.ACCEPTED);
+                        } else {
+                            if (!srm.getCycle().equals(srm.getDock())) {
 //                            SrmOperator srmOperator = new SrmOperator(srm, "9999");
 //                            srmOperator.cycle(srm);
+                            }
                         }
                     }
+
                 }
 
             } else {
@@ -243,54 +250,56 @@ public abstract class SrmAndScarServiceImpl implements SrmService {
                         }
                     }
 
-                    if (!hasJob) {
-                        //查找入库任务
-                        Block block = srm.getPreBlockHasMckey(AsrsJobType.PUTAWAY);
-                        if (block != null) {
-                            //如果上一段block有mckey，设置提升机reservedmckey
-                            if (block instanceof Conveyor) {
-                                Conveyor conveyor = (Conveyor) block;
-                                if (StringUtils.isNotBlank(conveyor.getMcKey()) && (!conveyor.isWaitingResponse() || (!conveyor.isMantWaiting() && conveyor.isManty()))) {
-                                    //如果提升机的上一节是入库作业，设置提升机reservedmckey
-                                    AsrsJob asrsJob = AsrsJob.getAsrsJobByMcKey(block.getMcKey());
-                                    if (asrsJob.getType().equals(AsrsJobType.PUTAWAY)) {
-                                        srm.setReservedMcKey(block.getMcKey());
-                                        hasJob = true;
+                    if (sCar.getPower() >= minPower) {
+                        if (!hasJob) {
+                            //查找入库任务
+                            Block block = srm.getPreBlockHasMckey(AsrsJobType.PUTAWAY);
+                            if (block != null) {
+                                //如果上一段block有mckey，设置提升机reservedmckey
+                                if (block instanceof Conveyor) {
+                                    Conveyor conveyor = (Conveyor) block;
+                                    if (StringUtils.isNotBlank(conveyor.getMcKey()) && (!conveyor.isWaitingResponse() || (!conveyor.isMantWaiting() && conveyor.isManty()))) {
+                                        //如果提升机的上一节是入库作业，设置提升机reservedmckey
+                                        AsrsJob asrsJob = AsrsJob.getAsrsJobByMcKey(block.getMcKey());
+                                        if (asrsJob.getType().equals(AsrsJobType.PUTAWAY)) {
+                                            srm.setReservedMcKey(block.getMcKey());
+                                            hasJob = true;
+                                        }
                                     }
-                                }
-                            } else if (block instanceof StationBlock) {
-                                if (StringUtils.isNotBlank(block.getMcKey()) && !block.isWaitingResponse()) {
-                                    //如果提升机的上一节是入库作业，设置提升机reservedmckey
-                                    AsrsJob asrsJob = AsrsJob.getAsrsJobByMcKey(block.getMcKey());
-                                    if (asrsJob.getType().equals(AsrsJobType.PUTAWAY)) {
-                                        srm.setReservedMcKey(block.getMcKey());
-                                        hasJob = true;
+                                } else if (block instanceof StationBlock) {
+                                    if (StringUtils.isNotBlank(block.getMcKey()) && !block.isWaitingResponse()) {
+                                        //如果提升机的上一节是入库作业，设置提升机reservedmckey
+                                        AsrsJob asrsJob = AsrsJob.getAsrsJobByMcKey(block.getMcKey());
+                                        if (asrsJob.getType().equals(AsrsJobType.PUTAWAY)) {
+                                            srm.setReservedMcKey(block.getMcKey());
+                                            hasJob = true;
+                                        }
                                     }
                                 }
                             }
                         }
                     }
-                }
 
-                if (!hasJob) {
-                    Query query = HibernateUtil.getCurrentSession().createQuery(" from AsrsJob where type=:tp and statusDetail = '0' and fromStation=:st order by id asc ").setMaxResults(1);
-                    query.setParameter("tp", AsrsJobType.RETRIEVAL);
-                    query.setParameter("st", srm.getBlockNo());
-                    AsrsJob asrsJob = (AsrsJob) query.uniqueResult();
-                    if (asrsJob != null) {
-                        srm.setReservedMcKey(asrsJob.getMcKey());
-                        hasJob = true;
+                    if (!hasJob) {
+                        Query query = HibernateUtil.getCurrentSession().createQuery(" from AsrsJob where type=:tp and statusDetail = '0' and fromStation=:st order by id asc ").setMaxResults(1);
+                        query.setParameter("tp", AsrsJobType.RETRIEVAL);
+                        query.setParameter("st", srm.getBlockNo());
+                        AsrsJob asrsJob = (AsrsJob) query.uniqueResult();
+                        if (asrsJob != null) {
+                            srm.setReservedMcKey(asrsJob.getMcKey());
+                            hasJob = true;
+                        }
                     }
-                }
 
-                if (!hasJob) {
-                    Query query = HibernateUtil.getCurrentSession().createQuery(" from AsrsJob where type=:tp and statusDetail = '0' and fromStation=:st order by id asc ").setMaxResults(1);
-                    query.setParameter("tp", AsrsJobType.LOCATIONTOLOCATION);
-                    query.setParameter("st", srm.getBlockNo());
-                    AsrsJob asrsJob = (AsrsJob) query.uniqueResult();
-                    if (asrsJob != null) {
-                        srm.setReservedMcKey(asrsJob.getMcKey());
-                        hasJob = true;
+                    if (!hasJob) {
+                        Query query = HibernateUtil.getCurrentSession().createQuery(" from AsrsJob where type=:tp and statusDetail = '0' and fromStation=:st order by id asc ").setMaxResults(1);
+                        query.setParameter("tp", AsrsJobType.LOCATIONTOLOCATION);
+                        query.setParameter("st", srm.getBlockNo());
+                        AsrsJob asrsJob = (AsrsJob) query.uniqueResult();
+                        if (asrsJob != null) {
+                            srm.setReservedMcKey(asrsJob.getMcKey());
+                            hasJob = true;
+                        }
                     }
                 }
 

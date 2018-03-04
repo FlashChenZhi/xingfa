@@ -86,7 +86,7 @@ public class OrderInquiryService {
             s.setSuccess(false);
             s.setMsg(LogMessage.UNEXPECTED_ERROR.getName());
         }
-            return s;
+        return s;
     }
 
     /**
@@ -133,13 +133,13 @@ public class OrderInquiryService {
         try {
             Transaction.begin();
             Session session = HibernateUtil.getCurrentSession();
-            Query query = session.createQuery("from RetrievalOrderLine");
-            List<RetrievalOrderLine> retList = query.list();
+            Query query = session.createQuery("select shangpindaima,shangpinmingcheng from RetrievalOrderLine group by shangpindaima,shangpinmingcheng");
+            List<Object[]> retList = query.list();
             List<Map<String,String>> mapList = new ArrayList<>();
-            for (RetrievalOrderLine retrievalOrderLine : retList) {
+            for (Object[] objects: retList) {
                 Map<String, String> map = new HashMap();
-                map.put("id", retrievalOrderLine.getShangpindaima());
-                map.put("name", retrievalOrderLine.getShangpinmingcheng());
+                map.put("id", objects[0].toString() );
+                map.put("name",objects[1].toString() );
                 mapList.add(map);
             }
             s.setSuccess(true);

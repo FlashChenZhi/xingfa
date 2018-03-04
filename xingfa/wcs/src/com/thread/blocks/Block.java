@@ -267,6 +267,9 @@ public abstract class Block {
         for (RouteDetail detail : rds) {
             Block block1 = Block.getByBlockNo(detail.getCurrentBlockNo());
             AsrsJob job = AsrsJob.getAsrsJobByMcKey(block1.getMcKey());
+            if(!job.getType().equals(jobType)){
+                return null;
+            }
             Location location = Location.getByLocationNo(job.getToLocation());
 
             //检查是否存在其他入库任务

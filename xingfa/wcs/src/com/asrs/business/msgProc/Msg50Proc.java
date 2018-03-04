@@ -1,6 +1,7 @@
 
 package com.asrs.business.msgProc;
 
+import com.asrs.business.consts.AsrsJobStatus;
 import com.asrs.business.consts.AsrsJobType;
 import com.asrs.business.consts.ReasonCode;
 import com.asrs.communication.MessageProxy;
@@ -197,7 +198,11 @@ public class Msg50Proc implements MsgProcess {
                                 String mckey = entry2.getKey();
                                 AsrsJob asrsJob = AsrsJob.getAsrsJobByMcKey(mckey);
                                 if (asrsJob != null) {
-                                    asrsJob.delete();
+                                    if (asrsJob.getStatus().equals(AsrsJobStatus.DONE)) {
+                                        asrsJob.delete();
+                                    } else {
+                                        asrsJob.setStatus(AsrsJobStatus.DONE);
+                                    }
                                     block1.setMcKey(null);
                                 }
                             }

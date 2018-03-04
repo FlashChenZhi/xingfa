@@ -100,7 +100,7 @@ public class MovementReport extends XMLProcess {
                 container.setLocation(l);
                 container.setCreateDate(new Date());
                 container.setCreateUser("sys");
-                container.setReserved(true);
+                container.setReserved(false);
                 HibernateUtil.getCurrentSession().save(container);
             }
             InventoryLog inventoryLog = new InventoryLog();

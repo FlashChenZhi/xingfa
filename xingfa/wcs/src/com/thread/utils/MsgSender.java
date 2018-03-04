@@ -66,6 +66,17 @@ public class MsgSender {
         if (StringUtils.isNotBlank(level)) {
             m3.Level = level;
         }
+        Location location = null;
+        if(aj != null) {
+            if (aj.getType().equals(AsrsJobType.PUTAWAY)) {
+                location = Location.getByLocationNo(aj.getToLocation());
+            } else {
+                location = Location.getByLocationNo(aj.getFromLocation());
+            }
+            if (location != null) {
+                m3.Height = String.valueOf(Integer.parseInt(location.getPositionType()));
+            }
+        }
 
         WcsMessage msg03 = new WcsMessage();
 

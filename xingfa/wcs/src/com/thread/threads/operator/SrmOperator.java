@@ -101,7 +101,7 @@ public class SrmOperator {
         SCar sCar = SCar.getScarByGroup(srm.getGroupNo());
 
         if (sCar != null && sCar.getStatus().equals("1")) {
-            Location sCarLocation = Location.getByBankBayLevel(sCar.getBank(), sCar.getBay(), sCar.getLevel(), sCar.getPosition());
+            Location sCarLocation = Location.getByBankBayLevel(sCar.getBank(), sCar.getBay(), sCar.getLevel());
             if (sCarLocation != null) {
                 //判断移动提升机的位置排列层，实绩位置，和目标货位是否一致
                 if (srm.arrive(sCarLocation)) {

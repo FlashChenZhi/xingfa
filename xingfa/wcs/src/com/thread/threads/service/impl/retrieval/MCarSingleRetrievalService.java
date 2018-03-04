@@ -22,7 +22,7 @@ public class MCarSingleRetrievalService extends MCarServiceImpl {
 
     @Override
     public void withReserveMckey() throws Exception {
-        AsrsJob asrsJob = AsrsJob.getAsrsJobByMcKey(mCar.getMcKey());
+        AsrsJob asrsJob = AsrsJob.getAsrsJobByMcKey(mCar.getReservedMcKey());
         MCarOperator operator = new MCarOperator(mCar, asrsJob.getMcKey());
         if (asrsJob.getToStation().equals(mCar.getBlockNo())) {
             //如果母车是目标站台

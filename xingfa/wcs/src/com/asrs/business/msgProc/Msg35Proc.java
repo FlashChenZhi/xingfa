@@ -101,7 +101,7 @@ public class Msg35Proc implements MsgProcess {
                                     srm.setDock(null);
                                     srm.setBay(Integer.parseInt(message35.Bay));
                                     srm.setLevel(Integer.parseInt(message35.Level));
-                                    Location toLoc = Location.getByBankBayLevel(Integer.parseInt(message35.Bank), srm.getBay(), srm.getLevel(), srm.getPosition());
+                                    Location toLoc = Location.getByBankBayLevel(Integer.parseInt(message35.Bank), srm.getBay(), srm.getLevel());
                                     srm.setActualArea(toLoc.getActualArea());
                                     if (StringUtils.isNotBlank(srm.getsCarBlockNo())) {
                                         SCar sCar = (SCar) Block.getByBlockNo(srm.getsCarBlockNo());
@@ -211,24 +211,26 @@ public class Msg35Proc implements MsgProcess {
                                 sCar.setOnMCar(message35.Station);
                                 aj.setStatus(AsrsJobStatus.PICKING);
 
-                                Srm srm = Srm.getSrmByPosition(sCar.getPosition());
+                                if(sCar.getPower() >= Const.LOW_POWER) {
+                                    Srm srm = Srm.getSrmByPosition(sCar.getPosition());
 
-                                Query query = HibernateUtil.getCurrentSession().createQuery("from AsrsJob where type=:ajType and status=:st and statusDetail=:detail and fromStation=:frs order by id asc ");
-                                query.setParameter("ajType", AsrsJobType.RETRIEVAL);
-                                query.setParameter("detail", AsrsJobStatusDetail.WAITING);
-                                query.setParameter("st", AsrsJobStatus.RUNNING);
-                                query.setParameter("frs", srm.getBlockNo());
+                                    Query query = HibernateUtil.getCurrentSession().createQuery("from AsrsJob where type=:ajType and status=:st and statusDetail=:detail and fromStation=:frs order by id asc ");
+                                    query.setParameter("ajType", AsrsJobType.RETRIEVAL);
+                                    query.setParameter("detail", AsrsJobStatusDetail.WAITING);
+                                    query.setParameter("st", AsrsJobStatus.RUNNING);
+                                    query.setParameter("frs", srm.getBlockNo());
 
-                                query.setMaxResults(1);
-                                AsrsJob asrsJob = (AsrsJob) query.uniqueResult();
-                                if (asrsJob != null) {
+                                    query.setMaxResults(1);
+                                    AsrsJob asrsJob = (AsrsJob) query.uniqueResult();
+                                    if (asrsJob != null) {
 
-                                    Location location = Location.getByLocationNo(asrsJob.getFromLocation());
-                                    if(location.getBay() == sCar.getBay() && location.getLevel() == sCar.getLevel()) {
+                                        Location location = Location.getByLocationNo(asrsJob.getFromLocation());
+                                        if (location.getBay() == sCar.getBay() && location.getLevel() == sCar.getLevel()) {
 
-                                        sCar.setReservedMcKey(asrsJob.getMcKey());
-                                        asrsJob.setStatusDetail(AsrsJobStatusDetail.ACCEPTED);
-                                        asrsJob.setStatus(AsrsJobStatus.ACCEPT);
+                                            sCar.setReservedMcKey(asrsJob.getMcKey());
+                                            asrsJob.setStatusDetail(AsrsJobStatusDetail.ACCEPTED);
+                                            asrsJob.setStatus(AsrsJobStatus.ACCEPT);
+                                        }
                                     }
                                 }
 
@@ -262,7 +264,7 @@ public class Msg35Proc implements MsgProcess {
                                 srm.setCheckLocation(true);
                                 srm.setLevel(Integer.parseInt(message35.Level));
 
-                                Location location = Location.getByBankBayLevel(Integer.parseInt(message35.Bank), Integer.parseInt(message35.Bay), Integer.parseInt(message35.Level), srm.getPosition());
+                                Location location = Location.getByBankBayLevel(Integer.parseInt(message35.Bank), Integer.parseInt(message35.Bay), Integer.parseInt(message35.Level));
 
                                 if (location != null) {
                                     srm.setActualArea(location.getActualArea());
@@ -297,7 +299,7 @@ public class Msg35Proc implements MsgProcess {
                                 if (StringUtils.isEmpty(sCar.getMcKey()) && StringUtils.isEmpty(sCar.getReservedMcKey())) {
                                     if (StringUtils.isEmpty(sCar.getOnMCar())) {
                                         //子车不在母车上，子车有排列层，查找货位是否是aj的源货位，如果一样，取货上车，如果不是，简单接车
-                                        Location sLocation = Location.getByBankBayLevel(sCar.getBank(), sCar.getBay(), sCar.getLevel(), sCar.getPosition());
+                                        Location sLocation = Location.getByBankBayLevel(sCar.getBank(), sCar.getBay(), sCar.getLevel());
                                         if (sLocation.getLocationNo().equals(aj.getFromLocation())) {
                                             srm.generateMckey(message35.McKey);
                                         } else {
@@ -318,7 +320,7 @@ public class Msg35Proc implements MsgProcess {
 
                                     if (StringUtils.isEmpty(sCar.getOnMCar())) {
                                         //子车不在母车上，子车有排列层，查找货位是否是aj的源货位，如果一样，取货上车，如果不是，简单接车
-                                        Location sLocation = Location.getByBankBayLevel(sCar.getBank(), sCar.getBay(), sCar.getLevel(), sCar.getPosition());
+                                        Location sLocation = Location.getByBankBayLevel(sCar.getBank(), sCar.getBay(), sCar.getLevel());
                                         if (sLocation.getLocationNo().equals(aj.getFromLocation())) {
                                             srm.generateMckey(message35.McKey);
                                         } else {
@@ -368,7 +370,7 @@ public class Msg35Proc implements MsgProcess {
                                 mCar.setCheckLocation(true);
                                 mCar.setLevel(Integer.parseInt(message35.Level));
 
-                                Location loc = Location.getByBankBayLevel(Integer.parseInt(message35.Bank), Integer.parseInt(message35.Bay), Integer.parseInt(message35.Level), mCar.getPosition());
+                                Location loc = Location.getByBankBayLevel(Integer.parseInt(message35.Bank), Integer.parseInt(message35.Bay), Integer.parseInt(message35.Level));
 
                                 if (loc != null) {
                                     mCar.setActualArea(loc.getActualArea());
@@ -498,7 +500,7 @@ public class Msg35Proc implements MsgProcess {
                                 srm.setBay(Integer.parseInt(message35.Bay));
                                 srm.setDock(message35.Station);
                                 srm.setCheckLocation(true);
-                                Location location = Location.getByBankBayLevel(Integer.parseInt(message35.Bank), Integer.parseInt(message35.Bay), Integer.parseInt(message35.Level), srm.getPosition());
+                                Location location = Location.getByBankBayLevel(Integer.parseInt(message35.Bank), Integer.parseInt(message35.Bay), Integer.parseInt(message35.Level));
                                 srm.setActualArea(location.getActualArea());
                                 if (StringUtils.isNotBlank(srm.getsCarBlockNo())) {
                                     SCar sCar = (SCar) Block.getByBlockNo(srm.getsCarBlockNo());
@@ -595,7 +597,7 @@ public class Msg35Proc implements MsgProcess {
                             if (message35.isMove()) {
                                 if ("0000".equals(message35.Station) || StringUtils.isBlank(message35.Station)) {
                                     srm.setDock(null);
-                                    Location loc = Location.getByBankBayLevel(Integer.parseInt(message35.Bank), Integer.parseInt(message35.Bay), Integer.parseInt(message35.Level), srm.getPosition());
+                                    Location loc = Location.getByBankBayLevel(Integer.parseInt(message35.Bank), Integer.parseInt(message35.Bay), Integer.parseInt(message35.Level));
                                     srm.setBay(loc.getBay());
                                     srm.setLevel(loc.getLevel());
                                     srm.setActualArea(loc.getActualArea());

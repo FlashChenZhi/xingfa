@@ -47,7 +47,6 @@ public class MCarThread extends BlockThread<MCar> {
 
                     if (com.util.common.StringUtils.isEmpty(mCar.getReservedMcKey()) && com.util.common.StringUtils.isEmpty(mCar.getMcKey())) {
                         //移动提升机无任务
-                        Message26Proc(mCar);
                         MCarService srmService = new MCarServiceImpl(mCar) {
                             @Override
                             public void withReserveMckey() throws Exception {

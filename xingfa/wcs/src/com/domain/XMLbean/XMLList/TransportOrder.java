@@ -139,7 +139,7 @@ public class TransportOrder extends XMLProcess {
                 String blockNo = dataArea.getToLocation().getMHA();
                 Srm srm = (Srm) Block.getByBlockNo(blockNo);
 
-                Location location = Location.getByBankBayLevel(Integer.parseInt(locationS.get(0)), Integer.parseInt(locationS.get(1)), Integer.parseInt(locationS.get(2)), srm.getPosition());
+                Location location = Location.getByBankBayLevel(Integer.parseInt(locationS.get(0)), Integer.parseInt(locationS.get(1)), Integer.parseInt(locationS.get(2)));
 
                 if (location == null) {
                     throw new Exception("货位不存在");
@@ -171,7 +171,7 @@ public class TransportOrder extends XMLProcess {
                 String blockNo = dataArea.getFromLocation().getMHA();
                 Srm srm = (Srm) Block.getByBlockNo(blockNo);
 
-                Location location = Location.getByBankBayLevel(Integer.parseInt(locationS.get(0)), Integer.parseInt(locationS.get(1)), Integer.parseInt(locationS.get(2)), srm.getPosition());
+                Location location = Location.getByBankBayLevel(Integer.parseInt(locationS.get(0)), Integer.parseInt(locationS.get(1)), Integer.parseInt(locationS.get(2)));
 
                 asrsJob.setFromLocation(location.getLocationNo());
                 String toStation = dataArea.getToLocation().getMHA();

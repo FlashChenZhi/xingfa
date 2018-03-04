@@ -32,7 +32,7 @@ public class SrmHandler extends MsgHandler {
             srm.setDock(null);
             srm.setBay(Integer.parseInt(message35.Bay));
             srm.setLevel(Integer.parseInt(message35.Level));
-            Location toLoc = Location.getByBankBayLevel(Integer.parseInt(message35.Bank), srm.getBay(), srm.getLevel(), srm.getPosition());
+            Location toLoc = Location.getByBankBayLevel(Integer.parseInt(message35.Bank), srm.getBay(), srm.getLevel());
             srm.setActualArea(toLoc.getActualArea());
             if (StringUtils.isNotBlank(srm.getsCarBlockNo())) {
                 SCar sCar = (SCar) Block.getByBlockNo(srm.getsCarBlockNo());

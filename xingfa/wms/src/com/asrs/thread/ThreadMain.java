@@ -18,6 +18,7 @@ import com.util.hibernate.HibernateUtil;
 import com.util.hibernate.Transaction;
 import com.wms.domain.*;
 import org.hibernate.Query;
+import org.hibernate.Session;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -32,13 +33,20 @@ public class ThreadMain {
 
             try {
                 Transaction.begin();
-                Query query = HibernateUtil.getCurrentSession().createQuery("from Job  where sendReport=false and type=:tp order by fromLocation.position asc, fromLocation.bay asc,fromLocation.level asc,fromLocation.seq2 asc")
-                        .setParameter("tp", AsrsJobType.RETRIEVAL).setMaxResults(1);
+                Session session = HibernateUtil.getCurrentSession();
+                Query query = session.createQuery("from Station s where s.mode = :mode")
+                        .setString("mode",AsrsJobType.RETRIEVAL);
+                List<Station> stations = query.list();
+                for(Station station : stations) {
+                    query = HibernateUtil.getCurrentSession().createQuery("from Job  where sendReport=false and type=:tp and toStation = :station order by fromLocation.position asc, fromLocation.bay asc,fromLocation.level asc,fromLocation.seq2 asc")
+                            .setParameter("tp", AsrsJobType.RETRIEVAL)
+                            .setString("station",station.getStationNo()).setMaxResults(1);
 
-                Job job = (Job) query.uniqueResult();
-                if (job != null) {
-                    createOutJob(job);
-                    job.setSendReport(true);
+                    Job job = (Job) query.uniqueResult();
+                    if (job != null) {
+                        createOutJob(job);
+                        job.setSendReport(true);
+                    }
                 }
 
                 Transaction.commit();

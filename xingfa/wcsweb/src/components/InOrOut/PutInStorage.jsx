@@ -1,4 +1,4 @@
-import {Button, Form, Input, Pagination, InputNumber, Select, message, } from 'antd';
+import {Button, Form, Input,Table,  Pagination, InputNumber, Select, message, } from 'antd';
 import React from 'react';
 const FormItem = Form.Item;
 import reqwest from 'reqwest';
@@ -6,20 +6,63 @@ import {reqwestError, dateFormat} from '../common/Golbal';
 
 const Option = Select.Option;
 
-
+const columns = [{
+    title: 'ID',
+    dataIndex: 'id',
+},{
+    title: 'McKey',
+    dataIndex: 'mcKey',
+}, {
+    title: '托盘号',
+    dataIndex: 'containerId',
+}, {
+    title: '货品名称',
+    dataIndex: 'skuName',
+}, {
+    title: '货品数量',
+    dataIndex: 'qty',
+}, {
+    title: '类型',
+    dataIndex: 'type',
+}, {
+    title: '起始位置',
+    dataIndex: 'fromStation',
+}, {
+    title: '结束位置',
+    dataIndex: 'toStation',
+},{
+    title: '作业状态',
+    dataIndex: 'status',
+},{
+    title: '创建时间',
+    dataIndex: 'createDate',
+    render:(text,record)=>{
+        let date = new Date(text).toLocaleString();
+        console.log(date)
+        return(
+            date
+        )
+    },
+}];
 let PutInStorage = React.createClass({
     getInitialState(){
         return {
             tuopanhao: "",//托盘号
             loading: false,
-            selectedRowKeys: [],
             commodityCodeList:[],//货品代码集合
             commodityCodeFirst:"",//货品代码第一个
+            total: 0,//表格数据总行数
+            loading: false,
+            selectedData: [],//点击设定提交到后台的数据
+            selectedRowKeys: [],
+            defaultPageSize:8,
         };
     },
     componentDidMount(){
         this.getCommodityCode();
+        this.getData(1);
     },
+
     getCommodityCode(){
         reqwest({
             url: '/wms/master/putInStorage/getCommodityCode',
@@ -43,6 +86,34 @@ let PutInStorage = React.createClass({
             }.bind(this)
         })
     },
+    getData(current){
+        this.setState({loading: true});
+        let defaultPageSize = this.state.defaultPageSize;
+        const values = this.props.form.getFieldsValue();
+        console.log(values);
+        values.currentPage = current;
+        reqwest({
+            url: '/wms/master/putInStorage/findPutInStorageOrder',
+            dataType: 'json',
+            method: 'post',
+            data: {current:current,defaultPageSize:defaultPageSize},
+            success: function (json) {
+                if(json.success){
+                    console.log("数据："+json.res);
+                    this.setState({data: json.res, total: json.count, loading: false});
+                }else{
+                    message.error("加载数据失败！");
+                }
+            }.bind(this),
+            error: function (err) {
+                reqwestError(err);
+                message.error("加载数据失败！");
+            }.bind(this)
+        });
+    },
+    pageChange(noop){
+        this.getData(noop);
+    },
     submit(e){
         e.preventDefault();
         this.props.form.validateFieldsAndScroll((err, values) => {
@@ -63,7 +134,9 @@ let PutInStorage = React.createClass({
                         } else {
                             message.success("设定任务成功！");
                         }
-                        this.handleReset(e);
+                        this.props.form.setFieldsValue({
+                            tuopanhao:'',
+                        });
                     }.bind(this),
                     error: function (err) {
                         message.error("设定任务失败！");
@@ -82,7 +155,10 @@ let PutInStorage = React.createClass({
         console.log("进入清除！");
         this.props.form.resetFields();
     },
-
+    onChange(selectedRowKeys, selectedRows) {
+        console.log(selectedRowKeys);
+        this.setState({selectedData: selectedRows, selectedRowKeys: selectedRowKeys});
+    },
 
     render() {
         const {getFieldProps } = this.props.form;
@@ -109,7 +185,6 @@ let PutInStorage = React.createClass({
         return (
             <div>
                 <Form horizontal >
-                    <br/><br/>
                     <FormItem
                         {...formItemLayout}
                         label="托盘号："
@@ -145,13 +220,28 @@ let PutInStorage = React.createClass({
                             <Option value="1101">1101</Option>
                             <Option value="1301">1301</Option>
                         </Select>
-                    </FormItem><br/><br/>
+                    </FormItem>
                     <FormItem wrapperCol={{offset: 6}}>
                         <Button type="primary" onClick={this.submit}
                                 //disabled={this.state.tuopanhao.length > 0 ? false : true}
                         >设定</Button>
                     </FormItem>
-                </Form>
+                </Form><br/>
+                <Table rowSelection={{onChange: this.onChange, selectedRowKeys: this.state.selectedRowKeys,}}
+                       loading={this.state.loading}
+                       columns={columns}
+                       rowKey={record => record.id}
+                       dataSource={this.state.data}
+
+                       pagination={{
+                           onChange: this.pageChange,
+                           showQuickJumper: true,
+                           defaultCurrent: 1,
+                           defaultPageSize:this.state.defaultPageSize,
+                           total: this.state.total,
+                           showTotal: total => `共 ${total} 条数据`
+                       }}
+                />
             </div>
         );
     },

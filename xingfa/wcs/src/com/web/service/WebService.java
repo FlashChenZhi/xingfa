@@ -17,7 +17,6 @@ import com.web.vo.BlockVo;
 import com.web.vo.MessageLogVo;
 import com.web.vo.Msg03Vo;
 import com.web.vo.OnlineTaskVo;
-import org.apache.poi.util.StringUtil;
 import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -638,32 +637,22 @@ public class WebService {
         try {
             Transaction.begin();
 
+            MessageProxy _wcsproxy = (MessageProxy) Naming.lookup(Const.WCSPROXY);
             Block block = Block.getByBlockNo(blockNo);
-            //存在Mckey
-            if (StringUtils.isNotEmpty(block.getMcKey())) {
-                if (block instanceof SCar) {
 
-                } else if (block instanceof Conveyor) {
-
-                } else if (block instanceof Srm) {
-
-                } else if (block instanceof StationBlock) {
-
-                }
+            if (block instanceof MCar) {
+                MCar mcar = (MCar) block;
+                mcar.setCheckLocation(false);
             }
 
-            if (StringUtils.isNotEmpty(block.getReservedMcKey())) {
-                if (block instanceof SCar) {
+            Plc plc = Plc.getPlcByPlcName(block.getPlcName());
 
-                } else if (block instanceof Conveyor) {
+            Message06 message06 = new Message06();
+            message06.setPlcName(plc.getPlcName());
+            message06.MachineNo = block.getPlcName();
+            message06.Status = "3";
 
-                } else if (block instanceof Srm) {
-
-                } else if (block instanceof StationBlock) {
-
-                }
-
-            }
+            _wcsproxy.addSndMsg(message06);
 
             Transaction.commit();
             httpMessage.setSuccess(true);
@@ -715,9 +704,18 @@ public class WebService {
             AsrsJob job = AsrsJob.getAsrsJobByMcKey(mckey);
             if (job != null) {
 
-                Query query = HibernateUtil.getCurrentSession().createQuery("from Block  where mcKey=:mk or reservedMcKey =:mk");
-                query.setParameter("mk", mckey);
+                Query query = HibernateUtil.getCurrentSession().createQuery("from Block  where waitingResponse = true");
                 List<Block> blocks = query.list();
+                for(Block block : blocks){
+                    Block preBlock = block.getPreBlockByJobType(job.getType());
+                    if(preBlock.getMcKey().equals(job.getMcKey()) && StringUtils.isEmpty(block.getMcKey()) && StringUtils.isEmpty(block.getReservedMcKey())){
+                        block.setWaitingResponse(false);
+                    }
+                }
+
+                query = HibernateUtil.getCurrentSession().createQuery("from Block  where mcKey=:mk or reservedMcKey =:mk");
+                query.setParameter("mk", mckey);
+                blocks = query.list();
                 for (Block block : blocks) {
 
                     block.setWaitingResponse(false);

@@ -272,7 +272,6 @@ public class LoadUnitAtID extends XMLProcess {
         }else{
 //            Container container = Container.getByBarcode(j.getContainer());
 //            Inventory inventory = container.getInventories().iterator().next();
-            j.setStatus(AsrsJobStatus.RUNNING);
             InventoryView view = InventoryView.getByPalletNo(j.getContainer());
             Station station = Station.getStation(stationNo);
             Location newLocation = Location.getEmptyLocation(view.getSkuCode(),station.getPosition(),dataArea.getLoadType());
@@ -349,6 +348,7 @@ public class LoadUnitAtID extends XMLProcess {
 //                HibernateUtil.getCurrentSession().save(job);
 
                 j.setToLocation(newLocation);
+                j.setStatus(AsrsJobStatus.RUNNING);
 
                 InMessage.info(stationNo, palletNo,view.getSkuCode());
             }

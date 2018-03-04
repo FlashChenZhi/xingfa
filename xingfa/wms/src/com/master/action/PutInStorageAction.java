@@ -4,6 +4,7 @@ import com.master.service.PutInStorageService;
 import com.util.common.BaseReturnObj;
 import com.util.common.PagerReturnObj;
 import com.util.common.ReturnObj;
+import com.wms.domain.Job;
 import net.sf.json.JSON;
 import net.sf.json.JSONArray;
 import org.springframework.stereotype.Controller;
@@ -53,5 +54,18 @@ public class PutInStorageAction {
         tuopanhao = URLDecoder.decode(tuopanhao,"utf-8");
         System.out.println("托盘号："+tuopanhao+";站台："+zhantai+";货品代码："+commodityCode+";数量："+num);
         return putInStorageService.addTask(tuopanhao,zhantai,commodityCode,num);
+    }
+    /*
+     * @author：ed_chen
+     * @date：2018/3/4 17:48
+     * @description：查询入库设定任务记录
+     * @param
+     * @return：com.util.common.BaseReturnObj
+     */
+    @RequestMapping(value = "/findPutInStorageOrder",method = RequestMethod.POST)
+    @ResponseBody
+    public PagerReturnObj<List<Map<String,Object>>> findPutInStorageOrder(int current,int defaultPageSize) throws IOException{
+        int startIndex = (current-1)*defaultPageSize;
+        return  putInStorageService.findPutInStorageOrder(startIndex,defaultPageSize);
     }
 }

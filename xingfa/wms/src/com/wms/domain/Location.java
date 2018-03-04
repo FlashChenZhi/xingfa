@@ -444,6 +444,19 @@ public class Location {
         this.positionType = positionType;
     }
 
+
+    private String outPosition;
+
+    @Basic
+    @Column(name = "OUTPOSITION")
+    public String getOutPosition() {
+        return outPosition;
+    }
+
+    public void setOutPosition(String outPosition) {
+        this.outPosition = outPosition;
+    }
+
     @Version
     @Column(name = "VERSION")
     public int getVersion() {

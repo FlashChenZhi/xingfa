@@ -27,13 +27,13 @@ let PlatformSwitch = React.createClass({
             method: 'post',
             data: {zhantai:zhantai},
             success: function (json) {
-                console.log(json);
                 if(json.success){
-                    if(json.res==3){
+
+                    if(json.res=="03"){
                         this.props.form.setFieldsValue({
                             pattern: "03",
                         });
-                    }else if (json.res==1){
+                    }else if (json.res=="01"){
                         this.props.form.setFieldsValue({
                             pattern: "01",
                         });
@@ -113,7 +113,6 @@ let PlatformSwitch = React.createClass({
                         <Select id="select" size="large" defaultValue="1301" style={{ width: 200 }}
                                 {...getFieldProps('zhantai', { initialValue: '1301' })} onChange={this.onChange}>
                             <Option value="1301">1301</Option>
-                            <Option value="1300">1300</Option>
                         </Select>
                     </FormItem>
                     <FormItem

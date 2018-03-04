@@ -41,14 +41,40 @@ public class XmlCommunicationLauncher {
                     try {
 
                         xmlProcess.execute();
+                        message.setStatus("2");
 
                     } catch (Exception ee) {
                         SystemLog.error(ee.getMessage());
-                        ((TransportOrder) xmlProcess).sendReport("03");
+                        message.setStatus("3");
+//                        ((TransportOrder) xmlProcess).sendReport("03");
                     }
 
-                    message.setStatus("2");
 
+                }else{
+                    query = HibernateUtil.getCurrentSession().createQuery("from XMLMessage where status='3' and recv =:recv order by id asc")
+                            .setParameter("recv", "WCS").setMaxResults(1);
+
+                    message = (XMLMessage) query.uniqueResult();
+
+                    if (message != null) {
+
+                        String xml = message.getMessageInfo();
+
+                        Envelope e = XMLUtil.getEnvelope(xml);
+
+                        XMLProcess xmlProcess = WmsMsgProcCenter.getOrder(e);
+
+                        try {
+
+                            xmlProcess.execute();
+                            message.setStatus("2");
+
+                        } catch (Exception ee) {
+                            System.out.println(ee.getMessage());
+                        }
+
+
+                    }
                 }
 
 

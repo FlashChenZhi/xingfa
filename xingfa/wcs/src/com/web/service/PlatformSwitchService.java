@@ -35,8 +35,19 @@ public class PlatformSwitchService {
     public ReturnObj<String> findPlatformSwitch(String zhantai){
         System.out.println(zhantai);
         ReturnObj<String> returnObj = new ReturnObj<String>();
-        returnObj.setSuccess(true);
-        returnObj.setRes("03");
+        try {
+            Transaction.begin();
+            Station station = (Station) HibernateUtil.getCurrentSession().createQuery("from Station s where s.stationNo = :stationNo")
+                    .setString("stationNo",zhantai).uniqueResult();
+            returnObj.setSuccess(true);
+            returnObj.setRes(station.getMode());
+            Transaction.commit();
+        }catch (Exception ex) {
+            Transaction.rollback();
+            ex.printStackTrace();
+            returnObj.setSuccess(false);
+        }
+
         return returnObj;
     }
     /**
@@ -51,20 +62,20 @@ public class PlatformSwitchService {
             Transaction.begin();
             List<AsrsJob> asrsJobList=null;
             //查询是否有asrsjob存在
-            if(StringUtils.isNotBlank(zhantai)){
+            if(StringUtils.isNotBlank(pattern)){
                 Query query = null;
-                if("01".equals(zhantai)){
+                if("01".equals(pattern)){
                     //入库
                     query = HibernateUtil.getCurrentSession().createQuery("from AsrsJob  where toStation=:s and status!=:status");
                 }else{
                     //出库
                     query = HibernateUtil.getCurrentSession().createQuery("from AsrsJob  where fromStation=:s and status!=:status");
                 }
-                query.setParameter("s",zhantai);
+                query.setParameter("s",pattern);
                 query.setParameter("status", AsrsJobStatus.DONE);
                 asrsJobList = query.list();
             }
-            if(asrsJobList!=null&&asrsJobList.size()!=0){
+            if(asrsJobList==null||asrsJobList.size()==0){
                 Station station = Station.getStation(zhantai);
                 StationBlock block = (StationBlock) HibernateUtil.getCurrentSession().createQuery("from StationBlock sb where sb.stationNo = :stationNo")
                         .setString("stationNo",zhantai).uniqueResult();

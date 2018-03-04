@@ -75,7 +75,6 @@ public class SrmThread extends BlockThread<Srm> {
 
                     if (StringUtils.isEmpty(srm.getReservedMcKey()) && StringUtils.isEmpty(srm.getMcKey())) {
                         //移动提升机无任务
-                        Message26Proc(srm);
                         SrmService srmService = new SrmAndScarServiceImpl(srm) {
                             @Override
                             public void withReserveMckey() throws Exception {

@@ -5,6 +5,7 @@ import com.asrs.business.consts.AsrsJobStatus;
 import com.asrs.business.consts.AsrsJobType;
 import com.util.common.BaseReturnObj;
 import com.util.common.LogMessage;
+import com.util.common.PagerReturnObj;
 import com.util.common.ReturnObj;
 import com.util.hibernate.HibernateUtil;
 import com.util.hibernate.Transaction;
@@ -12,6 +13,7 @@ import com.wms.domain.*;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.exception.JDBCConnectionException;
+import org.hibernate.transform.Transformers;
 import org.junit.Test;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -141,7 +143,43 @@ public class PutInStorageService {
         }
         return returnObj;
     }
+    /*
+     * @author：ed_chen
+     * @date：2018/3/4 17:49
+     * @description： 查询入库设定任务记录
+     * @param
+     * @return：com.util.common.ReturnObj<java.util.List<java.util.Map<java.lang.String,java.lang.String>>>
+     */
+    public PagerReturnObj<List<Map<String,Object>>> findPutInStorageOrder(int startIndex, int defaultPageSize) {
+        System.out.println("进入获取商品代码方法！");
+        PagerReturnObj<List<Map<String,Object>>> returnObj = new PagerReturnObj<List<Map<String,Object>>>();
+        try {
+            Transaction.begin();
+            Session session = HibernateUtil.getCurrentSession();
+            Query query1 = session.createQuery("select j.id as id,j.createDate as createDate,j.mcKey as mcKey,j.container as containerId,b.qty as qty, " +
+                    "b.skuCode as skuCode,b.skuName as skuName,j.fromStation as fromStation,j.toStation as toStation, " +
+                    "case j.type when '01' then '入库' when '03' then '出库' else '其他' end as type,j.status as status " +
+                    "from Job j, InventoryView b where j.container=b.palletCode order by j.createDate desc,j.id desc").setResultTransformer(Transformers.ALIAS_TO_ENTITY_MAP);
+            Query query2 = session.createQuery("select count(1) from Job j, InventoryView b where  j.container=b.palletCode");
+            query1.setFirstResult(startIndex);
+            query1.setMaxResults(defaultPageSize);
+            List<Map<String,Object>> jobList = query1.list();
+            Long count = (Long) query2.uniqueResult();
+            returnObj.setSuccess(true);
+            returnObj.setRes(jobList);
+            returnObj.setCount(count);
+            Transaction.commit();
+        } catch (JDBCConnectionException ex) {
+            returnObj.setSuccess(false);
+            returnObj.setMsg(LogMessage.DB_DISCONNECTED.getName());
 
+        } catch (Exception ex) {
+            Transaction.rollback();
+            returnObj.setSuccess(false);
+            returnObj.setMsg(LogMessage.UNEXPECTED_ERROR.getName());
+        }
+        return returnObj;
+    }
 }
 
 

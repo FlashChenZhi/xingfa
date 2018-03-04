@@ -431,6 +431,19 @@ public class Location {
     }
 
 
+    private String positionType;
+
+    @Basic
+    @Column(name = "POSITIONTYPE")
+    public String getPositionType() {
+        return positionType;
+    }
+
+    public void setPositionType(String positionType) {
+        this.positionType = positionType;
+    }
+
+
     private String outPosition;
 
     @Basic
@@ -463,10 +476,10 @@ public class Location {
      * @param i2 level
      * @return
      */
-    public static Location getByBankBayLevel(int i, int i1, int i2,String position) {
+    public static Location getByBankBayLevel(int i, int i1, int i2) {
 
-        Query q = HibernateUtil.getCurrentSession().createQuery("from Location  l where l.bank=:b and l.bay =:ba and l.level=:lv and l.position=:po")
-                .setParameter("b", i).setParameter("ba", i1).setParameter("lv", i2).setParameter("po",position);
+        Query q = HibernateUtil.getCurrentSession().createQuery("from Location  l where l.bank=:b and l.bay =:ba and l.level=:lv")
+                .setParameter("b", i).setParameter("ba", i1).setParameter("lv", i2);
 
         return (Location) q.uniqueResult();
     }

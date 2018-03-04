@@ -51,7 +51,6 @@ public class SCarThread extends BlockThread<SCar> {
                 }  else {
                     if (StringUtils.isEmpty(sCar.getReservedMcKey()) && StringUtils.isEmpty(sCar.getMcKey())) {
 
-                        Message26Proc(sCar);
                         ScarAndSrmServiceImpl service = new ScarAndSrmServiceImpl(sCar);
                         service.withOutJob();
 

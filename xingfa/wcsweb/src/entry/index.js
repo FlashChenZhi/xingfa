@@ -27,6 +27,7 @@ import SendMessage from '../components/query/SendMessage';
 import PutInStorage from '../components/InOrOut/PutInStorage';
 import OrderInquiry from '../components/InOrOut/OrderInquiry';
 import PlatformSwitch from '../components/InOrOut/PlatformSwitch';
+import FindInventory from '../components/InOrOut/FindInventory';
 class Index extends React.Component {
     constructor(props) {
         super(props);
@@ -58,6 +59,7 @@ class Index extends React.Component {
                     <Route path="/PutInStorage" components={PutInStorage}/>
                     <Route path="/OrderInquiry" components={OrderInquiry}/>
                     <Route path="/PlatformSwitch" components={PlatformSwitch}/>
+                    <Route path="/FindInventory" components={FindInventory}/>
                 </Route>
                 <Route path="/" component={LoginMain}>
                     <IndexRedirect to="/login"/>

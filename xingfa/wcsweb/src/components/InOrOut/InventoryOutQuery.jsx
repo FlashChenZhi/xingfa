@@ -67,6 +67,7 @@ let InventoryOutQuery = React.createClass({
     },
 
     onChange(selectedRowKeys, selectedRows) {
+        console.log(selectedRowKeys);
         this.setState({selectedData: selectedRows, selectedRowKeys: selectedRowKeys});
     },
 
@@ -266,7 +267,7 @@ let InventoryOutQuery = React.createClass({
                         <Button type="ghost" onClick={this.reset}>清除</Button>
                     </FormItem>
                 </Form>
-                <Table rowSelection={{onChange: this.onChange, selectedRowKeys: this.state.selectedRowKeys}}
+                <Table rowSelection={{onChange: this.onChange, selectedRowKeys: this.state.selectedRowKeys,}}
                        loading={this.state.loading}
                        columns={columns}
                        rowKey={record => record.id}
