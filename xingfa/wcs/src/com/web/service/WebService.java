@@ -789,10 +789,9 @@ public class WebService {
                 Srm toSrm = Srm.getSrmByGroupNo(sCar.getGroupNo());
 
                 if (fromSrm.getBlockNo().equals(toSrm.getBlockNo())) {
-                    sCar.setStatus(SCar.STATUS_RUN);
+//                            sCar.setStatus(SCar.STATUS_RUN);
                     //欧普适用
-                    //MsgSender.send03(Message03._CycleOrder.chargeFinish, "9999", sCar, sCar.getChargeLocation(), "", AsrsJobType.RECHARGEDOVER);
-
+                    MsgSender.send03(Message03._CycleOrder.chargeFinish, "9999", sCar, sCar.getChargeLocation(), "", String.valueOf(location.getBay()),String.valueOf(location.getLevel()));
                 } else {
 
                     AsrsJob newJob = new AsrsJob();
@@ -811,7 +810,100 @@ public class WebService {
                     sCar.setMcKey(newJob.getMcKey());
                     sCar.setStatus(SCar.STATUS_RUN);
 
+                    MsgSender.send03(Message03._CycleOrder.chargeFinish, newJob.getMcKey(), sCar, sCar.getChargeLocation(), "", String.valueOf(location.getBay()),String.valueOf(location.getLevel()));
+
                 }
+
+            } else {
+                Transaction.rollback();
+                httpMessage.setSuccess(false);
+                httpMessage.setMsg("设备非子车");
+                return httpMessage;
+            }
+
+            Transaction.commit();
+
+            httpMessage.setSuccess(true);
+            httpMessage.setMsg("成功");
+
+        } catch (Exception e) {
+            Transaction.rollback();
+            httpMessage.setSuccess(false);
+            httpMessage.setMsg("出错了。");
+            e.printStackTrace();
+        }
+        return httpMessage;
+    }
+
+    public HttpMessage chargeStart(String blockNo) {
+        HttpMessage httpMessage = new HttpMessage();
+        try {
+
+            Transaction.begin();
+
+            Block block = Block.getByBlockNo(blockNo);
+            if (block instanceof SCar) {
+
+                SCar sCar = (SCar) block;
+                if (sCar.getStatus().equals(SCar.STATUS_CHARGE)) {
+                    Transaction.rollback();
+                    httpMessage.setSuccess(false);
+                    httpMessage.setMsg("子车充电中");
+                    return httpMessage;
+                }
+                if (sCar.getPower() > 95) {
+                    Transaction.rollback();
+                    httpMessage.setSuccess(false);
+                    httpMessage.setMsg("子车电量充足");
+                    return httpMessage;
+
+                }
+
+
+                Srm srm = Srm.getSrmByGroupNo(sCar.getGroupNo());
+                Query charQuery = HibernateUtil.getCurrentSession().createQuery("from AsrsJob  where (type=:tp or type=:ttp) and (fromStation=:fs or toStation=:ts) and status!=:status");
+                charQuery.setParameter("tp", AsrsJobType.RECHARGED);
+                charQuery.setParameter("ttp", AsrsJobType.RECHARGEDOVER);
+                charQuery.setParameter("status", AsrsJobStatus.DONE);
+                charQuery.setParameter("fs", srm.getBlockNo());
+                charQuery.setParameter("ts", srm.getBlockNo());
+                charQuery.setMaxResults(1);
+                AsrsJob chargedJob = (AsrsJob) charQuery.uniqueResult();
+                if(chargedJob != null){
+                    Transaction.rollback();
+                    httpMessage.setSuccess(false);
+                    httpMessage.setMsg("仓库存在充电任务");
+                    return httpMessage;
+                }
+                if(StringUtils.isNotEmpty(sCar.getMcKey()) || StringUtils.isNotEmpty(sCar.getReservedMcKey()) || StringUtils.isNotEmpty(srm.getMcKey()) || StringUtils.isNotEmpty(srm.getReservedMcKey())){
+                    Transaction.rollback();
+                    httpMessage.setSuccess(false);
+                    httpMessage.setMsg("子车正在执行任务");
+                    return httpMessage;
+                }
+                Query q = HibernateUtil.getCurrentSession().createQuery("from SCar s where s.status = :status and s.chargeLocation = :chargeLocation")
+                        .setString("status", SCar.STATUS_CHARGE)
+                        .setString("chargeLocation",sCar.getChargeLocation());
+                if(!q.list().isEmpty()){
+                    Transaction.rollback();
+                    httpMessage.setSuccess(false);
+                    httpMessage.setMsg("有子车正在充电");
+                    return httpMessage;
+                }
+                AsrsJob asrsJob = new AsrsJob();
+                asrsJob.setMcKey(Mckey.getNext());
+                asrsJob.setToLocation(sCar.getChargeLocation());
+                asrsJob.setFromStation(srm.getBlockNo());
+//                        Location location = Location.getByLocationNo(sCar.getChargeLocation());
+                Srm chargeSrm = srm.getSrmByPosition("1");
+                asrsJob.setToStation(chargeSrm.getBlockNo());
+                asrsJob.setStatus(AsrsJobStatus.RUNNING);
+                asrsJob.setStatusDetail(AsrsJobStatusDetail.ACCEPTED);
+                asrsJob.setType(AsrsJobType.RECHARGED);
+                asrsJob.setWareHouse(srm.getWareHouse());
+                HibernateUtil.getCurrentSession().save(asrsJob);
+                srm.setMcKey(asrsJob.getMcKey());
+                sCar.setMcKey(asrsJob.getMcKey());
 
             } else {
                 Transaction.rollback();

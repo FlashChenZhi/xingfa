@@ -6,6 +6,7 @@ import com.thread.blocks.Block;
 import com.thread.blocks.MCar;
 import com.thread.blocks.Srm;
 import com.thread.utils.MsgSender;
+import org.apache.commons.lang.StringUtils;
 
 /**
  * Created by van on 2017/11/2.
@@ -90,6 +91,7 @@ public class MCarOperator {
             move(block.getBlockNo());
         } else {
             moveUnloadGoods(block.getBlockNo());
+
         }
 
     }

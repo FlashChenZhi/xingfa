@@ -12,12 +12,14 @@ import com.wms.domain.blocks.Srm;
 import org.apache.http.client.utils.DateUtils;
 import org.hibernate.Query;
 import org.hibernate.Session;
+import org.junit.Test;
 
 import java.math.BigDecimal;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
-public class Test2 {
+public class TestOutKu2 {
     public static void main(String[] args) {
             try {
                 Transaction.begin();
@@ -106,5 +108,13 @@ public class Test2 {
             }
 
 
+    }
+
+    @Test
+    public void test(){
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-dd-MM HH:mm:ss");
+        SimpleDateFormat sdf2 = new SimpleDateFormat("HH:mm:ss");
+        System.out.println(DateUtils.formatDate(new Date(), "HH:mm:ss"));
+        System.out.println(sdf2.format(new Date()));
     }
 }

@@ -71,8 +71,7 @@ public class PutInStorageService {
      * @return "0"设定成功，"1"设定失败
      * @throws IOException
      */
-    @RequestMapping(value = "/addTask", method = RequestMethod.POST)
-    @ResponseBody
+
     public BaseReturnObj addTask(String tuopanhao, String zhantai, String commodityCode, int num) {
         BaseReturnObj returnObj = new BaseReturnObj();
         try {
@@ -168,6 +167,34 @@ public class PutInStorageService {
             returnObj.setSuccess(true);
             returnObj.setRes(jobList);
             returnObj.setCount(count);
+            Transaction.commit();
+        } catch (JDBCConnectionException ex) {
+            returnObj.setSuccess(false);
+            returnObj.setMsg(LogMessage.DB_DISCONNECTED.getName());
+
+        } catch (Exception ex) {
+            Transaction.rollback();
+            returnObj.setSuccess(false);
+            returnObj.setMsg(LogMessage.UNEXPECTED_ERROR.getName());
+        }
+        return returnObj;
+    }
+
+    public BaseReturnObj deleteTask(String selectedRowKeysString) {
+        BaseReturnObj returnObj = new BaseReturnObj();
+        try {
+            Transaction.begin();
+            Session session = HibernateUtil.getCurrentSession();
+            String[] sId = selectedRowKeysString.split(",");
+            for(int i = 0;i<sId.length;i++){
+                int id = Integer.valueOf(sId[i]);
+                Job job = (Job) session.get(Job.class,id);
+                Query query = session.createQuery("delete from InventoryView i where i.palletCode = :palletCode ");
+                query.setString("palletCode",job.getContainer());
+                query.executeUpdate();
+                session.delete(job);
+            }
+            returnObj.setSuccess(true);
             Transaction.commit();
         } catch (JDBCConnectionException ex) {
             returnObj.setSuccess(false);

@@ -43,6 +43,8 @@ public abstract class SrmAndScarServiceImpl implements SrmService {
         if (chargedJob != null) {
 
             if (chargedJob.getType().equals(AsrsJobType.RECHARGED)) {
+
+
                 //如果仓库里存在充电作业，不查找其他作业，
                 Srm fromSrm = (Srm) Srm.getByBlockNo(chargedJob.getFromStation());
                 Location location = Location.getByLocationNo(chargedJob.getToLocation());
@@ -54,8 +56,18 @@ public abstract class SrmAndScarServiceImpl implements SrmService {
                     //如果充电子车绑定的堆垛机不是当前堆垛机
                     if (srm.getPosition().equals(location.getPosition())) {
                         //如果当前堆垛机和充电货位的位置是一边
-                        if (!chargedJob.getStatus().equals(AsrsJobStatus.DONE))
+                        SCar sCar = SCar.getScarByGroup(srm.getGroupNo());
+                        if (sCar.getBank() == location.getBank() && sCar.getBay() == location.getBay() && sCar.getLevel() == location.getLevel()) {
+                            //堆垛机的小车刚充完电还没上车，不能接另外一个小车的充电任务，去接小车上车
+
+                            if (StringUtils.isBlank(sCar.getMcKey()) && StringUtils.isBlank(sCar.getReservedMcKey())) {
+                                SrmOperator srmOperator = new SrmOperator(srm, "9999");
+                                srmOperator.tryLoadCar();
+                            }
+                        } else if (!chargedJob.getStatus().equals(AsrsJobStatus.DONE)) {
                             srm.setReservedMcKey(chargedJob.getMcKey());
+                        }
+
                     } else {
                         //如果当前堆垛机和冲淡位置不是一边
                         //不用理睬
@@ -107,8 +119,9 @@ public abstract class SrmAndScarServiceImpl implements SrmService {
                     boolean hasJob = false;
 
                     //堆垛机上的子车电量不足，生成充电任务
-                    Query q = HibernateUtil.getCurrentSession().createQuery("from SCar s where s.status = :status")
-                            .setString("status", SCar.STATUS_CHARGE);
+                    Query q = HibernateUtil.getCurrentSession().createQuery("from SCar s where s.status = :status and s.chargeLocation = :chargeLocation")
+                            .setString("status", SCar.STATUS_CHARGE)
+                            .setString("chargeLocation",sCar.getChargeLocation());
                     if (sCar.getPower() < minPower && q.list().isEmpty()) {
                         AsrsJob asrsJob = new AsrsJob();
                         asrsJob.setMcKey(Mckey.getNext());
@@ -127,7 +140,7 @@ public abstract class SrmAndScarServiceImpl implements SrmService {
                         hasJob = true;
                     }
 
-                    if (sCar.getPower() >= minPower){
+                    if (sCar.getPower() >= minPower) {
                         //子车在提升机上
                         //获取入库任务
 
@@ -137,7 +150,7 @@ public abstract class SrmAndScarServiceImpl implements SrmService {
                                 //如果上一段block有mckey，
                                 if (block instanceof Conveyor) {
                                     Conveyor conveyor = (Conveyor) block;
-                                    if (StringUtils.isNotBlank(conveyor.getMcKey()) && (!conveyor.isWaitingResponse() || (!conveyor.isMantWaiting() && conveyor.isManty()))) {
+                                    if (StringUtils.isNotBlank(conveyor.getMcKey())) {
                                         AsrsJob asrsJob = AsrsJob.getAsrsJobByMcKey(block.getMcKey());
                                         //如果提升机的上一节是入库作业，设置提升机reservedmckey
                                         if (asrsJob.getType().equals(AsrsJobType.PUTAWAY)) {

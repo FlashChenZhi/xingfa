@@ -175,8 +175,7 @@ public class SrmOperator {
      * @param location
      */
     public void tryUnLoadCarToLocation(Location location) throws Exception {
-        if (srm.getActualArea().equals(location.getActualArea())
-                && srm.getLevel() == location.getLevel()
+        if (srm.getLevel() == location.getLevel()
                 && srm.getBay() == location.getBay()
                 && srm.getCheckLocation() == true) {
             unLoadCar(srm.getsCarBlockNo(), mckey, location);

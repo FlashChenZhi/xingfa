@@ -2,6 +2,7 @@ package com.thread.threads;
 
 import com.asrs.business.consts.AsrsJobStatus;
 import com.asrs.domain.AsrsJob;
+import com.asrs.domain.WcsMessage;
 import com.thread.blocks.Block;
 import com.util.hibernate.HibernateUtil;
 import com.util.hibernate.Transaction;
@@ -29,6 +30,12 @@ public class AsrsJobClearThread {
                 if (blocks.isEmpty()) {
                     job.delete();
                 }
+            }
+
+            Query msgQuery = HibernateUtil.getCurrentSession().createQuery("from WcsMessage wm where not exists(select aj.id from AsrsJob aj where aj.mcKey = wm.mcKey)");
+            List<WcsMessage> wms = msgQuery.list();
+            for(WcsMessage wm : wms){
+                HibernateUtil.getCurrentSession().delete(wm);
             }
             Transaction.commit();
         } catch (Exception ex) {

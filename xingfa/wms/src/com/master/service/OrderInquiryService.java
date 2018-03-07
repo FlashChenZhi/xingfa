@@ -65,6 +65,7 @@ public class OrderInquiryService {
             List<Map<String, Object>> list=new ArrayList<>();
             for (int i=0;i<maplist.size();i++) {
                 Map<String, Object> map = new HashMap();
+                map.put("id",maplist.get(i).getRid());
                 map.put("orderNo", maplist.get(i).getJinhuodanhao());
                 map.put("productId", maplist.get(i).getShangpindaima());
                 map.put("productName",maplist.get(i).getShangpinmingcheng());

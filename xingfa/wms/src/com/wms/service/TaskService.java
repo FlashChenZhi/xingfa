@@ -29,7 +29,13 @@ public class TaskService {
 
             Job job = Job.getByMcKey(mcKey);
             if (job == null) {
-                httpMessage.setMsg("作业不存在");
+                AsrsJob asrsJob = AsrsJob.getAsrsJobByMcKey(mcKey);
+                if(asrsJob == null) {
+                    httpMessage.setMsg("作业不存在");
+                }else{
+                    JobDoHelp.cancelPutaway(mcKey);
+                    asrsJob.delete();
+                }
 
             } else {
 

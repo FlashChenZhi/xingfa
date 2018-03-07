@@ -409,6 +409,7 @@ public class Msg35Proc implements MsgProcess {
                             if (message35.isMove()) {
                                 Srm srm = (Srm) Srm.getByBlockNo(aj.getToStation());
                                 sCar.setPosition(srm.getPosition());
+                                sCar.setBank(Integer.parseInt(message35.Bank));
 
                             } else if (message35.isOffCar()) {
 
@@ -455,13 +456,13 @@ public class Msg35Proc implements MsgProcess {
                                     mCar.clearMckeyAndReservMckey();
                                     aj.setStatus(AsrsJobStatus.DONE);
 
-                                    Query query = HibernateUtil.getCurrentSession().createQuery("from SCar where wareHouse=:wh and status=:st ");
-                                    query.setParameter("wh", mCar.getWareHouse());
-                                    query.setParameter("st", SCar.STATUS_CHARGE);
-                                    List<SCar> sCars = query.list();
-                                    for (SCar sCar : sCars) {
-                                        sCar.setStatus(SCar.STATUS_RUN);
-                                    }
+//                                    Query query = HibernateUtil.getCurrentSession().createQuery("from SCar where wareHouse=:wh and status=:st ");
+//                                    query.setParameter("wh", mCar.getWareHouse());
+//                                    query.setParameter("st", SCar.STATUS_CHARGE);
+//                                    List<SCar> sCars = query.list();
+//                                    for (SCar sCar : sCars) {
+//                                        sCar.setStatus(SCar.STATUS_RUN);
+//                                    }
 
                                 } else {
                                     mCar.generateMckey(message35.McKey);
@@ -478,9 +479,10 @@ public class Msg35Proc implements MsgProcess {
                             if (message35.isMove()) {
                                 Srm srm = (Srm) Srm.getByBlockNo(aj.getToStation());
                                 sCar.setPosition(srm.getPosition());
-
+                                sCar.setBank(Integer.parseInt(message35.Bank));
                             } else if (message35.isOffCar()) {
                                 sCar.setOnMCar(null);
+                                sCar.setReservedMcKey(null);
                                 sCar.setBank(Integer.parseInt(message35.Bank));
 
                             } else if (message35.isOnCar()) {
@@ -589,7 +591,7 @@ public class Msg35Proc implements MsgProcess {
                                 sCar.setOnMCar(message35.Station);
                                 sCar.setBank(0);
                             } else if (message35.isChargeFinish()) {
-                                //欧普照明，充电完成，不做处理，解除子车状态，后续按照正常空车上车处理
+                                sCar.setStatus(SCar.STATUS_RUN);
                             }
 
                         } else if (block instanceof Srm) {

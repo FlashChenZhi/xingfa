@@ -2,5 +2,5 @@
 color A
 echo rmi¿ªÊ¼Æô¶¯
 D:
-cd D:\gitRepository\xingfa_wcs\out\production\wcs
+cd D:\apache-tomcat-7.0.56\webapps\wcs\WEB-INF\classes
 rmiregistry

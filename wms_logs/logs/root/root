@@ -1,16 +1,77 @@
-[ERROR] [2018-03-04 09:01:55,563] [com.asrs.communication.ConnectionManager] cannot connectionML01
-[ERROR] [2018-03-04 09:01:56,636] [com.asrs.communication.ConnectionManager] cannot connectionML02
-[ERROR] [2018-03-04 09:02:02,728] [com.asrs.communication.ConnectionManager] cannot connectionML02
-[ERROR] [2018-03-04 09:02:03,740] [com.asrs.communication.ConnectionManager] cannot connectionML01
-[ERROR] [2018-03-04 09:02:09,752] [com.asrs.communication.ConnectionManager] cannot connectionML02
-[ERROR] [2018-03-04 09:02:10,764] [com.asrs.communication.ConnectionManager] cannot connectionML01
-[ERROR] [2018-03-04 09:57:04,146] [com.asrs.communication.PlcConnection] Read timed out
-[ERROR] [2018-03-04 09:57:04,148] [com.asrs.communication.PlcConnection] SendHandler被中断
-[ERROR] [2018-03-04 10:50:20,350] [com.asrs.business.msgProc.WcsMsgProcCenter] RMI发生错误,MsgProcCenter终止
-[ERROR] [2018-03-04 11:49:26,744] [com.asrs.communication.PlcConnection] Read timed out
-[ERROR] [2018-03-04 11:49:26,746] [com.asrs.communication.PlcConnection] SendHandler被中断
-[ERROR] [2018-03-04 12:14:53,842] [com.asrs.communication.PlcConnection] Read timed out
-[ERROR] [2018-03-04 12:14:53,844] [com.asrs.communication.PlcConnection] SendHandler被中断
-[ERROR] [2018-03-04 12:15:01,166] [com.asrs.communication.ConnectionManager] cannot connectionML01
-[ERROR] [2018-03-04 14:52:42,200] [com.asrs.business.msgProc.WcsMsgProcCenter] RMI发生错误,MsgProcCenter终止
-[ERROR] [2018-03-04 17:52:24,540] [com.asrs.business.msgProc.WcsMsgProcCenter] RMI发生错误,MsgProcCenter终止
+[ERROR] [2018-03-06 11:22:57,111] [com.asrs.business.msgProc.WcsMsgProcCenter] RMI发生错误,MsgProcCenter终止
+[ERROR] [2018-03-06 14:31:04,114] [com.asrs.business.msgProc.WcsMsgProcCenter] MsgException.Invalid_length   1MC015
+[ERROR] [2018-03-06 14:52:40,406] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] Read timed out
+[ERROR] [2018-03-06 14:52:40,406] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] Read timed out
+[ERROR] [2018-03-06 14:52:40,407] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] Read timed out
+[ERROR] [2018-03-06 14:52:40,409] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] Read timed out
+[ERROR] [2018-03-06 14:52:40,512] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] Read timed out
+[ERROR] [2018-03-06 14:52:40,514] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] Read timed out
+[ERROR] [2018-03-06 14:52:40,517] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] Read timed out
+[ERROR] [2018-03-06 14:52:40,565] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] Read timed out
+[ERROR] [2018-03-06 14:52:40,571] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] Read timed out
+[ERROR] [2018-03-06 14:52:41,425] [com.asrs.communication.PlcConnection] Connection reset
+[ERROR] [2018-03-06 14:52:41,425] [com.asrs.communication.PlcConnection] Connection reset
+[ERROR] [2018-03-06 14:52:41,425] [com.asrs.communication.PlcConnection] Connection reset
+[ERROR] [2018-03-06 14:52:41,427] [com.asrs.communication.PlcConnection] SendHandler被中断
+[ERROR] [2018-03-06 14:52:41,427] [com.asrs.communication.PlcConnection] SendHandler被中断
+[ERROR] [2018-03-06 14:52:41,427] [com.asrs.communication.PlcConnection] SendHandler被中断
+[ERROR] [2018-03-06 14:52:41,427] [com.asrs.communication.PlcConnection] Connection reset
+[ERROR] [2018-03-06 14:52:41,428] [com.asrs.communication.PlcConnection] SendHandler被中断
+[ERROR] [2018-03-06 14:52:41,430] [com.asrs.communication.PlcConnection] Connection reset
+[ERROR] [2018-03-06 14:52:41,430] [com.asrs.communication.PlcConnection] Connection reset
+[ERROR] [2018-03-06 14:52:41,431] [com.asrs.communication.PlcConnection] SendHandler被中断
+[ERROR] [2018-03-06 14:52:41,431] [com.asrs.communication.PlcConnection] SendHandler被中断
+[ERROR] [2018-03-06 14:53:08,115] [com.asrs.business.msgProc.WcsMsgProcCenter] RMI发生错误,MsgProcCenter终止
+[ERROR] [2018-03-06 14:56:26,484] [com.asrs.business.msgProc.WcsMsgProcCenter] MsgException.Invalid_length   1MC015
+[ERROR] [2018-03-06 15:38:52,970] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] Read timed out
+[ERROR] [2018-03-06 15:38:52,986] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] Read timed out
+[ERROR] [2018-03-06 15:38:52,986] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] Read timed out
+[ERROR] [2018-03-06 15:38:52,991] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] Read timed out
+[ERROR] [2018-03-06 15:38:53,049] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] Read timed out
+[ERROR] [2018-03-06 15:38:53,180] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] Read timed out
+[ERROR] [2018-03-06 15:38:53,409] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] Read timed out
+[ERROR] [2018-03-06 15:38:53,767] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] Read timed out
+[ERROR] [2018-03-06 15:39:02,915] [com.asrs.communication.PlcConnection] Connection reset
+[ERROR] [2018-03-06 15:39:02,918] [com.asrs.communication.PlcConnection] SendHandler被中断
+[ERROR] [2018-03-06 15:39:26,039] [com.asrs.business.msgProc.WcsMsgProcCenter] RMI发生错误,MsgProcCenter终止
+[ERROR] [2018-03-06 15:39:44,795] [com.asrs.business.msgProc.WcsMsgProcCenter] MsgException.Invalid_length   1MC015
+[ERROR] [2018-03-06 19:20:39,352] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 该连接已关闭。
+[ERROR] [2018-03-06 19:20:39,352] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] 该连接已关闭。
+[ERROR] [2018-03-06 19:20:39,352] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] Read timed out
+[ERROR] [2018-03-06 19:20:39,360] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] Read timed out
+[ERROR] [2018-03-06 19:20:39,363] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] Read timed out
+[ERROR] [2018-03-06 19:20:39,379] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] Read timed out
+[ERROR] [2018-03-06 19:20:39,380] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] Read timed out
+[ERROR] [2018-03-06 19:20:39,476] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] Read timed out
+[ERROR] [2018-03-06 19:20:39,769] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] Read timed out
+[ERROR] [2018-03-06 19:20:40,222] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] Read timed out
+[ERROR] [2018-03-06 19:20:58,894] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] Read timed out
+[ERROR] [2018-03-06 19:21:00,135] [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] Read timed out
+[ERROR] [2018-03-06 19:21:07,818] [com.asrs.communication.PlcConnection] Connection reset
+[ERROR] [2018-03-06 19:21:07,818] [com.asrs.communication.PlcConnection] Connection reset
+[ERROR] [2018-03-06 19:21:07,818] [com.asrs.communication.PlcConnection] Connection reset
+[ERROR] [2018-03-06 19:21:07,820] [com.asrs.communication.PlcConnection] SendHandler被中断
+[ERROR] [2018-03-06 19:21:07,820] [com.asrs.communication.PlcConnection] SendHandler被中断
+[ERROR] [2018-03-06 19:21:07,820] [com.asrs.communication.PlcConnection] SendHandler被中断
+[ERROR] [2018-03-06 19:21:07,821] [com.asrs.communication.PlcConnection] Connection reset
+[ERROR] [2018-03-06 19:21:07,822] [com.asrs.communication.PlcConnection] SendHandler被中断
+[ERROR] [2018-03-06 19:21:07,822] [com.asrs.communication.PlcConnection] Connection reset
+[ERROR] [2018-03-06 19:21:07,823] [com.asrs.communication.PlcConnection] SendHandler被中断
+[ERROR] [2018-03-06 19:21:08,738] [com.asrs.communication.PlcConnection] Connection reset
+[ERROR] [2018-03-06 19:21:08,739] [com.asrs.communication.PlcConnection] SendHandler被中断
+[ERROR] [2018-03-06 19:27:10,787] [com.asrs.business.msgProc.WcsMsgProcCenter] MsgException.Invalid_length   1MC015
+[ERROR] [2018-03-06 19:30:12,144] [com.asrs.business.msgProc.WcsMsgProcCenter] MsgException.Invalid_length   1MC015
+[ERROR] [2018-03-06 19:30:15,148] [com.asrs.business.msgProc.WcsMsgProcCenter] MsgException.Invalid_length   1MC015
+[ERROR] [2018-03-06 19:36:56,599] [com.asrs.business.msgProc.WcsMsgProcCenter] MsgException.Invalid_length   1MC015
+[ERROR] [2018-03-06 19:43:51,229] [com.asrs.business.msgProc.WcsMsgProcCenter] MsgException.Invalid_length   1MC015
+[ERROR] [2018-03-06 19:44:49,053] [com.asrs.business.msgProc.WcsMsgProcCenter] MsgException.Invalid_length   1MC015
+[ERROR] [2018-03-06 19:47:10,238] [com.asrs.business.msgProc.WcsMsgProcCenter] MsgException.Invalid_length   1MC015
+[ERROR] [2018-03-06 19:47:21,769] [com.asrs.business.msgProc.WcsMsgProcCenter] MsgException.Invalid_length   1MC015
+[ERROR] [2018-03-06 19:57:50,219] [com.asrs.communication.PlcConnection] Read timed out
+[ERROR] [2018-03-06 19:57:50,220] [com.asrs.communication.PlcConnection] SendHandler被中断
+[ERROR] [2018-03-06 19:57:51,604] [com.asrs.communication.PlcConnection] Read timed out
+[ERROR] [2018-03-06 19:57:51,605] [com.asrs.communication.PlcConnection] SendHandler被中断
+[ERROR] [2018-03-06 19:57:52,620] [com.asrs.communication.PlcConnection] Read timed out
+[ERROR] [2018-03-06 19:57:52,621] [com.asrs.communication.PlcConnection] SendHandler被中断
+[ERROR] [2018-03-06 19:58:15,864] [com.asrs.communication.ConnectionManager] cannot connectionSC02
+[ERROR] [2018-03-06 19:58:20,461] [com.asrs.business.msgProc.WcsMsgProcCenter] RMI发生错误,MsgProcCenter终止

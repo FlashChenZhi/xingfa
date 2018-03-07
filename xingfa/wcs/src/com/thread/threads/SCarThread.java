@@ -1,5 +1,6 @@
 package com.thread.threads;
 
+import com.asrs.Mckey;
 import com.asrs.business.consts.AsrsJobStatus;
 import com.asrs.business.consts.AsrsJobStatusDetail;
 import com.asrs.business.consts.AsrsJobType;
@@ -22,6 +23,7 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.criterion.Restrictions;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -47,7 +49,40 @@ public class SCarThread extends BlockThread<SCar> {
                 if (sCar.isWaitingResponse()) {
 
                 } else if (!sCar.getStatus().equals("1")) {
+                    Location location = Location.getByLocationNo(sCar.getChargeLocation());
 
+                    if(sCar.getBank() != location.getBank() ||sCar.getBay() != location.getBay() || sCar.getLevel() != location.getLevel()){
+                        sCar.setStatus(SCar.STATUS_RUN);
+
+                    }else if(sCar.getPower() >= 95){
+                        Srm fromSrm = Srm.getSrmByPosition(location.getPosition());
+                        Srm toSrm = Srm.getSrmByGroupNo(sCar.getGroupNo());
+
+                        if (fromSrm.getBlockNo().equals(toSrm.getBlockNo())) {
+//                            sCar.setStatus(SCar.STATUS_RUN);
+                            //欧普适用
+                            MsgSender.send03(Message03._CycleOrder.chargeFinish, "9999", sCar, sCar.getChargeLocation(), "", String.valueOf(location.getBay()),String.valueOf(location.getLevel()));
+                        } else {
+
+                            AsrsJob newJob = new AsrsJob();
+
+                            newJob.setWareHouse(sCar.getWareHouse());
+                            newJob.setType(AsrsJobType.RECHARGEDOVER);
+                            newJob.setMcKey(Mckey.getNext());
+                            newJob.setGenerateTime(new Date());
+                            newJob.setStatus(AsrsJobStatus.RUNNING);
+                            newJob.setStatusDetail(AsrsJobStatusDetail.WAITING);
+                            newJob.setFromLocation(sCar.getChargeLocation());
+                            newJob.setFromStation(fromSrm.getBlockNo());
+                            newJob.setToStation(toSrm.getBlockNo());
+
+                            HibernateUtil.getCurrentSession().save(newJob);
+                            sCar.setMcKey(newJob.getMcKey());
+                            sCar.setStatus(SCar.STATUS_RUN);
+
+                            MsgSender.send03(Message03._CycleOrder.chargeFinish, newJob.getMcKey(), sCar, sCar.getChargeLocation(), "", String.valueOf(location.getBay()),String.valueOf(location.getLevel()));
+                        }
+                    }
                 }  else {
                     if (StringUtils.isEmpty(sCar.getReservedMcKey()) && StringUtils.isEmpty(sCar.getMcKey())) {
 

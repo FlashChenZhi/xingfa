@@ -12,6 +12,7 @@ public class Test {
         Transaction.begin();
         oneToEight("2",2);
          Transaction.commit();
+
     }
 
     public static void oneToEight(String area, int level) {

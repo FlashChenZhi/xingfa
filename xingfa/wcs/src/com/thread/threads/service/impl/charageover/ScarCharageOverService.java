@@ -23,7 +23,10 @@ public class ScarCharageOverService extends ScarAndSrmServiceImpl {
 
     @Override
     public void withReserveMckey() throws Exception {
-
+        AsrsJob asrsJob = AsrsJob.getAsrsJobByMcKey(sCar.getReservedMcKey());
+        Location location = Location.getByLocationNo(sCar.getTempLocation());
+        ScarOperator scarOperator = new ScarOperator(sCar, asrsJob.getMcKey());
+        scarOperator.tryOffSrm(sCar.getOnMCar(), location);
     }
 
     @Override
@@ -31,10 +34,11 @@ public class ScarCharageOverService extends ScarAndSrmServiceImpl {
         ScarOperator scarOperator = new ScarOperator(sCar, sCar.getMcKey());
         AsrsJob asrsJob = AsrsJob.getAsrsJobByMcKey(sCar.getMcKey());
         Srm endSrm = (Srm) Block.getByBlockNo(asrsJob.getToStation());
+        Location chargeLocation = Location.getByLocationNo(sCar.getChargeLocation());
 
         Srm srm = Srm.getSrmByPosition(sCar.getPosition());
         if (!sCar.getPosition().equals(endSrm.getPosition())) {
-            if (sCar.getBay() == 1) {
+            if (sCar.getBank() == chargeLocation.getBank()) {
                 if (StringUtils.isBlank(sCar.getOnMCar())) {
 //                    Location location = Location.getByLocationNo(Const.CHARGE_LOCATION);
                     scarOperator.tryOnSrm(srm, sCar.getChargeLocation());

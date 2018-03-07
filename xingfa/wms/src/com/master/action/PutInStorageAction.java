@@ -68,4 +68,11 @@ public class PutInStorageAction {
         int startIndex = (current-1)*defaultPageSize;
         return  putInStorageService.findPutInStorageOrder(startIndex,defaultPageSize);
     }
+    //删除入库任务
+    @RequestMapping(value = "/deleteTask",method = RequestMethod.POST)
+    @ResponseBody
+    public BaseReturnObj deleteTask(String selectedRowKeysString) throws IOException{
+        System.out.println(selectedRowKeysString);
+        return putInStorageService.deleteTask(selectedRowKeysString);
+    }
 }

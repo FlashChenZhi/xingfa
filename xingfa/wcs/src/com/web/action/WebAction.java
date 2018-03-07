@@ -139,5 +139,10 @@ public class WebAction {
         return httpMessage;
     }
 
-
+    @RequestMapping("chargeStart.do")
+    @ResponseBody
+    public HttpMessage chargeStart(String blockNo) {
+        HttpMessage httpMessage = webService.chargeStart(blockNo);
+        return httpMessage;
+    }
 }

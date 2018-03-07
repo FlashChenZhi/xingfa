@@ -55,8 +55,7 @@ public class ScarOperator {
      */
     public void tryOnSrm(Srm srm, String locationNo) throws Exception {
 
-        if (sCar.getActualArea().equals(srm.getActualArea())
-                && sCar.getLevel() == srm.getLevel()
+        if (sCar.getLevel() == srm.getLevel()
                 && sCar.getBay() == srm.getBay()) {
             MsgSender.send03(Message03._CycleOrder.onCar, mckey, sCar, locationNo, srm.getBlockNo(), "", "");
         }

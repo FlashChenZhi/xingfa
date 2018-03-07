@@ -6,6 +6,7 @@ import com.thread.blocks.Conveyor;
 import com.thread.blocks.MCar;
 import com.thread.threads.operator.MCarOperator;
 import com.thread.threads.service.impl.MCarServiceImpl;
+import org.apache.commons.lang.StringUtils;
 
 /**
  * Created by van on 2017/12/26.
@@ -50,7 +51,10 @@ public class MCarSinglePutawayService extends MCarServiceImpl {
             Block block = mCar.getNextBlock(asrsJob.getType(), asrsJob.getToStation());
             if (block instanceof Conveyor) {
                 //下一段是输送机
-                operator.tryUnloadGoodToConveryor(block);
+                if (!block.isWaitingResponse() && StringUtils.isBlank(block.getMcKey()) && StringUtils.isBlank(block.getReservedMcKey())) {
+
+                    operator.tryUnloadGoodToConveryor(block);
+                }
             }
         }
     }

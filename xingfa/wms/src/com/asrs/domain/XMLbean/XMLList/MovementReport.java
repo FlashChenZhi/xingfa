@@ -19,6 +19,7 @@ import org.hibernate.Query;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -107,7 +108,8 @@ public class MovementReport extends XMLProcess {
             inventoryLog.setQty(BigDecimal.ZERO);
             inventoryLog.setType(InventoryLog.TYPE_IN);
             for (InventoryView view : views) {
-
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                SimpleDateFormat sdf2 = new SimpleDateFormat("HH:mm:ss");
                 if (view != null) {
                     Inventory inventory = new Inventory();
                     inventory.setWhCode(view.getWhCode());
@@ -116,8 +118,8 @@ public class MovementReport extends XMLProcess {
                     inventory.setQty(view.getQty());
                     inventory.setSkuCode(view.getSkuCode());
                     inventory.setContainer(container);
-                    inventory.setStoreDate(DateUtils.formatDate(new Date(), "yyyy-MM-dd"));
-                    inventory.setStoreTime(DateUtils.formatDate(new Date(), "HH:mm:ss"));
+                    inventory.setStoreDate(sdf.format(new Date()));
+                    inventory.setStoreTime(sdf2.format(new Date()));
                     HibernateUtil.getCurrentSession().save(inventory);
                     inventoryLog.setQty(inventoryLog.getQty().add(inventory.getQty()));
                     inventoryLog.setSkuCode(inventory.getSkuCode());

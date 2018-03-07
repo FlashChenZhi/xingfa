@@ -39,13 +39,17 @@ public class ScarCharageService extends ScarAndSrmServiceImpl {
         Location location = Location.getByLocationNo(asrsJob.getToLocation());
         ScarOperator scarOperator = new ScarOperator(sCar, asrsJob.getMcKey());
         Location temLocation = Location.getByLocationNo(sCar.getChargeChanel());
+        Srm srm = Srm.getSrmByPosition(location.getPosition());
 
         if (sCar.getPosition().equals(location.getPosition())) {
             //充电子车和充电货位在一边
             if (StringUtils.isNotBlank(sCar.getOnMCar())) {
                 //子车在母车上
                 scarOperator.tryOffSrm(sCar.getOnMCar(), location);
-            } else {
+            } else if (sCar.getBank() != location.getBank()){
+                //子车在堆垛机的另一边
+                scarOperator.tryOnSrm(srm,sCar.getChargeChanel());
+            }else {
                 //子车不在堆垛机上，子车已经下车在充电位置上了。发送充电
                 scarOperator.tryCharge(sCar,location);
             }

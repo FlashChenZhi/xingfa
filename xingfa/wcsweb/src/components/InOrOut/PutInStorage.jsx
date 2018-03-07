@@ -55,7 +55,8 @@ let PutInStorage = React.createClass({
             loading: false,
             selectedData: [],//点击设定提交到后台的数据
             selectedRowKeys: [],
-            defaultPageSize:8,
+            defaultPageSize:6,
+            current:1,
         };
     },
     componentDidMount(){
@@ -112,10 +113,15 @@ let PutInStorage = React.createClass({
         });
     },
     pageChange(noop){
+        this.setState({
+            selectedRowKeys:[],
+            current:noop,
+        })
         this.getData(noop);
     },
     submit(e){
         e.preventDefault();
+        const current = this.state.current;
         this.props.form.validateFieldsAndScroll((err, values) => {
             if (!err) {
                 console.log('Received values of form: ', values);
@@ -133,6 +139,7 @@ let PutInStorage = React.createClass({
                             message.error(json.msg);
                         } else {
                             message.success("设定任务成功！");
+                            this.getData(current);
                         }
                         this.props.form.setFieldsValue({
                             tuopanhao:'',
@@ -145,6 +152,41 @@ let PutInStorage = React.createClass({
                 })
             }
         });
+
+    },
+    delete(e){
+        e.preventDefault();
+        const selectedRowKeys = this.state.selectedRowKeys;
+        var selectedRowKeysString='';
+        for(let i = 0;i<selectedRowKeys.length;i++){
+            if(i!=selectedRowKeys.length-1){
+                selectedRowKeysString =selectedRowKeysString+ selectedRowKeys[i]+",";
+            }else{
+                selectedRowKeysString =selectedRowKeysString+ selectedRowKeys[i];
+            }
+        }
+        const current = this.state.current;
+        reqwest({
+            url: '/wms/master/putInStorage/deleteTask',
+            dataType: 'json',
+            method: 'post',
+            data: {selectedRowKeysString: selectedRowKeysString},
+            success: function (json) {
+                if (!json.success) {
+                    message.error(json.msg);
+                } else {
+                    message.success("删除任务成功！")
+                    this.getData(current);
+                }
+                this.props.form.setFieldsValue({
+                    tuopanhao:'',
+                });
+            }.bind(this),
+            error: function (err) {
+                message.error("删除任务失败！");
+                this.handleReset(e);
+            }.bind(this)
+        })
 
     },
     /**
@@ -225,6 +267,9 @@ let PutInStorage = React.createClass({
                         <Button type="primary" onClick={this.submit}
                                 //disabled={this.state.tuopanhao.length > 0 ? false : true}
                         >设定</Button>
+                        <Button style={{marginLeft:"13%"}} type="primary" onClick={this.delete}
+                            //disabled={this.state.tuopanhao.length > 0 ? false : true}
+                        >删除</Button>
                     </FormItem>
                 </Form><br/>
                 <Table rowSelection={{onChange: this.onChange, selectedRowKeys: this.state.selectedRowKeys,}}

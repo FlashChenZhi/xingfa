@@ -30,12 +30,18 @@ public class SrmCharageOverService extends SrmAndScarServiceImpl {
             SrmOperator srmOperator = new SrmOperator(srm, srm.getReservedMcKey());
             srmOperator.tryLoadCarFromLocation(sCar, location);
         } else {
-            Srm endStation = (Srm) Srm.getByBlockNo(asrsJob.getToStation());
-            SCar sCar = SCar.getScarByGroup(endStation.getGroupNo());
-            Location location = Location.getByLocationNo(sCar.getChargeLocation());
-            SrmOperator srmOperator = new SrmOperator(srm, srm.getReservedMcKey());
-            srmOperator.tryLoadCarFromLocation(sCar, location);
+            SrmOperator srmOperator = new SrmOperator(srm, asrsJob.getMcKey());
 
+            if(StringUtils.isNotBlank(srm.getsCarBlockNo())){
+                SCar sCar  = SCar.getScarByGroup(srm.getGroupNo());
+                Location tempLocation = Location.getByLocationNo(sCar.getTempLocation());
+                srmOperator.tryUnLoadCarToLocation(tempLocation);
+            }else {
+                Srm endStation = (Srm) Srm.getByBlockNo(asrsJob.getToStation());
+                SCar sCar = SCar.getScarByGroup(endStation.getGroupNo());
+                Location location = Location.getByLocationNo(sCar.getChargeLocation());
+                srmOperator.tryLoadCarFromLocation(sCar, location);
+            }
         }
     }
 
@@ -51,7 +57,7 @@ public class SrmCharageOverService extends SrmAndScarServiceImpl {
             Location location = Location.getByLocationNo(sCar.getChargeChanel());
             srmOperator.tryLoadCarFromLocation(sCar, location);
         } else {
-            SCar sCar = SCar.getScarByGroup(srm.getGroupNo());
+            SCar sCar = (SCar) SCar.getByBlockNo(srm.getsCarBlockNo());
             Location tempLocation = Location.getByLocationNo(sCar.getChargeChanel());
             srmOperator.tryUnLoadCarToLocation(tempLocation);
         }
