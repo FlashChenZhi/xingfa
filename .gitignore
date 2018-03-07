@@ -3,3 +3,5 @@
 out
 node_modules
 wms_logs
+wms_rft\wms_rft\bin
+wms_rft\wms_updater\bin

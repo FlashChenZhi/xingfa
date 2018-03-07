@@ -1,0 +1,12 @@
+D:\git_projects\ykk_sh_lg_smart\wms_rft\Viberator\bin\Release\Viberator.dll
+D:\git_projects\ykk_sh_lg_smart\wms_rft\Viberator\bin\Release\Viberator.pdb
+D:\git_projects\ykk_sh_lg_smart\wms_rft\Viberator\bin\Release\SystemLibnet.dll
+D:\git_projects\ykk_sh_lg_smart\wms_rft\Viberator\obj\Release\ResolveAssemblyReference.cache
+D:\git_projects\ykk_sh_lg_smart\wms_rft\Viberator\obj\Release\Viberator.dll
+D:\git_projects\ykk_sh_lg_smart\wms_rft\Viberator\obj\Release\Viberator.pdb
+D:\git_projects\xingfa_wcs\wms_rft\Viberator\bin\Release\Viberator.dll
+D:\git_projects\xingfa_wcs\wms_rft\Viberator\bin\Release\Viberator.pdb
+D:\git_projects\xingfa_wcs\wms_rft\Viberator\bin\Release\SystemLibnet.dll
+D:\git_projects\xingfa_wcs\wms_rft\Viberator\obj\Release\ResolveAssemblyReference.cache
+D:\git_projects\xingfa_wcs\wms_rft\Viberator\obj\Release\Viberator.dll
+D:\git_projects\xingfa_wcs\wms_rft\Viberator\obj\Release\Viberator.pdb

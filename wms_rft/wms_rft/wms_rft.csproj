@@ -1,0 +1,894 @@
+﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="3.5">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{FAEE91F2-CC06-4203-ACCA-0B6FC8DD6138}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>wms_rft</RootNamespace>
+    <AssemblyName>wms_rft</AssemblyName>
+    <ProjectTypeGuids>{4D628B5B-2FBC-4AA6-8C16-197242AEB884};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <PlatformFamilyName>WindowsCE</PlatformFamilyName>
+    <PlatformID>E2BECB1F-8C8C-41ba-B736-9BE7D946A398</PlatformID>
+    <OSVersion>5.0</OSVersion>
+    <DeployDirSuffix>wms_rft</DeployDirSuffix>
+    <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
+    <NativePlatformName>Windows CE</NativePlatformName>
+    <FormFactorID>
+    </FormFactorID>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE;$(PlatformFamilyName)</DefineConstants>
+    <NoStdLib>true</NoStdLib>
+    <NoConfig>true</NoConfig>
+    <ErrorReport>prompt</ErrorReport>
+    <FileAlignment>512</FileAlignment>
+    <WarningLevel>4</WarningLevel>
+    <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE;$(PlatformFamilyName)</DefineConstants>
+    <NoStdLib>true</NoStdLib>
+    <NoConfig>true</NoConfig>
+    <ErrorReport>prompt</ErrorReport>
+    <FileAlignment>512</FileAlignment>
+    <WarningLevel>4</WarningLevel>
+    <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="mscorlib" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Common\CompleteConfirmForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Common\CompleteConfirmForm.Designer.cs">
+      <DependentUpon>CompleteConfirmForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Common\EmptyConfirmEtForm2.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Common\EmptyConfirmEtForm2.Designer.cs">
+      <DependentUpon>EmptyConfirmEtForm2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Et\EtBucketErrorMaintenenceForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Et\EtBucketErrorMaintenenceForm.Designer.cs">
+      <DependentUpon>EtBucketErrorMaintenenceForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Et\EtRecoveryForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Et\EtRecoveryForm.Designer.cs">
+      <DependentUpon>EtRecoveryForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Helper\Const.cs" />
+    <Compile Include="Common\EmptyConfirmSmartForm2.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Common\EmptyConfirmSmartForm2.Designer.cs">
+      <DependentUpon>EmptyConfirmSmartForm2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Helper\CommonHelper.cs" />
+    <Compile Include="Helper\Et\ServiceFactoryEt.cs" />
+    <Compile Include="Helper\MessageHelper.cs" />
+    <Compile Include="Helper\RegistryHelper.cs" />
+    <Compile Include="Helper\ServiceFactory.cs" />
+    <Compile Include="Helper\Smart\ServiceFactorySmart.cs" />
+    <Compile Include="Menu\MainMenuLogisticForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Menu\MainMenuLogisticForm.Designer.cs">
+      <DependentUpon>MainMenuLogisticForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Menu\EtMenuForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Menu\EtMenuForm.Designer.cs">
+      <DependentUpon>EtMenuForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Menu\OtherMenuEtForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Menu\OtherMenuEtForm.Designer.cs">
+      <DependentUpon>OtherMenuEtForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Menu\StockQueryMenuEtForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Menu\StockQueryMenuEtForm.Designer.cs">
+      <DependentUpon>StockQueryMenuEtForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Menu\StockOutMenuEtForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Menu\StockOutMenuEtForm.Designer.cs">
+      <DependentUpon>StockOutMenuEtForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Menu\StockInMenuEtForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Menu\StockInMenuEtForm.Designer.cs">
+      <DependentUpon>StockInMenuEtForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Menu\MainMenuEtForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Menu\MainMenuEtForm.Designer.cs">
+      <DependentUpon>MainMenuEtForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Menu\SystemSelectForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Menu\SystemSelectForm.Designer.cs">
+      <DependentUpon>SystemSelectForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Menu\OtherMenu2Form.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Menu\OtherMenu2Form.Designer.cs">
+      <DependentUpon>OtherMenu2Form.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Menu\LoginForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Menu\LoginForm.Designer.cs">
+      <DependentUpon>LoginForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Menu\MainMenuSmartForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Menu\MainMenuSmartForm.Designer.cs">
+      <DependentUpon>MainMenuSmartForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Menu\StockOutMenuSmartForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Menu\StockOutMenuSmartForm.Designer.cs">
+      <DependentUpon>StockOutMenuSmartForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Menu\StockQueryMenuSmartForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Menu\StockQueryMenuSmartForm.Designer.cs">
+      <DependentUpon>StockQueryMenuSmartForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Menu\OtherMenuSmartForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Menu\OtherMenuSmartForm.Designer.cs">
+      <DependentUpon>OtherMenuSmartForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Menu\StockInMenuSmartForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Menu\StockInMenuSmartForm.Designer.cs">
+      <DependentUpon>StockInMenuSmartForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Menu\StockRegistMenuForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Menu\StockRegistMenuForm.Designer.cs">
+      <DependentUpon>StockRegistMenuForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Common\EmptyConfirmForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Common\EmptyConfirmForm.Designer.cs">
+      <DependentUpon>EmptyConfirmForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Other\BucketOrBagChangeSmartForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Other\BucketOrBagChangeSmartForm.Designer.cs">
+      <DependentUpon>BucketOrBagChangeSmartForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Other\BagStockForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Other\BagStockForm.Designer.cs">
+      <DependentUpon>BagStockForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Other\BucketDeleteEtForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Other\BucketDeleteEtForm.Designer.cs">
+      <DependentUpon>BucketDeleteEtForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Other\BucketOrBagChangeEtForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Other\BucketOrBagChangeEtForm.Designer.cs">
+      <DependentUpon>BucketOrBagChangeEtForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Other\PalletMoveEtForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Other\PalletMoveEtForm.Designer.cs">
+      <DependentUpon>PalletMoveEtForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Other\UnbagStockForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Other\UnbagStockForm.Designer.cs">
+      <DependentUpon>UnbagStockForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Putaway\PutawaySettingForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Putaway\PutawaySettingForm.Designer.cs">
+      <DependentUpon>PutawaySettingForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Shipping\BagToBucketBindingForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Shipping\BagToBucketBindingForm.Designer.cs">
+      <DependentUpon>BagToBucketBindingForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="StockInquiry\BagInquiryForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="StockInquiry\BagInquiryForm.Designer.cs">
+      <DependentUpon>BagInquiryForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="StockInquiry\BucketInquirySmartForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="StockInquiry\BucketInquirySmartForm.Designer.cs">
+      <DependentUpon>BucketInquirySmartForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="StockInquiry\BucketInquiryEtForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="StockInquiry\BucketInquiryEtForm.Designer.cs">
+      <DependentUpon>BucketInquiryEtForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="StockInquiry\PalletInquiryForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="StockInquiry\PalletInquiryForm.Designer.cs">
+      <DependentUpon>PalletInquiryForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="StockInquiry\PreM2InquiryForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="StockInquiry\PreM2InquiryForm.Designer.cs">
+      <DependentUpon>PreM2InquiryForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Shipping\BucketToBagSettingForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Shipping\BucketToBagSettingForm.Designer.cs">
+      <DependentUpon>BucketToBagSettingForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="StockIn\BucketNoReadSmartForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="StockIn\BucketNoReadSmartForm.Designer.cs">
+      <DependentUpon>BucketNoReadSmartForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="StockIn\BucketStockInBZForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="StockIn\BucketStockInBZForm.Designer.cs">
+      <DependentUpon>BucketStockInBZForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="StockIn\BagStockInBZForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="StockIn\BagStockInBZForm.Designer.cs">
+      <DependentUpon>BagStockInBZForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="StockIn\BucketNoReadEtForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="StockIn\BucketNoReadEtForm.Designer.cs">
+      <DependentUpon>BucketNoReadEtForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="StockIn\PalletStockIn1FEtForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="StockIn\PalletStockIn1FEtForm.Designer.cs">
+      <DependentUpon>PalletStockIn1FEtForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="StockIn\PalletStockIn1FSmartForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="StockIn\PalletStockIn1FSmartForm.Designer.cs">
+      <DependentUpon>PalletStockIn1FSmartForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="StockIn\PalletStockInBZForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="StockIn\PalletStockInBZForm.Designer.cs">
+      <DependentUpon>PalletStockInBZForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Other\BagMoveForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Other\BagMoveForm.Designer.cs">
+      <DependentUpon>BagMoveForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Other\BucketMoveForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Other\BucketMoveForm.Designer.cs">
+      <DependentUpon>BucketMoveForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Other\BucketDeleteSmartForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Other\BucketDeleteSmartForm.Designer.cs">
+      <DependentUpon>BucketDeleteSmartForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Other\BagDeleteForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Other\BagDeleteForm.Designer.cs">
+      <DependentUpon>BagDeleteForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Other\PalletMoveSmartForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Other\PalletMoveSmartForm.Designer.cs">
+      <DependentUpon>PalletMoveSmartForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="StockOut\BZ2FStockOutForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="StockOut\BZ2FStockOutForm.Designer.cs">
+      <DependentUpon>BZ2FStockOutForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="StockOut\BucketExceptionalStockOutForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="StockOut\BucketExceptionalStockOutForm.Designer.cs">
+      <DependentUpon>BucketExceptionalStockOutForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="StockOut\AgvStockInOutEtForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="StockOut\AgvStockInOutEtForm.Designer.cs">
+      <DependentUpon>AgvStockInOutEtForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="StockOut\Pallet1FStockOutEtForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="StockOut\Pallet1FStockOutEtForm.Designer.cs">
+      <DependentUpon>Pallet1FStockOutEtForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="StockOut\ItemStockOutEtForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="StockOut\ItemStockOutEtForm.Designer.cs">
+      <DependentUpon>ItemStockOutEtForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="StockOut\JobDataInquiryEtForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="StockOut\JobDataInquiryEtForm.Designer.cs">
+      <DependentUpon>JobDataInquiryEtForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="StockOut\ItemStockOutSmartForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="StockOut\ItemStockOutSmartForm.Designer.cs">
+      <DependentUpon>ItemStockOutSmartForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="StockOut\Pallet1FStockOutSmartForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="StockOut\Pallet1FStockOutSmartForm.Designer.cs">
+      <DependentUpon>Pallet1FStockOutSmartForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="StockOut\JobDataInquirySmartForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="StockOut\JobDataInquirySmartForm.Designer.cs">
+      <DependentUpon>JobDataInquirySmartForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="StockRegist\BucketPalletBindingSmartForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="StockRegist\BucketPalletBindingSmartForm.Designer.cs">
+      <DependentUpon>BucketPalletBindingSmartForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="StockRegist\BucketPalletBindingEtForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="StockRegist\BucketPalletBindingEtForm.Designer.cs">
+      <DependentUpon>BucketPalletBindingEtForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="StockRegist\PreM2Form.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="StockRegist\PreM2Form.Designer.cs">
+      <DependentUpon>PreM2Form.cs</DependentUpon>
+    </Compile>
+    <Compile Include="StockRegist\LabelPrintForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="StockRegist\LabelPrintForm.Designer.cs">
+      <DependentUpon>LabelPrintForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="StockRegist\WavesCommunicatingForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="StockRegist\WavesCommunicatingForm.Designer.cs">
+      <DependentUpon>WavesCommunicatingForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="StockRegist\M2RegistForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="StockRegist\M2RegistForm.Designer.cs">
+      <DependentUpon>M2RegistForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="StockRegist\TicketBucketBindingForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="StockRegist\TicketBucketBindingForm.Designer.cs">
+      <DependentUpon>TicketBucketBindingForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Common\CompleteConfirmForm.resx">
+      <DependentUpon>CompleteConfirmForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Common\EmptyConfirmEtForm2.resx">
+      <DependentUpon>EmptyConfirmEtForm2.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Common\EmptyConfirmSmartForm2.resx">
+      <DependentUpon>EmptyConfirmSmartForm2.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Et\EtBucketErrorMaintenenceForm.resx">
+      <DependentUpon>EtBucketErrorMaintenenceForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Et\EtRecoveryForm.resx">
+      <DependentUpon>EtRecoveryForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Menu\MainMenuLogisticForm.resx">
+      <DependentUpon>MainMenuLogisticForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Menu\EtMenuForm.resx">
+      <DependentUpon>EtMenuForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Menu\OtherMenuEtForm.resx">
+      <DependentUpon>OtherMenuEtForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Menu\StockQueryMenuEtForm.resx">
+      <DependentUpon>StockQueryMenuEtForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Menu\StockOutMenuEtForm.resx">
+      <DependentUpon>StockOutMenuEtForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Menu\StockInMenuEtForm.resx">
+      <DependentUpon>StockInMenuEtForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Menu\MainMenuEtForm.resx">
+      <DependentUpon>MainMenuEtForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Menu\SystemSelectForm.resx">
+      <DependentUpon>SystemSelectForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Menu\OtherMenu2Form.resx">
+      <DependentUpon>OtherMenu2Form.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Menu\LoginForm.resx">
+      <DependentUpon>LoginForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Menu\MainMenuSmartForm.resx">
+      <DependentUpon>MainMenuSmartForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Menu\StockOutMenuSmartForm.resx">
+      <DependentUpon>StockOutMenuSmartForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Menu\StockQueryMenuSmartForm.resx">
+      <DependentUpon>StockQueryMenuSmartForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Menu\OtherMenuSmartForm.resx">
+      <DependentUpon>OtherMenuSmartForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Menu\StockInMenuSmartForm.resx">
+      <DependentUpon>StockInMenuSmartForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Menu\StockRegistMenuForm.resx">
+      <DependentUpon>StockRegistMenuForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Common\EmptyConfirmForm.resx">
+      <DependentUpon>EmptyConfirmForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Other\BucketOrBagChangeSmartForm.resx">
+      <DependentUpon>BucketOrBagChangeSmartForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Other\BagStockForm.resx">
+      <DependentUpon>BagStockForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Other\BucketDeleteEtForm.resx">
+      <DependentUpon>BucketDeleteEtForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Other\BucketOrBagChangeEtForm.resx">
+      <DependentUpon>BucketOrBagChangeEtForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Other\PalletMoveEtForm.resx">
+      <DependentUpon>PalletMoveEtForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Other\UnbagStockForm.resx">
+      <DependentUpon>UnbagStockForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Putaway\PutawaySettingForm.resx">
+      <DependentUpon>PutawaySettingForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Shipping\BagToBucketBindingForm.resx">
+      <DependentUpon>BagToBucketBindingForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="StockInquiry\BagInquiryForm.resx">
+      <DependentUpon>BagInquiryForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="StockInquiry\BucketInquirySmartForm.resx">
+      <DependentUpon>BucketInquirySmartForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="StockInquiry\BucketInquiryEtForm.resx">
+      <DependentUpon>BucketInquiryEtForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="StockInquiry\PalletInquiryForm.resx">
+      <DependentUpon>PalletInquiryForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="StockInquiry\PreM2InquiryForm.resx">
+      <DependentUpon>PreM2InquiryForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Shipping\BucketToBagSettingForm.resx">
+      <DependentUpon>BucketToBagSettingForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="StockIn\BucketNoReadSmartForm.resx">
+      <DependentUpon>BucketNoReadSmartForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="StockIn\BucketStockInBZForm.resx">
+      <DependentUpon>BucketStockInBZForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="StockIn\BagStockInBZForm.resx">
+      <DependentUpon>BagStockInBZForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="StockIn\BucketNoReadEtForm.resx">
+      <DependentUpon>BucketNoReadEtForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="StockIn\PalletStockIn1FEtForm.resx">
+      <DependentUpon>PalletStockIn1FEtForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="StockIn\PalletStockIn1FSmartForm.resx">
+      <DependentUpon>PalletStockIn1FSmartForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="StockIn\PalletStockInBZForm.resx">
+      <DependentUpon>PalletStockInBZForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Other\BagMoveForm.resx">
+      <DependentUpon>BagMoveForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Other\BucketMoveForm.resx">
+      <DependentUpon>BucketMoveForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Other\BucketDeleteSmartForm.resx">
+      <DependentUpon>BucketDeleteSmartForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Other\BagDeleteForm.resx">
+      <DependentUpon>BagDeleteForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Other\PalletMoveSmartForm.resx">
+      <DependentUpon>PalletMoveSmartForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="StockOut\BZ2FStockOutForm.resx">
+      <DependentUpon>BZ2FStockOutForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="StockOut\BucketExceptionalStockOutForm.resx">
+      <DependentUpon>BucketExceptionalStockOutForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="StockOut\AgvStockInOutEtForm.resx">
+      <DependentUpon>AgvStockInOutEtForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="StockOut\Pallet1FStockOutEtForm.resx">
+      <DependentUpon>Pallet1FStockOutEtForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="StockOut\ItemStockOutEtForm.resx">
+      <DependentUpon>ItemStockOutEtForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="StockOut\JobDataInquiryEtForm.resx">
+      <DependentUpon>JobDataInquiryEtForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="StockOut\ItemStockOutSmartForm.resx">
+      <DependentUpon>ItemStockOutSmartForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="StockOut\Pallet1FStockOutSmartForm.resx">
+      <DependentUpon>Pallet1FStockOutSmartForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="StockOut\JobDataInquirySmartForm.resx">
+      <DependentUpon>JobDataInquirySmartForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="StockRegist\BucketPalletBindingSmartForm.resx">
+      <DependentUpon>BucketPalletBindingSmartForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="StockRegist\BucketPalletBindingEtForm.resx">
+      <DependentUpon>BucketPalletBindingEtForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="StockRegist\PreM2Form.resx">
+      <DependentUpon>PreM2Form.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="StockRegist\LabelPrintForm.resx">
+      <DependentUpon>LabelPrintForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="StockRegist\WavesCommunicatingForm.resx">
+      <DependentUpon>WavesCommunicatingForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="StockRegist\M2RegistForm.resx">
+      <DependentUpon>M2RegistForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="StockRegist\TicketBucketBindingForm.resx">
+      <DependentUpon>TicketBucketBindingForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Web References\WmsRftEt\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
+    <Compile Include="Web References\WmsRftSmart\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
+    <Compile Include="Web References\WmsRft\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <WebReferences Include="Web References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WebReferenceUrl Include="http://webservice-et-server:8090/wms/services/WmsRft%3fwsdl">
+      <UrlBehavior>Static</UrlBehavior>
+      <RelPath>Web References\WmsRftEt\</RelPath>
+      <UpdateFromURL>http://webservice-et-server:8090/wms/services/WmsRft%3fwsdl</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>
+      </CachedAppSettingsObjectName>
+      <CachedSettingsPropName>
+      </CachedSettingsPropName>
+    </WebReferenceUrl>
+    <WebReferenceUrl Include="http://webservice-server:8080/wms/services/WmsRft%3fwsdl">
+      <UrlBehavior>Static</UrlBehavior>
+      <RelPath>Web References\WmsRft\</RelPath>
+      <UpdateFromURL>http://webservice-server:8080/wms/services/WmsRft%3fwsdl</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>
+      </CachedAppSettingsObjectName>
+      <CachedSettingsPropName>
+      </CachedSettingsPropName>
+    </WebReferenceUrl>
+    <WebReferenceUrl Include="http://webservice-smart-server:8090/wms/services/WmsRft%3fwsdl">
+      <UrlBehavior>Static</UrlBehavior>
+      <RelPath>Web References\WmsRftSmart\</RelPath>
+      <UpdateFromURL>http://webservice-smart-server:8090/wms/services/WmsRft%3fwsdl</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>
+      </CachedAppSettingsObjectName>
+      <CachedSettingsPropName>
+      </CachedSettingsPropName>
+    </WebReferenceUrl>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Web References\WmsRftEt\agvInfoRFT.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\WmsRftEt\bucketInfoRFT.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\WmsRftEt\destinationInstructionRFT.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\WmsRftEt\emptyInfoRFT.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\WmsRftEt\fileInfoRFT.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\WmsRftEt\jobDetailInfoRFT.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\WmsRftEt\jobInfoRFT.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\WmsRftEt\locationRFT.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\WmsRftEt\palletInfoRFT.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\WmsRftEt\palletJobInfoRFT.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\WmsRftEt\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Web References\WmsRftEt\stockOutResultRFT.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\WmsRftEt\stockRFT.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\WmsRftEt\WmsRft.xsd" />
+    <None Include="Web References\WmsRftEt\WmsRftService.wsdl" />
+    <None Include="Web References\WmsRftSmart\bucketInfoRFT.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\WmsRftSmart\containerInfoDB2RFT.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\WmsRftSmart\destinationInstructionRFT.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\WmsRftSmart\emptyInfoRFT.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\WmsRftSmart\fileInfoRFT.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\WmsRftSmart\jobDetailInfoRFT.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\WmsRftSmart\jobInfoRFT.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\WmsRftSmart\locationRFT.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\WmsRftSmart\palletInfoRFT.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\WmsRftSmart\palletJobInfoRFT.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\WmsRftSmart\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Web References\WmsRftSmart\stockOutResultRFT.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\WmsRftSmart\stockRFT.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\WmsRftSmart\WmsRft.xsd" />
+    <None Include="Web References\WmsRftSmart\WmsRftService.wsdl" />
+    <None Include="Web References\WmsRft\fileInfoRFT.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\WmsRft\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Web References\WmsRft\WmsRft.xsd" />
+    <None Include="Web References\WmsRft\WmsRftService.wsdl" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\BarcodeScanner\BarcodeScanner.csproj">
+      <Project>{19E11EB3-AD56-4E27-9045-3060BB369146}</Project>
+      <Name>BarcodeScanner</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Viberator\Viberator.csproj">
+      <Project>{A8156114-E87E-43F5-B672-3B1FD7157DEA}</Project>
+      <Name>Viberator</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CompactFramework.CSharp.targets" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}">
+        <HostingProcess disable="1" />
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

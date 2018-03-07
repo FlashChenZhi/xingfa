@@ -1,0 +1,5 @@
+D:\git_projects\xingfa_wcs\wms_updater\wms_updater\bin\Release\wms_updater.exe
+D:\git_projects\xingfa_wcs\wms_updater\wms_updater\bin\Release\wms_updater.pdb
+D:\git_projects\xingfa_wcs\wms_updater\wms_updater\obj\Release\ResolveAssemblyReference.cache
+D:\git_projects\xingfa_wcs\wms_updater\wms_updater\obj\Release\wms_updater.exe
+D:\git_projects\xingfa_wcs\wms_updater\wms_updater\obj\Release\wms_updater.pdb

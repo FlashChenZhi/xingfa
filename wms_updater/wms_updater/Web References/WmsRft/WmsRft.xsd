@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://rft.com/" targetNamespace="http://rft.com/" version="1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="getFile" type="tns:getFile" />
+  <xs:element name="getFileResponse" type="tns:getFileResponse" />
+  <xs:complexType name="getFile">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="arg0" type="xs:string" />
+      <xs:element name="arg1" type="xs:long" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getFileResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="tns:fileInfoRFT" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="fileInfoRFT">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="binData" type="xs:base64Binary" />
+      <xs:element name="fileLength" type="xs:long" />
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>

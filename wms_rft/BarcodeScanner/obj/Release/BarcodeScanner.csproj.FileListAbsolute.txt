@@ -1,0 +1,10 @@
+D:\git_projects\ykk_sh_lg_smart\wms_rft\BarcodeScanner\bin\Release\Barcode.dll
+D:\git_projects\ykk_sh_lg_smart\wms_rft\BarcodeScanner\bin\Release\OBReadLibNet.dll
+D:\git_projects\ykk_sh_lg_smart\wms_rft\BarcodeScanner\bin\Release\SystemLibnet.dll
+D:\git_projects\ykk_sh_lg_smart\wms_rft\BarcodeScanner\obj\Release\ResolveAssemblyReference.cache
+D:\git_projects\ykk_sh_lg_smart\wms_rft\BarcodeScanner\obj\Release\Barcode.dll
+D:\git_projects\xingfa_wcs\wms_rft\BarcodeScanner\bin\Release\Barcode.dll
+D:\git_projects\xingfa_wcs\wms_rft\BarcodeScanner\bin\Release\OBReadLibNet.dll
+D:\git_projects\xingfa_wcs\wms_rft\BarcodeScanner\bin\Release\SystemLibnet.dll
+D:\git_projects\xingfa_wcs\wms_rft\BarcodeScanner\obj\Release\ResolveAssemblyReference.cache
+D:\git_projects\xingfa_wcs\wms_rft\BarcodeScanner\obj\Release\Barcode.dll

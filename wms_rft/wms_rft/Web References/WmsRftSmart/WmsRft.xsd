@@ -1,0 +1,1076 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://rft.ykk.wms.daifuku.co.jp/" targetNamespace="http://rft.ykk.wms.daifuku.co.jp/" version="1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="bagStock" type="tns:bagStock" />
+  <xs:element name="bagStockResponse" type="tns:bagStockResponse" />
+  <xs:element name="bindPalletAndBucketsByBucketNo" type="tns:bindPalletAndBucketsByBucketNo" />
+  <xs:element name="bindPalletAndBucketsByBucketNoResponse" type="tns:bindPalletAndBucketsByBucketNoResponse" />
+  <xs:element name="bindPalletAndBucketsByPalletNo" type="tns:bindPalletAndBucketsByPalletNo" />
+  <xs:element name="bindPalletAndBucketsByPalletNoResponse" type="tns:bindPalletAndBucketsByPalletNoResponse" />
+  <xs:element name="bindTicketNoAndBucketNo" type="tns:bindTicketNoAndBucketNo" />
+  <xs:element name="bindTicketNoAndBucketNoResponse" type="tns:bindTicketNoAndBucketNoResponse" />
+  <xs:element name="changeBagNo" type="tns:changeBagNo" />
+  <xs:element name="changeBagNoResponse" type="tns:changeBagNoResponse" />
+  <xs:element name="changeBucketNo" type="tns:changeBucketNo" />
+  <xs:element name="changeBucketNoResponse" type="tns:changeBucketNoResponse" />
+  <xs:element name="doBagDelete" type="tns:doBagDelete" />
+  <xs:element name="doBagDeleteResponse" type="tns:doBagDeleteResponse" />
+  <xs:element name="doBagMove" type="tns:doBagMove" />
+  <xs:element name="doBagMoveResponse" type="tns:doBagMoveResponse" />
+  <xs:element name="doBagStockInBZ" type="tns:doBagStockInBZ" />
+  <xs:element name="doBagStockInBZResponse" type="tns:doBagStockInBZResponse" />
+  <xs:element name="doBcrNoRead" type="tns:doBcrNoRead" />
+  <xs:element name="doBcrNoReadResponse" type="tns:doBcrNoReadResponse" />
+  <xs:element name="doBucketDelete" type="tns:doBucketDelete" />
+  <xs:element name="doBucketDeleteResponse" type="tns:doBucketDeleteResponse" />
+  <xs:element name="doBucketMove" type="tns:doBucketMove" />
+  <xs:element name="doBucketMoveResponse" type="tns:doBucketMoveResponse" />
+  <xs:element name="doBucketStockInBZIntoLocation" type="tns:doBucketStockInBZIntoLocation" />
+  <xs:element name="doBucketStockInBZIntoLocationResponse" type="tns:doBucketStockInBZIntoLocationResponse" />
+  <xs:element name="doBucketStockInBZOntoPallet" type="tns:doBucketStockInBZOntoPallet" />
+  <xs:element name="doBucketStockInBZOntoPalletResponse" type="tns:doBucketStockInBZOntoPalletResponse" />
+  <xs:element name="doM2RegistPhase1" type="tns:doM2RegistPhase1" />
+  <xs:element name="doM2RegistPhase1Response" type="tns:doM2RegistPhase1Response" />
+  <xs:element name="doM2RegistPhase2" type="tns:doM2RegistPhase2" />
+  <xs:element name="doM2RegistPhase2Response" type="tns:doM2RegistPhase2Response" />
+  <xs:element name="doPalletMove" type="tns:doPalletMove" />
+  <xs:element name="doPalletMoveResponse" type="tns:doPalletMoveResponse" />
+  <xs:element name="doPalletStockIn1F" type="tns:doPalletStockIn1F" />
+  <xs:element name="doPalletStockIn1FResponse" type="tns:doPalletStockIn1FResponse" />
+  <xs:element name="doPalletStockInBZ" type="tns:doPalletStockInBZ" />
+  <xs:element name="doPalletStockInBZResponse" type="tns:doPalletStockInBZResponse" />
+  <xs:element name="doPreM2" type="tns:doPreM2" />
+  <xs:element name="doPreM2Response" type="tns:doPreM2Response" />
+  <xs:element name="doneBagJob" type="tns:doneBagJob" />
+  <xs:element name="doneBagJob2" type="tns:doneBagJob2" />
+  <xs:element name="doneBagJob2Response" type="tns:doneBagJob2Response" />
+  <xs:element name="doneBagJobResponse" type="tns:doneBagJobResponse" />
+  <xs:element name="doneJob" type="tns:doneJob" />
+  <xs:element name="doneJob2" type="tns:doneJob2" />
+  <xs:element name="doneJob2Response" type="tns:doneJob2Response" />
+  <xs:element name="doneJobResponse" type="tns:doneJobResponse" />
+  <xs:element name="donePalletJob" type="tns:donePalletJob" />
+  <xs:element name="donePalletJobResponse" type="tns:donePalletJobResponse" />
+  <xs:element name="getBucketInfoByBucketNoForBagMove" type="tns:getBucketInfoByBucketNoForBagMove" />
+  <xs:element name="getBucketInfoByBucketNoForBagMoveResponse" type="tns:getBucketInfoByBucketNoForBagMoveResponse" />
+  <xs:element name="getBucketInfoByBucketNoForBagStockInBZ" type="tns:getBucketInfoByBucketNoForBagStockInBZ" />
+  <xs:element name="getBucketInfoByBucketNoForBagStockInBZResponse" type="tns:getBucketInfoByBucketNoForBagStockInBZResponse" />
+  <xs:element name="getBucketInfoByBucketNoForBucketInquiry" type="tns:getBucketInfoByBucketNoForBucketInquiry" />
+  <xs:element name="getBucketInfoByBucketNoForBucketInquiryResponse" type="tns:getBucketInfoByBucketNoForBucketInquiryResponse" />
+  <xs:element name="getBucketInfoByBucketNoForBucketMove" type="tns:getBucketInfoByBucketNoForBucketMove" />
+  <xs:element name="getBucketInfoByBucketNoForBucketMoveResponse" type="tns:getBucketInfoByBucketNoForBucketMoveResponse" />
+  <xs:element name="getBucketInfoByBucketNoForBucketStockInBZ" type="tns:getBucketInfoByBucketNoForBucketStockInBZ" />
+  <xs:element name="getBucketInfoByBucketNoForBucketStockInBZResponse" type="tns:getBucketInfoByBucketNoForBucketStockInBZResponse" />
+  <xs:element name="getBucketInfoByBucketNoForUnbagStock" type="tns:getBucketInfoByBucketNoForUnbagStock" />
+  <xs:element name="getBucketInfoByBucketNoForUnbagStockResponse" type="tns:getBucketInfoByBucketNoForUnbagStockResponse" />
+  <xs:element name="getContainerInfoByBagNo_DB2" type="tns:getContainerInfoByBagNo_DB2" />
+  <xs:element name="getContainerInfoByBagNo_DB2Response" type="tns:getContainerInfoByBagNo_DB2Response" />
+  <xs:element name="getContainerInfoByBucketNo_DB2" type="tns:getContainerInfoByBucketNo_DB2" />
+  <xs:element name="getContainerInfoByBucketNo_DB2Response" type="tns:getContainerInfoByBucketNo_DB2Response" />
+  <xs:element name="getEmptyInfo" type="tns:getEmptyInfo" />
+  <xs:element name="getEmptyInfoResponse" type="tns:getEmptyInfoResponse" />
+  <xs:element name="getErrorBcrNo" type="tns:getErrorBcrNo" />
+  <xs:element name="getErrorBcrNoResponse" type="tns:getErrorBcrNoResponse" />
+  <xs:element name="getFile" type="tns:getFile" />
+  <xs:element name="getFileResponse" type="tns:getFileResponse" />
+  <xs:element name="getJobInfoById" type="tns:getJobInfoById" />
+  <xs:element name="getJobInfoByIdResponse" type="tns:getJobInfoByIdResponse" />
+  <xs:element name="getJobInfoByKey" type="tns:getJobInfoByKey" />
+  <xs:element name="getJobInfoByKeyResponse" type="tns:getJobInfoByKeyResponse" />
+  <xs:element name="getJobInfoListByBarcode" type="tns:getJobInfoListByBarcode" />
+  <xs:element name="getJobInfoListByBarcode2" type="tns:getJobInfoListByBarcode2" />
+  <xs:element name="getJobInfoListByBarcode2Response" type="tns:getJobInfoListByBarcode2Response" />
+  <xs:element name="getJobInfoListByBarcodeResponse" type="tns:getJobInfoListByBarcodeResponse" />
+  <xs:element name="getLocationInfoByLocationNoForBucketMove" type="tns:getLocationInfoByLocationNoForBucketMove" />
+  <xs:element name="getLocationInfoByLocationNoForBucketMoveResponse" type="tns:getLocationInfoByLocationNoForBucketMoveResponse" />
+  <xs:element name="getLocationInfoByLocationNoForBucketStockInBZ" type="tns:getLocationInfoByLocationNoForBucketStockInBZ" />
+  <xs:element name="getLocationInfoByLocationNoForBucketStockInBZResponse" type="tns:getLocationInfoByLocationNoForBucketStockInBZResponse" />
+  <xs:element name="getLocationInfoByLocationNoForPalletMove" type="tns:getLocationInfoByLocationNoForPalletMove" />
+  <xs:element name="getLocationInfoByLocationNoForPalletMoveResponse" type="tns:getLocationInfoByLocationNoForPalletMoveResponse" />
+  <xs:element name="getLocationInfoByLocationNoForPalletStockIn1F" type="tns:getLocationInfoByLocationNoForPalletStockIn1F" />
+  <xs:element name="getLocationInfoByLocationNoForPalletStockIn1FResponse" type="tns:getLocationInfoByLocationNoForPalletStockIn1FResponse" />
+  <xs:element name="getLocationInfoByLocationNoForPalletStockInBZ" type="tns:getLocationInfoByLocationNoForPalletStockInBZ" />
+  <xs:element name="getLocationInfoByLocationNoForPalletStockInBZResponse" type="tns:getLocationInfoByLocationNoForPalletStockInBZResponse" />
+  <xs:element name="getNextJobInfoByCollectionJobNo" type="tns:getNextJobInfoByCollectionJobNo" />
+  <xs:element name="getNextJobInfoByCollectionJobNo2" type="tns:getNextJobInfoByCollectionJobNo2" />
+  <xs:element name="getNextJobInfoByCollectionJobNo2Response" type="tns:getNextJobInfoByCollectionJobNo2Response" />
+  <xs:element name="getNextJobInfoByCollectionJobNoResponse" type="tns:getNextJobInfoByCollectionJobNoResponse" />
+  <xs:element name="getNextPalletJobInfoByCollectionJobNo" type="tns:getNextPalletJobInfoByCollectionJobNo" />
+  <xs:element name="getNextPalletJobInfoByCollectionJobNoResponse" type="tns:getNextPalletJobInfoByCollectionJobNoResponse" />
+  <xs:element name="getNotProcessedDestinationInstructionByTicketNo" type="tns:getNotProcessedDestinationInstructionByTicketNo" />
+  <xs:element name="getNotProcessedDestinationInstructionByTicketNoResponse" type="tns:getNotProcessedDestinationInstructionByTicketNoResponse" />
+  <xs:element name="getOneStockByBucketNo" type="tns:getOneStockByBucketNo" />
+  <xs:element name="getOneStockByBucketNoResponse" type="tns:getOneStockByBucketNoResponse" />
+  <xs:element name="getPalletInfoByBucketNoForPalletInquiry" type="tns:getPalletInfoByBucketNoForPalletInquiry" />
+  <xs:element name="getPalletInfoByBucketNoForPalletInquiryResponse" type="tns:getPalletInfoByBucketNoForPalletInquiryResponse" />
+  <xs:element name="getPalletInfoByBucketNoForPalletMove" type="tns:getPalletInfoByBucketNoForPalletMove" />
+  <xs:element name="getPalletInfoByBucketNoForPalletMoveResponse" type="tns:getPalletInfoByBucketNoForPalletMoveResponse" />
+  <xs:element name="getPalletInfoByBucketNoForPalletStockIn1F" type="tns:getPalletInfoByBucketNoForPalletStockIn1F" />
+  <xs:element name="getPalletInfoByBucketNoForPalletStockIn1FResponse" type="tns:getPalletInfoByBucketNoForPalletStockIn1FResponse" />
+  <xs:element name="getPalletInfoByPalletNoForBucketStockInBZ" type="tns:getPalletInfoByPalletNoForBucketStockInBZ" />
+  <xs:element name="getPalletInfoByPalletNoForBucketStockInBZResponse" type="tns:getPalletInfoByPalletNoForBucketStockInBZResponse" />
+  <xs:element name="getPalletInfoByPalletNoForPalletStockInBZ" type="tns:getPalletInfoByPalletNoForPalletStockInBZ" />
+  <xs:element name="getPalletInfoByPalletNoForPalletStockInBZResponse" type="tns:getPalletInfoByPalletNoForPalletStockInBZResponse" />
+  <xs:element name="getPalletJobInfoById" type="tns:getPalletJobInfoById" />
+  <xs:element name="getPalletJobInfoByIdResponse" type="tns:getPalletJobInfoByIdResponse" />
+  <xs:element name="getPreM2Stock" type="tns:getPreM2Stock" />
+  <xs:element name="getPreM2StockResponse" type="tns:getPreM2StockResponse" />
+  <xs:element name="getStockInfoByBagNoForBagInquiry" type="tns:getStockInfoByBagNoForBagInquiry" />
+  <xs:element name="getStockInfoByBagNoForBagInquiryResponse" type="tns:getStockInfoByBagNoForBagInquiryResponse" />
+  <xs:element name="getStockInfoByBagNoForBagMove" type="tns:getStockInfoByBagNoForBagMove" />
+  <xs:element name="getStockInfoByBagNoForBagMoveResponse" type="tns:getStockInfoByBagNoForBagMoveResponse" />
+  <xs:element name="getStockInfoByBagNoForBagStockInBZ" type="tns:getStockInfoByBagNoForBagStockInBZ" />
+  <xs:element name="getStockInfoByBagNoForBagStockInBZResponse" type="tns:getStockInfoByBagNoForBagStockInBZResponse" />
+  <xs:element name="getUnregistStockByTicketNo" type="tns:getUnregistStockByTicketNo" />
+  <xs:element name="getUnregistStockByTicketNoResponse" type="tns:getUnregistStockByTicketNoResponse" />
+  <xs:element name="isAdminUser" type="tns:isAdminUser" />
+  <xs:element name="isAdminUserResponse" type="tns:isAdminUserResponse" />
+  <xs:element name="jobCancel" type="tns:jobCancel" />
+  <xs:element name="jobCancelResponse" type="tns:jobCancelResponse" />
+  <xs:element name="peekPalletInfoByBucketNo" type="tns:peekPalletInfoByBucketNo" />
+  <xs:element name="peekPalletInfoByBucketNoResponse" type="tns:peekPalletInfoByBucketNoResponse" />
+  <xs:element name="peekPalletInfoByPalletNo" type="tns:peekPalletInfoByPalletNo" />
+  <xs:element name="peekPalletInfoByPalletNoResponse" type="tns:peekPalletInfoByPalletNoResponse" />
+  <xs:element name="printWavesTimeOutLabel" type="tns:printWavesTimeOutLabel" />
+  <xs:element name="printWavesTimeOutLabel2" type="tns:printWavesTimeOutLabel2" />
+  <xs:element name="printWavesTimeOutLabel2Response" type="tns:printWavesTimeOutLabel2Response" />
+  <xs:element name="printWavesTimeOutLabelResponse" type="tns:printWavesTimeOutLabelResponse" />
+  <xs:element name="reprintBucketCarryingInstrction1_11" type="tns:reprintBucketCarryingInstrction1_11" />
+  <xs:element name="reprintBucketCarryingInstrction1_11Response" type="tns:reprintBucketCarryingInstrction1_11Response" />
+  <xs:element name="sayHelloWorldFrom" type="tns:sayHelloWorldFrom" />
+  <xs:element name="sayHelloWorldFromResponse" type="tns:sayHelloWorldFromResponse" />
+  <xs:element name="unbagStock" type="tns:unbagStock" />
+  <xs:element name="unbagStockResponse" type="tns:unbagStockResponse" />
+  <xs:element name="updateBagNoByBucketNo_DB2" type="tns:updateBagNoByBucketNo_DB2" />
+  <xs:element name="updateBagNoByBucketNo_DB2Response" type="tns:updateBagNoByBucketNo_DB2Response" />
+  <xs:element name="updateBucketNoByBagNos_DB2" type="tns:updateBucketNoByBagNos_DB2" />
+  <xs:element name="updateBucketNoByBagNos_DB2Response" type="tns:updateBucketNoByBagNos_DB2Response" />
+  <xs:complexType name="getJobInfoById">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="arg0" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getJobInfoByIdResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="tns:jobDetailInfoRFT" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="jobDetailInfoRFT">
+    <xs:sequence>
+      <xs:element name="allBag" type="xs:boolean" />
+      <xs:element name="allBucket" type="xs:boolean" />
+      <xs:element minOccurs="0" name="areaName" type="xs:string" />
+      <xs:element minOccurs="0" name="bagNo" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="bagNos" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="bucketNo" type="xs:string" />
+      <xs:element minOccurs="0" name="colorCode" type="xs:string" />
+      <xs:element name="hasOtherWork" type="xs:boolean" />
+      <xs:element minOccurs="0" name="itemCode" type="xs:string" />
+      <xs:element minOccurs="0" name="itemName1" type="xs:string" />
+      <xs:element minOccurs="0" name="itemName2" type="xs:string" />
+      <xs:element minOccurs="0" name="itemName3" type="xs:string" />
+      <xs:element minOccurs="0" name="jobId" type="xs:string" />
+      <xs:element minOccurs="0" name="key" type="xs:string" />
+      <xs:element minOccurs="0" name="locationNo" type="xs:string" />
+      <xs:element minOccurs="0" name="palletId" type="xs:string" />
+      <xs:element minOccurs="0" name="palletNo" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="pass" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="prNo" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="priority" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="qty" type="xs:decimal" />
+      <xs:element minOccurs="0" name="weight" type="xs:decimal" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="doneBagJob2">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="arg0" type="tns:jobKeyRFT" />
+      <xs:element minOccurs="0" name="arg1" type="xs:string" />
+      <xs:element minOccurs="0" name="arg2" type="xs:string" />
+      <xs:element minOccurs="0" name="arg3" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="jobKeyRFT">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="bucketNo" type="xs:string" />
+      <xs:element minOccurs="0" name="key" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="doneBagJob2Response">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="tns:stockOutResultRFT" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="stockOutResultRFT">
+    <xs:sequence>
+      <xs:element name="found" type="xs:boolean" />
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="jobIdList" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="nextKey" type="tns:jobKeyRFT" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="donePalletJob">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="arg0" type="xs:string" />
+      <xs:element minOccurs="0" name="arg1" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="donePalletJobResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="tns:stockOutResultRFT" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="bindTicketNoAndBucketNo">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="arg0" type="xs:string" />
+      <xs:element minOccurs="0" name="arg1" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="bindTicketNoAndBucketNoResponse">
+    <xs:sequence />
+  </xs:complexType>
+  <xs:complexType name="doneJob">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="arg0" type="xs:string" />
+      <xs:element minOccurs="0" name="arg1" type="xs:string" />
+      <xs:element minOccurs="0" name="arg2" type="xs:string" />
+      <xs:element minOccurs="0" name="arg3" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="doneJobResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="tns:stockOutResultRFT" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getPalletInfoByBucketNoForPalletInquiry">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="arg0" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getPalletInfoByBucketNoForPalletInquiryResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="tns:palletInfoRFT" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="palletInfoRFT">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="areaName" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="bucketNos" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="dayOfStorage" type="xs:string" />
+      <xs:element minOccurs="0" name="locationNo" type="xs:string" />
+      <xs:element name="mixedLoad" type="xs:int" />
+      <xs:element name="numOfBucket" type="xs:int" />
+      <xs:element minOccurs="0" name="palletNo" type="xs:string" />
+      <xs:element minOccurs="0" name="recommendAreaName" type="xs:string" />
+      <xs:element minOccurs="0" name="recommendLocationNo" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getBucketInfoByBucketNoForBucketStockInBZ">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="arg0" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getBucketInfoByBucketNoForBucketStockInBZResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="tns:bucketInfoRFT" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="bucketInfoRFT">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="areaName" type="xs:string" />
+      <xs:element minOccurs="0" name="dayOfStorage" type="xs:string" />
+      <xs:element minOccurs="0" name="destSation" type="xs:string" />
+      <xs:element minOccurs="0" name="line1" type="xs:string" />
+      <xs:element minOccurs="0" name="line2" type="xs:string" />
+      <xs:element minOccurs="0" name="locationNo" type="xs:string" />
+      <xs:element minOccurs="0" name="palletId" type="xs:string" />
+      <xs:element minOccurs="0" name="palletNo" type="xs:string" />
+      <xs:element minOccurs="0" name="recommendAreaName" type="xs:string" />
+      <xs:element minOccurs="0" name="recommendLocationNo" type="xs:string" />
+      <xs:element minOccurs="0" name="recommendPalletNo" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="stockRfts" nillable="true" type="tns:stockRFT" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="stockRFT">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="areaName" type="xs:string" />
+      <xs:element minOccurs="0" name="bagNo" type="xs:string" />
+      <xs:element minOccurs="0" name="bucketNo" type="xs:string" />
+      <xs:element minOccurs="0" name="colorCode" type="xs:string" />
+      <xs:element minOccurs="0" name="dayOfStorage" type="xs:string" />
+      <xs:element minOccurs="0" name="depotCode" type="xs:string" />
+      <xs:element minOccurs="0" name="itemCode" type="xs:string" />
+      <xs:element minOccurs="0" name="itemName1" type="xs:string" />
+      <xs:element minOccurs="0" name="itemName2" type="xs:string" />
+      <xs:element minOccurs="0" name="itemName3" type="xs:string" />
+      <xs:element minOccurs="0" name="line1" type="xs:string" />
+      <xs:element minOccurs="0" name="line2" type="xs:string" />
+      <xs:element minOccurs="0" name="locationNo" type="xs:string" />
+      <xs:element minOccurs="0" name="palletId" type="xs:string" />
+      <xs:element name="planQty" type="xs:int" />
+      <xs:element minOccurs="0" name="planWeight" type="xs:decimal" />
+      <xs:element name="qty" type="xs:int" />
+      <xs:element minOccurs="0" name="recommendAreaName" type="xs:string" />
+      <xs:element minOccurs="0" name="recommendBucketNo" type="xs:string" />
+      <xs:element minOccurs="0" name="recommendLocationNo" type="xs:string" />
+      <xs:element minOccurs="0" name="ticketNo" type="xs:string" />
+      <xs:element minOccurs="0" name="unitWeight" type="xs:decimal" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getOneStockByBucketNo">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="arg0" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getOneStockByBucketNoResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="tns:stockRFT" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="doBucketDelete">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="arg0" type="xs:string" />
+      <xs:element minOccurs="0" name="arg1" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="doBucketDeleteResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="tns:emptyInfoRFT" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="emptyInfoRFT">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="areaName" type="xs:string" />
+      <xs:element minOccurs="0" name="bagNo" type="xs:string" />
+      <xs:element minOccurs="0" name="bucketNo" type="xs:string" />
+      <xs:element minOccurs="0" name="displayMessage" type="xs:string" />
+      <xs:element name="empty" type="xs:boolean" />
+      <xs:element name="emptyBag" type="xs:boolean" />
+      <xs:element name="emptyBucket" type="xs:boolean" />
+      <xs:element name="emptyLocation" type="xs:boolean" />
+      <xs:element name="emptyPallet" type="xs:boolean" />
+      <xs:element minOccurs="0" name="locationNo" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getNextPalletJobInfoByCollectionJobNo">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="arg0" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="arg1" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="arg2" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getNextPalletJobInfoByCollectionJobNoResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="tns:palletJobInfoRFT" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="palletJobInfoRFT">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="areaName" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="bucketNos" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="colorCode" type="xs:string" />
+      <xs:element minOccurs="0" name="itemCode" type="xs:string" />
+      <xs:element minOccurs="0" name="itemName1" type="xs:string" />
+      <xs:element minOccurs="0" name="itemName2" type="xs:string" />
+      <xs:element minOccurs="0" name="itemName3" type="xs:string" />
+      <xs:element minOccurs="0" name="jobId" type="xs:string" />
+      <xs:element minOccurs="0" name="locationNo" type="xs:string" />
+      <xs:element minOccurs="0" name="palletId" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="pass" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="planQty" type="xs:decimal" />
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="priority" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="qty" type="xs:decimal" />
+      <xs:element minOccurs="0" name="resultQty" type="xs:decimal" />
+      <xs:element minOccurs="0" name="weight" type="xs:decimal" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getStockInfoByBagNoForBagInquiry">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="arg0" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getStockInfoByBagNoForBagInquiryResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="tns:stockRFT" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="doPalletStockInBZ">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="arg0" type="xs:string" />
+      <xs:element minOccurs="0" name="arg1" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="doPalletStockInBZResponse">
+    <xs:sequence />
+  </xs:complexType>
+  <xs:complexType name="changeBagNo">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="arg0" type="xs:string" />
+      <xs:element minOccurs="0" name="arg1" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="changeBagNoResponse">
+    <xs:sequence />
+  </xs:complexType>
+  <xs:complexType name="getErrorBcrNo">
+    <xs:sequence />
+  </xs:complexType>
+  <xs:complexType name="getErrorBcrNoResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="return" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getNextJobInfoByCollectionJobNo2">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="arg0" type="xs:string" />
+      <xs:element minOccurs="0" name="arg1" type="tns:jobKeyRFT" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getNextJobInfoByCollectionJobNo2Response">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="tns:jobDetailInfoRFT" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getPalletInfoByPalletNoForBucketStockInBZ">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="arg0" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getPalletInfoByPalletNoForBucketStockInBZResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="tns:palletInfoRFT" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getLocationInfoByLocationNoForBucketMove">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="arg0" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getLocationInfoByLocationNoForBucketMoveResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="tns:locationRFT" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="locationRFT">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="areaName" type="xs:string" />
+      <xs:element minOccurs="0" name="bucketNo1" type="xs:string" />
+      <xs:element minOccurs="0" name="bucketNo2" type="xs:string" />
+      <xs:element name="empty" type="xs:boolean" />
+      <xs:element minOccurs="0" name="locationNo" type="xs:string" />
+      <xs:element minOccurs="0" name="palletNo" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="doBagMove">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="arg0" type="xs:string" />
+      <xs:element minOccurs="0" name="arg1" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="doBagMoveResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="tns:emptyInfoRFT" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="jobCancel">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="arg0" type="tns:jobKeyRFT" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="jobCancelResponse">
+    <xs:sequence />
+  </xs:complexType>
+  <xs:complexType name="doPreM2">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="arg0" type="xs:string" />
+      <xs:element minOccurs="0" name="arg1" type="xs:string" />
+      <xs:element minOccurs="0" name="arg2" type="xs:decimal" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="doPreM2Response">
+    <xs:sequence />
+  </xs:complexType>
+  <xs:complexType name="unbagStock">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="arg0" type="xs:string" />
+      <xs:element minOccurs="0" name="arg1" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="unbagStockResponse">
+    <xs:sequence />
+  </xs:complexType>
+  <xs:complexType name="doPalletStockIn1F">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="arg0" type="xs:string" />
+      <xs:element minOccurs="0" name="arg1" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="doPalletStockIn1FResponse">
+    <xs:sequence />
+  </xs:complexType>
+  <xs:complexType name="changeBucketNo">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="arg0" type="xs:string" />
+      <xs:element minOccurs="0" name="arg1" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="changeBucketNoResponse">
+    <xs:sequence />
+  </xs:complexType>
+  <xs:complexType name="reprintBucketCarryingInstrction1_11">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="arg0" type="xs:string" />
+      <xs:element minOccurs="0" name="arg1" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="reprintBucketCarryingInstrction1_11Response">
+    <xs:sequence />
+  </xs:complexType>
+  <xs:complexType name="getNextJobInfoByCollectionJobNo">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="arg0" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="arg1" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="arg2" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getNextJobInfoByCollectionJobNoResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="tns:jobDetailInfoRFT" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="printWavesTimeOutLabel">
+    <xs:sequence />
+  </xs:complexType>
+  <xs:complexType name="printWavesTimeOutLabelResponse">
+    <xs:sequence />
+  </xs:complexType>
+  <xs:complexType name="updateBucketNoByBagNos_DB2">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="arg0" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="arg1" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="updateBucketNoByBagNos_DB2Response">
+    <xs:sequence />
+  </xs:complexType>
+  <xs:complexType name="getContainerInfoByBucketNo_DB2">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="arg0" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getContainerInfoByBucketNo_DB2Response">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="return" type="tns:containerInfoDB2RFT" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="containerInfoDB2RFT">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="bagNo" type="xs:string" />
+      <xs:element minOccurs="0" name="bucketNo" type="xs:string" />
+      <xs:element minOccurs="0" name="colorCode" type="xs:string" />
+      <xs:element minOccurs="0" name="itemCategory" type="xs:string" />
+      <xs:element minOccurs="0" name="itemCode" type="xs:string" />
+      <xs:element minOccurs="0" name="itemName1" type="xs:string" />
+      <xs:element minOccurs="0" name="itemName2" type="xs:string" />
+      <xs:element minOccurs="0" name="itemName3" type="xs:string" />
+      <xs:element minOccurs="0" name="prNo" type="xs:string" />
+      <xs:element minOccurs="0" name="qty" type="xs:decimal" />
+      <xs:element minOccurs="0" name="weight" type="xs:decimal" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="doneJob2">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="arg0" type="tns:jobKeyRFT" />
+      <xs:element minOccurs="0" name="arg1" type="xs:string" />
+      <xs:element minOccurs="0" name="arg2" type="xs:string" />
+      <xs:element minOccurs="0" name="arg3" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="doneJob2Response">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="tns:stockOutResultRFT" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="peekPalletInfoByBucketNo">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="arg0" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="peekPalletInfoByBucketNoResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="tns:palletInfoRFT" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="doBagStockInBZ">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="arg0" type="xs:string" />
+      <xs:element minOccurs="0" name="arg1" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="doBagStockInBZResponse">
+    <xs:sequence />
+  </xs:complexType>
+  <xs:complexType name="getLocationInfoByLocationNoForBucketStockInBZ">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="arg0" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getLocationInfoByLocationNoForBucketStockInBZResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="tns:locationRFT" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getBucketInfoByBucketNoForBagStockInBZ">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="arg0" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getBucketInfoByBucketNoForBagStockInBZResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="tns:bucketInfoRFT" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getFile">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="arg0" type="xs:string" />
+      <xs:element name="arg1" type="xs:long" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getFileResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="tns:fileInfoRFT" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="fileInfoRFT">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="binData" type="xs:base64Binary" />
+      <xs:element name="fileLength" type="xs:long" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="peekPalletInfoByPalletNo">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="arg0" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="peekPalletInfoByPalletNoResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="tns:palletInfoRFT" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getBucketInfoByBucketNoForBucketMove">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="arg0" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getBucketInfoByBucketNoForBucketMoveResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="tns:bucketInfoRFT" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="doPalletMove">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="arg0" type="xs:string" />
+      <xs:element minOccurs="0" name="arg1" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="doPalletMoveResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="tns:emptyInfoRFT" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="sayHelloWorldFrom">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="arg0" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="sayHelloWorldFromResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getPreM2Stock">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="arg0" type="xs:string" />
+      <xs:element minOccurs="0" name="arg1" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getPreM2StockResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="return" type="tns:stockRFT" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="doBcrNoRead">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="arg0" type="xs:string" />
+      <xs:element minOccurs="0" name="arg1" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="doBcrNoReadResponse">
+    <xs:sequence />
+  </xs:complexType>
+  <xs:complexType name="getNotProcessedDestinationInstructionByTicketNo">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="arg0" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getNotProcessedDestinationInstructionByTicketNoResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="tns:destinationInstructionRFT" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="destinationInstructionRFT">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="colorCode" type="xs:string" />
+      <xs:element minOccurs="0" name="depotCode" type="xs:string" />
+      <xs:element minOccurs="0" name="destDepotCode" type="xs:string" />
+      <xs:element minOccurs="0" name="destLine1" type="xs:string" />
+      <xs:element minOccurs="0" name="destLine2" type="xs:string" />
+      <xs:element minOccurs="0" name="id" type="xs:string" />
+      <xs:element minOccurs="0" name="itemCode" type="xs:string" />
+      <xs:element minOccurs="0" name="pendingFlag" type="xs:string" />
+      <xs:element minOccurs="0" name="prUseAmPmFlag" type="xs:string" />
+      <xs:element minOccurs="0" name="prUseDate" type="xs:string" />
+      <xs:element minOccurs="0" name="retrievalNo" type="xs:string" />
+      <xs:element minOccurs="0" name="retrievalStation" type="xs:string" />
+      <xs:element name="subRetrievalNo" type="xs:int" />
+      <xs:element name="subRetrievalNoAmount" type="xs:int" />
+      <xs:element name="subTicketNo" type="xs:int" />
+      <xs:element name="subTicketNoAmount" type="xs:int" />
+      <xs:element minOccurs="0" name="ticketNo" type="xs:string" />
+      <xs:element minOccurs="0" name="transferCategory" type="xs:string" />
+      <xs:element name="transferQty" type="xs:int" />
+      <xs:element name="transferWeight" type="xs:double" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getPalletInfoByPalletNoForPalletStockInBZ">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="arg0" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getPalletInfoByPalletNoForPalletStockInBZResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="tns:palletInfoRFT" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="bagStock">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="arg0" type="xs:string" />
+      <xs:element minOccurs="0" name="arg1" type="xs:string" />
+      <xs:element minOccurs="0" name="arg2" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="bagStockResponse">
+    <xs:sequence />
+  </xs:complexType>
+  <xs:complexType name="doM2RegistPhase1">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="arg0" type="xs:string" />
+      <xs:element minOccurs="0" name="arg1" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="doM2RegistPhase1Response">
+    <xs:sequence />
+  </xs:complexType>
+  <xs:complexType name="doM2RegistPhase2">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="arg0" type="xs:string" />
+      <xs:element minOccurs="0" name="arg1" type="xs:string" />
+      <xs:element minOccurs="0" name="arg2" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="doM2RegistPhase2Response">
+    <xs:sequence />
+  </xs:complexType>
+  <xs:complexType name="getLocationInfoByLocationNoForPalletStockInBZ">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="arg0" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getLocationInfoByLocationNoForPalletStockInBZResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="tns:locationRFT" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="doBucketStockInBZIntoLocation">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="arg0" type="xs:string" />
+      <xs:element minOccurs="0" name="arg1" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="doBucketStockInBZIntoLocationResponse">
+    <xs:sequence />
+  </xs:complexType>
+  <xs:complexType name="getStockInfoByBagNoForBagMove">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="arg0" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getStockInfoByBagNoForBagMoveResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="tns:stockRFT" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="doBagDelete">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="arg0" type="xs:string" />
+      <xs:element minOccurs="0" name="arg1" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="doBagDeleteResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="tns:emptyInfoRFT" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getPalletInfoByBucketNoForPalletStockIn1F">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="arg0" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getPalletInfoByBucketNoForPalletStockIn1FResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="tns:palletInfoRFT" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getJobInfoListByBarcode2">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="arg0" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getJobInfoListByBarcode2Response">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="return" type="tns:jobInfoRFT" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="jobInfoRFT">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="bagNo" type="xs:string" />
+      <xs:element minOccurs="0" name="bucketNo" type="xs:string" />
+      <xs:element minOccurs="0" name="colorCode" type="xs:string" />
+      <xs:element name="exception" type="xs:boolean" />
+      <xs:element minOccurs="0" name="itemCode" type="xs:string" />
+      <xs:element minOccurs="0" name="itemName1" type="xs:string" />
+      <xs:element minOccurs="0" name="itemName2" type="xs:string" />
+      <xs:element minOccurs="0" name="itemName3" type="xs:string" />
+      <xs:element minOccurs="0" name="jobCollectionNo" type="xs:string" />
+      <xs:element minOccurs="0" name="jobId" type="xs:string" />
+      <xs:element minOccurs="0" name="key" type="xs:string" />
+      <xs:element minOccurs="0" name="locationNo" type="xs:string" />
+      <xs:element minOccurs="0" name="palletNo" type="xs:string" />
+      <xs:element minOccurs="0" name="planQty" type="xs:decimal" />
+      <xs:element minOccurs="0" name="prNo" type="xs:string" />
+      <xs:element minOccurs="0" name="qty" type="xs:decimal" />
+      <xs:element name="replenish" type="xs:boolean" />
+      <xs:element minOccurs="0" name="resultQty" type="xs:decimal" />
+      <xs:element minOccurs="0" name="weight" type="xs:decimal" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="bindPalletAndBucketsByPalletNo">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="arg0" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="arg1" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="bindPalletAndBucketsByPalletNoResponse">
+    <xs:sequence />
+  </xs:complexType>
+  <xs:complexType name="getStockInfoByBagNoForBagStockInBZ">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="arg0" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getStockInfoByBagNoForBagStockInBZResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="tns:stockRFT" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getContainerInfoByBagNo_DB2">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="arg0" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getContainerInfoByBagNo_DB2Response">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="return" type="tns:containerInfoDB2RFT" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="updateBagNoByBucketNo_DB2">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="arg0" type="xs:string" />
+      <xs:element minOccurs="0" name="arg1" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="updateBagNoByBucketNo_DB2Response">
+    <xs:sequence />
+  </xs:complexType>
+  <xs:complexType name="getLocationInfoByLocationNoForPalletMove">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="arg0" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getLocationInfoByLocationNoForPalletMoveResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="tns:locationRFT" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getEmptyInfo">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="arg0" type="xs:string" />
+      <xs:element minOccurs="0" name="arg1" type="xs:string" />
+      <xs:element minOccurs="0" name="arg2" type="xs:string" />
+      <xs:element minOccurs="0" name="arg3" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getEmptyInfoResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="tns:emptyInfoRFT" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="doneBagJob">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="arg0" type="xs:string" />
+      <xs:element minOccurs="0" name="arg1" type="xs:string" />
+      <xs:element minOccurs="0" name="arg2" type="xs:string" />
+      <xs:element minOccurs="0" name="arg3" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="doneBagJobResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="tns:stockOutResultRFT" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getUnregistStockByTicketNo">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="arg0" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getUnregistStockByTicketNoResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="tns:stockRFT" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getBucketInfoByBucketNoForBagMove">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="arg0" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getBucketInfoByBucketNoForBagMoveResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="tns:bucketInfoRFT" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="printWavesTimeOutLabel2">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="arg0" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="printWavesTimeOutLabel2Response">
+    <xs:sequence />
+  </xs:complexType>
+  <xs:complexType name="getLocationInfoByLocationNoForPalletStockIn1F">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="arg0" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getLocationInfoByLocationNoForPalletStockIn1FResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="tns:locationRFT" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getPalletInfoByBucketNoForPalletMove">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="arg0" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getPalletInfoByBucketNoForPalletMoveResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="tns:palletInfoRFT" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getBucketInfoByBucketNoForBucketInquiry">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="arg0" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getBucketInfoByBucketNoForBucketInquiryResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="tns:bucketInfoRFT" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getPalletJobInfoById">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="arg0" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getPalletJobInfoByIdResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="tns:palletJobInfoRFT" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="doBucketMove">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="arg0" type="xs:string" />
+      <xs:element minOccurs="0" name="arg1" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="doBucketMoveResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="tns:emptyInfoRFT" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="bindPalletAndBucketsByBucketNo">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="arg0" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="arg1" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="bindPalletAndBucketsByBucketNoResponse">
+    <xs:sequence />
+  </xs:complexType>
+  <xs:complexType name="doBucketStockInBZOntoPallet">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="arg0" type="xs:string" />
+      <xs:element minOccurs="0" name="arg1" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="doBucketStockInBZOntoPalletResponse">
+    <xs:sequence />
+  </xs:complexType>
+  <xs:complexType name="getJobInfoByKey">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="arg0" type="tns:jobKeyRFT" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getJobInfoByKeyResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="tns:jobDetailInfoRFT" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getJobInfoListByBarcode">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="arg0" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getJobInfoListByBarcodeResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="return" type="tns:jobInfoRFT" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="isAdminUser">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="arg0" type="xs:string" />
+      <xs:element minOccurs="0" name="arg1" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="isAdminUserResponse">
+    <xs:sequence>
+      <xs:element name="return" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getBucketInfoByBucketNoForUnbagStock">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="arg0" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getBucketInfoByBucketNoForUnbagStockResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="tns:bucketInfoRFT" />
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>
