@@ -1,0 +1,53 @@
+动态区
+ a5 a5 a5 a5 a5 a5 a5 a5 02 00 00 80 00 00 00 00 00 01 51 02 2a 00 a3 06 01 00 00 00 01 21 00 06 00 00 00 00 08 00 20 00 00 00 00 02 00 00 00 00 01 01 01 00 00 0a 06 00 00 00 48 65 6c 6c 6f 21 60 33 5a
+
+ACK
+ a5 a5 a5 a5 a5 a5 a5 a5 00 80 02 00 00 00 00 00 00 01 51 02 05 00 a0 00 00 00 00 7c 1e 5a
+
+帧头
+a5 a5 a5 a5 a5 a5 a5 a5 
+
+包头数据
+02 00 //DstAddr   屏号2
+00 80 //SrcAddr   客户端
+00 00 00 00 //Reserved
+00 //CheckMode   
+01 //DisplayMode
+51 //DeviceType    5K1
+02 //ProtocoIVersion
+2a 00 //DataLen
+
+数据域(实时信息)
+a3 //CmdGroup
+06 //Cmd
+01 //Response
+00 //ProcessMode
+00 //Reserved
+00 //DeleteAreaNum  DeleteAreaId不发送
+01 //AreaNum
+21 00 //AreaDataLen0
+06 //AreaType   动态区类型在6以上
+00 00 //AreaX   0
+00 00 //AreaY   0
+08 00 //AreaWidth   64
+20 00 //AreaHeight   32
+00 //DynamicAreaLoc   0
+00 //Lines_sizes
+00 //Runmode
+02 00 //Timeout
+00 //SoundMode   SoundPerson\SoundVolume\SoundSpeed\SoundDataLen\SoundData不发送
+00 00 //Reserved
+01 //SingleLine  单行
+01 //NewLine   手动换行
+01 //DisplayMode  静止
+00 //ExitMode
+00 //Speed
+0a //StayTime
+06 00 00 00 //DataLen
+48 65 6c 6c 6f 21 //Data   Hello!
+
+包校验
+60 33 
+
+帧尾
+5a

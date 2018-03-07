@@ -1,0 +1,106 @@
+<?xml version="1.0"?>
+<group>
+  <areaSingleLine>
+    <SingleLine>Single line display</SingleLine>
+    <SingleLine>Multiline display</SingleLine>
+  </areaSingleLine>
+  <areaNewLine>
+    <NewLine>Manual line feed</NewLine>
+    <NewLine>Automatic line feed</NewLine>
+  </areaNewLine>
+  <areaDisplayMode>
+    <DisplayMode>Static</DisplayMode>
+    <DisplayMode>Fast play out</DisplayMode>
+    <DisplayMode>Move left</DisplayMode>
+    <DisplayMode>Move right</DisplayMode>
+    <DisplayMode>Move upward</DisplayMode>
+    <DisplayMode>Move Downward</DisplayMode>
+  </areaDisplayMode>
+  <areaSpeed>
+	  <Speed>1(The fastest)</Speed>
+	  <Speed>2</Speed>
+	  <Speed>3</Speed>
+	  <Speed>4</Speed>
+	  <Speed>5</Speed>
+	  <Speed>6</Speed>
+	  <Speed>7</Speed>
+	  <Speed>8</Speed>
+	  <Speed>9</Speed>
+	  <Speed>10</Speed>
+	  <Speed>11</Speed>
+	  <Speed>12</Speed>
+	  <Speed>13</Speed>
+	  <Speed>14</Speed>
+	  <Speed>15</Speed>
+	  <Speed>16</Speed>
+	  <Speed>17</Speed>
+	  <Speed>18</Speed>
+	  <Speed>19</Speed>
+	  <Speed>20</Speed>
+	  <Speed>21</Speed>
+	  <Speed>22</Speed>
+	  <Speed>23</Speed>
+	  <Speed>24(Slowest)</Speed>
+  </areaSpeed>
+  <areaRunMode>
+	  <RunMode>Automatic loop display</RunMode>
+	  <RunMode>Finally page stay in finished</RunMode>
+	  <RunMode>Overtime not updata delete</RunMode>
+  </areaRunMode>
+  <areaSoundMode>
+	  <SoundMode>Play area information</SoundMode>
+	  <SoundMode>Play the following</SoundMode>
+  </areaSoundMode>
+  <areaSoundPerson>
+	  <SoundPerson>0</SoundPerson>
+	  <SoundPerson>1</SoundPerson>
+	  <SoundPerson>2</SoundPerson>
+	  <SoundPerson>3</SoundPerson>
+	  <SoundPerson>4</SoundPerson>
+	  <SoundPerson>5</SoundPerson>
+  </areaSoundPerson>
+  <areaSoundSpeed>
+	  <SoundSpeed>1</SoundSpeed>
+	  <SoundSpeed>2</SoundSpeed>
+	  <SoundSpeed>3</SoundSpeed>
+	  <SoundSpeed>4</SoundSpeed>
+	  <SoundSpeed>5</SoundSpeed>
+	  <SoundSpeed>6</SoundSpeed>
+	  <SoundSpeed>7</SoundSpeed>
+	  <SoundSpeed>8</SoundSpeed>
+	  <SoundSpeed>9</SoundSpeed>
+	  <SoundSpeed>10</SoundSpeed>
+	  <SoundSpeed>11</SoundSpeed>
+  </areaSoundSpeed>
+  <areaSoundVolume>
+	  <SoundVolume>0</SoundVolume>
+	  <SoundVolume>1</SoundVolume>
+	  <SoundVolume>2</SoundVolume>
+	  <SoundVolume>3</SoundVolume>
+	  <SoundVolume>4</SoundVolume>
+	  <SoundVolume>5</SoundVolume>
+	  <SoundVolume>6</SoundVolume>
+	  <SoundVolume>7</SoundVolume>
+	  <SoundVolume>8</SoundVolume>
+	  <SoundVolume>9</SoundVolume>
+	  <SoundVolume>10</SoundVolume>
+  </areaSoundVolume>
+  <areatimes>
+	  <times>1</times>
+	  <times>2</times>
+	  <times>3</times>
+	  <times>4</times>
+	  <times>5</times>
+	  <times>6</times>
+	  <times>7</times>
+	  <times>8</times>
+	  <times>9</times>
+	  <times>10</times>
+	  <times>11</times>
+	  <times>12</times>
+	  <times>13</times>
+	  <times>14</times>
+	  <times>15</times>
+	  <times>16</times>
+  </areatimes>
+</group>

@@ -1,0 +1,15 @@
+D:\work\b0080\trunk\Led5kSDK\Led5KSDKDemoCSharp\bin\Debug\Led5KSDKDemoCSharp.exe
+D:\work\b0080\trunk\Led5kSDK\Led5KSDKDemoCSharp\bin\Debug\Led5KSDKDemoCSharp.pdb
+D:\Project\b0080\trunk\Led5kSDK\Debug\Led5KSDKDemoCSharp.exe
+D:\Project\b0080\trunk\Led5kSDK\Debug\Led5KSDKDemoCSharp.pdb
+D:\Project\b0080\trunk\Led5kSDK\Led5KSDKDemoCSharp\obj\x86\Debug\Led5KSDKDemoCSharp.Area.resources
+D:\Project\b0080\trunk\Led5kSDK\Led5KSDKDemoCSharp\obj\x86\Debug\Led5KSDKDemoCSharp.Form1.resources
+D:\Project\b0080\trunk\Led5kSDK\Led5KSDKDemoCSharp\obj\x86\Debug\Led5KSDKDemoCSharp.ProgramDlg.resources
+D:\Project\b0080\trunk\Led5kSDK\Led5KSDKDemoCSharp\obj\x86\Debug\Led5KSDKDemoCSharp.Form3.resources
+D:\Project\b0080\trunk\Led5kSDK\Led5KSDKDemoCSharp\obj\x86\Debug\Led5KSDKDemoCSharp.Properties.Resources.resources
+D:\Project\b0080\trunk\Led5kSDK\Led5KSDKDemoCSharp\obj\x86\Debug\Led5KSDKDemoCSharp.SoundArea.resources
+D:\Project\b0080\trunk\Led5kSDK\Led5KSDKDemoCSharp\obj\x86\Debug\Led5KSDKDemoCSharp.SpecialAppDynamic.resources
+D:\Project\b0080\trunk\Led5kSDK\Led5KSDKDemoCSharp\obj\x86\Debug\Led5KSDKDemoCSharp.csproj.GenerateResource.Cache
+D:\Project\b0080\trunk\Led5kSDK\Led5KSDKDemoCSharp\obj\x86\Debug\Led5KSDKDemoCSharp.exe
+D:\Project\b0080\trunk\Led5kSDK\Led5KSDKDemoCSharp\obj\x86\Debug\Led5KSDKDemoCSharp.pdb
+D:\Project\b0080\trunk\Led5kSDK\Led5KSDKDemoCSharp\obj\x86\Debug\Led5KSDKDemoCSharp.csprojResolveAssemblyReference.cache

@@ -1,0 +1,41 @@
+﻿生成启动时间为 2018/2/7 13:02:27。
+     1>项目“F:\Led5kSDK\Led5kSDKDemo\Led5kSDKDemo.vcxproj”在节点 2 上(build 个目标)。
+     1>InitializeBuildStatus:
+         正在创建“Release\Led5kSDKDemo.unsuccessfulbuild”，因为已指定“AlwaysCreate”。
+       ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /Zi /nologo /W3 /WX- /O2 /Oi /Oy- /GL /D WIN32 /D _WINDOWS /D NDEBUG /D _UNICODE /D UNICODE /D _AFXDLL /Gm- /EHsc /MD /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Yc"StdAfx.h" /Fp"Release\Led5kSDKDemo.pch" /Fo"Release\\" /Fd"Release\vc100.pdb" /Gd /TP /analyze- /errorReport:prompt stdafx.cpp
+         stdafx.cpp
+         C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /Zi /nologo /W3 /WX- /O2 /Oi /Oy- /GL /D WIN32 /D _WINDOWS /D NDEBUG /D _UNICODE /D UNICODE /D _AFXDLL /Gm- /EHsc /MD /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Yu"StdAfx.h" /Fp"Release\Led5kSDKDemo.pch" /Fo"Release\\" /Fd"Release\vc100.pdb" /Gd /TP /analyze- /errorReport:prompt AreaDlg.cpp Led5kSDKDemo.cpp Led5kSDKDemoDlg.cpp ProgramDlg.cpp SoundAreaDlg.cpp StaticAreaDlg.cpp
+         AreaDlg.cpp
+         Led5kSDKDemo.cpp
+         Led5kSDKDemoDlg.cpp
+     1>Led5kSDKDemoDlg.cpp(1008): warning C4244: “参数”: 从“DWORD”转换到“USHORT”，可能丢失数据
+     1>Led5kSDKDemoDlg.cpp(1016): warning C4244: “参数”: 从“DWORD”转换到“USHORT”，可能丢失数据
+     1>Led5kSDKDemoDlg.cpp(1031): warning C4244: “参数”: 从“DWORD”转换到“USHORT”，可能丢失数据
+         ProgramDlg.cpp
+         SoundAreaDlg.cpp
+         StaticAreaDlg.cpp
+       ResourceCompile:
+         C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\bin\rc.exe /D NDEBUG /D _UNICODE /D UNICODE /D _AFXDLL /l"0x0804" /IRelease\ /nologo /fo"Release\Led5kSDKDemo.res" Led5kSDKDemo.rc 
+       Link:
+         C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"F:\Led5kSDK\Release\Led5kSDKDemo.exe" /INCREMENTAL:NO /NOLOGO /MANIFEST /ManifestFile:"Release\Led5kSDKDemo.exe.intermediate.manifest" /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /DEBUG /PDB:"F:\Led5kSDK\Release\Led5kSDKDemo.pdb" /SUBSYSTEM:WINDOWS /OPT:REF /OPT:ICF /LTCG /TLBID:1 /ENTRY:"wWinMainCRTStartup" /DYNAMICBASE /NXCOMPAT /IMPLIB:"F:\Led5kSDK\Release\Led5kSDKDemo.lib" /MACHINE:X86 Release\Led5kSDKDemo.res
+         Release\AreaDlg.obj
+         Release\Led5kSDKDemo.obj
+         Release\Led5kSDKDemoDlg.obj
+         Release\ProgramDlg.obj
+         Release\SoundAreaDlg.obj
+         Release\StaticAreaDlg.obj
+         Release\stdafx.obj
+         正在生成代码
+         已完成代码的生成
+         Led5kSDKDemo.vcxproj -> F:\Led5kSDK\Release\Led5kSDKDemo.exe
+       Manifest:
+         C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\bin\mt.exe /nologo /verbose /outputresource:"F:\Led5kSDK\Release\Led5kSDKDemo.exe;#1" /manifest Release\Led5kSDKDemo.exe.intermediate.manifest "C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\Include\Manifest\dpiaware.manifest"
+       FinalizeBuildStatus:
+         正在删除文件“Release\Led5kSDKDemo.unsuccessfulbuild”。
+         正在对“Release\Led5kSDKDemo.lastbuildstate”执行 Touch 任务。
+     1>已完成生成项目“F:\Led5kSDK\Led5kSDKDemo\Led5kSDKDemo.vcxproj”(build 个目标)的操作。
+
+生成成功。
+
+已用时间 00:00:10.61

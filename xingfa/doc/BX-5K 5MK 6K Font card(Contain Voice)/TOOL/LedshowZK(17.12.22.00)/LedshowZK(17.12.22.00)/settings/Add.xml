@@ -1,0 +1,15 @@
+﻿<?xml version="1.0"?>
+<root_type xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" flag="0" xmlns="http://ZK/info/xml">
+  <screen unique_identifier="" ScreenName="屏幕1" ScreenID="1" ScreenCheck="1" Place="" DeviceType="0" ControlSpace="" SendMode="0" Com="COM6" Buad="2" Net="0" IP="192.168.89.55" SubnetMask="255.255.255.0" Gateway="192.168.89.1" Port="5005" ServerIP="" ServerPort="5005" ServerAccessPassword="" HeartBeatInterval="20" NetID="BX-NET000001" MAC="" GprsType="0" GprsID="BX-GP000001" SIM="00000000000" PackageNumber="900" PackageInterval="2000" GprsIP="" GprsPort="4000" WiFiName="" WiFiType="0" WiFiIP="" WiFiPort="5005" h="32" w="64" Color="0" PixelMode="0" DataDA="0" DataOE="0" RowOrder="0" MirrorMode="0" FreqPar="0" OEAngle="0" Languge="0" AllBright="0" Bright="15" BTrue1="0" BTimeH1="6" BTimeS1="0" Bright1="15" BTrue2="0" BTimeH2="9" BTimeS2="0" Bright2="15" BTrue3="0" BTimeH3="12" BTimeS3="0" Bright3="15" BTrue4="0" BTimeH4="15" BTimeS4="0" Bright4="15" ONOFF="1" TTrue1="0" TonH1="6" TonM1="0" ToffH1="9" ToffM1="30" TTrue2="0" TonH2="6" TonM2="0" ToffH2="9" ToffM2="30" TTrue3="0" TonH3="6" TonM3="0" ToffH3="9" ToffM3="30" DisplayMode="0" StoreFlag="1" SoundPerson="1" SoundVolum="5" SoundSpeed="5" SoundDataMode="0" SoundReplayTimes="0" SoundReplayDelay="0" SoundData="" COMbuad="2">
+    <program unique_identifier="" Type="1" name="节目1" ProgramID="1" is_checked="1" is_lock="0" DisplayType="0" PlayTimes="1" ProgramYear="0" YearON="2017/08/22" YearOFF="2017/08/22" ProgramTime="0" TimeON="14:29:52" TimeOFF="15:29:52" ProgramWeek="0" play_week="127" >
+      <areaFont unique_identifier="" name="字库1" AreaID="1" AreaX="0" AreaY="0" AreaWidth="32" AreaHeight="32" SingleLine="2" NewLine="2" Lines_sizes="0" DisplayMode="3" Speed="10" StayTime="10" Run="0" Timeout="10" SoundCheck="0" SoundMode="1" SoundText="" SoundPerson="0" times="0" SoundVolume="0" SoundSpeed="0" />
+    </program>
+    <areaDynamic unique_identifier="" Type="0" is_checked="0" name="动态1" AreaID="Area" Area="1" AreaType="0" AreaX="0" AreaY="0" AreaWidth="32" AreaHeight="32" SingleLine="1" NewLine="1" Lines_sizes="0" DisplayMode="3" Speed="2" StayTime="10" Run="0" Timeout="10" SoundCheck="0" SoundMode="1" SoundText="" SoundPerson="0" times="0" SoundVolume="0" SoundSpeed="0">
+    </areaDynamic>
+    <LOGO unique_identifier="" name="LOGO" ProgramID="2" DisplayType="0" PlayTimes="1" ProgramYear="0" YearON="2017/08/22" YearOFF="2017/08/22" ProgramTime="0" TimeON="14:29:52" TimeOFF="15:29:52" ProgramWeek="0" play_week="255">
+      <areaDynamic unique_identifier="" Type="0" is_checked="0" name="logo" AreaID="Area" Area="255" AreaType="0" AreaX="0" AreaY="0" AreaWidth="64" AreaHeight="32" SingleLine="1" NewLine="1" Lines_sizes="0" DisplayMode="2" Speed="0" StayTime="6" Run="0" Timeout="0" SoundCheck="0" SoundMode="1" SoundText="" SoundPerson="0" times="0" SoundVolume="0" SoundSpeed="0">
+        <areafile file="" />
+      </areaDynamic>
+    </LOGO>
+  </screen>
+</root_type>
