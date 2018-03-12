@@ -3,6 +3,8 @@ package com.master.service;
 import com.asrs.Mckey;
 import com.asrs.business.consts.AsrsJobStatus;
 import com.asrs.business.consts.AsrsJobType;
+import com.master.vo.SkuVo;
+import com.master.vo.SkuVo2;
 import com.util.common.BaseReturnObj;
 import com.util.common.LogMessage;
 import com.util.common.PagerReturnObj;
@@ -31,20 +33,20 @@ public class PutInStorageService {
      * @return
      * @throws IOException
      */
-    public ReturnObj<List<Map<String,String>>> getCommodityCode() {
+    public ReturnObj<List<SkuVo2>> getCommodityCode() {
         System.out.println("进入获取商品代码方法！");
-        ReturnObj<List<Map<String, String>>> returnObj = new ReturnObj<List<Map<String, String>>>();
+        ReturnObj<List<SkuVo2>> returnObj = new ReturnObj<>();
         try {
             Transaction.begin();
             Session session = HibernateUtil.getCurrentSession();
             Query query = session.createQuery("from Sku");
             List<Sku> skuList = query.list();
-            List<Map<String, String>> mapList = new ArrayList<Map<String, String>>();
+            List<SkuVo2> mapList = new ArrayList<>();
             for (Sku sku : skuList) {
-                Map<String, String> map = new HashMap<String, String>();
-                map.put("id", sku.getSkuCode());
-                map.put("name", sku.getSkuName());
-                mapList.add(map);
+                SkuVo2  vo= new SkuVo2();
+                vo.setId(sku.getSkuCode());
+                vo.setName(sku.getSkuName());
+                mapList.add(vo);
 
             }
             returnObj.setSuccess(true);
@@ -72,7 +74,7 @@ public class PutInStorageService {
      * @throws IOException
      */
 
-    public BaseReturnObj addTask(String tuopanhao, String zhantai, String commodityCode, int num) {
+    public BaseReturnObj addTask(String tuopanhao, String zhantai, String commodityCode,String lotNo, int num) {
         BaseReturnObj returnObj = new BaseReturnObj();
         try {
             Transaction.begin();
@@ -128,6 +130,7 @@ public class PutInStorageService {
             inventoryView.setSkuCode(commodityCode);
             inventoryView.setSkuName(sku.getSkuName());
             inventoryView.setWhCode(sku.getCangkudaima());
+            inventoryView.setLotNum(lotNo);
 
             returnObj.setSuccess(true);
             Transaction.commit();
@@ -150,13 +153,12 @@ public class PutInStorageService {
      * @return：com.util.common.ReturnObj<java.util.List<java.util.Map<java.lang.String,java.lang.String>>>
      */
     public PagerReturnObj<List<Map<String,Object>>> findPutInStorageOrder(int startIndex, int defaultPageSize) {
-        System.out.println("进入获取商品代码方法！");
         PagerReturnObj<List<Map<String,Object>>> returnObj = new PagerReturnObj<List<Map<String,Object>>>();
         try {
             Transaction.begin();
             Session session = HibernateUtil.getCurrentSession();
             Query query1 = session.createQuery("select j.id as id,j.createDate as createDate,j.mcKey as mcKey,j.container as containerId,b.qty as qty, " +
-                    "b.skuCode as skuCode,b.skuName as skuName,j.fromStation as fromStation,j.toStation as toStation, " +
+                    "b.skuCode as skuCode,b.skuName as skuName,j.fromStation as fromStation,j.toStation as toStation,b.lotNum as lotNo, " +
                     "case j.type when '01' then '入库' when '03' then '出库' else '其他' end as type,j.status as status " +
                     "from Job j, InventoryView b where j.container=b.palletCode order by j.createDate desc,j.id desc").setResultTransformer(Transformers.ALIAS_TO_ENTITY_MAP);
             Query query2 = session.createQuery("select count(1) from Job j, InventoryView b where  j.container=b.palletCode");
@@ -179,23 +181,43 @@ public class PutInStorageService {
         }
         return returnObj;
     }
-
+    /*
+     * @author：ed_chen
+     * @date：2018/3/10 18:34
+     * @description：删除入库任务
+     * @param selectedRowKeysString
+     * @return：com.util.common.BaseReturnObj
+     */
     public BaseReturnObj deleteTask(String selectedRowKeysString) {
         BaseReturnObj returnObj = new BaseReturnObj();
         try {
             Transaction.begin();
             Session session = HibernateUtil.getCurrentSession();
             String[] sId = selectedRowKeysString.split(",");
+            boolean flag = true;
             for(int i = 0;i<sId.length;i++){
                 int id = Integer.valueOf(sId[i]);
-                Job job = (Job) session.get(Job.class,id);
-                Query query = session.createQuery("delete from InventoryView i where i.palletCode = :palletCode ");
-                query.setString("palletCode",job.getContainer());
-                query.executeUpdate();
-                session.delete(job);
+                Job job = Job.getById(id);
+                AsrsJob asrsJob= AsrsJob.getAsrsJobByMcKey(job.getMcKey());
+                if(asrsJob==null){
+                    Query query = session.createQuery("delete from InventoryView i where i.palletCode = :palletCode ");
+                    query.setString("palletCode",job.getContainer());
+                    query.executeUpdate();
+                    job.getJobDetails().clear();
+                    session.delete(job);
+                }else{
+                    flag= false;
+                    break;
+                }
             }
-            returnObj.setSuccess(true);
-            Transaction.commit();
+            if(flag){
+                returnObj.setSuccess(true);
+                Transaction.commit();
+            }else{
+                Transaction.rollback();
+                returnObj.setSuccess(false);
+                returnObj.setMsg("请查验所删入库任务是否在执行状态！");
+            }
         } catch (JDBCConnectionException ex) {
             returnObj.setSuccess(false);
             returnObj.setMsg(LogMessage.DB_DISCONNECTED.getName());

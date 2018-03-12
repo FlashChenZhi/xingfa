@@ -24,9 +24,9 @@ public class InputSkuThread  implements Runnable{
         InputSkuThread thread = new InputSkuThread();
         thread.run();
     }
-    private String path = "E:/source/sku";
-    private String localPath = "E:/back/sku/";
-    private String errorPath = "E:/error/sku/";
+    private String path = "D:/source/sku";
+    private String localPath = "D:/back/sku/";
+    private String errorPath = "D:/error/sku/";
     public void run(){
         while (true){
             try
@@ -39,7 +39,7 @@ public class InputSkuThread  implements Runnable{
                         if (f.isFile() && (f.getName().endsWith(".xls")|| f.getName().endsWith(".xlsx"))){
                             Transaction.begin();
                             Session session = HibernateUtil.getCurrentSession();
-                            String oldPath=path+f.getName();
+                            String oldPath=path+"/" +f.getName();
                             Workbook data = Workbook.getWorkbook(new File(oldPath));
 
                             Sheet sheet = data.getSheet(0);
@@ -49,38 +49,24 @@ public class InputSkuThread  implements Runnable{
                             System.out.println("当前时间：" + sdf.format(d));
                             String newPath=localPath+f.getName().split("\\.")[0]+"_"+sdf.format(d)+".xls";
                             List<ErrorMessage> list=new ArrayList();
-                            if(StringUtils.isBlank(sheet.getCell(1, 1).getContents())){
-                                copyFile(oldPath,newPath);
-                                deleteFile(oldPath);
-                                for (int i = 1; i < sheet.getRows(); i++)
-                                {
-                                    if(StringUtils.isNotBlank(sheet.getCell(7, i).getContents())){
-                                        Sku sku = Sku.getByCode(sheet.getCell(7, i).getContents());
-                                        if(sku != null)
-                                        {
-                                            list.add(new ErrorMessage(sku,"商品代码重复"));
-                                            continue;
-                                        }
-                                        sku = new Sku();
-                                        session.save(sku);
-                                        sku.setHuozhudaima(sheet.getCell(2, i).getContents());
-                                        sku.setHuozhumingcheng(sheet.getCell(3, i).getContents());
-                                        sku.setCangkudaima(sheet.getCell(4, i).getContents());
-                                        sku.setShouhuoleixing(sheet.getCell(5, i).getContents());
-                                        sku.setSkuCode(sheet.getCell(7, i).getContents());
-                                        sku.setSkuName(sheet.getCell(8, i).getContents());
-                                        sku.setDanwei(sheet.getCell(10, i).getContents());
-                                        if(StringUtils.isBlank(sheet.getCell(11, i).getContents())&&StringUtils.isBlank(sheet.getCell(12, i).getContents())){
-                                            sku.setCunfangquyu(0);
-                                        }else if(StringUtils.equals(sheet.getCell(11, i).getContents(),"少量、专区1")||StringUtils.equals(sheet.getCell(12, i).getContents(),"少量、专区1")){
-                                            sku.setCunfangquyu(1);
-                                        }else if(StringUtils.equals(sheet.getCell(11, i).getContents(),"危化品 专区2")||StringUtils.equals(sheet.getCell(12, i).getContents(),"危化品 专区2")){
-                                            sku.setCunfangquyu(2);
-                                        }
+                            copyFile(oldPath,newPath);
+                            deleteFile(oldPath);
+                            for (int i = 1; i < sheet.getRows(); i++)
+                            {
+                                if(StringUtils.isNotBlank(sheet.getCell(0, i).getContents())){
+                                    Sku sku = Sku.getByCode(sheet.getCell(0, i).getContents());
+                                    if(sku != null)
+                                    {
+                                        list.add(new ErrorMessage(sku,"商品代码重复"));
+                                        continue;
                                     }
+                                    sku = new Sku();
+                                    session.save(sku);
+                                    sku.setSkuCode(sheet.getCell(0, i).getContents());
+                                    sku.setSkuName(sheet.getCell(1, i).getContents());
+                                    sku.setDanwei(sheet.getCell(2, i).getContents());
+
                                 }
-                            }else{
-                                list.add(new ErrorMessage(new Sku(),"与Sku表不匹配"));
                             }
                             if(!list.isEmpty()){
                                 cuoWu(oldPath,newPath,f.getName().split("\\.")[0]+"",sdf.format(d)+"",list);
@@ -143,40 +129,21 @@ public class InputSkuThread  implements Runnable{
 
     }
     public void cuoWu(String oldPath,String newPath,String wenJianMing,String shiJian,List<ErrorMessage> list1) throws Exception {
-        copyFile(newPath,oldPath);
-        deleteFile(newPath);
+
         WritableWorkbook book1 = Workbook.createWorkbook(new File(errorPath +wenJianMing+"_" + shiJian+ ".xls"));
         System.out.println(wenJianMing+":"+shiJian);
         // 生成名为“sheet1”的工作表，参数0表示这是第一页
         WritableSheet sheet1 = book1.createSheet("sheet9", 0);
-        Label label = new Label(0, 0, "收货单号");
+        Label label = new Label(0, 0, "商品代码");
         sheet1.addCell(label);
-        sheet1.addCell(new Label(1, 0, "交货单号"));
-        sheet1.addCell(new Label(2, 0, "货主代码"));
-        sheet1.addCell(new Label(3, 0, "货主名称"));
-        sheet1.addCell(new Label(4, 0, "仓库代码"));
-        sheet1.addCell(new Label(5, 0, "收货类型"));
-        sheet1.addCell(new Label(6, 0, "行号"));
-        sheet1.addCell(new Label(7, 0, "商品代码"));
-        sheet1.addCell(new Label(8, 0, "商品名称"));
-        sheet1.addCell(new Label(9, 0, "订单数量"));
-        sheet1.addCell(new Label(10, 0, "单位"));
-        sheet1.addCell(new Label(11, 0, "存放区域"));
-        sheet1.addCell(new Label(12, 0, "错误信息"));
+        sheet1.addCell(new Label(1, 0, "商品名称"));
+        sheet1.addCell(new Label(2, 0, "单位"));
+        sheet1.addCell(new Label(3, 0, "错误信息"));
         for (int i = 0; i <list1.size(); i++) {
-            sheet1.addCell(new Label(0, i+1, list1.get(i).sku.getShouhuodanhao()));
-            sheet1.addCell(new Label(1, i+1, list1.get(i).sku.getJiaohuodanhao()));
-            sheet1.addCell(new Label(2, i+1, list1.get(i).sku.getHuozhudaima()));
-            sheet1.addCell(new Label(3, i+1, list1.get(i).sku.getHuozhumingcheng()));
-            sheet1.addCell(new Label(4, i+1, list1.get(i).sku.getCangkudaima()));
-            sheet1.addCell(new Label(5, i+1, list1.get(i).sku.getShouhuoleixing()));
-            sheet1.addCell(new Label(6, i+1, list1.get(i).sku.getHanghao()));
-            sheet1.addCell(new Label(7, i+1, list1.get(i).sku.getSkuCode()));
-            sheet1.addCell(new Label(8, i+1,list1.get(i).sku.getSkuName()));
-            sheet1.addCell(new Label(9, i+1, list1.get(i).sku.getDingdanshuliang() + ""));
-            sheet1.addCell(new Label(10, i+1, list1.get(i).sku.getDanwei()));
-            sheet1.addCell(new Label(11, i+1, list1.get(i).sku.getCunfangquyu()+""));
-            sheet1.addCell(new Label(12, i+1, list1.get(i).message));
+            sheet1.addCell(new Label(0, i+1, list1.get(i).sku.getSkuCode()));
+            sheet1.addCell(new Label(1, i+1, list1.get(i).sku.getSkuName()));
+            sheet1.addCell(new Label(2, i+1, list1.get(i).sku.getDanwei()));
+            sheet1.addCell(new Label(3, i+1, list1.get(i).message));
         }
         book1.write();
         book1.close();

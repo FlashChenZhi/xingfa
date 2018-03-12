@@ -35,7 +35,9 @@ public class StationThread extends BlockThread<StationBlock> {
                 StationBlock station = getBlock();
                 if (station.isWaitingResponse()) {
                     System.out.println(String.format("station %s waiting for response", station.getBlockNo()));
-                } else {
+                } else if(station.getStatus().equals("2")){
+
+                }else {
                     if (StringUtils.isNotEmpty(station.getMcKey())) {
                         AsrsJob asrsJob = AsrsJob.getAsrsJobByMcKey(station.getMcKey());
                         if (AsrsJobType.RETRIEVAL.equals(asrsJob.getType())) {

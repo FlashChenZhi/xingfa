@@ -32,6 +32,8 @@ public class ConveyorThread extends BlockThread<Conveyor> {
 
                     //输送机等待35回复
 
+                }else if(crane.getStatus().equals("2")){
+
                 } else {
                     if (StringUtils.isBlank(crane.getMcKey()) && StringUtils.isBlank(crane.getReservedMcKey())) {
 

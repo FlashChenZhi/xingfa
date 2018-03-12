@@ -21,6 +21,9 @@ const columns = [{
 }, {
     title: '货品数量',
     dataIndex: 'qty',
+},{
+    title: '批号',
+    dataIndex: 'lotNo',
 }, {
     title: '类型',
     dataIndex: 'type',
@@ -87,6 +90,9 @@ let PutInStorage = React.createClass({
             }.bind(this)
         })
     },
+    update(){
+        this.getData(this.state.current);
+    },
     getData(current){
         this.setState({loading: true});
         let defaultPageSize = this.state.defaultPageSize;
@@ -102,6 +108,7 @@ let PutInStorage = React.createClass({
                 if(json.success){
                     console.log("数据："+json.res);
                     this.setState({data: json.res, total: json.count, loading: false});
+                    this.stateReset();
                 }else{
                     message.error("加载数据失败！");
                 }
@@ -129,17 +136,19 @@ let PutInStorage = React.createClass({
                 let zhantai= values.zhantai;
                 let commodityCode= values.commodityCode;
                 let num= values.Num;
+                let lotNo = values.lotNo;
                 reqwest({
                     url: '/wms/master/putInStorage/addTask',
                     dataType: 'json',
                     method: 'post',
-                    data: {tuopanhao: tuopanhao,zhantai:zhantai,commodityCode:commodityCode,num:num},
+                    data: {tuopanhao: tuopanhao,zhantai:zhantai,commodityCode:commodityCode,lotNo:lotNo,num:num},
                     success: function (json) {
                         if (!json.success) {
                             message.error(json.msg);
                         } else {
                             message.success("设定任务成功！");
                             this.getData(current);
+
                         }
                         this.props.form.setFieldsValue({
                             tuopanhao:'',
@@ -197,6 +206,12 @@ let PutInStorage = React.createClass({
         console.log("进入清除！");
         this.props.form.resetFields();
     },
+    stateReset(){
+        this.setState({
+            selectedRowKeys:[],
+            selectedData:[],
+        })
+    },
     onChange(selectedRowKeys, selectedRows) {
         console.log(selectedRowKeys);
         this.setState({selectedData: selectedRows, selectedRowKeys: selectedRowKeys});
@@ -220,6 +235,8 @@ let PutInStorage = React.createClass({
             initialValue:this.state.commodityCodeFirst.id,
         });
 
+        const lotNoProps = getFieldProps('lotNo');
+
         const commodityCodeListSelect =[];
         this.state.commodityCodeList.forEach((commodityCode)=>{
             commodityCodeListSelect.push(<Option value={commodityCode.id}>{commodityCode.name}</Option>);
@@ -237,12 +254,20 @@ let PutInStorage = React.createClass({
                     </FormItem>
                     <FormItem
                         {...formItemLayout}
-                        label="商品代码："
+                        label="商品名称："
                     >
                         <Select id="select" size="large" style={{ width: 200 }}
                                 {...commodityCodeProps} >
                             {commodityCodeListSelect}
                         </Select>
+                    </FormItem>
+                    <FormItem
+                        {...formItemLayout}
+                        label="批号："
+                    >
+
+                        <Input style={{width:"300"}}
+                               {...lotNoProps}   placeholder="请输入批号" />
                     </FormItem>
                     <FormItem
                         {...formItemLayout}
@@ -267,6 +292,9 @@ let PutInStorage = React.createClass({
                         <Button type="primary" onClick={this.submit}
                                 //disabled={this.state.tuopanhao.length > 0 ? false : true}
                         >设定</Button>
+                        <Button style={{marginLeft:"13%"}} type="primary" onClick={this.update}
+                            //disabled={this.state.tuopanhao.length > 0 ? false : true}
+                        >刷新</Button>
                         <Button style={{marginLeft:"13%"}} type="primary" onClick={this.delete}
                             //disabled={this.state.tuopanhao.length > 0 ? false : true}
                         >删除</Button>

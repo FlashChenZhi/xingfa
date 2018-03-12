@@ -317,7 +317,14 @@ public abstract class SrmAndScarServiceImpl implements SrmService {
                 }
 
 
-                if (!hasJob) {
+                if (hasJob) {
+                    AsrsJob asrsJob = null;
+                    if (StringUtils.isNotBlank(srm.getReservedMcKey()))
+                        asrsJob = AsrsJob.getAsrsJobByMcKey(srm.getReservedMcKey());
+                    else if (StringUtils.isNotBlank(srm.getMcKey()))
+                        asrsJob = AsrsJob.getAsrsJobByMcKey(srm.getMcKey());
+                    asrsJob.setStatusDetail(AsrsJobStatusDetail.ACCEPTED);
+                }else {
                     if (StringUtils.isBlank(sCar.getMcKey()) && StringUtils.isBlank(sCar.getReservedMcKey())) {
                         SrmOperator srmOperator = new SrmOperator(srm, "9999");
                         srmOperator.tryLoadCar();

@@ -1,6 +1,7 @@
 package com.master.action;
 
 import com.master.service.PutInStorageService;
+import com.master.vo.SkuVo2;
 import com.util.common.BaseReturnObj;
 import com.util.common.PagerReturnObj;
 import com.util.common.ReturnObj;
@@ -35,7 +36,7 @@ public class PutInStorageAction {
      */
     @RequestMapping(value = "/getCommodityCode",method = RequestMethod.POST)
     @ResponseBody
-    public ReturnObj<List<Map<String,String>>> getCommodityCode() throws IOException{
+    public ReturnObj<List<SkuVo2>> getCommodityCode() throws IOException{
 
         return putInStorageService.getCommodityCode();
     }
@@ -50,10 +51,10 @@ public class PutInStorageAction {
      */
     @RequestMapping(value = "/addTask",method = RequestMethod.POST)
     @ResponseBody
-    public BaseReturnObj addTask(String tuopanhao, String zhantai, String commodityCode, int num) throws IOException{
+    public BaseReturnObj addTask(String tuopanhao, String zhantai, String commodityCode,String lotNo, int num) throws IOException{
         tuopanhao = URLDecoder.decode(tuopanhao,"utf-8");
         System.out.println("托盘号："+tuopanhao+";站台："+zhantai+";货品代码："+commodityCode+";数量："+num);
-        return putInStorageService.addTask(tuopanhao,zhantai,commodityCode,num);
+        return putInStorageService.addTask(tuopanhao,zhantai,commodityCode,lotNo,num);
     }
     /*
      * @author：ed_chen
@@ -68,7 +69,13 @@ public class PutInStorageAction {
         int startIndex = (current-1)*defaultPageSize;
         return  putInStorageService.findPutInStorageOrder(startIndex,defaultPageSize);
     }
-    //删除入库任务
+    /*
+     * @author：ed_chen
+     * @date：2018/3/10 18:34
+     * @description： 删除入库任务
+     * @param selectedRowKeysString
+     * @return：com.util.common.BaseReturnObj
+     */
     @RequestMapping(value = "/deleteTask",method = RequestMethod.POST)
     @ResponseBody
     public BaseReturnObj deleteTask(String selectedRowKeysString) throws IOException{

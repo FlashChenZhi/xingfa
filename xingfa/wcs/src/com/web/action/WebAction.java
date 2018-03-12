@@ -145,4 +145,16 @@ public class WebAction {
         HttpMessage httpMessage = webService.chargeStart(blockNo);
         return httpMessage;
     }
+    @RequestMapping("onTheMLCar.do")
+    @ResponseBody
+    public HttpMessage onTheMLCar(String blockNo) {
+        HttpMessage httpMessage = webService.onTheMLCar(blockNo);
+        return httpMessage;
+    }
+    @RequestMapping("getTheSCCar.do")
+    @ResponseBody
+    public HttpMessage getTheSCCar(String blockNo) {
+        HttpMessage httpMessage = webService.getTheSCCar(blockNo);
+        return httpMessage;
+    }
 }

@@ -583,37 +583,44 @@ public class Location {
      * @param position
      * @return
      */
-    public static Location getEmptyLocation(String skuCode,String position,String loadType) {
+    public static Location getEmptyLocation(String skuCode,String lotNo,String position,String loadType) {
         //loadType = 01 高 02 低
         Location location=null;
 
         if(StringUtils.isNotBlank(loadType)){
-            location = getLocation(skuCode,position,loadType);
+            location = getLocation(skuCode,lotNo,position,loadType);
             if(location == null && "02".equals(loadType)){
-                location = getLocation(skuCode,position,"01");
+                location = getLocation(skuCode,lotNo,position,"01");
             }
         }
         return location;
     }
 
-    public static Location getLocation(String skuCode,String position,String loadType){
+    public static Location getLocation(String skuCode,String lotNo,String position,String loadType){
         Session session = HibernateUtil.getCurrentSession();
         //存在同批次的库存同一边的可用
         Query q = session.createQuery("from Location l where exists( select 1 from Inventory i where l.bay=i.container.location.bay and l.actualArea=i.container.location.actualArea " +
-                " and l.level =i.container.location.level  and i.skuCode=:skuCode " +
+                " and l.level =i.container.location.level  and i.skuCode=:skuCode " + (StringUtils.isBlank(lotNo) ? " and (i.lotNum is null or i.lotNum = '') " : " and i.lotNum = :lotNum ") +
                 " and  l.position=i.container.location.position and i.container.location.seq<l.seq ) and not exists (select 1 from Container c where l.bay=c.location.bay and l.actualArea=c.location.actualArea " +
                 " and l.level =c.location.level and  l.position=c.location.position and c.location.seq<l.seq and c.location.seq2>l.seq2 and c.reserved = true ) " +
                 " and l.empty=true  and l.position=:po and l.reserved=false and l.asrsFlag = true and l.putawayRestricted = false and l.positionType = :positionType order by l.seq")
                 .setString("skuCode", skuCode).setParameter("po", position).setParameter("positionType",loadType);
+        if(StringUtils.isNotBlank(lotNo)){
+            q.setString("lotNum",lotNo);
+        }
         if (!q.list().isEmpty()) {
             return (Location) q.list().get(0);
         } else {
             //查找正在执行的入库任务
             q = session.createQuery("from Location l where exists( select j from Job j,InventoryView  v where j.container =v.palletCode" +
                     " and l.actualArea= j.toLocation.actualArea " +
-                    " and l.level = j.toLocation.level and l.bay = j.toLocation.bay and v.skuCode=:skuCode and l.position=j.toLocation.position )  " +
+                    " and l.level = j.toLocation.level and l.bay = j.toLocation.bay and v.skuCode=:skuCode " + (StringUtils.isBlank(lotNo) ? " and (v.lotNum is null or v.lotNum = '') " : " and v.lotNum = :lotNum ") +
+                    " and l.position=j.toLocation.position )  " +
                     "and l.empty=true and l.position=:po and l.reserved=false and l.asrsFlag = true and l.putawayRestricted = false and l.positionType = :positionType order by l.seq asc")
                     .setParameter("po", position).setParameter("skuCode", skuCode).setParameter("positionType",loadType);
+            if(StringUtils.isNotBlank(lotNo)){
+                q.setString("lotNum",lotNo);
+            }
             if (!q.list().isEmpty()) {
                 return (Location) q.list().get(0);
             } else {

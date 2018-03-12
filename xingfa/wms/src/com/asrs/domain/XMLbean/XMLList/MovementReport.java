@@ -80,6 +80,9 @@ public class MovementReport extends XMLProcess {
         Session session = HibernateUtil.getCurrentSession();
         String mcKey = controlArea.getRefId().getReferenceId();
         Job j = Job.getByMcKey(mcKey);
+        if(j == null){
+            return;
+        }
         if (dataArea.getReasonCode().equals(ReasonCode.PUTAWAYFINISHED)) {
             Location l = j.getToLocation();
             l.setReserved(false);

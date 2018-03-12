@@ -16,7 +16,7 @@ import java.util.List;
 
 public class TestOutKu {
 
-    public static final String LocationNo = "007001001";
+    public static final String LocationNo = "014018002";
 
     public static void main(String[] args) {
         try {

@@ -5,6 +5,7 @@ import com.asrs.business.consts.AsrsJobType;
 import com.util.hibernate.HibernateUtil;
 import com.util.hibernate.Transaction;
 import com.wms.domain.*;
+import org.apache.commons.lang.StringUtils;
 import org.hibernate.Query;
 import org.hibernate.Session;
 
@@ -34,9 +35,13 @@ public class StockOutThread {
                   System.out.println(rol.getShouhuodanhao());
                   String shangpindaima = rol.getShangpindaima();
                   Query query2 = HibernateUtil.getCurrentSession().createQuery("from Inventory i where " +
-                          "i.skuCode = :skuCode and i.container.reserved = false and i.container.location.retrievalRestricted = false and i.container.location.abnormal = false and not exists (select 1 from Location l where l.bay=i.container.location.bay and l.actualArea=i.container.location.actualArea " +
+                          "i.skuCode = :skuCode " + (StringUtils.isBlank(rol.getLotNo()) ? " " : " and i.lotNum = :lotNum ") +
+                          " and i.container.reserved = false and i.container.location.retrievalRestricted = false and i.container.location.abnormal = false and not exists (select 1 from Location l where l.bay=i.container.location.bay and l.actualArea=i.container.location.actualArea " +
                           " and l.level =i.container.location.level and  l.position=i.container.location.position and l.seq2 < i.container.location.seq2 and l.seq > i.container.location.seq and l.reserved = true )");
                   query2.setParameter("skuCode",shangpindaima);
+                  if(StringUtils.isNotBlank(rol.getLotNo())){
+                      query2.setString("lotNum",rol.getLotNo());
+                  }
                   List<Inventory>  inventoryList = query2.list();
                   if(inventoryList.size()!=0 && inventoryList!=null){
                       //所有单元格货品位置的集合，四坐标为值

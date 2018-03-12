@@ -150,7 +150,6 @@ public class TransportOrder extends XMLProcess {
                 }
 
                 location.setReserved(true);
-
                 //入库类型
                 asrsJob.setType(AsrsJobType.PUTAWAY);
 

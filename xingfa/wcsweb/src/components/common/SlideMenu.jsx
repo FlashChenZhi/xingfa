@@ -1,6 +1,6 @@
 import React from 'react';
 import {Link} from 'react-router';
-import {Menu, Icon, message} from 'antd';
+import {Menu, Icon,message} from 'antd';
 const SubMenu = Menu.SubMenu;
 
 const SlideMenu = React.createClass({

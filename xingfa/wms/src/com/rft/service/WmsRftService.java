@@ -1,6 +1,7 @@
 package com.rft.service;
 
 import com.master.service.PutInStorageService;
+import com.master.vo.SkuVo2;
 import com.rft.ReturnObj;
 import com.rft.domain.FileInfo_RFT;
 import com.util.common.BaseReturnObj;
@@ -59,17 +60,17 @@ public class WmsRftService {
     }
 
     @WebMethod
-    public ReturnObj<Object> putaway(String palletNo, String stationNo, String skuCode, int qty) {
+    public ReturnObj<Object> putaway(String palletNo, String stationNo, String skuCode, String lotNo,int qty) {
         ReturnObj<Object> returnObj = new ReturnObj<>();
-        BaseReturnObj robj = new PutInStorageService().addTask(palletNo, stationNo, skuCode, qty);
+        BaseReturnObj robj = new PutInStorageService().addTask(palletNo, stationNo, skuCode, lotNo,qty);
         returnObj.setOk(robj.isSuccess());
         returnObj.setErrorMessage(robj.getMsg());
         return returnObj;
     }
 
-    public ReturnObj<List<Map<String, String>>> getSkuList(){
-        ReturnObj<List<Map<String, String>>> returnObj = new ReturnObj<>();
-        com.util.common.ReturnObj<List<Map<String, String>>> robj = new PutInStorageService().getCommodityCode();
+    public ReturnObj<List<SkuVo2>> getSkuList(){
+        ReturnObj<List<SkuVo2>> returnObj = new ReturnObj<>();
+        com.util.common.ReturnObj<List<SkuVo2>> robj = new PutInStorageService().getCommodityCode();
         returnObj.setOk(robj.isSuccess());
         returnObj.setErrorMessage(robj.getMsg());
         returnObj.setData(robj.getRes());

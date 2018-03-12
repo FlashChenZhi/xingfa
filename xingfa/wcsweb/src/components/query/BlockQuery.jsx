@@ -193,6 +193,42 @@ let BlockQuery = React.createClass({
             }
         });
     },
+    onTheMLCar(blockNo){
+        reqwest({
+            url: '/wcs/webService/onTheMLCar.do',
+            method: 'POST',
+            data: {blockNo: blockNo},
+            type: 'json',
+            error: err => {
+                message.error('网络异常,请稍后再试');
+            },
+            success: resp => {
+                if (resp.success) {
+                    message.success(resp.msg);
+                } else {
+                    message.error(resp.msg);
+                }
+            }
+        });
+    },
+    getTheSCCar(blockNo){
+        reqwest({
+            url: '/wcs/webService/getTheSCCar.do',
+            method: 'POST',
+            data: {blockNo: blockNo},
+            type: 'json',
+            error: err => {
+                message.error('网络异常,请稍后再试');
+            },
+            success: resp => {
+                if (resp.success) {
+                    message.success(resp.msg);
+                } else {
+                    message.error(resp.msg);
+                }
+            }
+        });
+    },
 
     chargeStart(blockNo){
         reqwest({
@@ -281,23 +317,38 @@ let BlockQuery = React.createClass({
             }
         }, {
             title: '操作', dataIndex: 'operation', key: 'operation', fixed: 'right', width: 250,
-            render: (text, record) => (
+            render: (text, record) =>{
+                const blockNoStr = record.blockNo.substr(0,2);
+                return(
+                    <span>
+                        <a onClick={this.onLine.bind(this, record.blockNo)}>运行</a>
+                        &nbsp;&nbsp;||&nbsp;&nbsp;
+                        <a onClick={this.offLine.bind(this, record.blockNo)}>切离</a >
+                        &nbsp;&nbsp;||&nbsp;&nbsp;
+                        <a onClick={this.cancelWaiting.bind(this, record.blockNo)}>取消等待</a >
+                        &nbsp;&nbsp;||&nbsp;&nbsp;
+                        <a onClick={this.chargeStart.bind(this, record.blockNo)}>充电开始</a >
+                        &nbsp;&nbsp;||&nbsp;&nbsp;
+                        <a onClick={this.chargeFinish.bind(this, record.blockNo)}>充电完成</a >
+                        &nbsp;&nbsp;||&nbsp;&nbsp;
+                        <a onClick={this.recoveryException.bind(this, record.blockNo)}>解除异常</a >
+                        {
+                            blockNoStr=='SC'?
+                            <span>&nbsp;&nbsp;||&nbsp;&nbsp;
+                            <a onClick={this.onTheMLCar.bind(this, record.blockNo)}>上车</a >
+                            </span>
+                            :
+                            blockNoStr=='ML'?
+                            <span>&nbsp;&nbsp;||&nbsp;&nbsp;
+                                    <a onClick={this.getTheSCCar.bind(this, record.blockNo)}>接车</a >
+                            </span>
+                                :
+                                <span></span>
 
-                <span>
-                     <a onClick={this.onLine.bind(this, record.blockNo)}>运行</a>
-                    &nbsp;&nbsp;||&nbsp;&nbsp;
-                    <a onClick={this.offLine.bind(this, record.blockNo)}>切离</a >
-                    &nbsp;&nbsp;||&nbsp;&nbsp;
-                    <a onClick={this.cancelWaiting.bind(this, record.blockNo)}>取消等待</a >
-                    &nbsp;&nbsp;||&nbsp;&nbsp;
-                    <a onClick={this.chargeStart.bind(this, record.blockNo)}>充电开始</a >
-                    &nbsp;&nbsp;||&nbsp;&nbsp;
-                    <a onClick={this.chargeFinish.bind(this, record.blockNo)}>充电完成</a >
-                    &nbsp;&nbsp;||&nbsp;&nbsp;
-                    <a onClick={this.recoveryException.bind(this, record.blockNo)}>解除异常</a >
-
-                </span>
-            )
+                        }
+                    </span>
+                );
+            }
         }];
 
         const {getFieldProps} = this.props.form;

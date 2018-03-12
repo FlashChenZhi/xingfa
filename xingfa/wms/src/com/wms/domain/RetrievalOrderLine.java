@@ -23,6 +23,7 @@ public class RetrievalOrderLine {
     private Integer dingdanshuliang;
     private Integer wanchengdingdanshuliang;
     private String danwei;
+    private String lotNo;
     private Date chuangjianshijian;
     @Id
     @Column(name = "RID", nullable = false, precision = 0)
@@ -36,7 +37,7 @@ public class RetrievalOrderLine {
     }
 
     @Basic
-    @Column(name = "SHOUHUODANHAO", nullable = true, length = 50)
+    @Column(name = "SHOUHUODANHAO", nullable = true)
     public String getShouhuodanhao() {
         return shouhuodanhao;
     }
@@ -46,7 +47,7 @@ public class RetrievalOrderLine {
     }
 
     @Basic
-    @Column(name = "JINHUODANHAO", nullable = true, length = 50)
+    @Column(name = "JINHUODANHAO", nullable = true)
     public String getJinhuodanhao() {
         return jinhuodanhao;
     }
@@ -56,7 +57,7 @@ public class RetrievalOrderLine {
     }
 
     @Basic
-    @Column(name = "HUOZHUDAIMA", nullable = true, length = 50)
+    @Column(name = "HUOZHUDAIMA", nullable = true)
     public String getHuozhudaima() {
         return huozhudaima;
     }
@@ -66,7 +67,7 @@ public class RetrievalOrderLine {
     }
 
     @Basic
-    @Column(name = "HUOZHUMINGCHENG", nullable = true, length = 50)
+    @Column(name = "HUOZHUMINGCHENG", nullable = true)
     public String getHuozhumingcheng() {
         return huozhumingcheng;
     }
@@ -76,7 +77,7 @@ public class RetrievalOrderLine {
     }
 
     @Basic
-    @Column(name = "CANGKUDAIMA", nullable = true, length = 50)
+    @Column(name = "CANGKUDAIMA", nullable = true)
     public String getCangkudaima() {
         return cangkudaima;
     }
@@ -86,7 +87,7 @@ public class RetrievalOrderLine {
     }
 
     @Basic
-    @Column(name = "SHOUHUOLEIXING", nullable = true, length = 50)
+    @Column(name = "SHOUHUOLEIXING", nullable = true)
     public String getShouhuoleixing() {
         return shouhuoleixing;
     }
@@ -96,7 +97,7 @@ public class RetrievalOrderLine {
     }
 
     @Basic
-    @Column(name = "HANGHAO", nullable = true, length = 50)
+    @Column(name = "HANGHAO", nullable = true)
     public String getHanghao() {
         return hanghao;
     }
@@ -106,7 +107,7 @@ public class RetrievalOrderLine {
     }
 
     @Basic
-    @Column(name = "SHANGPINDAIMA", nullable = true, length = 50)
+    @Column(name = "SHANGPINDAIMA", nullable = true)
     public String getShangpindaima() {
         return shangpindaima;
     }
@@ -116,7 +117,7 @@ public class RetrievalOrderLine {
     }
 
     @Basic
-    @Column(name = "SHANGPINMINGCHENG", nullable = true, length = 50)
+    @Column(name = "SHANGPINMINGCHENG", nullable = true)
     public String getShangpinmingcheng() {
         return shangpinmingcheng;
     }
@@ -146,13 +147,23 @@ public class RetrievalOrderLine {
     }
 
     @Basic
-    @Column(name = "DANWEI", nullable = true, length = 50)
+    @Column(name = "DANWEI", nullable = true)
     public String getDanwei() {
         return danwei;
     }
 
     public void setDanwei(String danwei) {
         this.danwei = danwei;
+    }
+
+    @Basic
+    @Column(name = "LOTNO", nullable = true)
+    public String getLotNo() {
+        return lotNo;
+    }
+
+    public void setLotNo(String lotNo) {
+        this.lotNo = lotNo;
     }
 
     @Override

@@ -725,13 +725,14 @@ public class WebService {
 
                     if (block instanceof SCar) {
                         SCar sCar = (SCar) block;
-                        Query srmQuery = HibernateUtil.getCurrentSession().createQuery("from Srm where position=:po");
-                        srmQuery.setParameter("po", sCar.getPosition());
-                        srmQuery.setMaxResults(1);
-                        Srm srm = (Srm) srmQuery.uniqueResult();
+//                        Query srmQuery = HibernateUtil.getCurrentSession().createQuery("from Srm where position=:po");
+//                        srmQuery.setParameter("po", sCar.getPosition());
+//                        srmQuery.setMaxResults(1);
+                        Srm srm = Srm.getSrmByGroupNo(sCar.getGroupNo());
                         if (srm != null) {
                             srm.setsCarBlockNo(sCar.getBlockNo());
                             sCar.setOnMCar(srm.getBlockNo());
+                            sCar.setPosition(srm.getPosition());
                         }
                     }
 
@@ -914,6 +915,72 @@ public class WebService {
 
             Transaction.commit();
 
+            httpMessage.setSuccess(true);
+            httpMessage.setMsg("成功");
+
+        } catch (Exception e) {
+            Transaction.rollback();
+            httpMessage.setSuccess(false);
+            httpMessage.setMsg("出错了。");
+            e.printStackTrace();
+        }
+        return httpMessage;
+    }
+    public HttpMessage onTheMLCar(String blockNo) {
+        HttpMessage httpMessage = new HttpMessage();
+        try {
+
+            Transaction.begin();
+            Session session = HibernateUtil.getCurrentSession();
+            Block block = Block.getByBlockNo(blockNo);
+            if (block instanceof SCar) {
+                SCar sCar = (SCar) block;
+                if (sCar.getStatus().equals(SCar.STATUS_CHARGE)) {
+                    Transaction.rollback();
+                    httpMessage.setSuccess(false);
+                    httpMessage.setMsg("子车充电中");
+                    return httpMessage;
+                }
+                session.saveOrUpdate(sCar);
+                Srm srm = Srm.getSrmByGroupNo(sCar.getGroupNo());
+                sCar.setOnMCar(srm.getBlockNo());
+            } else {
+                Transaction.rollback();
+                httpMessage.setSuccess(false);
+                httpMessage.setMsg("设备非子车");
+                return httpMessage;
+            }
+            Transaction.commit();
+
+            httpMessage.setSuccess(true);
+            httpMessage.setMsg("成功");
+
+        } catch (Exception e) {
+            Transaction.rollback();
+            httpMessage.setSuccess(false);
+            httpMessage.setMsg("出错了。");
+            e.printStackTrace();
+        }
+        return httpMessage;
+    }
+    public HttpMessage getTheSCCar(String blockNo) {
+        HttpMessage httpMessage = new HttpMessage();
+        try {
+            Transaction.begin();
+            Session session = HibernateUtil.getCurrentSession();
+            Block block = Block.getByBlockNo(blockNo);
+            if (block instanceof Srm) {
+                Srm srm = (Srm) block;
+                session.saveOrUpdate(srm);
+                SCar sCar = SCar.getScarByGroup(srm.getGroupNo());
+                srm.setsCarBlockNo(sCar.getBlockNo());
+            } else {
+                Transaction.rollback();
+                httpMessage.setSuccess(false);
+                httpMessage.setMsg("设备非堆垛机");
+                return httpMessage;
+            }
+            Transaction.commit();
             httpMessage.setSuccess(true);
             httpMessage.setMsg("成功");
 

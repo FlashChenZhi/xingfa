@@ -48,13 +48,15 @@ public class SCarThread extends BlockThread<SCar> {
 
                 if (sCar.isWaitingResponse()) {
 
+                }else if(sCar.getStatus().equals("2")){
+
                 } else if (!sCar.getStatus().equals("1")) {
                     Location location = Location.getByLocationNo(sCar.getChargeLocation());
 
                     if(sCar.getBank() != location.getBank() ||sCar.getBay() != location.getBay() || sCar.getLevel() != location.getLevel()){
                         sCar.setStatus(SCar.STATUS_RUN);
 
-                    }else if(sCar.getPower() >= 95){
+                    }else if(sCar.getPower() >= 100){
                         Srm fromSrm = Srm.getSrmByPosition(location.getPosition());
                         Srm toSrm = Srm.getSrmByGroupNo(sCar.getGroupNo());
 

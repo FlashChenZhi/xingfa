@@ -34,7 +34,9 @@ public class LiftThread extends BlockThread<Lift> {
                 Lift lift = getBlock();
                 if (lift.isWaitingResponse()) {
 
-                } else {
+                } else if(lift.getStatus().equals("2")){
+
+                }else {
                     if (StringUtils.isBlank(lift.getReservedMcKey()) && StringUtils.isBlank(lift.getMcKey())) {
 
 
