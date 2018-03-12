@@ -193,6 +193,24 @@ let BlockQuery = React.createClass({
             }
         });
     },
+    deleteData(blockNo){
+        reqwest({
+            url: '/wcs/webService/deleteData.do',
+            method: 'POST',
+            data: {blockNo: blockNo},
+            type: 'json',
+            error: err => {
+                message.error('网络异常,请稍后再试');
+            },
+            success: resp => {
+                if (resp.success) {
+                    message.success(resp.msg);
+                } else {
+                    message.error(resp.msg);
+                }
+            }
+        });
+    },
     onTheMLCar(blockNo){
         reqwest({
             url: '/wcs/webService/onTheMLCar.do',
@@ -309,13 +327,25 @@ let BlockQuery = React.createClass({
             title: 'mCarNo',
             dataIndex: 'mCarNo',
         }, {
+            title: '所在行',
+            dataIndex: 'bank',
+        }, {
+            title: '所在列',
+            dataIndex: 'bay',
+        },{
+            title: '所在层',
+            dataIndex: 'level',
+        },{
+            title: '电量',
+            dataIndex: 'power',
+        },{
             title: '是否等待回复',
             dataIndex: 'waitResponse',
             key: 'waitResponse',
             render: (text, record) => {
                 return boolCmp(record.waitResponse);
             }
-        }, {
+        },{
             title: '操作', dataIndex: 'operation', key: 'operation', fixed: 'right', width: 250,
             render: (text, record) =>{
                 const blockNoStr = record.blockNo.substr(0,2);
@@ -332,6 +362,8 @@ let BlockQuery = React.createClass({
                         <a onClick={this.chargeFinish.bind(this, record.blockNo)}>充电完成</a >
                         &nbsp;&nbsp;||&nbsp;&nbsp;
                         <a onClick={this.recoveryException.bind(this, record.blockNo)}>解除异常</a >
+                        &nbsp;&nbsp;||&nbsp;&nbsp;
+                        <a onClick={this.deleteData.bind(this, record.blockNo)}>清除数据</a >
                         {
                             blockNoStr=='SC'?
                             <span>&nbsp;&nbsp;||&nbsp;&nbsp;

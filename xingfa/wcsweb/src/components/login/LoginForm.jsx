@@ -87,7 +87,7 @@ class LoginForm extends React.Component {
                                 </FormItem>
                                 <FormItem>
                                     <Input  {...passwdProps} addonBefore={pwdAddon} size="large" type="password"
-                                            placeholder="密码"/>
+                                            placeholder="密码" onPressEnter={this.handleSubmit.bind(this)}/>
                                 </FormItem>
                                 <Button size="large" type="primary" onClick={this.handleSubmit.bind(this)}
                                         icon={loadIcon}> {loading ? '登录中...' : '登录'} </Button>

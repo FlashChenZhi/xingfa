@@ -43,6 +43,18 @@ public class Location {
     public static final String __EMPTY = "empty";
     public static final String __ASRSFLAG = "asrsFlag";
 
+    public static final String __SEQ = "seq";
+
+    public static final String __SEQ2 = "seq2";
+
+    public static final String  __BAY = "bay";
+
+    public static final String  __BANK = "bank";
+
+    public static final String  __LEVEL = "level";
+
+    public static final String  __OUTPOSITION = "outPosition";
+
     private static int bigCurrAisle = 0;
 
     private static int smallCurrAisle = 0;

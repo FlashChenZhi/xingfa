@@ -232,6 +232,7 @@ let MessageQuery = React.createClass({
 
         const {getFieldProps} = this.props.form;
         const mcKeyProps = getFieldProps('mcKey');
+        const machineIdProps = getFieldProps('machineId');
         const formItemLayout = {
             labelCol: {span: 5},
             wrapperCol: {span: 14},
@@ -247,7 +248,12 @@ let MessageQuery = React.createClass({
                             >
                                 <Input {...mcKeyProps}/>
                             </FormItem>
-
+                            <FormItem
+                                {...formItemLayout}
+                                label="机器号："
+                            >
+                                <Input {...machineIdProps}/>
+                            </FormItem>
                             <FormItem
                                 {...formItemLayout}
                                 label="自动更新"

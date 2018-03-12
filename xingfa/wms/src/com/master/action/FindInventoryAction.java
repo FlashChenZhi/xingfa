@@ -38,9 +38,10 @@ public class FindInventoryAction {
     @RequestMapping(value = "/findInventory",method = RequestMethod.POST)
     @ResponseBody
     public PagerReturnObj<List<Map<String,Object>>> findInventory(int current, int defaultPageSize,
-                                    String containerNo,String locationNo,String productId,String lotNo){
+                                    String containerNo,String locationNo,String productId,String lotNo,
+                                    String beginDate, String endDate){
         int startIndex = (current-1) * defaultPageSize;
-        return findInventoryService.findInventory(startIndex,defaultPageSize,containerNo,locationNo,productId,lotNo);
+        return findInventoryService.findInventory(startIndex,defaultPageSize,containerNo,locationNo,productId,lotNo,beginDate,endDate);
     }
     /*
      * @author：ed_chen
@@ -54,11 +55,11 @@ public class FindInventoryAction {
     @RequestMapping(value = "/findInventoryDetails",method = RequestMethod.POST)
     @ResponseBody
     public PagerReturnObj<List<Map<String,Object>>> findInventoryDetails(String skuCode,int current, int defaultPageSize,
-                                      String containerNo,String locationNo,String lotNo){
+                                      String containerNo,String locationNo,String lotNo,String beginDate, String endDate){
         int startIndex = (current-1) * defaultPageSize;
         System.out.println(skuCode);
         PagerReturnObj<List<Map<String,Object>>> result = findInventoryService.findInventoryDetails(skuCode,startIndex,
-                defaultPageSize,containerNo,locationNo,lotNo);
+                defaultPageSize,containerNo,locationNo,lotNo,beginDate, endDate);
         return result;
     }
     /*

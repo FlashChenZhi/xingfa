@@ -30,7 +30,7 @@ let OutputArea = React.createClass({
             loading5: false,
             loading6: false,
             selectedRowKeys: [],
-            defaultPageSize:10,
+            defaultPageSize:5,
             defaultPageSize2:5,
             commodityCodeList:[],
             commodityCodeFirst:"",
@@ -159,12 +159,20 @@ let OutputArea = React.createClass({
             this.setState1(rowIndex,skuCode,current2);
             const defaultPageSize2 = this.state.defaultPageSize2;
             const values = this.props.form.getFieldsValue();
+            if (values.createDate) {
+                values.beginDate = values.createDate[0].format('yyyy-MM-dd HH:mm:ss');
+                values.endDate = values.createDate[1].format('yyyy-MM-dd HH:mm:ss');
+            } else {
+                values.beginDate = null;
+                values.endDate = null;
+            }
             reqwest({
                 url: '/wms/master/FindInventoryAction/findInventoryDetails',
                 dataType: 'json',
                 method: 'post',
                 data: {skuCode:skuCode,current:current2,defaultPageSize:defaultPageSize2,
-                    containerNo:values.containerNo,locationNo:values.locationNo,lotNo:values.lotNo},
+                    containerNo:values.containerNo,locationNo:values.locationNo,lotNo:values.lotNo,
+                    beginDate:values.beginDate,endDate:values.endDate},
                 success: function (json) {
                     if(json.success){
                         this.setState2(json,rowIndex);
@@ -258,10 +266,10 @@ let OutputArea = React.createClass({
                     data: {containerId:containerId},
                     success: function (json) {
                         if(json.success) {
-                            message.error("删除库存成功！");
+                            message.success("删除库存成功！");
                             this2.handleReset();
                         }else{
-                            message.error("删除库存失败！");
+                            message.error(json.msg);
                         }
                     }.bind(this),
                     error: function (err) {
@@ -331,13 +339,21 @@ let OutputArea = React.createClass({
         let defaultPageSize = this.state.defaultPageSize;
         const values = this.props.form.getFieldsValue();
         values.currentPage = current;
+        if (values.createDate) {
+            values.beginDate = values.createDate[0].format('yyyy-MM-dd HH:mm:ss');
+            values.endDate = values.createDate[1].format('yyyy-MM-dd HH:mm:ss');
+        } else {
+            values.beginDate = null;
+            values.endDate = null;
+        }
         reqwest({
             url: '/wms/master/FindInventoryAction/findInventory',
             dataType: 'json',
             method: 'post',
             data: {current:values.currentPage,defaultPageSize:defaultPageSize,
                 containerNo:values.containerNo,locationNo:values.locationNo,
-                productId:values.productId,lotNo:values.lotNo},
+                productId:values.productId,lotNo:values.lotNo,beginDate:values.beginDate,
+                endDate:values.endDate},
             success: function (json) {
                 if(json.success){
                     for(var i =0;i<json.res.length;i++){
@@ -458,6 +474,7 @@ let OutputArea = React.createClass({
             labelCol: {span: 5},
             wrapperCol: {span: 14},
         };
+        const createDateProps = getFieldProps('createDate');
         const commodityCodeListSelect =[];
         commodityCodeListSelect.push(<Option value="">---请选择---</Option>);
         this.state.commodityCodeList.forEach((commodityCode)=>{
@@ -476,6 +493,14 @@ let OutputArea = React.createClass({
                                         {...commodityCodeProps} >
                                     {commodityCodeListSelect}
                                 </Select>
+                            </FormItem>
+                            <FormItem
+                                {...formItemLayout}
+                                label="入库时间"
+                            >
+                                <RangePicker showTime {...createDateProps} style={{ width: 400 }}
+                                             format="yyyy-MM-dd HH:mm:ss"
+                                />
                             </FormItem>
                             <FormItem
                                 {...formItemLayout}

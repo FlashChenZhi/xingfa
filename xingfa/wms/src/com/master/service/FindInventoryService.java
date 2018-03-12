@@ -1,5 +1,6 @@
 package com.master.service;
 
+import com.util.common.DateTimeFormatter;
 import com.util.common.LogMessage;
 import com.util.common.PagerReturnObj;
 import com.util.common.ReturnObj;
@@ -7,6 +8,7 @@ import com.util.hibernate.HibernateUtil;
 import com.util.hibernate.Transaction;
 import com.wms.domain.Container;
 import com.wms.domain.Inventory;
+import com.wms.domain.Job;
 import com.wms.domain.Location;
 import org.apache.commons.lang3.StringUtils;
 import org.hibernate.Criteria;
@@ -47,7 +49,8 @@ public class FindInventoryService {
      * @return：com.util.common.PagerReturnObj<java.util.List<java.util.Map<java.lang.String,java.lang.Object>>>
      */
     public PagerReturnObj<List<Map<String,Object>>> findInventory(int startIndex, int defaultPageSize,
-                                         String containerNo,String locationNo,String productId,String lotNo){
+                                         String containerNo,String locationNo,String productId,String lotNo,
+                                                                  String beginDate, String endDate){
         PagerReturnObj<List<Map<String,Object>>> returnObj = new PagerReturnObj<List<Map<String,Object>>>();
         try {
             Transaction.begin();
@@ -70,6 +73,14 @@ public class FindInventoryService {
             if(StringUtils.isNotBlank(lotNo)){
                 sb1.append("and a.lotNum = :lotNum ");
                 sb2.append("and a.lotNum = :lotNum ");
+            }
+            if (StringUtils.isNotBlank(beginDate)) {
+                sb1.append("and a.storeDate+' '+a.storeTime >= :beginDate ");
+                sb2.append("and a.storeDate+' '+a.storeTime >= :beginDate ");
+            }
+            if (StringUtils.isNotBlank(endDate)) {
+                sb1.append("and a.storeDate+' '+a.storeTime <= :endDate ");
+                sb2.append("and a.storeDate+' '+a.storeTime <= :endDate ");
             }
             sb1.append(" group by a.skuCode,a.skuName");
             sb2.append(" group by a.skuCode)");
@@ -95,6 +106,14 @@ public class FindInventoryService {
             if(StringUtils.isNotBlank(lotNo)){
                 query1.setString("lotNum",lotNo);
                 query2.setString("lotNum",lotNo);
+            }
+            if (StringUtils.isNotBlank(beginDate)) {
+                query1.setString("beginDate",beginDate);
+                query2.setString("beginDate",beginDate);
+            }
+            if (StringUtils.isNotBlank(endDate)) {
+                query1.setString("endDate",endDate);
+                query2.setString("endDate",endDate);
             }
             List<Map<String,Object>> jobList = query1.list();
             Long count = (Long) query2.uniqueResult();
@@ -125,7 +144,7 @@ public class FindInventoryService {
      * @return：com.util.common.PagerReturnObj<java.util.List<java.util.Map<java.lang.String,java.lang.Object>>>
      */
     public PagerReturnObj<List<Map<String,Object>>> findInventoryDetails(String skuCode,int startIndex, int defaultPageSize,
-                                                  String containerNo,String locationNo,String lotNo){
+                                                  String containerNo,String locationNo,String lotNo,String beginDate, String endDate){
         PagerReturnObj<List<Map<String,Object>>> returnObj = new PagerReturnObj<List<Map<String,Object>>>();
         try {
             Transaction.begin();
@@ -145,6 +164,14 @@ public class FindInventoryService {
             if(StringUtils.isNotBlank(lotNo)){
                 sb1.append("and a.lotNum = :lotNum ");
                 sb2.append("and a.lotNum = :lotNum ");
+            }
+            if (StringUtils.isNotBlank(beginDate)) {
+                sb1.append("and a.storeDate+' '+a.storeTime >= :beginDate ");
+                sb2.append("and a.storeDate+' '+a.storeTime >= :beginDate ");
+            }
+            if (StringUtils.isNotBlank(endDate)) {
+                sb1.append("and a.storeDate+' '+a.storeTime <= :endDate ");
+                sb2.append("and a.storeDate+' '+a.storeTime <= :endDate ");
             }
             sb1.append(" and a.skuCode=:skuCode");
             sb2.append(" and a.skuCode =:skuCode");
@@ -168,6 +195,14 @@ public class FindInventoryService {
             if(StringUtils.isNotBlank(lotNo)){
                 query1.setString("lotNum",lotNo);
                 query2.setString("lotNum",lotNo);
+            }
+            if (StringUtils.isNotBlank(beginDate)) {
+                query1.setString("beginDate",beginDate);
+                query2.setString("beginDate",beginDate);
+            }
+            if (StringUtils.isNotBlank(endDate)) {
+                query1.setString("endDate",endDate);
+                query2.setString("endDate",endDate);
             }
             List<Map<String,Object>> jobList = query1.list();
             Long count = (Long) query2.uniqueResult();
@@ -240,18 +275,24 @@ public class FindInventoryService {
             Location location = container.getLocation();
 
             int bay = location.getBay();
+            int level = location.getLevel();
             String outPosition = location.getOutPosition();
 
-            Criteria criteria = session.createCriteria(Location.class);
+            Criteria criteria1 = session.createCriteria(Location.class);
+            criteria1.add(Restrictions.or(Restrictions.gt(Location.__SEQ,location.getSeq()),
+                    Restrictions.lt(Location.__SEQ2,location.getSeq2())));
+            criteria1.add(Restrictions.eq(Location.__BAY,bay));
+            criteria1.add(Restrictions.eq(Location.__LEVEL,level));
+            criteria1.add(Restrictions.eq(Location.__OUTPOSITION,outPosition));
+            criteria1.add(Restrictions.eq(Location.__EMPTY,false));
 
-            if((bay==8||bay==18||bay==28||bay==39)&&"2".equals(outPosition)){
-                 criteria.add(Restrictions.gt("seq2",location.getSeq2()));
-            }else{
-                criteria.add(Restrictions.lt("seq2",location.getSeq2()));
-            }
-            criteria.add(Restrictions.eq("bay",location.getBay()));
-            List<Location> locationList = criteria.list();
-            if(locationList.size()==0){
+            Criteria criteria2 = session.createCriteria(Job.class);
+            Criteria toLocationC = criteria2.createCriteria(Job.__TOLOCATION);
+            toLocationC.add(Restrictions.lt(Location.__SEQ,location.getSeq()));
+
+            List<Location> locationList1 = criteria1.list();
+            List<Job> jobList = criteria2.list();
+            if(locationList1.isEmpty() && jobList.isEmpty()){
                 location.setEmpty(true);
                 session.delete(container);
                 s.setSuccess(true);
@@ -259,7 +300,7 @@ public class FindInventoryService {
             }else{
                 Transaction.rollback();
                 s.setSuccess(false);
-                s.setMsg("请确认此库存前后货位是否有货！");
+                s.setMsg("请确认此库存前后货位是否有货,并且此列货位没有入库任务！");
             }
         } catch (JDBCConnectionException ex) {
             s.setSuccess(false);

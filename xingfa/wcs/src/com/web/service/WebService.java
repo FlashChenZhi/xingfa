@@ -57,12 +57,21 @@ public class WebService {
                 blockVo.setReservMcKey(block.getReservedMcKey());
                 blockVo.setWaitResponse(block.isWaitingResponse());
                 blockVo.setStatus(block.getStatus());
-                if (block instanceof MCar)
+                if (block instanceof MCar) {
                     blockVo.setsCarNo(((MCar) block).getsCarBlockNo());
-                if (block instanceof SCar)
+                }
+                if (block instanceof SCar) {
                     blockVo.setmCarNo(((SCar) block).getOnMCar());
-                if (block instanceof Srm)
+                    blockVo.setBank(((SCar) block).getBank());
+                    blockVo.setBay(((SCar) block).getBay());
+                    blockVo.setLevel(((SCar) block).getLevel());
+                    blockVo.setPower(((SCar) block).getPower());
+                }
+                if (block instanceof Srm) {
                     blockVo.setsCarNo(((Srm) block).getsCarBlockNo());
+                    blockVo.setBay(((Srm) block).getBay());
+                    blockVo.setLevel(((Srm) block).getLevel());
+                }
                 list.add(blockVo);
             }
             map.clear();
@@ -127,7 +136,7 @@ public class WebService {
     }
 
 
-    public HttpMessage searchMessage(int currentPage, String mcKey) {
+    public HttpMessage searchMessage(int currentPage, String mcKey,String machineId) {
         HttpMessage httpMessage = new HttpMessage();
         try {
             Transaction.begin();
@@ -137,7 +146,9 @@ public class WebService {
             if (StringUtils.isNotEmpty(mcKey)) {
                 cri.add(Restrictions.eq("mcKey", mcKey));
             }
-
+            if (StringUtils.isNotEmpty(machineId)) {
+                cri.add(Restrictions.eq(WcsMessage.__MachineNo, machineId));
+            }
             Long count = (Long) cri.setProjection(Projections.rowCount()).uniqueResult();
             cri.setProjection(null);
             cri.setFirstResult((currentPage - 1) * 10);
@@ -984,6 +995,25 @@ public class WebService {
             httpMessage.setSuccess(true);
             httpMessage.setMsg("成功");
 
+        } catch (Exception e) {
+            Transaction.rollback();
+            httpMessage.setSuccess(false);
+            httpMessage.setMsg("出错了。");
+            e.printStackTrace();
+        }
+        return httpMessage;
+    }
+    public HttpMessage deleteData(String blockNo) {
+        HttpMessage httpMessage = new HttpMessage();
+        try {
+            Transaction.begin();
+            Session session = HibernateUtil.getCurrentSession();
+            Block block = Block.getByBlockNo(blockNo);
+            block.setMcKey(null);
+            block.setReservedMcKey(null);
+            Transaction.commit();
+            httpMessage.setSuccess(true);
+            httpMessage.setMsg("成功");
         } catch (Exception e) {
             Transaction.rollback();
             httpMessage.setSuccess(false);

@@ -28,8 +28,8 @@ public class WebAction {
 
     @RequestMapping("searchMessage.do")
     @ResponseBody
-    public HttpMessage searchMessage(int currentPage, String mcKey) {
-        HttpMessage httpMessage = webService.searchMessage(currentPage, mcKey);
+    public HttpMessage searchMessage(int currentPage, String mcKey,String machineId) {
+        HttpMessage httpMessage = webService.searchMessage(currentPage, mcKey,machineId);
         return httpMessage;
     }
 
@@ -155,6 +155,12 @@ public class WebAction {
     @ResponseBody
     public HttpMessage getTheSCCar(String blockNo) {
         HttpMessage httpMessage = webService.getTheSCCar(blockNo);
+        return httpMessage;
+    }
+    @RequestMapping("deleteData.do")
+    @ResponseBody
+    public HttpMessage deleteData(String blockNo) {
+        HttpMessage httpMessage = webService.deleteData(blockNo);
         return httpMessage;
     }
 }

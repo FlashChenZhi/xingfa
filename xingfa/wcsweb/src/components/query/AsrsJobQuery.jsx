@@ -9,15 +9,14 @@ let AsrsJobQuery = React.createClass({
             data: [],
             total: 0,//表格数据总行数
             loading: false,
+            current:1,
         }
     },
     componentDidMount(){
-        // this.getTableData(1);
+         //this.getTableData(1);
     },
     getTableData(currentPage){
-        if (!!currentPage) {
-            currentPage = 1;
-        }
+
         this.setState({loading: true});
         reqwest({
             url: '/wcs/webService/searchJob.do',
@@ -33,7 +32,14 @@ let AsrsJobQuery = React.createClass({
         });
     },
     pageChange(noop){
+        this.setState({
+            current:noop,
+        });
         this.getTableData(noop);
+    },
+
+    search(){
+        this.pageChange(1);
     },
 
     deleteJob(mckey) {
@@ -105,10 +111,11 @@ let AsrsJobQuery = React.createClass({
                            showQuickJumper: true,
                            defaultCurrent: 1,
                            total: this.state.total,
+                           current:this.state.current,
                            showTotal: total => `共 ${total} 条数据`
                        }}
                 />
-                <Button type="primary" onClick={this.getTableData}>查询</Button>
+                <Button type="primary" onClick={this.search}>查询</Button>
             </div>
         );
     },
