@@ -2,7 +2,6 @@
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 using Microsoft.Win32;
-using wms_rft.Menu;
 using wms_rft.Putaway;
 
 namespace wms_rft

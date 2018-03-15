@@ -163,7 +163,7 @@ public class Msg35Proc implements MsgProcess {
                                 Block block1 = Block.getByBlockNo(message35.Station);
                                 if (block1 instanceof Srm) {
                                     Srm srm = (Srm) block1;
-                                    sCar.setOnMCar(srm.getBlockNo());
+//                                    sCar.setOnMCar(srm.getBlockNo());
                                     if (StringUtils.isNotEmpty(srm.getMcKey())) {
                                         sCar.generateReserveMckey(message35.McKey);
                                     }
@@ -211,28 +211,28 @@ public class Msg35Proc implements MsgProcess {
                                 sCar.setOnMCar(message35.Station);
                                 aj.setStatus(AsrsJobStatus.PICKING);
 
-                                if(sCar.getPower() >= Const.LOW_POWER) {
-                                    Srm srm = Srm.getSrmByPosition(sCar.getPosition());
-
-                                    Query query = HibernateUtil.getCurrentSession().createQuery("from AsrsJob where type=:ajType and status=:st and statusDetail=:detail and fromStation=:frs order by id asc ");
-                                    query.setParameter("ajType", AsrsJobType.RETRIEVAL);
-                                    query.setParameter("detail", AsrsJobStatusDetail.WAITING);
-                                    query.setParameter("st", AsrsJobStatus.RUNNING);
-                                    query.setParameter("frs", srm.getBlockNo());
-
-                                    query.setMaxResults(1);
-                                    AsrsJob asrsJob = (AsrsJob) query.uniqueResult();
-                                    if (asrsJob != null) {
-
-                                        Location location = Location.getByLocationNo(asrsJob.getFromLocation());
-                                        if (location.getBay() == sCar.getBay() && location.getLevel() == sCar.getLevel()) {
-
-                                            sCar.setReservedMcKey(asrsJob.getMcKey());
-                                            asrsJob.setStatusDetail(AsrsJobStatusDetail.ACCEPTED);
-                                            asrsJob.setStatus(AsrsJobStatus.ACCEPT);
-                                        }
-                                    }
-                                }
+//                                if(sCar.getPower() >= Const.LOW_POWER) {
+//                                    Srm srm = Srm.getSrmByPosition(sCar.getPosition());
+//
+//                                    Query query = HibernateUtil.getCurrentSession().createQuery("from AsrsJob where type=:ajType and status=:st and statusDetail=:detail and fromStation=:frs order by id asc ");
+//                                    query.setParameter("ajType", AsrsJobType.RETRIEVAL);
+//                                    query.setParameter("detail", AsrsJobStatusDetail.WAITING);
+//                                    query.setParameter("st", AsrsJobStatus.RUNNING);
+//                                    query.setParameter("frs", srm.getBlockNo());
+//
+//                                    query.setMaxResults(1);
+//                                    AsrsJob asrsJob = (AsrsJob) query.uniqueResult();
+//                                    if (asrsJob != null) {
+//
+//                                        Location location = Location.getByLocationNo(asrsJob.getFromLocation());
+//                                        if (location.getBay() == sCar.getBay() && location.getLevel() == sCar.getLevel()) {
+//
+//                                            sCar.setReservedMcKey(asrsJob.getMcKey());
+//                                            asrsJob.setStatusDetail(AsrsJobStatusDetail.ACCEPTED);
+//                                            asrsJob.setStatus(AsrsJobStatus.ACCEPT);
+//                                        }
+//                                    }
+//                                }
 
                             } else if (message35.isOnCar()) {
 

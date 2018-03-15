@@ -4,6 +4,8 @@
   <xs:element name="getFileResponse" type="tns:getFileResponse" />
   <xs:element name="getSkuList" type="tns:getSkuList" />
   <xs:element name="getSkuListResponse" type="tns:getSkuListResponse" />
+  <xs:element name="putaway" type="tns:putaway" />
+  <xs:element name="putawayResponse" type="tns:putawayResponse" />
   <xs:element name="sayHelloWorldFrom" type="tns:sayHelloWorldFrom" />
   <xs:element name="sayHelloWorldFromResponse" type="tns:sayHelloWorldFromResponse" />
   <xs:complexType name="getFile">
@@ -27,7 +29,15 @@
     <xs:sequence />
   </xs:complexType>
   <xs:complexType name="getSkuListResponse">
-    <xs:sequence />
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="return" type="tns:skuVo2" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="skuVo2">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="id" type="xs:string" />
+      <xs:element minOccurs="0" name="name" type="xs:string" />
+    </xs:sequence>
   </xs:complexType>
   <xs:complexType name="sayHelloWorldFrom">
     <xs:sequence>
@@ -38,5 +48,17 @@
     <xs:sequence>
       <xs:element minOccurs="0" name="return" type="xs:string" />
     </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="putaway">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="arg0" type="xs:string" />
+      <xs:element minOccurs="0" name="arg1" type="xs:string" />
+      <xs:element minOccurs="0" name="arg2" type="xs:string" />
+      <xs:element minOccurs="0" name="arg3" type="xs:string" />
+      <xs:element name="arg4" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="putawayResponse">
+    <xs:sequence />
   </xs:complexType>
 </xs:schema>

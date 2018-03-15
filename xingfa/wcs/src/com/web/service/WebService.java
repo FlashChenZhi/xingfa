@@ -725,13 +725,14 @@ public class WebService {
 
                     if (block instanceof SCar) {
                         SCar sCar = (SCar) block;
-                        Query srmQuery = HibernateUtil.getCurrentSession().createQuery("from Srm where position=:po");
-                        srmQuery.setParameter("po", sCar.getPosition());
-                        srmQuery.setMaxResults(1);
-                        Srm srm = (Srm) srmQuery.uniqueResult();
+//                        Query srmQuery = HibernateUtil.getCurrentSession().createQuery("from Srm where position=:po");
+//                        srmQuery.setParameter("po", sCar.getPosition());
+//                        srmQuery.setMaxResults(1);
+                        Srm srm = Srm.getSrmByGroupNo(sCar.getGroupNo());
                         if (srm != null) {
                             srm.setsCarBlockNo(sCar.getBlockNo());
                             sCar.setOnMCar(srm.getBlockNo());
+                            sCar.setPosition(srm.getPosition());
                         }
                     }
 

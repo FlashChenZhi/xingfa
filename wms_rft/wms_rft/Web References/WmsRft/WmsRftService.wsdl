@@ -17,6 +17,12 @@
   <message name="getSkuListResponse">
     <part name="parameters" element="tns:getSkuListResponse" />
   </message>
+  <message name="putaway">
+    <part name="parameters" element="tns:putaway" />
+  </message>
+  <message name="putawayResponse">
+    <part name="parameters" element="tns:putawayResponse" />
+  </message>
   <message name="sayHelloWorldFrom">
     <part name="parameters" element="tns:sayHelloWorldFrom" />
   </message>
@@ -31,6 +37,10 @@
     <operation name="getSkuList">
       <input wsam:Action="http://rft.com/WmsRft/getSkuListRequest" message="tns:getSkuList" />
       <output wsam:Action="http://rft.com/WmsRft/getSkuListResponse" message="tns:getSkuListResponse" />
+    </operation>
+    <operation name="putaway">
+      <input wsam:Action="http://rft.com/WmsRft/putawayRequest" message="tns:putaway" />
+      <output wsam:Action="http://rft.com/WmsRft/putawayResponse" message="tns:putawayResponse" />
     </operation>
     <operation name="sayHelloWorldFrom">
       <input wsam:Action="http://rft.com/WmsRft/sayHelloWorldFromRequest" message="tns:sayHelloWorldFrom" />
@@ -49,6 +59,15 @@
       </output>
     </operation>
     <operation name="getSkuList">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+    <operation name="putaway">
       <soap:operation soapAction="" />
       <input>
         <soap:body use="literal" />

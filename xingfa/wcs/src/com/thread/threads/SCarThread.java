@@ -48,6 +48,8 @@ public class SCarThread extends BlockThread<SCar> {
 
                 if (sCar.isWaitingResponse()) {
 
+                }else if(sCar.getStatus().equals("2")){
+
                 } else if (!sCar.getStatus().equals("1")) {
                     Location location = Location.getByLocationNo(sCar.getChargeLocation());
 
