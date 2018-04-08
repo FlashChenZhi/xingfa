@@ -18,7 +18,7 @@ let OutputArea = React.createClass({
             commodityCodeFirst:"",
             shipperIdList:[],
             shipperIdFirst:"",
-
+            current:1,
         };
     },
     componentDidMount(){
@@ -78,7 +78,12 @@ let OutputArea = React.createClass({
     handleReset(e) {
         e.preventDefault();
         this.props.form.resetFields();
-        this.setState({selectedRowKeys: [], selectedData: []});
+        this.setState({
+            selectedRowKeys: [],
+            selectedData: [],
+            current:1,
+        });
+        this.getData(1);
     },
     reset(e){
         e.preventDefault();
@@ -116,6 +121,9 @@ let OutputArea = React.createClass({
     },
     pageChange(noop){
         this.getData(noop);
+        this.setState({
+            current:noop,
+        })
     },
     disabledDate(current){
         return current.getTime() > Date.now();
@@ -187,7 +195,7 @@ let OutputArea = React.createClass({
                             {/*</FormItem>*/}
                             <FormItem
                                 {...formItemLayout}
-                                label="商品代码："
+                                label="商品名称："
                             >
                                 <Select id="select" size="large" style={{ width: 200 }}
                                         {...commodityCodeProps} >
@@ -196,7 +204,7 @@ let OutputArea = React.createClass({
                             </FormItem>
                             <FormItem
                                 {...formItemLayout}
-                                label="货主代码："
+                                label="货主名称："
                             >
                                 <Select id="select" size="large" style={{ width: 200 }}
                                          {...shipperIdProps} >
@@ -223,6 +231,7 @@ let OutputArea = React.createClass({
                            onChange: this.pageChange,
                            showQuickJumper: true,
                            defaultCurrent: 1,
+                           current: this.state.current,
                            defaultPageSize:this.state.defaultPageSize,
                            total: this.state.total,
                            showTotal: total => `共 ${total} 条数据`

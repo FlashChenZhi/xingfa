@@ -12,6 +12,43 @@ public class BlockVo {
     private String status;
     private String sCarNo;
     private String mCarNo;
+    private Integer power;
+    private int level;
+    private int bay;
+    private int bank;
+
+
+    public Integer getPower() {
+        return power;
+    }
+
+    public void setPower(Integer power) {
+        this.power = power;
+    }
+
+    public int getLevel() {
+        return level;
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
+    }
+
+    public int getBay() {
+        return bay;
+    }
+
+    public void setBay(int bay) {
+        this.bay = bay;
+    }
+
+    public int getBank() {
+        return bank;
+    }
+
+    public void setBank(int bank) {
+        this.bank = bank;
+    }
 
     public String getBlockNo() {
         return blockNo;

@@ -38,9 +38,10 @@ public class FindInventoryAction {
     @RequestMapping(value = "/findInventory",method = RequestMethod.POST)
     @ResponseBody
     public PagerReturnObj<List<Map<String,Object>>> findInventory(int current, int defaultPageSize,
-                                    String containerNo,String locationNo,String productId){
+                                    String containerNo,String locationNo,String productId,String lotNo,
+                                    String beginDate, String endDate){
         int startIndex = (current-1) * defaultPageSize;
-        return findInventoryService.findInventory(startIndex,defaultPageSize,containerNo,locationNo,productId);
+        return findInventoryService.findInventory(startIndex,defaultPageSize,containerNo,locationNo,productId,lotNo,beginDate,endDate);
     }
     /*
      * @author：ed_chen
@@ -54,11 +55,11 @@ public class FindInventoryAction {
     @RequestMapping(value = "/findInventoryDetails",method = RequestMethod.POST)
     @ResponseBody
     public PagerReturnObj<List<Map<String,Object>>> findInventoryDetails(String skuCode,int current, int defaultPageSize,
-                                      String containerNo,String locationNo){
+                                      String containerNo,String locationNo,String lotNo,String beginDate, String endDate){
         int startIndex = (current-1) * defaultPageSize;
         System.out.println(skuCode);
         PagerReturnObj<List<Map<String,Object>>> result = findInventoryService.findInventoryDetails(skuCode,startIndex,
-                defaultPageSize,containerNo,locationNo);
+                defaultPageSize,containerNo,locationNo,lotNo,beginDate, endDate);
         return result;
     }
     /*
@@ -72,6 +73,18 @@ public class FindInventoryAction {
     @ResponseBody
     public ReturnObj<List<Map<String,String>>> getCommodityCode() throws IOException{
         return findInventoryService.getCommodityCode();
+    }
+    /*
+     * @author：ed_chen
+     * @date：2018/3/10 15:24
+     * @description：删除库存
+     * @param inventoryId 库存id
+     * @return：com.util.common.ReturnObj<java.util.List<java.util.Map<java.lang.String,java.lang.String>>>
+     */
+    @RequestMapping(value = "/deleteInventory",method = RequestMethod.POST)
+    @ResponseBody
+    public ReturnObj<List<Map<String,String>>> deleteInventory(String containerId) throws IOException{
+        return findInventoryService.deleteInventory(containerId);
     }
 
 }

@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<map>
+  <class name="LedMessage" table="XINGFA].[LEDMESSAGE" database="xingfa">
+    <attribute name="LedNo" column="LEDNO" type="String" key="primary" />
+    <attribute name="Message1" column="MESSAGE1" type="String"/>
+    <attribute name="Message2" column="MESSAGE2" type="String"/>
+    <attribute name="Message3" column="MESSAGE3" type="String"/>
+    <attribute name="Message4" column="MESSAGE4" type="String"/>
+    <attribute name="Processed" column="PROCESSED" type="String"/>
+  </class>
+</map>

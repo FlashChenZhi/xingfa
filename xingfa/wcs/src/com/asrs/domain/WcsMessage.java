@@ -29,7 +29,7 @@ public class WcsMessage {
     private boolean received;
     private String msgType;
 
-
+    public static final String __MachineNo = "machineNo";
     public static final String MSGTYPE_03 = "03";
     public static final String MSGTYPE_35 = "35";
 

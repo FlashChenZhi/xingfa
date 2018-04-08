@@ -50,7 +50,9 @@ public class SrmCharageService extends SrmAndScarServiceImpl {
         AsrsJob asrsJob = AsrsJob.getAsrsJobByMcKey(srm.getMcKey());
         SrmOperator operator = new SrmOperator(srm, asrsJob.getMcKey());
         Location toLocation = Location.getByLocationNo(asrsJob.getToLocation());
-        if (srm.getBlockNo().equals(asrsJob.getToStation())) {
+        if(StringUtils.isBlank(srm.getsCarBlockNo())){
+            operator.tryLoadCar();
+        }else if (srm.getBlockNo().equals(asrsJob.getToStation())) {
             operator.tryUnLoadCarToLocation(toLocation);
 
         } else {

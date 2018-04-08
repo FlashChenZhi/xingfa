@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<map>
+  <database name="xingfa" type="MsSqlServer">
+    <parameter name="Data Source" value="loalhost" />
+    <parameter name="User ID" value="xingfa" />
+    <parameter name="Password" value="wms" />
+    <parameter name="Provider" value="SQLOLEDB.1" />
+    <parameter name="Initial Catalog" value="northwind" />
+    <classMapFile path="ClassMap.xml" />
+  </database>
+</map>

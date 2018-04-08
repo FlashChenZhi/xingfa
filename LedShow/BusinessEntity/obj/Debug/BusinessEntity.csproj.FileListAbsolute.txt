@@ -1,0 +1,8 @@
+D:\git_projects\xingfa_wcs\LedShow\BusinessEntity\bin\Debug\ClassMap.xml
+D:\git_projects\xingfa_wcs\LedShow\BusinessEntity\bin\Debug\DatabaseMap.xml
+D:\git_projects\xingfa_wcs\LedShow\BusinessEntity\bin\Debug\BusinessEntity.dll
+D:\git_projects\xingfa_wcs\LedShow\BusinessEntity\bin\Debug\BusinessEntity.pdb
+D:\git_projects\xingfa_wcs\LedShow\BusinessEntity\bin\Debug\PersistenceLayer.dll
+D:\git_projects\xingfa_wcs\LedShow\BusinessEntity\obj\Debug\ResolveAssemblyReference.cache
+D:\git_projects\xingfa_wcs\LedShow\BusinessEntity\obj\Debug\BusinessEntity.dll
+D:\git_projects\xingfa_wcs\LedShow\BusinessEntity\obj\Debug\BusinessEntity.pdb

@@ -46,7 +46,7 @@ public class ScarCharageService extends ScarAndSrmServiceImpl {
             if (StringUtils.isNotBlank(sCar.getOnMCar())) {
                 //子车在母车上
                 scarOperator.tryOffSrm(sCar.getOnMCar(), location);
-            } else if (sCar.getBank() != location.getBank()){
+            } else if (sCar.getBank() != location.getBank() || sCar.getBay() != location.getBay() || sCar.getLevel() != location.getLevel()){
                 //子车在堆垛机的另一边
                 scarOperator.tryOnSrm(srm,sCar.getChargeChanel());
             }else {

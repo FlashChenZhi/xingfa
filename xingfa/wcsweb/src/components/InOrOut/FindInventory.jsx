@@ -1,39 +1,12 @@
-import {Button, Form, Input, Table, Badge, DatePicker, Select, message, Row, Col} from 'antd';
+import {Button,Modal, Form, Input, Table, Badge, DatePicker, Select, message, Row, Col} from 'antd';
 import React from 'react';
 const FormItem = Form.Item;
 import reqwest from 'reqwest';
 import {reqwestError, dateFormat} from '../common/Golbal';
 const Option = Select.Option;
+const confirm = Modal.confirm;
 const RangePicker = DatePicker.RangePicker;
-
-const columns2 = [{
-    title: '托盘号',
-    dataIndex: 'id',
-},{
-    title: '托盘号',
-    dataIndex: 'containerId',
-}, {
-    title: '货品代码',
-    dataIndex: 'skuCode',
-}, {
-    title: '货品名称',
-    dataIndex: 'skuName',
-}, {
-    title: '货品数量',
-    dataIndex: 'qty',
-}, {
-    title: '所在行',
-    dataIndex: 'bank',
-}, {
-    title: '所在列',
-    dataIndex: 'bay',
-}, {
-    title: '所在层',
-    dataIndex: 'level',
-}, {
-    title: '入库时间',
-    dataIndex: 'dateTime',
-}];
+var columns2 ="";
 let OutputArea = React.createClass({
     getInitialState(){
         return {
@@ -57,7 +30,7 @@ let OutputArea = React.createClass({
             loading5: false,
             loading6: false,
             selectedRowKeys: [],
-            defaultPageSize:10,
+            defaultPageSize:5,
             defaultPageSize2:5,
             commodityCodeList:[],
             commodityCodeFirst:"",
@@ -74,6 +47,7 @@ let OutputArea = React.createClass({
             skuCodeTable4:"",
             skuCodeTable5:"",
             skuCodeTable6:"",
+
         };
     },
     componentDidMount(){
@@ -82,7 +56,6 @@ let OutputArea = React.createClass({
         this.getshipperId();
     },
     createTable2(rowIndex){
-        console.log(rowIndex);
         if(rowIndex==1){
             return(
                 <Table
@@ -182,20 +155,26 @@ let OutputArea = React.createClass({
 
     },
     returndate2(skuCode,current2,expanded,rowIndex){
-        debugger;
         if(expanded){
             this.setState1(rowIndex,skuCode,current2);
             const defaultPageSize2 = this.state.defaultPageSize2;
             const values = this.props.form.getFieldsValue();
+            if (values.createDate) {
+                values.beginDate = values.createDate[0].format('yyyy-MM-dd HH:mm:ss');
+                values.endDate = values.createDate[1].format('yyyy-MM-dd HH:mm:ss');
+            } else {
+                values.beginDate = null;
+                values.endDate = null;
+            }
             reqwest({
                 url: '/wms/master/FindInventoryAction/findInventoryDetails',
                 dataType: 'json',
                 method: 'post',
                 data: {skuCode:skuCode,current:current2,defaultPageSize:defaultPageSize2,
-                    containerNo:values.containerNo,locationNo:values.locationNo},
+                    containerNo:values.containerNo,locationNo:values.locationNo,lotNo:values.lotNo,
+                    beginDate:values.beginDate,endDate:values.endDate},
                 success: function (json) {
                     if(json.success){
-                        console.log("数据："+json);
                         this.setState2(json,rowIndex);
                     }else{
                         message.error("加载数据失败！");
@@ -274,6 +253,33 @@ let OutputArea = React.createClass({
             });
         }
     },
+    deleteContainer(containerId){
+        const this2 = this;
+        confirm({
+            title:'删除提示',
+            content:'是否确认删除这些数据？',
+            onOk(){
+                reqwest({
+                    url: '/wms/master/FindInventoryAction/deleteInventory',
+                    dataType: 'json',
+                    method: 'post',
+                    data: {containerId:containerId},
+                    success: function (json) {
+                        if(json.success) {
+                            message.success("删除库存成功！");
+                            this2.handleReset();
+                        }else{
+                            message.error(json.msg);
+                        }
+                    }.bind(this),
+                    error: function (err) {
+                        message.error("删除库存失败！");
+                    }.bind(this)
+                })
+            },
+            onCancle(){},
+        });
+    },
     getCommodityCode(){
         reqwest({
             url: '/wms/master/FindInventoryAction/getCommodityCode',
@@ -282,8 +288,6 @@ let OutputArea = React.createClass({
             data: {},
             success: function (json) {
                 if(json.success) {
-                    console.log(json);
-                    console.log(json.res);
                     this.setState({
                         commodityCodeList: json.res,
                         commodityCodeFirst: json.res[0],
@@ -305,8 +309,6 @@ let OutputArea = React.createClass({
             data: {},
             success: function (json) {
                 if(json.success){
-                    console.log(json);
-                    console.log("货主代码："+json.res);
                     this.setState({
                         shipperIdList:json.res,
                         shipperIdFirst:json.res[0],
@@ -324,7 +326,6 @@ let OutputArea = React.createClass({
         this.setState({selectedData: selectedRows, selectedRowKeys: selectedRowKeys});
     },
     handleReset(e) {
-        e.preventDefault();
         this.props.form.resetFields();
         this.setState({selectedRowKeys: [], selectedData: []});
         this.getData(1);
@@ -337,18 +338,24 @@ let OutputArea = React.createClass({
         this.setState({loading: true});
         let defaultPageSize = this.state.defaultPageSize;
         const values = this.props.form.getFieldsValue();
-        console.log(values);
         values.currentPage = current;
+        if (values.createDate) {
+            values.beginDate = values.createDate[0].format('yyyy-MM-dd HH:mm:ss');
+            values.endDate = values.createDate[1].format('yyyy-MM-dd HH:mm:ss');
+        } else {
+            values.beginDate = null;
+            values.endDate = null;
+        }
         reqwest({
             url: '/wms/master/FindInventoryAction/findInventory',
             dataType: 'json',
             method: 'post',
             data: {current:values.currentPage,defaultPageSize:defaultPageSize,
                 containerNo:values.containerNo,locationNo:values.locationNo,
-                productId:values.productId},
+                productId:values.productId,lotNo:values.lotNo,beginDate:values.beginDate,
+                endDate:values.endDate},
             success: function (json) {
                 if(json.success){
-                    console.log("数据："+json.res);
                     for(var i =0;i<json.res.length;i++){
                         json.res[i].rowIndex = i+1;
                         this.returndate2(json.res[i].skuCode,1,true,i+1);
@@ -408,6 +415,40 @@ let OutputArea = React.createClass({
         return current.getTime() > Date.now();
     },
     render() {
+        columns2=[{
+            title: '库存Id',
+            dataIndex: 'id',
+        },{
+            title: '托盘号',
+            dataIndex: 'containerId',
+        }, {
+            title: '货品代码',
+            dataIndex: 'skuCode',
+        }, {
+            title: '货品名称',
+            dataIndex: 'skuName',
+        }, {
+            title: '货品数量',
+            dataIndex: 'qty',
+        },{
+            title: '批号',
+            dataIndex: 'lotNo',
+        }, {
+            title: '所在行',
+            dataIndex: 'bank',
+        }, {
+            title: '所在列',
+            dataIndex: 'bay',
+        }, {
+            title: '所在层',
+            dataIndex: 'level',
+        }, {
+            title: '入库时间',
+            dataIndex: 'dateTime',
+        }, {
+            title: '操作',
+            render: (text, record,index) => <span><a onClick={this.deleteContainer.bind(this,record.containerId)}>删除</a></span>,
+        }];
         const columns = [{
             title: '货品代码',
             dataIndex: 'skuCode',
@@ -415,7 +456,7 @@ let OutputArea = React.createClass({
             title: '货品名称',
             dataIndex: 'skuName',
         }, {
-            title: '总库存',
+            title: '库存',
             dataIndex: 'sumQty',
         }, {
             title: '最近入库时间',
@@ -423,18 +464,17 @@ let OutputArea = React.createClass({
         }];
 
         const {getFieldProps} = this.props.form;
-        // const productIdProps = getFieldProps('productId',{
-        //     initialValue: this.state.productId.id
-        // });
         const commodityCodeProps = getFieldProps('productId', {
             initialValue:"",
         });
         const containerNoProps = getFieldProps('containerNo',{ initialValue: '' });
         const locationNoProps = getFieldProps('locationNo',{ initialValue: '' });
+        const lotNoProps = getFieldProps('lotNo',{ initialValue: '' });
         const formItemLayout = {
             labelCol: {span: 5},
             wrapperCol: {span: 14},
         };
+        const createDateProps = getFieldProps('createDate');
         const commodityCodeListSelect =[];
         commodityCodeListSelect.push(<Option value="">---请选择---</Option>);
         this.state.commodityCodeList.forEach((commodityCode)=>{
@@ -447,18 +487,6 @@ let OutputArea = React.createClass({
                         <Col lg={12}>
                             <FormItem
                                 {...formItemLayout}
-                                label="LocationNo："
-                            >
-                                <Input {...locationNoProps} />
-                            </FormItem>
-                            <FormItem
-                                {...formItemLayout}
-                                label="托盘号："
-                            >
-                                <Input {...containerNoProps} />
-                            </FormItem>
-                            <FormItem
-                                {...formItemLayout}
                                 label="商品名称："
                             >
                                 <Select id="select" size="large" style={{ width: 200 }}
@@ -466,6 +494,33 @@ let OutputArea = React.createClass({
                                     {commodityCodeListSelect}
                                 </Select>
                             </FormItem>
+                            <FormItem
+                                {...formItemLayout}
+                                label="入库时间"
+                            >
+                                <RangePicker showTime {...createDateProps} style={{ width: 400 }}
+                                             format="yyyy-MM-dd HH:mm:ss"
+                                />
+                            </FormItem>
+                            <FormItem
+                                {...formItemLayout}
+                                label="LocationNo："
+                            >
+                                <Input {...locationNoProps} />
+                            </FormItem>
+                            <FormItem
+                                {...formItemLayout}
+                                label="批次号："
+                            >
+                                <Input {...lotNoProps} />
+                            </FormItem>
+                            <FormItem
+                                {...formItemLayout}
+                                label="托盘号："
+                            >
+                                <Input {...containerNoProps} />
+                            </FormItem>
+
 
                             <FormItem wrapperCol={{offset: 10}}>
                                 <Button type="primary" onClick={this.handleSubmit}>查询</Button>
@@ -486,12 +541,6 @@ let OutputArea = React.createClass({
                         (expanded, record) => this.returndate2(record.skuCode,1,expanded,record.rowIndex)
 
                     }
-                    // onRowClick={
-                    //     (record,index,event)=>{
-                    //         console.
-                    //     }
-                    // }
-
                     rowKey={record => record.id}
                     dataSource={this.state.data}
                     pagination={{

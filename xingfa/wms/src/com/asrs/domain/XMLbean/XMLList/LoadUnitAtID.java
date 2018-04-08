@@ -274,12 +274,15 @@ public class LoadUnitAtID extends XMLProcess {
 //            Inventory inventory = container.getInventories().iterator().next();
             InventoryView view = InventoryView.getByPalletNo(j.getContainer());
             Station station = Station.getStation(stationNo);
-            Location newLocation = Location.getEmptyLocation(view.getSkuCode(),station.getPosition(),dataArea.getLoadType());
+            Location newLocation = Location.getEmptyLocation(view.getSkuCode(),view.getLotNum(),station.getPosition(),dataArea.getLoadType());
+
             String palletNo = j.getContainer();
             if (newLocation == null) {
                 SystemLog.error("托盘" + palletNo + "找不到合适的货位");
                 InMessage.error(stationNo, "托盘" + palletNo + "，找不到合适的货位");
             }else{
+
+                newLocation.setReserved(true);
 
 //                String mckey = Mckey.getNext();
                 //开始

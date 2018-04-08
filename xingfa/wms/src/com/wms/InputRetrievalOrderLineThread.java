@@ -30,9 +30,9 @@ public class InputRetrievalOrderLineThread implements Runnable {
         InputRetrievalOrderLineThread thread = new InputRetrievalOrderLineThread();
         thread.run();
     }
-    private String path = "E:/source/order";
-    private String localPath = "E:/back/order/";
-    private String errorPath = "E:/error/order/";
+    private String path = "D:/source/order";
+    private String localPath = "D:/back/order/";
+    private String errorPath = "D:/error/order/";
 
     @Override
     public void run() {
@@ -46,7 +46,7 @@ public class InputRetrievalOrderLineThread implements Runnable {
                             Transaction.begin();
 
                             Session session = HibernateUtil.getCurrentSession();
-                            String oldPath = "E:/source/order/" + f.getName();
+                            String oldPath = path + "/" + f.getName();
                             Workbook data = Workbook.getWorkbook(new File(oldPath));
                             Sheet sheet = data.getSheet(0);
                             Date d = new Date();
@@ -54,41 +54,40 @@ public class InputRetrievalOrderLineThread implements Runnable {
                             System.out.println("当前时间：" + sdf.format(d));
                             String newPath = localPath + f.getName().split("\\.")[0] + "_" + sdf.format(d) + ".xls";
                             List<ErrorMessage> list = new ArrayList();
-                            if (StringUtils.isBlank(sheet.getCell(11, 1).getContents())) {
-                                copyFile(oldPath, newPath);
-                                deleteFile(oldPath);
-                                for (int i = 1; i < sheet.getRows(); i++) {
-                                    RetrievalOrderLine rol = RetrievalOrderLine.getByRetrievalOrderLine(sheet.getCell(1, i).getContents(), sheet.getCell(6, i).getContents());
-                                    if (rol != null) {
-                                        list.add(new ErrorMessage(rol, "交货单号和行号重复"));
-                                        continue;
-                                    }
-                                    rol = new RetrievalOrderLine();
-                                    session.save(rol);
-                                    rol.setShouhuodanhao(sheet.getCell(0, i).getContents());
-                                    rol.setJinhuodanhao(sheet.getCell(1, i).getContents());
-                                    rol.setHuozhudaima(sheet.getCell(2, i).getContents());
-                                    rol.setHuozhumingcheng(sheet.getCell(3, i).getContents());
-                                    rol.setCangkudaima(sheet.getCell(4, i).getContents());
-                                    rol.setShouhuoleixing(sheet.getCell(5, i).getContents());
-                                    rol.setHanghao(sheet.getCell(6, i).getContents());
-                                    rol.setShangpindaima(sheet.getCell(7, i).getContents());
-                                    rol.setShangpinmingcheng(sheet.getCell(8, i).getContents());
-                                    try {
-                                        rol.setDingdanshuliang(Integer.parseInt(sheet.getCell(9, i).getContents()));
-                                    } catch (NumberFormatException e) {
-                                        list.add(new ErrorMessage(rol, "parseInt转换异常"));
-                                    }
-                                    rol.setDanwei(sheet.getCell(10, i).getContents());
-                                    rol.setWanchengdingdanshuliang(0);
+
+                            for (int i = 1; i < sheet.getRows(); i++) {
+                                RetrievalOrderLine rol = RetrievalOrderLine.getByRetrievalOrderLine(sheet.getCell(1, i).getContents(), sheet.getCell(6, i).getContents());
+                                if (rol != null) {
+                                    list.add(new ErrorMessage(rol, "交货单号和行号重复"));
+                                    continue;
                                 }
-                            } else {
-                                list.add(new ErrorMessage(new RetrievalOrderLine(), "与RetrievalOrderLine表不匹配"));
+                                rol = new RetrievalOrderLine();
+                                session.save(rol);
+                                rol.setShouhuodanhao(sheet.getCell(0, i).getContents());
+                                rol.setJinhuodanhao(sheet.getCell(1, i).getContents());
+                                rol.setHuozhudaima(sheet.getCell(2, i).getContents());
+                                rol.setHuozhumingcheng(sheet.getCell(3, i).getContents());
+                                rol.setCangkudaima(sheet.getCell(4, i).getContents());
+                                rol.setShouhuoleixing(sheet.getCell(5, i).getContents());
+                                rol.setHanghao(sheet.getCell(6, i).getContents());
+                                rol.setShangpindaima(sheet.getCell(7, i).getContents());
+                                rol.setShangpinmingcheng(sheet.getCell(8, i).getContents());
+                                try {
+                                    rol.setDingdanshuliang(Integer.parseInt(sheet.getCell(9, i).getContents()));
+                                } catch (NumberFormatException e) {
+                                    list.add(new ErrorMessage(rol, "parseInt转换异常"));
+                                }
+                                rol.setDanwei(sheet.getCell(10, i).getContents());
+                                rol.setLotNo(sheet.getCell(11,i).getContents());
+                                rol.setWanchengdingdanshuliang(0);
                             }
                             if (!list.isEmpty()) {
                                 cuoWu(oldPath, newPath, f.getName().split("\\.")[0], sdf.format(d), list);
                             }
                             Transaction.commit();
+
+                            copyFile(oldPath, newPath);
+                            deleteFile(oldPath);
                         }
                     }
                 }
@@ -153,8 +152,7 @@ public class InputRetrievalOrderLineThread implements Runnable {
     }
 
     public void cuoWu(String oldPath, String newPath, String wenJianMing, String shiJian, List<ErrorMessage> list) throws Exception {
-        copyFile(newPath, oldPath);
-        deleteFile(newPath);
+
         WritableWorkbook book1 = Workbook.createWorkbook(new File(errorPath + wenJianMing + "_" + shiJian + ".xls"));
         // 生成名为“sheet1”的工作表，参数0表示这是第一页
         WritableSheet sheet1 = book1.createSheet("sheet2", 0);
@@ -170,7 +168,8 @@ public class InputRetrievalOrderLineThread implements Runnable {
         sheet1.addCell(new Label(8, 0, "商品名称"));
         sheet1.addCell(new Label(9, 0, "订单数量"));
         sheet1.addCell(new Label(10, 0, "单位"));
-        sheet1.addCell(new Label(11, 0, "错误信息"));
+        sheet1.addCell(new Label(11, 0, "批号"));
+        sheet1.addCell(new Label(12, 0, "错误信息"));
         for (int i = 0; i < list.size(); i++) {
             sheet1.addCell(new Label(0, i + 1, list.get(i).retrievalOrderLine.getShouhuodanhao()));
             sheet1.addCell(new Label(1, i + 1, list.get(i).retrievalOrderLine.getJinhuodanhao()));
@@ -183,7 +182,8 @@ public class InputRetrievalOrderLineThread implements Runnable {
             sheet1.addCell(new Label(8, i + 1, list.get(i).retrievalOrderLine.getShangpinmingcheng()));
             sheet1.addCell(new Label(9, i + 1, list.get(i).retrievalOrderLine.getDingdanshuliang() + ""));
             sheet1.addCell(new Label(10, i + 1, list.get(i).retrievalOrderLine.getDanwei()));
-            sheet1.addCell(new Label(11, i + 1, list.get(i).message));
+            sheet1.addCell(new Label(11, i + 1, list.get(i).retrievalOrderLine.getLotNo()));
+            sheet1.addCell(new Label(12, i + 1, list.get(i).message));
         }
         book1.write();
         book1.close();

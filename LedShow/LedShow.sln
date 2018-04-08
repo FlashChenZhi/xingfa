@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual Studio 2008
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LedShow", "LedShow\LedShow.csproj", "{4626C054-D9BC-48C4-9A7B-6057FD4056DE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BusinessEntity", "BusinessEntity\BusinessEntity.csproj", "{2455C1F6-FEE1-458D-AA2D-30C8FE50ED83}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{4626C054-D9BC-48C4-9A7B-6057FD4056DE}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{4626C054-D9BC-48C4-9A7B-6057FD4056DE}.Debug|Any CPU.Build.0 = Debug|x86
+		{4626C054-D9BC-48C4-9A7B-6057FD4056DE}.Release|Any CPU.ActiveCfg = Release|x86
+		{4626C054-D9BC-48C4-9A7B-6057FD4056DE}.Release|Any CPU.Build.0 = Release|x86
+		{2455C1F6-FEE1-458D-AA2D-30C8FE50ED83}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{2455C1F6-FEE1-458D-AA2D-30C8FE50ED83}.Debug|Any CPU.Build.0 = Debug|x86
+		{2455C1F6-FEE1-458D-AA2D-30C8FE50ED83}.Release|Any CPU.ActiveCfg = Release|x86
+		{2455C1F6-FEE1-458D-AA2D-30C8FE50ED83}.Release|Any CPU.Build.0 = Release|x86
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
