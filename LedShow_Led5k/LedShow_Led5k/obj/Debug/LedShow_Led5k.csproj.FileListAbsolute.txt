@@ -1,0 +1,9 @@
+D:\projects\LedShow_Led5k\LedShow_Led5k\bin\Debug\Led5kSDK.dll
+D:\projects\LedShow_Led5k\LedShow_Led5k\bin\Debug\LedShow_Led5k.exe
+D:\projects\LedShow_Led5k\LedShow_Led5k\bin\Debug\LedShow_Led5k.pdb
+D:\projects\LedShow_Led5k\LedShow_Led5k\obj\Debug\ResolveAssemblyReference.cache
+D:\projects\LedShow_Led5k\LedShow_Led5k\obj\Debug\LedShow_Led5k.Form1.resources
+D:\projects\LedShow_Led5k\LedShow_Led5k\obj\Debug\LedShow_Led5k.Properties.Resources.resources
+D:\projects\LedShow_Led5k\LedShow_Led5k\obj\Debug\LedShow_Led5k.csproj.GenerateResource.Cache
+D:\projects\LedShow_Led5k\LedShow_Led5k\obj\Debug\LedShow_Led5k.exe
+D:\projects\LedShow_Led5k\LedShow_Led5k\obj\Debug\LedShow_Led5k.pdb
