@@ -28,6 +28,8 @@ import PutInStorage from '../components/InOrOut/PutInStorage';
 import OrderInquiry from '../components/InOrOut/OrderInquiry';
 import PlatformSwitch from '../components/InOrOut/PlatformSwitch';
 import FindInventory from '../components/InOrOut/FindInventory';
+import FindOutOrInWarehouse from '../components/InOrOut/FindOutOrInWarehouse';
+import AssignsTheStorehouse from '../components/InOrOut/AssignsTheStorehouse';
 class Index extends React.Component {
     constructor(props) {
         super(props);
@@ -60,6 +62,8 @@ class Index extends React.Component {
                     <Route path="/OrderInquiry" components={OrderInquiry}/>
                     <Route path="/PlatformSwitch" components={PlatformSwitch}/>
                     <Route path="/FindInventory" components={FindInventory}/>
+                    <Route path="/FindOutOrInWarehouse" components={FindOutOrInWarehouse}/>
+                    <Route path="/AssignsTheStorehouse" components={AssignsTheStorehouse}/>
                 </Route>
                 <Route path="/" component={LoginMain}>
                     <IndexRedirect to="/login"/>

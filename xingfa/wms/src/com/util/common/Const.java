@@ -12,6 +12,10 @@ public class Const {
 
     public static final int COUNT_PER_PAGE = 30;
 
+    public static final int bayCount = 47;
+
+    public static final int bankCount = 26;
+
     public final static String OP_LOG_NAME = "opLog";
 
     //收货暂存区

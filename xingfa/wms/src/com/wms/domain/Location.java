@@ -627,7 +627,7 @@ public class Location {
             q = session.createQuery("from Location l where exists( select j from Job j,InventoryView  v where j.container =v.palletCode" +
                     " and l.actualArea= j.toLocation.actualArea " +
                     " and l.level = j.toLocation.level and l.bay = j.toLocation.bay and v.skuCode=:skuCode " + (StringUtils.isBlank(lotNo) ? " and (v.lotNum is null or v.lotNum = '') " : " and v.lotNum = :lotNum ") +
-                    " and l.position=j.toLocation.position )  " +
+                    " and l.position=j.toLocation.position and j.toLocation.seq <l.seq )  " +
                     "and l.empty=true and l.position=:po and l.reserved=false and l.asrsFlag = true and l.putawayRestricted = false and l.positionType = :positionType order by l.seq asc")
                     .setParameter("po", position).setParameter("skuCode", skuCode).setParameter("positionType",loadType);
             if(StringUtils.isNotBlank(lotNo)){

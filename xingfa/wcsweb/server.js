@@ -24,7 +24,7 @@ new WebpackDevServer(webpack(config), {
     hot: true,　　//开启热调试
     historyApiFallback: true,
     proxy: proxy
-}).listen(9090, '192.168.10.234', function (err, result) {
+}).listen(9090, '127.0.0.1', function (err, result) {
     if (err) {
         console.log(err);
     }
