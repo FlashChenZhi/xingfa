@@ -25,7 +25,7 @@ export default class IndexMain extends React.Component {
                     <div className="ant-layout-header">
                         <TopNavi/>
                     </div>
-                    <div className="ant-layout-container">
+                    <div className="ant-layout-container" >
                         <div className="ant-layout-content" style={{minHeight: contentHeight + "px"}}>
                                 {this.props.children}
                         </div>
