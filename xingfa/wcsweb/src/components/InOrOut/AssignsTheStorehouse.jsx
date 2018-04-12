@@ -364,10 +364,10 @@ let OutputArea = React.createClass({
             commodityCodeListSelect.push(<Option value={commodityCode.skuCode}>{commodityCode.skuName}</Option>);
         });
         return (
-            <div >
+            <div style={{overflow:"auto",width:"1600px"}}>
                 <Form horizontal>
                     <Row>
-                        <Col lg={12}>
+                        <Col lg={9}>
                             <FormItem
                                 {...formItemLayout}
                                 label="商品名称："
@@ -390,15 +390,15 @@ let OutputArea = React.createClass({
                             </FormItem>
 
                         </Col>
-                        <Col lg={12}>
-                            <br/><br/>
+                        <Col lg={15}>
+                            <br/><br/><br/>
                             <div id="legend1" className={'legend'}></div>
                             <div id="legend2" className={'legend'}></div>
                             <div id="legend3" className={'legend'}></div>
                             <div id="legend4" className={'legend'}></div>
 
                         </Col>
-                        <Col lg={12}>
+                        <Col lg={15}>
                             <div id="Info1" style={{paddingLeft:"50px",fontWeight: "bold"}}>
                                 <span >货位状态：</span>{this.state.msg}<br/>
                                 <span >商品名称：</span>{this.state.skuName}<br/>

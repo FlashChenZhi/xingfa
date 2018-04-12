@@ -15,7 +15,7 @@ let OutputArea = React.createClass({
             selectedData: [],//点击设定提交到后台的数据
             loading: false,
             selectedRowKeys: [],
-            defaultPageSize:5,
+            defaultPageSize:10,
             commodityCodeList:[],
             commodityCodeFirst:"",
             shipperIdList:[],

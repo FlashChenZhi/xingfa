@@ -10,11 +10,11 @@
 div.seatCharts-container {
 	border-right: 1px dotted #adadad;
 	width: 100%;
-	height:420px;
+	height:350px;
 	padding: 0px;
 	float: left;
-	overflow:scroll;
-
+	overflow-y: auto;
+	overflow-x: hidden;
 }
 
 .booking-details {
@@ -56,7 +56,7 @@ div.seatCharts-seat {
 
 div.seatCharts-row {
 	height: 35px;
-	width: 2000px;
+	width: 1600px;
 }
 
 div.seatCharts-seat.available {
@@ -115,8 +115,6 @@ span.seatCharts-legendDescription {
 
 #selected-seats {
 	max-height: 15px;
-	overflow-y: auto;
-	overflow-x: none;
 	width: 200px;}
 
 #selected-seats li{
