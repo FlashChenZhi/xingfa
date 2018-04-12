@@ -1,7 +1,6 @@
 D:\git_projects\xingfa_wcs\LedShow\LedShow\bin\x86\Release\LedShow.exe.config
 D:\git_projects\xingfa_wcs\LedShow\LedShow\bin\x86\Release\DatabaseMap.xml
 D:\git_projects\xingfa_wcs\LedShow\LedShow\bin\x86\Release\ClassMap.xml
-D:\git_projects\xingfa_wcs\LedShow\LedShow\bin\x86\Release\LEDSender.dll
 D:\git_projects\xingfa_wcs\LedShow\LedShow\bin\x86\Release\t.bat
 D:\git_projects\xingfa_wcs\LedShow\LedShow\bin\x86\Release\LedShow.exe
 D:\git_projects\xingfa_wcs\LedShow\LedShow\bin\x86\Release\LedShow.pdb

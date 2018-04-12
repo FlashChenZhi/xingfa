@@ -7,3 +7,4 @@ D:\projects\LedShow_Led5k\LedShow_Led5k\obj\Debug\LedShow_Led5k.Properties.Resou
 D:\projects\LedShow_Led5k\LedShow_Led5k\obj\Debug\LedShow_Led5k.csproj.GenerateResource.Cache
 D:\projects\LedShow_Led5k\LedShow_Led5k\obj\Debug\LedShow_Led5k.exe
 D:\projects\LedShow_Led5k\LedShow_Led5k\obj\Debug\LedShow_Led5k.pdb
+D:\git_projects\xingfa_wcs\LedShow_Led5k\LedShow_Led5k\obj\Debug\LedShow_Led5k.exe

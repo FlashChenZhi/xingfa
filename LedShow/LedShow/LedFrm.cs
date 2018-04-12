@@ -106,6 +106,7 @@ namespace LedShow
         private void LedFrm_FormClosing(object sender, FormClosingEventArgs e)
         {
             led.Clear();
+            led.release();
         }
     }
 
