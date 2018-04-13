@@ -84,6 +84,7 @@ let OutputArea = React.createClass({
                 endDate:values.endDate},
             success: function (json) {
                 if(json.success){
+                    console.log(json.res);
                     for(var i =0;i<json.res.length;i++){
                         json.res[i].rowIndex = i+1;
                         json.res[i].dateTime=new Date(json.res[i].dateTime).format("yyyy-MM-dd HH:mm:ss");
@@ -120,16 +121,13 @@ let OutputArea = React.createClass({
             title: '货品名称',
             dataIndex: 'skuName',
         }, {
-            title: '单据数量',
-            dataIndex: 'qty',
+            title: '托盘数量',
+            dataIndex: 'num',
         }, {
-            title: '实际操作数量',
-            dataIndex: 'qty2',
-        },{
             title: '类型',
             dataIndex: 'type',
         }, {
-            title: '最近入库时间',
+            title: '最近操作时间',
             dataIndex: 'dateTime',
         }];
 

@@ -79,51 +79,51 @@ public class FindOutOrInWarehouseService {
         try {
             Transaction.begin();
             Session session = HibernateUtil.getCurrentSession();
-            StringBuffer sb1 = new StringBuffer("select * from (select a.id as id,a.skuCode as skuCode,a.skuName as skuName,a.qty as qty,a.qty as qty2," +
-                    "a.STORE_DATE+' '+a.STORE_TIME as dateTime,'入库' as type from xingfa.INVENTORY a where 1=1  ");
-            StringBuffer sb2 = new StringBuffer("select count(*) from xingfa.INVENTORY  a where  1=1 ");
-            StringBuffer sb3 = new StringBuffer("select count(*) from xingfa.RETRIEVAL_ORDER_LINE b  where  b.dingdanshuliang <= b.wanchengdingdanshuliang ");
-            sb1 = getSqlAfter(sb1, productId, beginDate, endDate);
-            sb2 = getSqlAfter(sb2, productId, beginDate, endDate);
 
-            sb1.append(" union all");
-            sb1.append(" select b.rid as id,b.shangpindaima as skuCode,b.shangpinmingcheng as skuName," +
-                    "b.dingdanshuliang as qty,b.wanchengdingdanshuliang as qty2,  b.chuangjianshijian as dateTime," +
-                    "'出库' as type from xingfa.RETRIEVAL_ORDER_LINE b where b.dingdanshuliang <= b.wanchengdingdanshuliang  ");
-            sb1 = getSql2After(sb1, productId, beginDate, endDate);
-            sb3 = getSql2After(sb3, productId, beginDate, endDate);
-            sb1.append(" ) c order by c.dateTime desc ");
-            Query query1 = session.createSQLQuery( sb1.toString()).setResultTransformer(Transformers.ALIAS_TO_ENTITY_MAP);
-            Query query2 = session.createSQLQuery(sb2.toString());
-            Query query3 = session.createSQLQuery(sb3.toString());
-            query1.setFirstResult(startIndex);
-            query1.setMaxResults(defaultPageSize);
-
-
+            StringBuffer sb = new StringBuffer("select a.id as id,a.skuCode as skuCode, " +
+                    "a.skuName as skuName,a.num as num,a.dateTime as dateTime,a.type as type " +
+                    "from (select max(b.id) as id,b.skuCode as skuCode, " +
+                    "b.skuName as skuName,count(*) as num, max(b.createDate) as dateTime," +
+                    "case type when '01' then '入库' else '出库' end  as type from xingfa.JOBLOG b where 1=1 ");
+            StringBuffer sb1 = new StringBuffer("select count(*) from (select b.skuCode from xingfa.JOBLOG b where  1=1 ");
             if(StringUtils.isNotBlank(productId)){
-                query1.setString("skuCode",productId);
-                query1.setString("skuCode2",productId);
-                query2.setString("skuCode",productId);
-                query3.setString("skuCode2",productId);
+                sb.append("and b.skuCode =:productId ");
+                sb1.append("and b.skuCode =:productId ");
             }
             if (StringUtils.isNotBlank(beginDate)) {
-                query1.setString("beginDate",beginDate);
-                query1.setString("beginDate2",beginDate);
-                query2.setString("beginDate",beginDate);
-                query3.setString("beginDate2",beginDate);
+                sb.append("and b.createDate >= :beginDate ");
+                sb1.append("and b.createDate >= :beginDate ");
             }
             if (StringUtils.isNotBlank(endDate)) {
-                query1.setString("endDate",endDate);
-                query1.setString("endDate2",endDate);
-                query2.setString("endDate",endDate);
-                query3.setString("endDate2",endDate);
+                sb.append("and b.createDate <= :endDate ");
+                sb1.append("and b.createDate <= :endDate ");
             }
-            List<Map<String,Object>> jobList = query1.list();
-            int count = (int)query2.uniqueResult();
-            int count2 = (int)query3.uniqueResult();
+            sb.append(" group by skuCode,skuName,type ) a  order by a.dateTime desc ");
+            sb1.append("group by skuCode,skuName,type)a ");
+            Query query = session.createSQLQuery(sb.toString()).setResultTransformer(Transformers.ALIAS_TO_ENTITY_MAP);
+            Query query1 = session.createSQLQuery(sb1.toString());
+
+            query.setFirstResult(startIndex);
+            query.setMaxResults(defaultPageSize);
+
+            if(StringUtils.isNotBlank(productId)){
+                query.setString("productId",productId);
+                query1.setString("productId",productId);
+            }
+            if (StringUtils.isNotBlank(beginDate)) {
+                query.setString("beginDate",beginDate);
+                query1.setString("beginDate",beginDate);
+            }
+            if (StringUtils.isNotBlank(endDate)) {
+                query.setString("endDate",endDate);
+                query1.setString("endDate",endDate);
+            }
+            List<Map<String,Object>> jobList = query.list();
+            int count = (int)query1.uniqueResult();
+
             returnObj.setSuccess(true);
             returnObj.setRes(jobList);
-            returnObj.setCount(count+count2);
+            returnObj.setCount(count);
             Transaction.commit();
         } catch (JDBCConnectionException ex) {
             returnObj.setSuccess(false);
@@ -135,31 +135,6 @@ public class FindOutOrInWarehouseService {
             returnObj.setMsg(LogMessage.UNEXPECTED_ERROR.getName());
         }
         return returnObj;
-    }
-
-    public StringBuffer getSqlAfter(StringBuffer sql,String productId, String beginDate, String endDate){
-        if(StringUtils.isNotBlank(productId)){
-            sql.append(" and a.skuCode = :skuCode ");
-        }
-        if (StringUtils.isNotBlank(beginDate)) {
-            sql.append(" and a.STORE_DATE+' '+a.STORE_TIME >= :beginDate ");
-        }
-        if (StringUtils.isNotBlank(endDate)) {
-            sql.append(" and a.STORE_DATE+' '+a.STORE_TIME <= :endDate ");
-        }
-        return sql;
-    }
-    public StringBuffer getSql2After(StringBuffer sql,String productId, String beginDate, String endDate){
-        if(StringUtils.isNotBlank(productId)){
-            sql.append(" and b.shangpindaima = :skuCode2 ");
-        }
-        if (StringUtils.isNotBlank(beginDate)) {
-            sql.append(" and b.chuangjianshijian >= :beginDate2 ");
-        }
-        if (StringUtils.isNotBlank(endDate)) {
-            sql.append(" and b.chuangjianshijian <= :endDate2 ");
-        }
-        return sql;
     }
 
 }
