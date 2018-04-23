@@ -271,11 +271,12 @@ public class Job {
         jobLog.setMckey(this.getMcKey());
         jobLog.setFromStation(this.getFromStation());
         jobLog.setToStation(this.getToStation());
-        for(JobDetail jd : this._jobDetails){
+        for(JobDetail jd : getJobDetails()){
             jobLog.setSkuCode(jd.getInventory().getSkuCode());
             jobLog.setSkuName(jd.getInventory().getSkuName());
             jobLog.setQty(jd.getInventory().getQty());
         }
+
 
         HibernateUtil.getCurrentSession().save(jobLog);
     }

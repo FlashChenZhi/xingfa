@@ -426,9 +426,10 @@
 			
 			fn.append($row);
 		});
-	
+		var i = 0;
 		//if there're any legend items to be rendered
 		settings.legend.items.length ? (function(legend) {
+
 			//either use user-defined container or create our own and insert it right after the seat chart div
 			var $container = (legend.node || $('<div></div>').insertAfter(fn))
 				.addClass('seatCharts-legend');
@@ -445,7 +446,7 @@
 							$('<div></div>')
 								//merge user defined classes with our standard ones
 								.addClass(['seatCharts-seat', 'seatCharts-cell', item[1]].concat(
-									settings.classes, 
+									settings.classes,
 									typeof settings.seats[item[0]] == "undefined" ? [] : settings.seats[item[0]].classes).join(' ')
 								)
 						)

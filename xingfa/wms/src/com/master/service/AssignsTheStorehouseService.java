@@ -38,7 +38,6 @@ public class AssignsTheStorehouseService {
      */
     public ReturnObj<Map<String, Object>> getStorageLocationData(String productId,String tier){
         ReturnObj<Map<String, Object>> s = new ReturnObj();
-        System.out.println("进入获取指定出库初始化代码方法！");
         try {
             Transaction.begin();
             Session session = HibernateUtil.getCurrentSession();
@@ -95,15 +94,21 @@ public class AssignsTheStorehouseService {
                 query3.setString("skucode", productId);
             }
             query3.setString("level", tier);
-            //查询已经有任务的货位
+            //查询已经有出库任务的货位
             Query query4 = session.createQuery("select convert(varchar,c.location.bank)+'_'+convert(varchar,c.location.bay) as coordinate from Container c where " +
-                    " c.reserved = true and c.location.level = :level ");
+                    " c.location.level = :level and c.reserved = true  ");
             query4.setString("level", tier);
+
+            //查询已经有入库任务的货位
+            Query query5 = session.createQuery("select convert(varchar,l.bank)+'_'+convert(varchar,l.bay) as coordinate from Location l where " +
+                    " l.level = :level and l.reserved = true  ");
+            query5.setString("level", tier);
 
             map.put("map", LocationList); //总货位
             map.put("emptyList", query2.list()); //空货位
             map.put("availableList", query3.list()); //可被选择的货位
             map.put("reservedOutList", query4.list()); //已经有任务的货位
+            map.put("reservedInList", query5.list()); //已经有任务的货位
             map.put("unavailableList", list);
             s.setRes(map);
             s.setSuccess(true);
@@ -129,13 +134,14 @@ public class AssignsTheStorehouseService {
      */
     public ReturnObj<Map<String, Object>> getLocationInfo(String bank,String bay,String level){
         ReturnObj<Map<String, Object>> s = new ReturnObj();
-        System.out.println("进入查询货位信息方法！");
         try {
             Transaction.begin();
             Session session = HibernateUtil.getCurrentSession();
             //查询货位
             Query query = session.createQuery("select i.skuCode as skuCode,i.skuName as skuName, " +
-                    "i.lotNum as lotNum,i.qty as qty from Inventory i where i.container.location.bank " +
+                    "i.lotNum as lotNum,i.qty as qty,i.container.barcode as barcode, " +
+                    "i.container.location.bank as bank,i.container.location.bay as bay, " +
+                    "i.container.location.level as level from Inventory i where i.container.location.bank " +
                     "= :bank and i.container.location.bay = :bay and i.container.location.level = :level").setResultTransformer(Transformers.ALIAS_TO_ENTITY_MAP);
             query.setInteger("bank", Integer.parseInt(bank));
             query.setInteger("bay", Integer.parseInt(bay));
@@ -176,7 +182,6 @@ public class AssignsTheStorehouseService {
      */
     public ReturnObj<Map<String, Object>> getNextAvailableLocation(String bank,String bay,String level){
         ReturnObj<Map<String, Object>> s = new ReturnObj();
-        System.out.println("进入查询下一个可选货位信息方法！");
         try {
             Transaction.begin();
             Session session = HibernateUtil.getCurrentSession();
@@ -224,7 +229,6 @@ public class AssignsTheStorehouseService {
      */
     public ReturnObj<Map<String, Object>> getAgoUnavailableLocation(String bank,String bay,String level){
         ReturnObj<Map<String, Object>> s = new ReturnObj();
-        System.out.println("进入获取里面的货位代码方法！");
         try {
             Transaction.begin();
             Session session = HibernateUtil.getCurrentSession();
@@ -272,7 +276,6 @@ public class AssignsTheStorehouseService {
     public ReturnObj<Map<String, Object>> assignsTheStorehouse(String selectLocation){
 
         ReturnObj<Map<String, Object>> s = new ReturnObj();
-        System.out.println("进入设定出库任务方法！");
         JSONArray jsonArray = JSONArray.fromObject(selectLocation);
         List<String> list = (List<String>) JSONArray.toCollection(jsonArray,String.class);
         try {
@@ -282,20 +285,13 @@ public class AssignsTheStorehouseService {
             String location="";
             for(int i =0;i<list.size();i++){
                 location = list.get(i);
-                //按照Location中的reserved判断
-                Query query = session.createQuery("select l.locationNo from Location l where " +
-                        "l.bay =(select bay from Location where locationNo=:locationNo) and " +
-                        "l.position = (select position from Location where locationNo=:locationNo) and " +
-                        "l.actualArea = (select actualArea from Location where locationNo=:locationNo) and " +
-                        "l.actualArea = (select actualArea from Location where locationNo=:locationNo) and " +
-                        "l.level = (select level from Location where locationNo=:locationNo) and " +
-                        "exists(select 1 from Location a where a.bay=l.bay and a.position = l.position " +
-                        "and a.actualArea = l.actualArea and a.level=l.level and a.seq2<l.seq2 and a.reserved=true ) ");
+                //按照Container中的reserved判断
+                Query query = session.createQuery(" from Container c where reserved = false and c.location.locationNo=:locationNo");
 
                 query.setString("locationNo", location);
-                List<String> list2 = query.list();
+                Container container =(Container) query.uniqueResult();
 
-                if(list2.size()==0){
+                if(container!=null){
                     outKu(session,location);
                 }else{
                     flag=false;

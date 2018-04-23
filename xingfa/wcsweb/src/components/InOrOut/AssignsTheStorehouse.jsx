@@ -31,6 +31,7 @@ let OutputArea = React.createClass({
             map:[],
             availableList:[],
             reservedOutList:[],
+            reservedInList:[],
             emptyList:[],
             tabKey:1,
             PopoverModelVisible:false,
@@ -39,6 +40,7 @@ let OutputArea = React.createClass({
             skuName:"",
             skuCode:"",
             lotNum:"",
+            barcode:"",
             qty:"",
             selectLocation:[],
             cancelLocation:[],
@@ -87,6 +89,8 @@ let OutputArea = React.createClass({
                         availableList: json.res.availableList,
                         emptyList: json.res.emptyList,
                         reservedOutList:json.res.reservedOutList,
+                        reservedInList:json.res.reservedInList,
+                        selectLocation:[],
                     })
                     console.log(this.state.map);
                     $(".legend").hide();
@@ -107,6 +111,7 @@ let OutputArea = React.createClass({
                     sc.get(json.res.availableList).status('available');
                     sc.get(json.res.reservedOutList).status('reservedOut');
                     sc.get(json.res.emptyList).status('empty');
+                    sc.get(json.res.reservedInList).status('reservedIn');
                 }else{
                     message.error("初始化库位代码失败！");
                 }
@@ -146,10 +151,11 @@ let OutputArea = React.createClass({
                 node : $(legendId),
                 items : [
                     [ 'a', 'available', '可选货位' ],
-                    [ 'a', 'unavailable', '不可选'],
-                    [ 'a', 'reservedOut', '已有任务'],
+                    [ 'a', 'unavailable', '不可选货位'],
+                    [ 'a', 'reservedOut', '已有出库任务'],
+                    [ 'a', 'reservedIn', '已有入库任务'],
                     [ 'a', 'empty', '空货位'],
-                    [ 'a', 'selected', '已选择']
+                    [ 'a', 'selected', '已选择货位']
                 ]
             },
             click: function () { //点击事件
@@ -281,7 +287,17 @@ let OutputArea = React.createClass({
                         lotNum:json.res.lotNum,
                         qty:json.res.qty,
                         msg:json.res.msg,
-                    })
+                        barcode:json.res.barcode,
+                    });
+                    if(json.res.bank!=null){
+                        this.setState({
+                            locationInfo:json.res.bank+'排'+json.res.bay+'列'+json.res.level+'层',
+                        })
+                    }else{
+                        this.setState({
+                            locationInfo:"",
+                        })
+                    }
                 }else{
                     message.error("初始化库位代码失败！");
                 }
@@ -390,6 +406,8 @@ let OutputArea = React.createClass({
                             </FormItem>
 
                         </Col>
+
+
                         <Col lg={15}>
                             <br/><br/><br/>
                             <div id="legend1" className={'legend'}></div>
@@ -398,11 +416,18 @@ let OutputArea = React.createClass({
                             <div id="legend4" className={'legend'}></div>
 
                         </Col>
-                        <Col lg={15}>
-                            <div id="Info1" style={{paddingLeft:"50px",fontWeight: "bold"}}>
+                        <Col lg={3}>
+                            <div id="Info1" style={{paddingLeft:"30px",fontWeight: "bold"}}>
                                 <span >货位状态：</span>{this.state.msg}<br/>
+                                <span >位置信息：</span>{this.state.locationInfo}<br/>
+                                <span>商品数量：</span>{this.state.qty}
+
+                            </div>
+                        </Col>
+                        <Col lg={10}>
+                            <div id="Info1" style={{paddingLeft:"10px",fontWeight: "bold"}}>
                                 <span >商品名称：</span>{this.state.skuName}<br/>
-                                <span>商品数量：</span>{this.state.qty}<br/>
+                                <span >托盘号码：</span>{this.state.barcode}<br/>
                                 <span >商品批次：</span>{this.state.lotNum}
                             </div>
                         </Col>

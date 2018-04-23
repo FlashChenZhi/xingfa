@@ -81,6 +81,10 @@ div.seatCharts-seat.empty {
 	background-color: #B9DEA0;
 	cursor: not-allowed;
 }
+div.seatCharts-seat.reservedIn {
+	background-color: #de318d;
+	cursor: not-allowed;
+}
 
 
 
@@ -88,14 +92,15 @@ div.seatCharts-seat.empty {
 div.seatCharts-legend {
 	padding-left: 0px;
 	position: absolute;
-	bottom: 16px;}
+	bottom: 16px;
+}
 
 ul.seatCharts-legendList {
 	padding-left: 0px;}
 
 .seatCharts-legendItem{
 	float:left;
-	width:90px;
+	width:110px;
 	margin-top: 10px;
 	line-height: 2;}
 

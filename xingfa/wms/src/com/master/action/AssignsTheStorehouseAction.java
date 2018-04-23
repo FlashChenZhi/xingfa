@@ -49,7 +49,7 @@ public class AssignsTheStorehouseAction {
     @RequestMapping(value = "/getLocationInfo",method = RequestMethod.POST)
     @ResponseBody
     public ReturnObj<Map<String, Object>> getLocationInfo(String bank,String bay,String level){
-        System.out.println(bank+" "+bay+" "+level);
+
         return assignsTheStorehouseService.getLocationInfo(bank,bay,level);
     }
     /*
@@ -64,7 +64,7 @@ public class AssignsTheStorehouseAction {
     @RequestMapping(value = "/getNextAvailableLocation",method = RequestMethod.POST)
     @ResponseBody
     public ReturnObj<Map<String, Object>> getNextAvailableLocation(String bank,String bay,String level){
-        System.out.println(bank+" "+bay+" "+level);
+
         return assignsTheStorehouseService.getNextAvailableLocation(bank,bay,level);
     }
     /*
@@ -79,7 +79,7 @@ public class AssignsTheStorehouseAction {
     @RequestMapping(value = "/getAgoUnavailableLocation",method = RequestMethod.POST)
     @ResponseBody
     public ReturnObj<Map<String, Object>> getAgoUnavailableLocation(String bank,String bay,String level){
-        System.out.println(bank+" "+bay+" "+level);
+
         return assignsTheStorehouseService.getAgoUnavailableLocation(bank,bay,level);
     }
 

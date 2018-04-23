@@ -80,7 +80,7 @@ public class MovementReport extends XMLProcess {
         Session session = HibernateUtil.getCurrentSession();
         String mcKey = controlArea.getRefId().getReferenceId();
         Job j = Job.getByMcKey(mcKey);
-        if(j == null){
+        if (j == null) {
             return;
         }
         if (dataArea.getReasonCode().equals(ReasonCode.PUTAWAYFINISHED)) {
@@ -91,9 +91,7 @@ public class MovementReport extends XMLProcess {
 
             Container container = null;
 
-            Query query = HibernateUtil.getCurrentSession().createQuery("from InventoryView where palletCode=:palletNo");
-            query.setParameter("palletNo", j.getContainer());
-            List<InventoryView> views = query.list();
+            InventoryView view = InventoryView.getByPalletNo(j.getContainer());
 
 
             container = Container.getByBarcode(j.getContainer());
@@ -110,30 +108,30 @@ public class MovementReport extends XMLProcess {
             InventoryLog inventoryLog = new InventoryLog();
             inventoryLog.setQty(BigDecimal.ZERO);
             inventoryLog.setType(InventoryLog.TYPE_IN);
-            for (InventoryView view : views) {
-                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-                SimpleDateFormat sdf2 = new SimpleDateFormat("HH:mm:ss");
-                if (view != null) {
-                    Inventory inventory = new Inventory();
-                    inventory.setWhCode(view.getWhCode());
-                    inventory.setSkuName(view.getSkuName());
-                    inventory.setLotNum(view.getLotNum());
-                    inventory.setQty(view.getQty());
-                    inventory.setSkuCode(view.getSkuCode());
-                    inventory.setContainer(container);
-                    inventory.setStoreDate(sdf.format(new Date()));
-                    inventory.setStoreTime(sdf2.format(new Date()));
-                    HibernateUtil.getCurrentSession().save(inventory);
-                    inventoryLog.setQty(inventoryLog.getQty().add(inventory.getQty()));
-                    inventoryLog.setSkuCode(inventory.getSkuCode());
-                    inventoryLog.setWhCode(inventory.getWhCode());
-                    inventoryLog.setToLocation(container.getLocation().getLocationNo());
-                    inventoryLog.setLotNum(inventory.getLotNum());
-                    inventoryLog.setSkuName(inventory.getSkuName());
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+            SimpleDateFormat sdf2 = new SimpleDateFormat("HH:mm:ss");
+            if (view != null) {
+                Inventory inventory = new Inventory();
+                inventory.setWhCode(view.getWhCode());
+                inventory.setSkuName(view.getSkuName());
+                inventory.setLotNum(view.getLotNum());
+                inventory.setQty(view.getQty());
+                inventory.setSkuCode(view.getSkuCode());
+                inventory.setContainer(container);
+                inventory.setStoreDate(sdf.format(new Date()));
+                inventory.setStoreTime(sdf2.format(new Date()));
 
-                    session.delete(view);
-                }
+                j.getJobDetails().iterator().next().setInventory(inventory);
 
+                HibernateUtil.getCurrentSession().save(inventory);
+                inventoryLog.setQty(inventoryLog.getQty().add(inventory.getQty()));
+                inventoryLog.setSkuCode(inventory.getSkuCode());
+                inventoryLog.setWhCode(inventory.getWhCode());
+                inventoryLog.setToLocation(container.getLocation().getLocationNo());
+                inventoryLog.setLotNum(inventory.getLotNum());
+                inventoryLog.setSkuName(inventory.getSkuName());
+
+                session.delete(view);
             }
             inventoryLog.setContainer(container.getBarcode());
             inventoryLog.setCreateDate(new Date());
@@ -148,7 +146,7 @@ public class MovementReport extends XMLProcess {
             Location location = j.getFromLocation();
             location.setEmpty(true);
             location.setRetrievalRestricted(false);
-            for(Container container : location.getContainers()){
+            for (Container container : location.getContainers()) {
                 session.delete(container);
             }
             session.update(location);

@@ -35,7 +35,6 @@ public class FindOutOrInWarehouseService {
      */
     public ReturnObj<List<Map<String, String>>> getSkuCode(){
         ReturnObj<List<Map<String, String>>> s = new ReturnObj();
-        System.out.println("进入获取Sku代码方法！");
         try {
             Transaction.begin();
             Session session = HibernateUtil.getCurrentSession();
