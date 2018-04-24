@@ -124,6 +124,9 @@ let OutputArea = React.createClass({
             title: '托盘数量',
             dataIndex: 'num',
         }, {
+            title: '货品数量',
+            dataIndex: 'qty',
+        }, {
             title: '类型',
             dataIndex: 'type',
         }, {

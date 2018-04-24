@@ -86,7 +86,7 @@ public class AssignsTheStorehouseAction {
     /*
      * @author：ed_chen
      * @date：2018/4/10 19:26
-     * @description：获取里面的货位代码
+     * @description：设定出库任务
      * @param bank
      * @param bay
      * @param level

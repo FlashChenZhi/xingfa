@@ -79,10 +79,10 @@ public class FindOutOrInWarehouseService {
             Transaction.begin();
             Session session = HibernateUtil.getCurrentSession();
 
-            StringBuffer sb = new StringBuffer("select a.id as id,a.skuCode as skuCode, " +
+            StringBuffer sb = new StringBuffer("select a.id as id,a.skuCode as skuCode,a.qty as qty, " +
                     "a.skuName as skuName,a.num as num,a.dateTime as dateTime,a.type as type " +
                     "from (select max(b.id) as id,b.skuCode as skuCode, " +
-                    "b.skuName as skuName,count(*) as num, max(b.createDate) as dateTime," +
+                    "b.skuName as skuName,count(*) as num,sum(qty) as qty, max(b.createDate) as dateTime," +
                     "case type when '01' then '入库' else '出库' end  as type from xingfa.JOBLOG b where 1=1 ");
             StringBuffer sb1 = new StringBuffer("select count(*) from (select b.skuCode from xingfa.JOBLOG b where  1=1 ");
             if(StringUtils.isNotBlank(productId)){
