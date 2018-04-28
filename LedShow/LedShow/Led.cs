@@ -81,6 +81,16 @@ namespace LedShow
                 ledProgarm.m_arealist.Add(area);
             }
 
+            ledProgarm.AreaNum = Convert.ToByte(ledProgarm.m_arealist.Count);
+            ledProgarm.overwrite = true;
+            ledProgarm.name = "LED";
+            ledProgarm.ProgramWeek = 1;
+            ledProgarm.IsPlayOnTime = false;
+            ledProgarm.IsValidAlways = true;
+            ledProgarm.DisplayType = 0;
+            ledProgarm.PlayTimes = Convert.ToByte(1);
+
+
             int error = ledProgarm.SendProgram(hwnd);
 
             if (error != 0)
@@ -152,7 +162,7 @@ namespace LedShow
             DisplayMode_list[3] = 0x04;
             DisplayMode_list[4] = 0x05;
             DisplayMode_list[5] = 0x06;
-            int dml = 2;
+            int dml = 0;
             bx_5k.DisplayMode = DisplayMode_list[dml];
 
             bx_5k.DynamicAreaLoc = 0xff;

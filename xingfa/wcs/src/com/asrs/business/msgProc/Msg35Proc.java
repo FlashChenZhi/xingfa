@@ -247,6 +247,7 @@ public class Msg35Proc implements MsgProcess {
 
                             }
                         } else if (block instanceof StationBlock) {
+                            StationBlock stationBlock = (StationBlock) block;
                             if (message35.isMoveCarryGoods()) {
                                 block.setMcKey(message35.McKey);
                                 retrievalFinish(aj);

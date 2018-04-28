@@ -153,7 +153,22 @@ public class MovementReport extends XMLProcess {
             j.setStatus(AsrsJobStatus.DONE);
 //            OutMessage.info(j.getToStation(), j.getOrderNo(), j.getContainer());
 
+            String message1 = j.getContainer();
+            String message2 = "";
+            String message3 = "";
+            String message4 = "";
+            if(j.getJobDetails().iterator().hasNext()){
+                JobDetail jd = j.getJobDetails().iterator().next();
+                Inventory inventory = jd.getInventory();
+                if(inventory != null){
+                    message2 = inventory.getSkuName();
+                    message3 = inventory.getLotNum();
+                }
+                message4 = String.valueOf(jd.getQty());
+            }
 
+
+            LedMessage.show(j.getToStation(),message1,message2,message3,message4,j.getMcKey());
             //// TODO: 放在后台
 //                WebService.finishOrder(j);
         } else if (dataArea.getReasonCode().equals(ReasonCode.SLOCATIONTOLOCATION)) {
