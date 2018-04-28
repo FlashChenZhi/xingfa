@@ -31,7 +31,7 @@ export default class IndexMain extends React.Component {
                         </div>
                     </div>
                     <div className="ant-layout-footer">
-                        上海沃鸽软件有限公司
+                        世仓智能仓储设备（上海）股份有限公司
                     </div>
                 </div>
             </div>
