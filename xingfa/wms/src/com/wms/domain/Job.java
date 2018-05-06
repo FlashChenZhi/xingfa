@@ -275,6 +275,7 @@ public class Job {
             jobLog.setSkuCode(jd.getInventory().getSkuCode());
             jobLog.setSkuName(jd.getInventory().getSkuName());
             jobLog.setQty(jd.getInventory().getQty());
+            jobLog.setLotNum(jd.getInventory().getLotNum());
         }
 
 

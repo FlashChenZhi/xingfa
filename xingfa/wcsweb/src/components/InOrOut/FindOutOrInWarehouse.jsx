@@ -1,4 +1,4 @@
-import {Button,Modal, Form, Input, Table, Badge, DatePicker, Select, message, Row, Col} from 'antd';
+import {Button,Modal,Icon , Form, Input, Table, Badge, DatePicker, Select, message, Row, Col} from 'antd';
 import React from 'react';
 const FormItem = Form.Item;
 import reqwest from 'reqwest';
@@ -104,6 +104,38 @@ let OutputArea = React.createClass({
         e.preventDefault();
         this.getData(1);
     },
+    handleSubmitstatement(e) {
+        const values = this.props.form.getFieldsValue();
+        if (values.createDate) {
+            values.beginDate = values.createDate[0].format('yyyy-MM-dd HH:mm:ss');
+            values.endDate = values.createDate[1].format('yyyy-MM-dd HH:mm:ss');
+        } else {
+            values.beginDate = "";
+            values.endDate = "";
+        }
+        window.open('/wms/master/FindOutOrInWarehouseAction/exportReport?beginDate='+values.beginDate+'&endDate='+values.endDate);
+        //location.href='/wms/master/FindOutOrInWarehouseAction/exportReport?beginDate='+values.beginDate+'&endDate='+values.endDate;
+        /*reqwest({
+            url: '/wms/master/FindOutOrInWarehouseAction/exportReport',
+            dataType: 'text',
+            method: 'post',
+            data: {beginDate:values.beginDate,endDate:},
+
+            success: function (json) {
+                console.log("11"+json.msg);
+                if(json.success){
+                    message.success("导出报表成功！");
+
+                }else{
+                    message.error("导出报表失败！");
+                }
+            }.bind(this),
+            error: function (err) {
+                reqwestError(err);
+                message.error("系统错误！");
+            }.bind(this)
+        });*/
+    },
     pageChange(noop){
         this.setState({
             current:noop,
@@ -182,6 +214,9 @@ let OutputArea = React.createClass({
                                 <Button type="primary" onClick={this.handleSubmit}>查询</Button>
                                 &nbsp;&nbsp;&nbsp;
                                 <Button type="ghost" onClick={this.handleReset}>重置</Button>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                <a onClick={this.handleSubmitstatement}>  </a>
+                                <Button type="ghost"  onClick={this.handleSubmitstatement}><Icon type="download" />导出报表</Button>
                             </FormItem>
                         </Col>
                     </Row>

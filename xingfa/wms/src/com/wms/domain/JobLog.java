@@ -32,7 +32,7 @@ public class JobLog {
     private String skuCode;
     private String skuName;
     private BigDecimal _qty;
-
+    private String lotNum;
 
 
     public static final String COL_ID = "id";
@@ -47,6 +47,16 @@ public class JobLog {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    @Basic
+    @Column(name = "LOT_NUM")
+    public String getLotNum() {
+        return lotNum;
+    }
+
+    public void setLotNum(String lotNum) {
+        this.lotNum = lotNum;
     }
 
     @Basic

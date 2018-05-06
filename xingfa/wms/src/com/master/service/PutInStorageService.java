@@ -76,6 +76,12 @@ public class PutInStorageService {
 
     public BaseReturnObj addTask(String tuopanhao, String zhantai, String commodityCode,String lotNo, int num) {
         BaseReturnObj returnObj = new BaseReturnObj();
+        if(tuopanhao.length()!=10){
+            returnObj.setSuccess(false);
+            returnObj.setMsg("托盘号不正确!");
+            Transaction.rollback();
+            return returnObj;
+        }
         try {
             Transaction.begin();
             Session session = HibernateUtil.getCurrentSession();
