@@ -9,6 +9,7 @@ import jxl.CellView;
 import jxl.Workbook;
 import jxl.write.*;
 import jxl.write.biff.RowsExceededException;
+import org.aopalliance.intercept.Invocation;
 import org.apache.commons.lang3.StringUtils;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -17,11 +18,10 @@ import org.hibernate.transform.Transformers;
 import org.junit.Test;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.OutputStream;
+import java.io.*;
+import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -151,7 +151,7 @@ public class FindOutOrInWarehouseService {
      * @param endDate
      * @return：com.util.common.PagerReturnObj<java.util.List<java.util.Map<java.lang.String,java.lang.Object>>>
      */
-    public void exportReport(String beginDate, String endDate,HttpServletResponse response){
+    public void exportReport(String beginDate, String endDate,HttpServletResponse response,HttpServletRequest request){
 
         OutputStream ouputStream = null;
         try {
@@ -159,8 +159,29 @@ public class FindOutOrInWarehouseService {
             Session session = HibernateUtil.getCurrentSession();
 
             String fileName="库存汇总表";
+
+            String filename1 = "库存汇总表";
+            String userAgent = request.getHeader("User-Agent");
+            //针对IE或者以IE为内核的浏览器：
+            if (userAgent.contains("MSIE")||userAgent.contains("Trident")) {
+                try {
+                    filename1 = URLEncoder.encode(filename1, "UTF-8");
+                } catch (UnsupportedEncodingException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
+            } else {
+                //非IE浏览器的处理：
+                try {
+                    filename1 = new String(filename1.getBytes("UTF-8"),"ISO-8859-1");
+                } catch (UnsupportedEncodingException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
+            }
+
             response.setContentType("application/msexcel;charset=UTF-8");
-            response.setHeader("Content-disposition", "attachment;filename="+new String(fileName.getBytes("UTF-8"),"ISO-8859-1")+".xls");
+            response.setHeader("Content-disposition", "attachment;filename="+ filename1+".xls");
             response.setHeader("Content-Type", "application/force-download");
             Date currentTime = new Date();
             ouputStream = response.getOutputStream();

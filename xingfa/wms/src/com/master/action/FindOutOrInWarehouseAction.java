@@ -6,12 +6,14 @@ import com.util.common.ReturnObj;
 import jxl.Workbook;
 import jxl.write.*;
 import jxl.write.biff.RowsExceededException;
+import org.aopalliance.intercept.Invocation;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.IOException;
@@ -72,11 +74,11 @@ public class FindOutOrInWarehouseAction {
      * @return：com.util.common.PagerReturnObj<java.util.List<java.util.Map<java.lang.String,java.lang.Object>>>
      */
     @RequestMapping(value = "/exportReport",method = RequestMethod.GET)
-    public void exportReport( String beginDate, String endDate,HttpServletResponse response){
+    public void exportReport( String beginDate, String endDate,HttpServletResponse response,HttpServletRequest request){
 
 
 
-        findOutOrInWarehouseService.exportReport(beginDate, endDate,response);
+        findOutOrInWarehouseService.exportReport(beginDate, endDate,response,request);
     }
 
 
