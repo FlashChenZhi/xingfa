@@ -44,11 +44,16 @@ let OutputArea = React.createClass({
             qty:"",
             selectLocation:[],
             cancelLocation:[],
+            fromLocation:[],
+            toLocation:[],
+            fromLocationNos:[],
+            toLocationNos:[],
+            selectStatus:1,
         };
     },
     componentDidMount(){
         this.getCommodityCode();
-        this.getStorageLocationData(1);
+        this.getStorageLocationData(1,1,1,"");
         this.initChart();
     },
 
@@ -73,14 +78,16 @@ let OutputArea = React.createClass({
             }.bind(this)
         })
     },
-    getStorageLocationData(level){
+    getStorageLocationData(level,status,selectStatus,fromLocationNo){
         const values = this.props.form.getFieldsValue();
-        console.log(values);
+        console.log("selectStatus:"+selectStatus);
+        console.log("fromLocationNo:"+fromLocationNo);
+
         reqwest({
-            url: '/wms/master/AssignsTheStorehouseAction/getStorageLocationData',
+            url: '/wms/master/moveStorageAction/getStorageLocationData',
             dataType: 'json',
             method: 'post',
-            data: {productId:values.productId,tier:level},
+            data: {productId:values.productId,tier:level,selectStatus:selectStatus,fromLocationNo:fromLocationNo},
             success: function (json) {
                 if(json.success) {
                     console.log(json.res);
@@ -90,8 +97,13 @@ let OutputArea = React.createClass({
                         emptyList: json.res.emptyList,
                         reservedOutList:json.res.reservedOutList,
                         reservedInList:json.res.reservedInList,
-                        selectLocation:[],
-                    })
+
+                    });
+                    if(status==1){
+                        this.setState({
+                            selectLocation:[],
+                        })
+                    }
                     console.log(this.state.map);
                     $(".legend").hide();
                     if(level==1){
@@ -115,6 +127,21 @@ let OutputArea = React.createClass({
                     sc.get(json.res.unavailableList1).status('unavailable');
                     sc.get(json.res.unavailableList3).status('reservedCheck');
                     sc.get(json.res.unavailableList4).status('reservedCheck');
+                    if(this.state.selectStatus==2){
+                        sc.get(json.res.availableList).status('available');
+                    }
+                    if(this.state.fromLocationNos.length!=0){
+                        let lev =this.state.fromLocationNos[0];
+                        if(lev==this.state.tabKey){
+                            sc.get(this.state.fromLocationNos).status('fromLocation');
+                        }
+                    }
+                    if(this.state.toLocationNos.length!=0){
+                        let lev =this.state.toLocationNos[0];
+                        if(lev==this.state.tabKey) {
+                            sc.get(this.state.toLocationNos).status('toLocation')
+                        }
+                    }
                 }else{
                     message.error("初始化库位代码失败！");
                 }
@@ -132,7 +159,7 @@ let OutputArea = React.createClass({
             $total = $('#total'); //总计金额
 
 
-         sc = $(divId).seatCharts({
+        sc = $(divId).seatCharts({
             map: map,
             naming:{
                 top    : true,
@@ -160,22 +187,32 @@ let OutputArea = React.createClass({
                     [ 'a', 'empty', '空货位'],
                     [ 'a', 'selected', '已选择货位'],
                     [ 'a', 'reservedCheck', '已有抽检任务'],
+                    [ 'a', 'fromLocation', '要移货位'],
+                    [ 'a', 'toLocation', '移至货位'],
                 ]
             },
             click: function () { //点击事件
                 if (this.status() == 'available') {
-                    $('<li>'+(this.settings.row+1)+'排'+this.settings.label+'座</li>')
+                    /*$('<li>'+(this.settings.row+1)+'排'+this.settings.label+'座</li>')
                         .attr('id', 'cart-item-'+this.settings.id)
                         .data('seatId', this.settings.id)
                         .appendTo($cart);
-                    $counter.text(sc.find('selected').length+1);
-                    thisOut.outClick(this.settings);
+                    $counter.text(sc.find('selected').length+1);*/
+                    if(thisOut.state.fromLocation.length==0){
+                        thisOut.outClick(this.settings);
+                    }else{
+                        thisOut.outClickk(this.settings);
+                    }
                     return 'selected';
                 } else if (this.status() == 'selected') {
-                    thisOut.outClick(this.settings);
-                    $counter.text(sc.find('selected').length-1);
+                    if(thisOut.state.fromLocation.length==0){
+                        thisOut.outClick(this.settings);
+                    }else{
+                        thisOut.outClickk(this.settings);
+                    }
+                    /*$counter.text(sc.find('selected').length-1);
                     //删除已预订座位
-                    $('#cart-item-'+this.settings.id).remove();
+                    $('#cart-item-'+this.settings.id).remove();*/
                     //可选座
                     return 'available';
                 } else if (this.status() == 'unavailable') {
@@ -185,19 +222,19 @@ let OutputArea = React.createClass({
                 }
             },
             focus  : function() {
-                 thisOut.outFocus(this.settings);
+                thisOut.outFocus(this.settings);
 
-                 if (this.status() == 'available') {
-                     return 'focused';
-                 } else  {
-                     return this.style();
-                 }
-             },
-             blur   : function() {
-                 thisOut.outBlur(this.settings);
+                if (this.status() == 'available') {
+                    return 'focused';
+                } else  {
+                    return this.style();
+                }
+            },
+            blur   : function() {
+                thisOut.outBlur(this.settings);
 
-                 return this.status();
-             },
+                return this.status();
+            },
         });
         console.log(sc.data);
         //已售出的座位
@@ -210,17 +247,20 @@ let OutputArea = React.createClass({
         let bank = settings.row+1;
         let bay = settings.column+1;
         let level = this.state.tabKey;
-
         if(settings.status=='available'){
             reqwest({
-                url: '/wms/master/AssignsTheStorehouseAction/getNextAvailableLocation',
+                url: '/wms/master/moveStorageAction/getNextAvailableLocation',
                 dataType: 'json',
                 method: 'post',
                 data: {bank:bank,bay:bay,level:level},
                 success: function (json) {
+                    console.log("json res:"+json.res);
                     if(json.success) {
                         if(json.res.status){
-                           sc.get(json.res.location).status('available');
+                            sc.get(json.res.otherlocation).status('unavailable');
+                            sc.get(json.res.location).status('available');
+                        }else{
+                            sc.get(json.res.otherlocation).status('unavailable');
                         }
                         let locationNo = this.PrefixInteger(bank,3)+this.PrefixInteger(bay,3)+this.PrefixInteger(level,3);
                         this.state.selectLocation.push(locationNo);
@@ -234,43 +274,69 @@ let OutputArea = React.createClass({
                 }.bind(this)
             })
         }else if(settings.status=='selected'){
-            reqwest({
-                url: '/wms/master/AssignsTheStorehouseAction/getAgoUnavailableLocation',
-                dataType: 'json',
-                method: 'post',
-                data: {bank:bank,bay:bay,level:level},
-                success: function (json) {
-                    if(json.success) {
-                        if(json.res.status){
-                            sc.get(json.res.location).status('unavailable');
-                        }
-                        this.setState({
-                            cancelLocation:json.res.location,
-                        })
+            if(this.state.selectLocation.length==1){
 
-                        this.state.cancelLocation.forEach((s)=>{
-                            let locationNo = this.PrefixInteger(s.split("_")[0],3)+this.PrefixInteger(s.split("_")[1],3)+this.PrefixInteger(level,3);
+                this.getStorageLocationData(level,1,this.state.selectStatus,"");
+            }else{
+                reqwest({
+                    url: '/wms/master/moveStorageAction/getAgoUnavailableLocation',
+                    dataType: 'json',
+                    method: 'post',
+                    data: {bank:bank,bay:bay,level:level},
+                    success: function (json) {
+                        if(json.success) {
+                            if(json.res.status){
+                                sc.get(json.res.location).status('unavailable');
+                            }
+                            this.setState({
+                                cancelLocation:json.res.location,
+                            })
+
+                            this.state.cancelLocation.forEach((s)=>{
+                                let locationNo = this.PrefixInteger(s.split("_")[0],3)+this.PrefixInteger(s.split("_")[1],3)+this.PrefixInteger(level,3);
+                                let index = this.state.selectLocation.indexOf(locationNo);
+                                if(index >= 0){
+                                    this.state.selectLocation.splice(index,1);
+                                }
+                            })
+                            let locationNo = this.PrefixInteger(bank,3)+this.PrefixInteger(bay,3)+this.PrefixInteger(level,3);
                             let index = this.state.selectLocation.indexOf(locationNo);
                             if(index >= 0){
                                 this.state.selectLocation.splice(index,1);
                             }
-                        })
-                        let locationNo = this.PrefixInteger(bank,3)+this.PrefixInteger(bay,3)+this.PrefixInteger(level,3);
-                        let index = this.state.selectLocation.indexOf(locationNo);
-                        if(index >= 0){
-                            this.state.selectLocation.splice(index,1);
+                            console.log( this.state.selectLocation);
+                        }else{
+                            message.error("初始化库位代码失败！");
                         }
-                        console.log( this.state.selectLocation);
-                    }else{
+                    }.bind(this),
+                    error: function (err) {
                         message.error("初始化库位代码失败！");
-                    }
-                }.bind(this),
-                error: function (err) {
-                    message.error("初始化库位代码失败！");
-                }.bind(this)
-            })
+                    }.bind(this)
+                })
+            }
+
         }
 
+    },
+    outClickk(settings){
+        let bank = settings.row+1;
+        let bay = settings.column+1;
+        let level = this.state.tabKey;
+        if(settings.status=='available'){
+            let locationNo = this.PrefixInteger(bank,3)+this.PrefixInteger(bay,3)+this.PrefixInteger(level,3);
+            this.state.selectLocation.push(locationNo);
+            console.log(this.state.selectLocation);
+
+        }else if(settings.status=='selected'){
+            console.log( this.state.selectLocation);
+            let locationNo = this.PrefixInteger(bank,3)+this.PrefixInteger(bay,3)+this.PrefixInteger(level,3);
+            let index = this.state.selectLocation.indexOf(locationNo);
+            if(index >= 0){
+                this.state.selectLocation.splice(index,1);
+            }
+            console.log( this.state.selectLocation);
+
+        }
     },
     outFocus(settings){
         let bank = settings.row+1;
@@ -278,7 +344,7 @@ let OutputArea = React.createClass({
         let level = this.state.tabKey;
         this.setState({PopoverModelVisible: true});
         reqwest({
-            url: '/wms/master/AssignsTheStorehouseAction/getLocationInfo',
+            url: '/wms/master/moveStorageAction/getLocationInfo',
             dataType: 'json',
             method: 'post',
             data: {bank:bank,bay:bay,level:level},
@@ -319,46 +385,146 @@ let OutputArea = React.createClass({
         return ( "000" + num ).substr( -length );
     },
     handleSubmit2(e) {
-        let locationList =JSON.stringify(this.state.selectLocation);
-        reqwest({
-            url: '/wms/master/AssignsTheStorehouseAction/assignsTheStorehouse',
-            dataType: 'json',
-            method: 'post',
-            data: { selectLocation:locationList},
-            success: function (json) {
-                if(json.success) {
-                    message.success(json.msg);
-                    let level = this.state.tabKey;
-                    this.getStorageLocationData(level);
-                }else{
-                    message.error(json.msg);
-                }
-            }.bind(this),
-            error: function (err) {
-                message.error("初始化库位代码失败！");
-            }.bind(this)
-        })
+        console.log("from:"+this.state.fromLocation+",to:"+this.state.toLocation+",select:"+this.state.selectLocation);
+        if(this.state.fromLocation.length==0){
+            message.error("请先选择要移货位！");
+        }else if(this.state.toLocation.length==0){
+            message.error("请先选择到达货位！");
+        }else if(this.state.fromLocation.length!=this.state.toLocation.length){
+            message.error("已选到达货位和已选要移货位数量不一致！");
+        }else{
+            let fromLocationNos = JSON.stringify(this.state.fromLocation);
+            let toLocationNos = JSON.stringify(this.state.toLocation);
+            console.log("from:"+fromLocationNos+",to:"+toLocationNos+",select:"+this.state.selectLocation);
+            reqwest({
+                url: '/wms/master/moveStorageAction/assignsTheStorehouse',
+                dataType: 'json',
+                method: 'post',
+                data: {fromLocationNos:fromLocationNos,toLocationNos:toLocationNos},
+                success: function (json) {
+                    if(json.success) {
+                        message.success(json.msg);
+                        let level = this.state.tabKey;
+                        this.setState({
+                            selectLocation:[],
+                            cancelLocation:[],
+                            fromLocation:[],
+                            toLocation:[],
+                            fromLocationNos:[],
+                            toLocationNos:[],
+                        })
+                        this.getStorageLocationData(level,1,1,"");
+                    }else{
+                        message.error(json.msg);
+                    }
+                }.bind(this),
+                error: function (err) {
+                    message.error("初始化库位代码失败！");
+                }.bind(this)
+            })
+        }
+
     },
     handleSubmit(e) {
         e.preventDefault();
         let level = this.state.tabKey;
-        this.getStorageLocationData(level);
+        if(this.state.fromLocation.length==0){
+            this.getStorageLocationData(level,1,this.state.selectStatus,"");
+        }else{
+            message.error("已选择要移货位，请重置后查询！");
+        }
+
+    },
+    fromLocationSubmit(e) {
+        e.preventDefault();
+
+        if(this.state.fromLocation.length!=0){
+            message.error("已选过要移货位，如需重新选择请重置！");
+        }else if(this.state.selectLocation.length==0){
+            message.error("所选货位数量不能为0！");
+        }else {
+            const location = this.state.selectLocation;
+
+            this.setState({
+                fromLocation: location,
+                selectLocation: [],
+            });
+            let fromLocationNos=[];
+            fromLocationNos.push(this.state.tabKey);
+            location.forEach((l) => {
+                let bank = l.substr(0, 3).replace(/\b(0+)/gi, "");
+                let bay = l.substr(3, 3).replace(/\b(0+)/gi, "");
+                let locationNo = bank + "_" + bay;
+                fromLocationNos.push(locationNo);
+                sc.get(bank + "_" + bay).status('fromLocation');
+            });
+            if(fromLocationNos.length>1){
+                this.setState({
+                    fromLocationNos:fromLocationNos,
+                })
+            }
+            this.setState({
+                selectStatus:2,
+            })
+            let fromLocationNo = location[0];
+            this.getStorageLocationData(this.state.tabKey,1,2,fromLocationNo);
+        }
+
+    },
+    toLocationSubmit(e) {
+        e.preventDefault();
+        if(this.state.fromLocation.length==0){
+            message.error("请先选择要移货位！");
+        }else if(this.state.fromLocation.length!=this.state.selectLocation.length){
+            message.error("已选到达货位和已选要移货位数量不一致！");
+        }else if(this.state.selectLocation.length==0){
+            message.error("所选货位数量不能为0！");
+        }else if(this.state.toLocation.length!=0){
+            message.error("已选过到达货位，如需重新选择请重置！");
+        }else{
+            const location =this.state.selectLocation;
+            this.setState({
+                toLocation:location,
+                selectLocation:[],
+            });
+            let toLocationNos=[];
+            toLocationNos.push(this.state.tabKey);
+            location.forEach((l)=>{
+                let bank = l.substr(0,3).replace(/\b(0+)/gi,"");
+                let bay = l.substr(3,3).replace(/\b(0+)/gi,"");
+                let locationNo = bank + "_" + bay;
+                toLocationNos.push(locationNo);
+                sc.get(bank+"_"+bay).status('toLocation');
+            });
+            if(toLocationNos.length>1){
+                this.setState({
+                    toLocationNos:toLocationNos,
+                })
+            }
+
+        }
+
     },
 
     handleReset(e) {
         this.props.form.resetFields();
         window.location.reload();
         /*for(let i =1;i<5;i++){
-            this.getStorageLocationData(i);
+            this.getStorageLocationData(i,1);
         }*/
     },
     tabCallback(key){
         console.log(key);
         this.setState({
             tabKey:key,
-            selectLocation:[],
         });
-        this.getStorageLocationData(key);
+        if(this.state.fromLocation.length!=0){
+            let fromLocationNo = this.state.fromLocation[0];
+            this.getStorageLocationData(key,1,this.state.selectStatus,fromLocationNo);
+        }else{
+            this.getStorageLocationData(key,1,this.state.selectStatus,"");
+        }
+
     },
 
     render() {
@@ -402,10 +568,14 @@ let OutputArea = React.createClass({
                                 </Select>
                             </FormItem>
 
-                            <FormItem wrapperCol={{offset: 10}}>
+                            <FormItem wrapperCol={{offset: 3}}>
                                 <Button type="primary" onClick={this.handleSubmit}>查询</Button>
                                 &nbsp;&nbsp;&nbsp;
                                 <Button type="ghost" onClick={this.handleReset}>重置</Button>
+                                &nbsp;&nbsp;&nbsp;
+                                <Button type="ghost" onClick={this.fromLocationSubmit}>要移货位</Button>
+                                &nbsp;&nbsp;&nbsp;
+                                <Button type="ghost" onClick={this.toLocationSubmit}>移至货位</Button>
                                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                 <Button type="primary" onClick={this.handleSubmit2}>提交</Button>
                             </FormItem>
@@ -463,9 +633,9 @@ let OutputArea = React.createClass({
                     </Tabs>
                 </Row>
                 {/*<PopoverModel*/}
-                    {/*code={this.state.blockNo}*/}
-                    {/*visible={this.state.PopoverModelVisible}*/}
-                    {/*hideModel={this.hideChangeLevelModel.bind(this)}*/}
+                {/*code={this.state.blockNo}*/}
+                {/*visible={this.state.PopoverModelVisible}*/}
+                {/*hideModel={this.hideChangeLevelModel.bind(this)}*/}
                 {/*/>*/}
             </div>
         );

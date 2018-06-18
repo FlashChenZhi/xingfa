@@ -137,7 +137,7 @@ public class ConnectionManager implements Runnable {
                                 }
                             }
                             //PLC连接成功
-                            Plc plc = Plc.getPlcByPlcName(plcName);
+                            Plc plc = Plc.getPlcByPlcName(conn.getPlcName());
                             plc.setStatus("1");
 
                             Transaction.commit();

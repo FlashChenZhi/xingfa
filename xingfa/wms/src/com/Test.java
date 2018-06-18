@@ -26,7 +26,18 @@ import java.util.List;
  */
 public class Test {
     public static void main(String[] args) {
+        Transaction.begin();
 
+
+        List<TransportOrderLog> transportOrderLogList = TransportOrderLog.getTransportOrderByType2();
+        //生成回库任务
+        if(transportOrderLogList.size()!=0){
+            for(TransportOrderLog transportOrderLog:transportOrderLogList){
+                System.out.println(transportOrderLog.getFromLocation().getLocationNo());
+
+            }
+        }
+        Transaction.commit();
     }
 
 

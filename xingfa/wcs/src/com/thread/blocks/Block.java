@@ -1,6 +1,7 @@
 package com.thread.blocks;
 
 import com.asrs.business.consts.AsrsJobStatusDetail;
+import com.asrs.business.consts.AsrsJobType;
 import com.asrs.domain.AsrsJob;
 import com.asrs.domain.Location;
 import com.asrs.domain.RouteDetail;
@@ -28,6 +29,7 @@ public abstract class Block {
     protected String status;
     protected String error;
     private String wareHouse;
+    protected String previousMcKey;
 
     public static final String STATUS_RUN = "1";
     public static final String STATUS_CHARGE = "3";
@@ -60,6 +62,7 @@ public abstract class Block {
 
     public void setMcKey(String mcKey) {
         this.mcKey = mcKey;
+        this.previousMcKey = mcKey;
     }
 
     @Basic
@@ -101,6 +104,7 @@ public abstract class Block {
 
     public void setReservedMcKey(String reservedMcKey) {
         this.reservedMcKey = reservedMcKey;
+        this.previousMcKey = reservedMcKey;
     }
 
     @Basic
@@ -121,6 +125,16 @@ public abstract class Block {
 
     public void setWareHouse(String wareHouse) {
         this.wareHouse = wareHouse;
+    }
+
+    @Basic
+    @Column(name = "PREVIOUSMCKEY")
+    public String getPreviousMcKey() {
+        return previousMcKey;
+    }
+
+    public void setPreviousMcKey(String previousMcKey) {
+        this.previousMcKey = previousMcKey;
     }
 
     @Override
@@ -156,6 +170,11 @@ public abstract class Block {
 
     @Transient
     public Block getNextBlock(String jobType, String destStation) {
+        if(jobType.equals(AsrsJobType.CHECKOUTSTORAGE)){
+            jobType=AsrsJobType.RETRIEVAL;
+        }else if(jobType.equals(AsrsJobType.CHECKINSTORAGE)){
+            jobType=AsrsJobType.PUTAWAY;
+        }
         org.hibernate.Query q = HibernateUtil.getCurrentSession().createQuery("from RouteDetail rd where rd.currentBlockNo = :currentBlockNo and rd.route.toStation = :toStation and rd.route.type = :type")
                 .setString("currentBlockNo", getBlockNo())
                 .setString("toStation", destStation)
@@ -172,6 +191,11 @@ public abstract class Block {
 
     @Transient
     public Block getPreBlock(String mckey, String jobType) {
+        if(jobType.equals(AsrsJobType.CHECKOUTSTORAGE)){
+            jobType=AsrsJobType.RETRIEVAL;
+        }else if(jobType.equals(AsrsJobType.CHECKINSTORAGE)){
+            jobType=AsrsJobType.PUTAWAY;
+        }
         AsrsJob asrsJob = AsrsJob.getAsrsJobByMcKey(mckey);
         org.hibernate.Query q = HibernateUtil.getCurrentSession().createQuery("from RouteDetail  rd where rd.nextBlockNo=:currentBlock " +
                 " and rd.route.type=:type and rd.route.fromStation=:fromStation")
@@ -239,6 +263,11 @@ public abstract class Block {
 
     @Transient
     public Block getPreBlockByJobType(String jobType) {
+        if(jobType.equals(AsrsJobType.CHECKOUTSTORAGE)){
+            jobType=AsrsJobType.RETRIEVAL;
+        }else if(jobType.equals(AsrsJobType.CHECKINSTORAGE)){
+            jobType=AsrsJobType.PUTAWAY;
+        }
         org.hibernate.Query q = HibernateUtil.getCurrentSession().createQuery("from RouteDetail  rd where rd.nextBlockNo=:currentBlock " +
                 " and rd.route.type=:type ")
                 .setString("currentBlock", getBlockNo())
@@ -255,6 +284,11 @@ public abstract class Block {
 
     @Transient
     public Block getPreBlockHasMckey(String jobType) {
+        if(jobType.equals(AsrsJobType.CHECKOUTSTORAGE)){
+            jobType=AsrsJobType.RETRIEVAL;
+        }else if(jobType.equals(AsrsJobType.CHECKINSTORAGE)){
+            jobType=AsrsJobType.PUTAWAY;
+        }
         org.hibernate.Query query = HibernateUtil.getCurrentSession().createQuery("select d from RouteDetail d,Block b where d.currentBlockNo = b.blockNo and " +
                 "d.nextBlockNo =:cb and b.mcKey is not null and d.route.type=:type order by b.blockNo desc")
                 .setString("cb", getBlockNo()).setString("type", jobType);
@@ -267,7 +301,14 @@ public abstract class Block {
         for (RouteDetail detail : rds) {
             Block block1 = Block.getByBlockNo(detail.getCurrentBlockNo());
             AsrsJob job = AsrsJob.getAsrsJobByMcKey(block1.getMcKey());
-            if(!job.getType().equals(jobType)){
+
+            String jobType2 = job.getType();
+            if(jobType2.equals(AsrsJobType.CHECKOUTSTORAGE)){
+                jobType2=AsrsJobType.RETRIEVAL;
+            }else if(jobType2.equals(AsrsJobType.CHECKINSTORAGE)){
+                jobType2=AsrsJobType.PUTAWAY;
+            }
+            if(!jobType2.equals(jobType)){
                 return null;
             }
             Location location = Location.getByLocationNo(job.getToLocation());

@@ -76,6 +76,6 @@
         <mapping class="com.wms.domain.RetrievalOrderLine"/>
         <mapping class="com.wms.domain.WcsMessage"/>
         <mapping class="com.wms.domain.LedMessage"/>
-
+        <mapping class="com.wms.domain.TransportOrderLog"/>
     </session-factory>
 </hibernate-configuration>

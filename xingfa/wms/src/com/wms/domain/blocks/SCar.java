@@ -25,6 +25,16 @@ public class SCar extends Block {
     private String tempLocation;//临时货位
     private String chargeChanel;//充电通道
     private Integer groupNo;//组号，用于子车和提升机，母车绑定
+    private String load;
+
+    @Basic
+    @Column(name = "LOAD_FLAG")
+    public String getLoad() {
+        return load;
+    }
+    public void setLoad(String load) {
+        this.load = load;
+    }
 
     @Basic
     @Column(name = "LEV")

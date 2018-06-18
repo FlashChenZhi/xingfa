@@ -274,7 +274,16 @@ public class LoadUnitAtID extends XMLProcess {
 //            Inventory inventory = container.getInventories().iterator().next();
             InventoryView view = InventoryView.getByPalletNo(j.getContainer());
             Station station = Station.getStation(stationNo);
-            Location newLocation = Location.getEmptyLocation(view.getSkuCode(),view.getLotNum(),station.getPosition(),dataArea.getLoadType());
+
+            Location newLocation=null;
+
+            if(AsrsJobType.PUTAWAY.equals(j.getType())){
+                //若是入库分配货位
+                newLocation = Location.getEmptyLocation(view.getSkuCode(),view.getLotNum(),station.getPosition(),dataArea.getLoadType());
+            }else if(AsrsJobType.CHECKINSTORAGE.equals(j.getType())){
+                //若是抽检入库，则回原位
+                newLocation=j.getToLocation();
+            }
 
             String palletNo = j.getContainer();
             if (newLocation == null) {
@@ -304,10 +313,25 @@ public class LoadUnitAtID extends XMLProcess {
                 //创建TransportOrderDA数据域对象
                 TransportOrderDA toa = new TransportOrderDA();
 
-                toa.setTransportType(TransportType.PUTAWAY);
+                if(AsrsJobType.PUTAWAY.equals(j.getType())) {
+                    //入库类型
+                    toa.setTransportType(TransportType.PUTAWAY);
+                }else if(AsrsJobType.CHECKINSTORAGE.equals(j.getType())){
+                    //抽检入库类型
+                    toa.setTransportType(TransportType.CHECKINSTORAGE);
+                }
+
                 ToLocation toLocation = new ToLocation();
-                Srm srm = Srm.getSrmByPosition(newLocation.getPosition());
-                toLocation.setMHA(srm.getBlockNo());
+
+                if(AsrsJobType.PUTAWAY.equals(j.getType())) {
+                    //入库类型
+                    Srm srm = Srm.getSrmByPosition(newLocation.getPosition());
+                    toLocation.setMHA(srm.getBlockNo());
+                }else if(AsrsJobType.CHECKINSTORAGE.equals(j.getType())) {
+                    //抽检入库类型
+                    toLocation.setMHA(j.getToStation());
+                }
+
                 List<String> locations = new ArrayList<>();
                 locations.add(newLocation.getBank() + "");
                 locations.add(newLocation.getBay() + "");
@@ -349,8 +373,9 @@ public class LoadUnitAtID extends XMLProcess {
 //                job.setSendReport(false);
 //
 //                HibernateUtil.getCurrentSession().save(job);
-
-                j.setToLocation(newLocation);
+                if(AsrsJobType.PUTAWAY.equals(j.getType())) {
+                    j.setToLocation(newLocation);
+                }
                 j.setStatus(AsrsJobStatus.RUNNING);
 
                 InMessage.info(stationNo, palletNo,view.getSkuCode());

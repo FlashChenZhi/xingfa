@@ -119,7 +119,7 @@ public class TransportOrder extends XMLProcess {
                 throw new Exception("存在充电任务");
             }
 
-            if (AsrsJobType.PUTAWAY.equals(dataArea.getTransportType())) {
+            if (AsrsJobType.PUTAWAY.equals(dataArea.getTransportType()) || AsrsJobType.CHECKINSTORAGE.equals(dataArea.getTransportType()) ) {
 
                 String fromStation = dataArea.getFromLocation().getMHA();
 
@@ -150,8 +150,8 @@ public class TransportOrder extends XMLProcess {
                 }
 
                 location.setReserved(true);
-                //入库类型
-                asrsJob.setType(AsrsJobType.PUTAWAY);
+                //入库类型,或抽检入库类型
+                asrsJob.setType(dataArea.getTransportType());
 
                 asrsJob.setToLocation(location.getLocationNo());
                 stationBlock.setMcKey(controlArea.getRefId().getReferenceId());
@@ -163,8 +163,8 @@ public class TransportOrder extends XMLProcess {
                 stationBlock.setLoad("0");
                 asrsJob.setWareHouse(srm.getWareHouse());
 
-            } else if (AsrsJobType.RETRIEVAL.equals(dataArea.getTransportType())) {
-
+            } else if (AsrsJobType.RETRIEVAL.equals(dataArea.getTransportType()) || AsrsJobType.CHECKOUTSTORAGE.equals(dataArea.getTransportType())) {
+                //抽检出库和出库其实是一样的
                 List<String> locationS = dataArea.getFromLocation().getRack();
 
                 String blockNo = dataArea.getFromLocation().getMHA();
@@ -182,10 +182,40 @@ public class TransportOrder extends XMLProcess {
 
                 StationBlock stationBlock = StationBlock.getByStationNo(toStation);
                 asrsJob.setToStation(stationBlock.getBlockNo());
-                asrsJob.setType(AsrsJobType.RETRIEVAL);
+                //修改为传来的type
+                asrsJob.setType(dataArea.getTransportType());
 
                 asrsJob.setFromStation(srm.getBlockNo());
                 asrsJob.setWareHouse(srm.getWareHouse());
+
+            }else if (AsrsJobType.LOCATIONTOLOCATION.equals(dataArea.getTransportType())||AsrsJobType.BACK_PUTAWAY.equals(dataArea.getTransportType())) {
+                //移库
+                List<String> locationS = dataArea.getFromLocation().getRack();
+                List<String> locationT = dataArea.getToLocation().getRack();
+
+
+                Location location = Location.getByBankBayLevel(Integer.parseInt(locationS.get(0)), Integer.parseInt(locationS.get(1)), Integer.parseInt(locationS.get(2)));
+                Location tolocation = Location.getByBankBayLevel(Integer.parseInt(locationT.get(0)), Integer.parseInt(locationT.get(1)), Integer.parseInt(locationT.get(2)));
+
+                asrsJob.setFromLocation(location.getLocationNo());
+                asrsJob.setToLocation(tolocation.getLocationNo());
+
+                String blockNo = dataArea.getFromLocation().getMHA();
+                Srm fsrm = (Srm) Block.getByBlockNo(blockNo);
+
+                String toStation = dataArea.getToLocation().getMHA();
+                Srm tsrm = (Srm) Block.getByBlockNo(toStation);
+                /*Station station = Station.getStation(toStation);
+                if (!station.getMode().equals(AsrsJobType.RETRIEVAL)) {
+                    throw new Exception("站台不是出库站台");
+                }*/
+                //StationBlock stationBlock = StationBlock.getByStationNo(toStation);
+                asrsJob.setToStation(tsrm.getBlockNo());
+                //修改为传来的type
+                asrsJob.setType(dataArea.getTransportType());
+
+                asrsJob.setFromStation(fsrm.getBlockNo());
+                asrsJob.setWareHouse(fsrm.getWareHouse());
 
             }
             asrsJob.setPriority(1);

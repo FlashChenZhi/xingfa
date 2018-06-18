@@ -277,22 +277,37 @@ public class FindInventoryService {
             int bay = location.getBay();
             int level = location.getLevel();
             String outPosition = location.getOutPosition();
-
+            String area = location.getActualArea();
+            //判断要删除货位，大于他的seq的货位，有没有东西
             Criteria criteria1 = session.createCriteria(Location.class);
-            criteria1.add(Restrictions.or(Restrictions.gt(Location.__SEQ,location.getSeq()),
-                    Restrictions.lt(Location.__SEQ2,location.getSeq2())));
+            criteria1.add(Restrictions.gt(Location.__SEQ,location.getSeq()));
             criteria1.add(Restrictions.eq(Location.__BAY,bay));
             criteria1.add(Restrictions.eq(Location.__LEVEL,level));
             criteria1.add(Restrictions.eq(Location.__OUTPOSITION,outPosition));
+            criteria1.add(Restrictions.eq(Location.__ACTUALAREA,area));
             criteria1.add(Restrictions.eq(Location.__EMPTY,false));
+            //判断要删除货位，小于他的seq的货位，有没有东西
+            Criteria criteria2 = session.createCriteria(Location.class);
+            criteria2.add(Restrictions.lt(Location.__SEQ,location.getSeq()));
+            criteria2.add(Restrictions.eq(Location.__BAY,bay));
+            criteria2.add(Restrictions.eq(Location.__LEVEL,level));
+            criteria2.add(Restrictions.eq(Location.__OUTPOSITION,outPosition));
+            criteria2.add(Restrictions.eq(Location.__ACTUALAREA,area));
+            criteria2.add(Restrictions.eq(Location.__EMPTY,false));
+            //判断同以列，同一层，同一outposition，同一area，并且seq大于此货位的 有任务
+            Criteria criteria3 = session.createCriteria(Job.class);
+            Criteria toLocationC = criteria3.createCriteria(Job.__FROMLOCATION);
+            toLocationC.add(Restrictions.ge(Location.__SEQ,location.getSeq()));
+            toLocationC.add(Restrictions.eq(Location.__BAY,bay));
+            toLocationC.add(Restrictions.eq(Location.__LEVEL,level));
+            toLocationC.add(Restrictions.eq(Location.__OUTPOSITION,outPosition));
+            toLocationC.add(Restrictions.eq(Location.__ACTUALAREA,area));
 
-            Criteria criteria2 = session.createCriteria(Job.class);
-            Criteria toLocationC = criteria2.createCriteria(Job.__TOLOCATION);
-            toLocationC.add(Restrictions.lt(Location.__SEQ,location.getSeq()));
 
             List<Location> locationList1 = criteria1.list();
-            List<Job> jobList = criteria2.list();
-            if(locationList1.isEmpty() && jobList.isEmpty()){
+            List<Location> locationList3 = criteria2.list();
+            List<Job> jobList = criteria3.list();
+            if((locationList1.isEmpty()||locationList3.isEmpty()) && jobList.isEmpty()){
                 location.setEmpty(true);
                 session.delete(container);
                 s.setSuccess(true);

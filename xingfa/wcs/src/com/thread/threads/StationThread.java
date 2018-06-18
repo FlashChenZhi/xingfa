@@ -42,7 +42,8 @@ public class StationThread extends BlockThread<StationBlock> {
                         AsrsJob asrsJob = AsrsJob.getAsrsJobByMcKey(station.getMcKey());
                         if (AsrsJobType.RETRIEVAL.equals(asrsJob.getType())) {
                             //出库到达
-                        } else if (AsrsJobType.PUTAWAY.equals(asrsJob.getType())) {
+                        } else if (AsrsJobType.PUTAWAY.equals(asrsJob.getType())||AsrsJobType.CHECKINSTORAGE.equals(asrsJob.getType())) {
+                            System.out.println("进入获取入库或抽检入库方法！");
                             StationService service = new StationPutawayService(station);
                             service.withMckey();
                         }
