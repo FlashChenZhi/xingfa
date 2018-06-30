@@ -95,6 +95,8 @@ public class Msg03Resender {
 
                             msg03.setLastSendDate(new Date());
                         }
+                    }else{
+                        msg03.setLastSendDate(new Date());
                     }
                     Thread.sleep(50);
                 }else{

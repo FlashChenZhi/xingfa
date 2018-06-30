@@ -109,7 +109,7 @@ public class FindOutOrInWarehouseService {
                 sb1.append("and b.type = :type ");
             }
             sb.append(" group by skuCode,skuName,type,LOT_NUM ) a  order by a.dateTime desc ");
-            sb1.append("group by skuCode,skuName,type)a ");
+            sb1.append("group by skuCode,skuName,type,LOT_NUM)a ");
             Query query = session.createSQLQuery(sb.toString()).setResultTransformer(Transformers.ALIAS_TO_ENTITY_MAP);
             Query query1 = session.createSQLQuery(sb1.toString());
 
