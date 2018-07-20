@@ -41,7 +41,7 @@ public class AsrsJobClearThread {
                 }
             }
 
-            Query msgQuery = HibernateUtil.getCurrentSession().createQuery("from WcsMessage wm where not exists(select aj.id from AsrsJob aj where aj.mcKey = wm.mcKey) and lastSendDate <:overtime ");
+            Query msgQuery = HibernateUtil.getCurrentSession().createQuery("from WcsMessage wm where not exists(select aj.id from AsrsJob aj where aj.mcKey = wm.mcKey) and wm.received=true and lastSendDate <:overtime ");
             msgQuery.setTimestamp("overtime", overTime);
             List<WcsMessage> wms = msgQuery.list();
             for(WcsMessage wm : wms){

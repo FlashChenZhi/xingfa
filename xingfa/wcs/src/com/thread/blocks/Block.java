@@ -62,7 +62,9 @@ public abstract class Block {
 
     public void setMcKey(String mcKey) {
         this.mcKey = mcKey;
-        this.previousMcKey = mcKey;
+        if(mcKey!=null){
+            this.previousMcKey = mcKey;
+        }
     }
 
     @Basic
@@ -104,7 +106,10 @@ public abstract class Block {
 
     public void setReservedMcKey(String reservedMcKey) {
         this.reservedMcKey = reservedMcKey;
-        this.previousMcKey = reservedMcKey;
+        if(reservedMcKey!=null){
+            this.previousMcKey = reservedMcKey;
+        }
+
     }
 
     @Basic

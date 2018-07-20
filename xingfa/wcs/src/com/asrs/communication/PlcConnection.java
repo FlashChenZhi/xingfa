@@ -106,7 +106,22 @@ public class PlcConnection
                       }
                 }catch (IOException e)
                 {
+                      _socket = null;
+                      _reader = null;
+                      _writer = null;
+                      try {
+                            Transaction.begin();
+                            //PLC连接失败
+                            System.out.println(getPlcName()+"disconnect连接失败");
+                            Plc plc = Plc.getPlcByPlcName(getPlcName());
+                            plc.setStatus("2");
+                            Transaction.commit();
+                      } catch (Exception e1) {
+                            Transaction.rollback();
+                            e1.printStackTrace();
+                      }
                     String errMsg = "断开" + _plcName + "时发生异常 |" + e.getMessage();
+                    LogWriter.writeError(PlcConnection.class, errMsg);
                     throw new CommunicationException(errMsg);
                 }
                   System.out.println(_plcName + " disconnected!");
