@@ -172,6 +172,20 @@ public class Container {
         _inventories = inventories;
     }
 
+
+    private Collection<TransportOrderLog> _transportOrderLog = new ArrayList<TransportOrderLog>();
+    @OneToMany(mappedBy = "container")
+    public Collection<TransportOrderLog> getTransportOrderLog() {
+        return _transportOrderLog;
+    }
+
+    public void setTransportOrderLog(Collection<TransportOrderLog> transportOrderLog) {
+        this._transportOrderLog = transportOrderLog;
+    }
+
+
+
+
     public void addInventory(Inventory inventory) {
         _inventories.add(inventory);
         inventory.setContainer(this);
@@ -187,6 +201,12 @@ public class Container {
     public static Container getByBarcode(String palletNo) {
         Query q = HibernateUtil.getCurrentSession().createQuery("from Container c where c.barcode = :barcode")
                 .setString("barcode", palletNo);
+        return (Container) q.uniqueResult();
+    }
+
+    public static Container getByLocationId(int locationId) {
+        Query q = HibernateUtil.getCurrentSession().createQuery("from Container c where c.location.id = :locationId")
+                .setParameter("locationId", locationId).setMaxResults(1);
         return (Container) q.uniqueResult();
     }
 }

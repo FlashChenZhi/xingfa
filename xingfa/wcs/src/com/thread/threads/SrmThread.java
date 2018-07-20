@@ -2,24 +2,18 @@ package com.thread.threads;
 
 import com.asrs.business.consts.AsrsJobType;
 import com.asrs.domain.AsrsJob;
-import com.asrs.domain.Station;
 import com.asrs.message.Message03;
 import com.thread.blocks.*;
 import com.thread.threads.service.SrmService;
 import com.thread.threads.service.impl.SrmAndScarServiceImpl;
 import com.thread.threads.service.impl.charage.SrmCharageService;
 import com.thread.threads.service.impl.charageover.SrmCharageOverService;
+import com.thread.threads.service.impl.locationtolocation.SrmLocationToLocationService;
 import com.thread.threads.service.impl.putaway.SrmAndScarPutawayService;
 import com.thread.threads.service.impl.retrieval.SrmAndScarRetrievalService;
 import com.thread.utils.MsgSender;
 import com.util.common.StringUtils;
-import com.util.hibernate.HibernateUtil;
 import com.util.hibernate.Transaction;
-import org.hibernate.Query;
-import org.hibernate.Session;
-
-import java.math.BigDecimal;
-import java.util.List;
 
 /**
  * Created by van on 2017/8/29.
@@ -93,14 +87,16 @@ public class SrmThread extends BlockThread<Srm> {
                         //移动提升机有预约任务
                         AsrsJob asrsJob = AsrsJob.getAsrsJobByMcKey(srm.getReservedMcKey());
                         SrmService service = null;
-                        if (asrsJob.getType().equals(AsrsJobType.PUTAWAY)) {
+                        if (asrsJob.getType().equals(AsrsJobType.PUTAWAY) || asrsJob.getType().equals(AsrsJobType.CHECKINSTORAGE)) {
                             service = new SrmAndScarPutawayService(srm);
-                        } else if (asrsJob.getType().equals(AsrsJobType.RETRIEVAL)) {
+                        } else if (asrsJob.getType().equals(AsrsJobType.RETRIEVAL) || asrsJob.getType().equals(AsrsJobType.CHECKOUTSTORAGE) ) {
                             service = new SrmAndScarRetrievalService(srm);
                         } else if (asrsJob.getType().equals(AsrsJobType.RECHARGED)) {
                             service = new SrmCharageService(srm);
                         } else if (asrsJob.getType().equals(AsrsJobType.RECHARGEDOVER)) {
                             service = new SrmCharageOverService(srm);
+                        } else if(asrsJob.getType().equals(AsrsJobType.LOCATIONTOLOCATION)||asrsJob.getType().equals(AsrsJobType.BACK_PUTAWAY)){
+                            service = new SrmLocationToLocationService(srm);
                         }
 
                         service.withReserveMckey();
@@ -108,14 +104,16 @@ public class SrmThread extends BlockThread<Srm> {
                     } else if (StringUtils.isNotEmpty(srm.getMcKey())) {
                         AsrsJob asrsJob = AsrsJob.getAsrsJobByMcKey(srm.getMcKey());
                         SrmService service = null;
-                        if (asrsJob.getType().equals(AsrsJobType.PUTAWAY)) {
+                        if (asrsJob.getType().equals(AsrsJobType.PUTAWAY) || asrsJob.getType().equals(AsrsJobType.CHECKINSTORAGE)) {
                             service = new SrmAndScarPutawayService(srm);
-                        } else if (asrsJob.getType().equals(AsrsJobType.RETRIEVAL)) {
+                        } else if (asrsJob.getType().equals(AsrsJobType.RETRIEVAL) || asrsJob.getType().equals(AsrsJobType.CHECKOUTSTORAGE) ) {
                             service = new SrmAndScarRetrievalService(srm);
                         } else if (asrsJob.getType().equals(AsrsJobType.RECHARGED)) {
                             service = new SrmCharageService(srm);
                         } else if (asrsJob.getType().equals(AsrsJobType.RECHARGEDOVER)) {
                             service = new SrmCharageOverService(srm);
+                        }else if(asrsJob.getType().equals(AsrsJobType.LOCATIONTOLOCATION)||asrsJob.getType().equals(AsrsJobType.BACK_PUTAWAY)){
+                            service = new SrmLocationToLocationService(srm);
                         }
                         service.withMckey();
                     }

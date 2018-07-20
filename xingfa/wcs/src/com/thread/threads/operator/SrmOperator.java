@@ -1,5 +1,6 @@
 package com.thread.threads.operator;
 
+import com.asrs.business.consts.AsrsJobType;
 import com.asrs.domain.AsrsJob;
 import com.asrs.domain.Location;
 import com.asrs.message.Message03;
@@ -132,8 +133,14 @@ public class SrmOperator {
      */
     public void tryCarryGoods() throws Exception {
         AsrsJob job = AsrsJob.getAsrsJobByMcKey(mckey);
+        String type = job.getType();
+        if(job.getType().equals(AsrsJobType.CHECKINSTORAGE)){
+            type=AsrsJobType.PUTAWAY;
+        }else if(job.getType().equals(AsrsJobType.CHECKOUTSTORAGE)){
+            type=AsrsJobType.RETRIEVAL;
+        }
         //移动提升机上有子车，去上一个block接货
-        Block block = srm.getPreBlock(mckey, job.getType());
+        Block block = srm.getPreBlock(mckey, type);
 
         if (!block.getBlockNo().equals(srm.getDock()) || !srm.getCheckLocation() == true) {
             //移动到dock
@@ -150,7 +157,13 @@ public class SrmOperator {
      */
     public void tryUnloadGoods() throws Exception {
         AsrsJob job = AsrsJob.getAsrsJobByMcKey(mckey);
-        Block block = srm.getNextBlock(job.getType(), job.getToStation());
+        String type = job.getType();
+        if(job.getType().equals(AsrsJobType.CHECKOUTSTORAGE)){
+            type=AsrsJobType.RETRIEVAL;
+        }else if(job.getType().equals(AsrsJobType.CHECKINSTORAGE)){
+            type=AsrsJobType.PUTAWAY;
+        }
+        Block block = srm.getNextBlock(type, job.getToStation());
         if (!block.getBlockNo().equals(srm.getDock()) || !srm.getCheckLocation() == true) {
             //移动到dock
             this.move(block.getBlockNo());

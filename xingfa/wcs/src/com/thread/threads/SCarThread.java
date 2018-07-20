@@ -12,6 +12,7 @@ import com.thread.threads.service.ScarService;
 import com.thread.threads.service.impl.ScarAndSrmServiceImpl;
 import com.thread.threads.service.impl.charage.ScarCharageService;
 import com.thread.threads.service.impl.charageover.ScarCharageOverService;
+import com.thread.threads.service.impl.locationtolocation.ScarLocationToLocationService;
 import com.thread.threads.service.impl.putaway.ScarAndSrmPutawayServcie;
 import com.thread.threads.service.impl.retrieval.ScarAndSrmRetrievalService;
 import com.thread.utils.MsgSender;
@@ -95,31 +96,35 @@ public class SCarThread extends BlockThread<SCar> {
 
                         AsrsJob asrsJob = AsrsJob.getAsrsJobByMcKey(sCar.getMcKey());
                         ScarService service = null;
-                        if (asrsJob.getType().equals(AsrsJobType.PUTAWAY)) {
+                        if (asrsJob.getType().equals(AsrsJobType.PUTAWAY)|| asrsJob.getType().equals(AsrsJobType.CHECKINSTORAGE)) {
                             service = new ScarAndSrmPutawayServcie(sCar);
 
-                        } else if (asrsJob.getType().equals(AsrsJobType.RETRIEVAL)) {
+                        } else if (asrsJob.getType().equals(AsrsJobType.RETRIEVAL) || asrsJob.getType().equals(AsrsJobType.CHECKOUTSTORAGE)) {
                             service = new ScarAndSrmRetrievalService(sCar);
                         } else if (asrsJob.getType().equals(AsrsJobType.RECHARGED)) {
                             service = new ScarCharageService(sCar);
                         } else if (asrsJob.getType().equals(AsrsJobType.RECHARGEDOVER)) {
                             service = new ScarCharageOverService(sCar);
+                        }else if (asrsJob.getType().equals(AsrsJobType.LOCATIONTOLOCATION)||asrsJob.getType().equals(AsrsJobType.BACK_PUTAWAY)) {
+                            service = new ScarLocationToLocationService(sCar);
                         }
                         service.withMckey();
 
                     } else if (StringUtils.isNotEmpty(sCar.getReservedMcKey())) {
                         AsrsJob asrsJob = AsrsJob.getAsrsJobByMcKey(sCar.getReservedMcKey());
                         ScarService service = null;
-                        if (asrsJob.getType().equals(AsrsJobType.PUTAWAY)) {
+                        if (asrsJob.getType().equals(AsrsJobType.PUTAWAY)|| asrsJob.getType().equals(AsrsJobType.CHECKINSTORAGE)) {
                             service = new ScarAndSrmPutawayServcie(sCar);
 
-                        } else if (asrsJob.getType().equals(AsrsJobType.RETRIEVAL)) {
+                        } else if (asrsJob.getType().equals(AsrsJobType.RETRIEVAL) || asrsJob.getType().equals(AsrsJobType.CHECKOUTSTORAGE)) {
                             service = new ScarAndSrmRetrievalService(sCar);
 
                         } else if (asrsJob.getType().equals(AsrsJobType.RECHARGED)) {
                             service = new ScarCharageService(sCar);
                         } else if (asrsJob.getType().equals(AsrsJobType.RECHARGEDOVER)) {
                             service = new ScarCharageOverService(sCar);
+                        }else if (asrsJob.getType().equals(AsrsJobType.LOCATIONTOLOCATION)||asrsJob.getType().equals(AsrsJobType.BACK_PUTAWAY)) {
+                            service = new ScarLocationToLocationService(sCar);
                         }
                         service.withReserveMckey();
 

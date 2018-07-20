@@ -22,19 +22,34 @@ public class MCarServiceImpl implements MCarService {
 
         Block block = mCar.getPreBlockByJobType(AsrsJobType.RETRIEVAL);
         if(StringUtils.isNotBlank(block.getMcKey())){
-            AsrsJob asrsJob = AsrsJob.getAsrsJobByMcKey(block.getMcKey());
-            if(AsrsJobType.RETRIEVAL.equals(asrsJob.getType())){
-                mCar.setReservedMcKey(asrsJob.getMcKey());
+            //若上一个block上的mckey和母车刚做的mckey一样，则不接受mckey
+            if(!block.getMcKey().equals(mCar.getPreviousMcKey())){
+
+                AsrsJob asrsJob = AsrsJob.getAsrsJobByMcKey(block.getMcKey());
+                if(AsrsJobType.RETRIEVAL.equals(asrsJob.getType())){
+                    mCar.setReservedMcKey(asrsJob.getMcKey());
+                    return;
+                }
+            }else{
                 return;
             }
+
         }
         block = mCar.getPreBlockByJobType(AsrsJobType.PUTAWAY);
         if(StringUtils.isNotBlank(block.getMcKey())){
-            AsrsJob asrsJob = AsrsJob.getAsrsJobByMcKey(block.getMcKey());
-            if(AsrsJobType.PUTAWAY.equals(asrsJob.getType())){
-                mCar.setReservedMcKey(asrsJob.getMcKey());
+
+            //若上一个block上的mckey和母车刚做的mckey一样，则不接受mckey
+            if(!block.getMcKey().equals(mCar.getPreviousMcKey())) {
+
+                AsrsJob asrsJob = AsrsJob.getAsrsJobByMcKey(block.getMcKey());
+                if (AsrsJobType.PUTAWAY.equals(asrsJob.getType())) {
+                    mCar.setReservedMcKey(asrsJob.getMcKey());
+                    return;
+                }
+            }else{
                 return;
             }
+
         }
     }
 

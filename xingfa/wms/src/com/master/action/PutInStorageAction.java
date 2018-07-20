@@ -82,4 +82,41 @@ public class PutInStorageAction {
         System.out.println(selectedRowKeysString);
         return putInStorageService.deleteTask(selectedRowKeysString);
     }
+
+    /**
+     * 获取抽检入库信息
+     * @return
+     * @throws IOException
+     */
+    @RequestMapping(value = "/getCheckStorageData",method = RequestMethod.POST)
+    @ResponseBody
+    public ReturnObj<Map<String,Object>> getCheckStorageData() throws IOException{
+
+        return putInStorageService.getCheckStorageData();
+    }
+    /*
+     * @author：ed_chen
+     * @date：2018/6/9 16:18
+     * @description：设定抽检入库任务
+     * @param num
+     * @return：com.util.common.BaseReturnObj
+     */
+    @RequestMapping(value = "/addCheckInStorage",method = RequestMethod.POST)
+    @ResponseBody
+    public BaseReturnObj addCheckInStorage(int num) throws IOException{
+        return putInStorageService.addCheckInStorage(num);
+    }
+
+    /*
+     * @author：ed_chen
+     * @date：2018/6/9 16:18
+     * @description：抽检回库取消任务
+     * @param num
+     * @return：com.util.common.BaseReturnObj
+     */
+    @RequestMapping(value = "/submitCancle",method = RequestMethod.POST)
+    @ResponseBody
+    public BaseReturnObj submitCancle() throws IOException{
+        return putInStorageService.submitCancle();
+    }
 }

@@ -47,7 +47,7 @@ public class AcceptTransportOrder extends XMLProcess {
             String refId = controlArea.getRefId().getReferenceId();
             Job job = Job.getByMcKey(refId);
 
-            if (job.getType().equals(AsrsJobType.PUTAWAY)) {
+            if (job.getType().equals(AsrsJobType.PUTAWAY) || job.getType().equals(AsrsJobType.CHECKINSTORAGE)) {
                 Location location = job.getToLocation();
                 location.setReserved(false);
                 InventoryView inventoryView = InventoryView.getByPalletNo(job.getContainer());

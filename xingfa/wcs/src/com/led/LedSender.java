@@ -3,7 +3,6 @@ package com.led;
 import com.asrs.domain.LedMessage;
 import com.util.hibernate.HibernateUtil;
 import com.util.hibernate.Transaction;
-import onbon.bx05.Bx5GEnv;
 import onbon.bx05.Bx5GException;
 import onbon.bx05.Bx5GScreen;
 import onbon.bx05.Bx5GScreenClient;
@@ -11,8 +10,6 @@ import onbon.bx05.area.TextCaptionBxArea;
 import onbon.bx05.area.page.TextBxPage;
 import onbon.bx05.file.BxFileWriterListener;
 import onbon.bx05.file.ProgramBxFile;
-import onbon.bx05.utils.TextBinary;
-import org.hibernate.Query;
 import org.hibernate.Session;
 
 import java.util.ArrayList;

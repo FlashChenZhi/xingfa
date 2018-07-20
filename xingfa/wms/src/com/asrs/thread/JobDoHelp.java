@@ -140,6 +140,10 @@ public class JobDoHelp {
             Container container = Container.getByBarcode(job.getContainer());
             container.setReserved(false);
             session.delete(job);
+            Location location = job.getFromLocation();
+            if(location!=null&&location.isRetrievalRestricted()){
+                location.setRetrievalRestricted(false);
+            }
         }
 
         if (asrsJob != null){

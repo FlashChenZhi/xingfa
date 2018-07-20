@@ -35,8 +35,10 @@ public class StationServiceImpl implements StationService {
         StationOperator operator = new StationOperator(stationBlock, aj.getMcKey());
 
         if (nextBlock instanceof Conveyor) {
+            System.out.println("下一步输送机！");
             operator.tryMoveToConveyor((Conveyor) nextBlock);
         } else if (nextBlock instanceof Srm) {
+            System.out.println("下一步堆垛机！");
             operator.tryMoveToSrm((Srm)nextBlock);
         }
 

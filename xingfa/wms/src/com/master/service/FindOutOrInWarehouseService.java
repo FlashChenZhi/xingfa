@@ -79,17 +79,17 @@ public class FindOutOrInWarehouseService {
      * @param endDate
      * @return：com.util.common.PagerReturnObj<java.util.List<java.util.Map<java.lang.String,java.lang.Object>>>
      */
-    public PagerReturnObj<List<Map<String,Object>>> findOutOrInWarehouse(int startIndex, int defaultPageSize,
-                                                                   String productId, String beginDate, String endDate){
+    public PagerReturnObj<List<Map<String,Object>>> findOutOrInWarehouse(int startIndex, int defaultPageSize,String productId,
+                                                                         String beginDate, String endDate,String type){
         PagerReturnObj<List<Map<String,Object>>> returnObj = new PagerReturnObj<List<Map<String,Object>>>();
         try {
             Transaction.begin();
             Session session = HibernateUtil.getCurrentSession();
 
             StringBuffer sb = new StringBuffer("select a.id as id,a.skuCode as skuCode,a.qty as qty, " +
-                    "a.skuName as skuName,a.num as num,a.dateTime as dateTime,a.type as type " +
+                    "a.skuName as skuName,a.num as num,a.dateTime as dateTime,a.type as type,a.LOT_NUM as lotNum " +
                     "from (select max(b.id) as id,b.skuCode as skuCode, " +
-                    "b.skuName as skuName,count(*) as num,sum(qty) as qty, max(b.createDate) as dateTime," +
+                    "b.skuName as skuName,count(*) as num,sum(qty) as qty,b.LOT_NUM as LOT_NUM,max(b.createDate) as dateTime," +
                     "case type when '01' then '入库' else '出库' end  as type from xingfa.JOBLOG b where 1=1 ");
             StringBuffer sb1 = new StringBuffer("select count(*) from (select b.skuCode from xingfa.JOBLOG b where  1=1 ");
             if(StringUtils.isNotBlank(productId)){
@@ -104,7 +104,11 @@ public class FindOutOrInWarehouseService {
                 sb.append("and b.createDate <= :endDate ");
                 sb1.append("and b.createDate <= :endDate ");
             }
-            sb.append(" group by skuCode,skuName,type ) a  order by a.dateTime desc ");
+            if (StringUtils.isNotBlank(type) && !"00".equals(type)) {
+                sb.append("and b.type = :type ");
+                sb1.append("and b.type = :type ");
+            }
+            sb.append(" group by skuCode,skuName,type,LOT_NUM ) a  order by a.dateTime desc ");
             sb1.append("group by skuCode,skuName,type)a ");
             Query query = session.createSQLQuery(sb.toString()).setResultTransformer(Transformers.ALIAS_TO_ENTITY_MAP);
             Query query1 = session.createSQLQuery(sb1.toString());
@@ -123,6 +127,10 @@ public class FindOutOrInWarehouseService {
             if (StringUtils.isNotBlank(endDate)) {
                 query.setString("endDate",endDate);
                 query1.setString("endDate",endDate);
+            }
+            if (StringUtils.isNotBlank(type) && !"00".equals(type)) {
+                query.setString("type",type);
+                query1.setString("type",type);
             }
             List<Map<String,Object>> jobList = query.list();
             int count = (int)query1.uniqueResult();

@@ -75,28 +75,43 @@ const SlideMenu = React.createClass({
                             </Link>
                         </Menu.Item>
                         <Menu.Item key='62'>
+                            <Link to='CheckInStorage'>
+                                <Icon type="shopping-cart"/><span className="nav-text">抽检入库</span>
+                            </Link>
+                        </Menu.Item>
+                        <Menu.Item key='63'>
                             <Link to='OrderInquiry'>
                                 <Icon type="book"/><span className="nav-text">订单查询</span>
                             </Link>
                         </Menu.Item>
-                        <Menu.Item key='63'>
+                        <Menu.Item key='64'>
                             <Link to='PlatformSwitch'>
                                 <Icon type="ellipsis" /><span className="nav-text">站台模式切换</span>
                             </Link>
                         </Menu.Item>
-                        <Menu.Item key='64'>
+                        <Menu.Item key='65'>
                             <Link to='FindInventory'>
                                 <Icon type="solution" /><span className="nav-text">库存展示</span>
                             </Link>
                         </Menu.Item>
-                        <Menu.Item key='65'>
+                        <Menu.Item key='66'>
                             <Link to='FindOutOrInWarehouse'>
                                 <Icon type="solution" /><span className="nav-text">出入库查询</span>
                             </Link>
                         </Menu.Item>
-                        <Menu.Item key='66'>
+                        <Menu.Item key='67'>
                             <Link to='AssignsTheStorehouse'>
                                 <Icon type="solution" /><span className="nav-text">定点出库</span>
+                            </Link>
+                        </Menu.Item>
+                        <Menu.Item key='68'>
+                            <Link to='SampleSurvey'>
+                                <Icon type="solution" /><span className="nav-text">抽检出库</span>
+                            </Link>
+                        </Menu.Item>
+                        <Menu.Item key='69'>
+                            <Link to='MoveStorage'>
+                                <Icon type="solution" /><span className="nav-text">移库</span>
                             </Link>
                         </Menu.Item>
                     </SubMenu>

@@ -151,19 +151,31 @@ public abstract class SrmAndScarServiceImpl implements SrmService {
                                 if (block instanceof Conveyor) {
                                     Conveyor conveyor = (Conveyor) block;
                                     if (StringUtils.isNotBlank(conveyor.getMcKey())) {
-                                        AsrsJob asrsJob = AsrsJob.getAsrsJobByMcKey(block.getMcKey());
-                                        //如果提升机的上一节是入库作业，设置提升机reservedmckey
-                                        if (asrsJob.getType().equals(AsrsJobType.PUTAWAY)) {
-                                            srm.setReservedMcKey(block.getMcKey());
+
+                                        //若上一个block上的mckey和堆垛机刚做的mckey一样，则不接受mckey
+                                        if(!conveyor.getMcKey().equals(srm.getPreviousMcKey())) {
+
+                                            AsrsJob asrsJob = AsrsJob.getAsrsJobByMcKey(block.getMcKey());
+                                            //如果提升机的上一节是入库作业，设置提升机reservedmckey
+                                            if (asrsJob.getType().equals(AsrsJobType.PUTAWAY)||asrsJob.getType().equals(AsrsJobType.CHECKINSTORAGE)) {
+                                                srm.setReservedMcKey(block.getMcKey());
+                                                hasJob = true;
+                                            }
+                                        }else{
                                             hasJob = true;
                                         }
                                     }
                                 } else if (block instanceof StationBlock) {
                                     if (StringUtils.isNotBlank(block.getMcKey()) && !block.isWaitingResponse()) {
-                                        //如果提升机的上一节是入库作业，设置提升机reservedmckey
-                                        AsrsJob asrsJob = AsrsJob.getAsrsJobByMcKey(block.getMcKey());
-                                        if (asrsJob.getType().equals(AsrsJobType.PUTAWAY)) {
-                                            srm.setReservedMcKey(block.getMcKey());
+                                        //若上一个block上的mckey和堆垛机刚做的mckey一样，则不接受mckey
+                                        if(!block.getMcKey().equals(srm.getPreviousMcKey())) {
+                                            //如果提升机的上一节是入库作业，设置提升机reservedmckey
+                                            AsrsJob asrsJob = AsrsJob.getAsrsJobByMcKey(block.getMcKey());
+                                            if (asrsJob.getType().equals(AsrsJobType.PUTAWAY)||asrsJob.getType().equals(AsrsJobType.CHECKINSTORAGE)) {
+                                                srm.setReservedMcKey(block.getMcKey());
+                                                hasJob = true;
+                                            }
+                                        }else{
                                             hasJob = true;
                                         }
                                     }
@@ -183,7 +195,7 @@ public abstract class SrmAndScarServiceImpl implements SrmService {
                             }
                         }
 
-                        //获取出库任务
+                        //获取移库任务
                         if (!hasJob) {
                             Query query = HibernateUtil.getCurrentSession().createQuery(" from AsrsJob where type=:tp and statusDetail = '0' and fromStation=:fStation order by id asc ").setMaxResults(1);
                             query.setParameter("tp", AsrsJobType.LOCATIONTOLOCATION);
@@ -194,6 +206,29 @@ public abstract class SrmAndScarServiceImpl implements SrmService {
                                 hasJob = true;
                             }
                         }
+                        //获取移库任务
+                        if (!hasJob) {
+                            Query query = HibernateUtil.getCurrentSession().createQuery(" from AsrsJob where type=:tp and statusDetail = '0' and fromStation=:fStation order by id asc ").setMaxResults(1);
+                            query.setParameter("tp", AsrsJobType.BACK_PUTAWAY);
+                            query.setParameter("fStation", srm.getBlockNo());
+                            AsrsJob asrsJob = (AsrsJob) query.uniqueResult();
+                            if (asrsJob != null) {
+                                srm.setReservedMcKey(asrsJob.getMcKey());
+                                hasJob = true;
+                            }
+                        }
+                        //获取抽检出库任务
+                        if (!hasJob) {
+                            Query query = HibernateUtil.getCurrentSession().createQuery(" from AsrsJob where type=:tp and statusDetail = '0' and fromStation=:fStation order by id asc ").setMaxResults(1);
+                            query.setParameter("tp", AsrsJobType.CHECKOUTSTORAGE);
+                            query.setParameter("fStation", srm.getBlockNo());
+                            AsrsJob asrsJob = (AsrsJob) query.uniqueResult();
+                            if (asrsJob != null) {
+                                srm.setReservedMcKey(asrsJob.getMcKey());
+                                hasJob = true;
+                            }
+                        }
+
                         if (!hasJob) {
                             Block bb = srm.getPreBlockHasMckey(AsrsJobType.ST2ST);
                             if (bb != null) {
@@ -201,19 +236,29 @@ public abstract class SrmAndScarServiceImpl implements SrmService {
                                 if (bb instanceof Conveyor) {
                                     Conveyor conveyor = (Conveyor) bb;
                                     if (StringUtils.isNotBlank(conveyor.getMcKey()) && (!conveyor.isWaitingResponse() || (!conveyor.isMantWaiting() && conveyor.isManty()))) {
-                                        AsrsJob asrsJob = AsrsJob.getAsrsJobByMcKey(bb.getMcKey());
-                                        //如果提升机的上一节是入库作业，设置提升机reservedmckey
-                                        if (asrsJob.getType().equals(AsrsJobType.ST2ST)) {
-                                            srm.setReservedMcKey(bb.getMcKey());
+                                        //若上一个block上的mckey和堆垛机刚做的mckey一样，则不接受mckey
+                                        if(!conveyor.getMcKey().equals(srm.getPreviousMcKey())) {
+                                            AsrsJob asrsJob = AsrsJob.getAsrsJobByMcKey(bb.getMcKey());
+                                            //如果提升机的上一节是入库作业，设置提升机reservedmckey
+                                            if (asrsJob.getType().equals(AsrsJobType.ST2ST)) {
+                                                srm.setReservedMcKey(bb.getMcKey());
+                                                hasJob = true;
+                                            }
+                                        }else{
                                             hasJob = true;
                                         }
                                     }
                                 } else if (bb instanceof StationBlock) {
                                     if (StringUtils.isNotBlank(bb.getMcKey()) && !bb.isWaitingResponse()) {
-                                        //如果提升机的上一节是入库作业，设置提升机reservedmckey
-                                        AsrsJob asrsJob = AsrsJob.getAsrsJobByMcKey(bb.getMcKey());
-                                        if (asrsJob.getType().equals(AsrsJobType.ST2ST)) {
-                                            srm.setReservedMcKey(bb.getMcKey());
+                                        //若上一个block上的mckey和堆垛机刚做的mckey一样，则不接受mckey
+                                        if(!bb.getMcKey().equals(srm.getPreviousMcKey())) {
+                                            //如果提升机的上一节是入库作业，设置提升机reservedmckey
+                                            AsrsJob asrsJob = AsrsJob.getAsrsJobByMcKey(bb.getMcKey());
+                                            if (asrsJob.getType().equals(AsrsJobType.ST2ST)) {
+                                                srm.setReservedMcKey(bb.getMcKey());
+                                                hasJob = true;
+                                            }
+                                        }else{
                                             hasJob = true;
                                         }
                                     }
@@ -272,20 +317,30 @@ public abstract class SrmAndScarServiceImpl implements SrmService {
                                 if (block instanceof Conveyor) {
                                     Conveyor conveyor = (Conveyor) block;
                                     if (StringUtils.isNotBlank(conveyor.getMcKey()) && (!conveyor.isWaitingResponse() || (!conveyor.isMantWaiting() && conveyor.isManty()))) {
-                                        //如果提升机的上一节是入库作业，设置提升机reservedmckey
-                                        AsrsJob asrsJob = AsrsJob.getAsrsJobByMcKey(block.getMcKey());
-                                        if (asrsJob.getType().equals(AsrsJobType.PUTAWAY)) {
-                                            srm.setReservedMcKey(block.getMcKey());
+                                        //若上一个block上的mckey和堆垛机刚做的mckey一样，则不接受mckey
+                                        if(!conveyor.getMcKey().equals(srm.getPreviousMcKey())) {
+                                            //如果提升机的上一节是入库作业，设置提升机reservedmckey
+                                            AsrsJob asrsJob = AsrsJob.getAsrsJobByMcKey(block.getMcKey());
+                                            if (asrsJob.getType().equals(AsrsJobType.PUTAWAY)) {
+                                                srm.setReservedMcKey(block.getMcKey());
+                                                hasJob = true;
+                                            }
+                                        }else{
                                             hasJob = true;
                                         }
                                     }
                                 } else if (block instanceof StationBlock) {
                                     if (StringUtils.isNotBlank(block.getMcKey()) && !block.isWaitingResponse()) {
-                                        //如果提升机的上一节是入库作业，设置提升机reservedmckey
-                                        AsrsJob asrsJob = AsrsJob.getAsrsJobByMcKey(block.getMcKey());
-                                        if (asrsJob.getType().equals(AsrsJobType.PUTAWAY)) {
-                                            srm.setReservedMcKey(block.getMcKey());
-                                            hasJob = true;
+                                        //若上一个block上的mckey和堆垛机刚做的mckey一样，则不接受mckey
+                                        if(!block.getMcKey().equals(srm.getPreviousMcKey())) {
+                                            //如果提升机的上一节是入库作业，设置提升机reservedmckey
+                                            AsrsJob asrsJob = AsrsJob.getAsrsJobByMcKey(block.getMcKey());
+                                            if (asrsJob.getType().equals(AsrsJobType.PUTAWAY)) {
+                                                srm.setReservedMcKey(block.getMcKey());
+                                                hasJob = true;
+                                            }
+                                        }else{
+                                            hasJob=true;
                                         }
                                     }
                                 }
@@ -307,6 +362,16 @@ public abstract class SrmAndScarServiceImpl implements SrmService {
                     if (!hasJob) {
                         Query query = HibernateUtil.getCurrentSession().createQuery(" from AsrsJob where type=:tp and statusDetail = '0' and fromStation=:st order by id asc ").setMaxResults(1);
                         query.setParameter("tp", AsrsJobType.LOCATIONTOLOCATION);
+                        query.setParameter("st", srm.getBlockNo());
+                        AsrsJob asrsJob = (AsrsJob) query.uniqueResult();
+                        if (asrsJob != null) {
+                            srm.setReservedMcKey(asrsJob.getMcKey());
+                            hasJob = true;
+                        }
+                    }
+                    if (!hasJob) {
+                        Query query = HibernateUtil.getCurrentSession().createQuery(" from AsrsJob where type=:tp and statusDetail = '0' and fromStation=:st order by id asc ").setMaxResults(1);
+                        query.setParameter("tp", AsrsJobType.BACK_PUTAWAY);
                         query.setParameter("st", srm.getBlockNo());
                         AsrsJob asrsJob = (AsrsJob) query.uniqueResult();
                         if (asrsJob != null) {

@@ -40,10 +40,10 @@ public class ConveyorThread extends BlockThread<Conveyor> {
                     } else if (StringUtils.isNotEmpty(crane.getMcKey())) {
                         AsrsJob aj = AsrsJob.getAsrsJobByMcKey(crane.getMcKey());
                         Service service = null;
-                        if (aj.getType().equals(AsrsJobType.PUTAWAY)) {
+                        if (aj.getType().equals(AsrsJobType.PUTAWAY) || aj.getType().equals(AsrsJobType.CHECKINSTORAGE)) {
                             service = new ConveyorPutawayService(crane);
 
-                        } else if (aj.getType().equals(AsrsJobType.RETRIEVAL)) {
+                        } else if (aj.getType().equals(AsrsJobType.RETRIEVAL) || aj.getType().equals(AsrsJobType.CHECKOUTSTORAGE) ) {
                             service = new ConveyorRetrievalService(crane);
 
                         } else if (aj.getType().equals(AsrsJobType.RECHARGED)) {
@@ -54,7 +54,7 @@ public class ConveyorThread extends BlockThread<Conveyor> {
 
                         AsrsJob aj = AsrsJob.getAsrsJobByMcKey(crane.getReservedMcKey());
                         Service service = null;
-                        if (aj.getType().equals(AsrsJobType.RETRIEVAL)) {
+                        if (aj.getType().equals(AsrsJobType.RETRIEVAL) || aj.getType().equals(AsrsJobType.CHECKOUTSTORAGE)) {
                             service = new ConveyorRetrievalService(crane);
 
                         } else if (aj.getType().equals(AsrsJobType.RECHARGED)) {

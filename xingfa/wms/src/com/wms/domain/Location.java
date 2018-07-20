@@ -55,6 +55,7 @@ public class Location {
 
     public static final String  __OUTPOSITION = "outPosition";
 
+    public static final String  __ACTUALAREA = "actualArea";
     private static int bigCurrAisle = 0;
 
     private static int smallCurrAisle = 0;
@@ -571,6 +572,29 @@ public class Location {
 
     public void setContainers(Collection<Container> containers) {
         _containers = containers;
+    }
+
+
+    private Collection<TransportOrderLog> _transportOrderLogFL = new ArrayList<TransportOrderLog>();
+
+    @OneToMany(mappedBy = "fromLocation")
+    public Collection<TransportOrderLog> getTransportOrderLogFL() {
+        return _transportOrderLogFL;
+    }
+
+    public void setTransportOrderLogFL(Collection<TransportOrderLog> transportOrderLogFL) {
+        this._transportOrderLogFL = transportOrderLogFL;
+    }
+
+    private Collection<TransportOrderLog> _transportOrderLogTL = new ArrayList<TransportOrderLog>();
+
+    @OneToMany(mappedBy = "toLocation")
+    public Collection<TransportOrderLog> getTransportOrderLogTL() {
+        return _transportOrderLogTL;
+    }
+
+    public void setTransportOrderLogTL(Collection<TransportOrderLog> transportOrderLogTL) {
+        this._transportOrderLogTL = transportOrderLogTL;
     }
 
 

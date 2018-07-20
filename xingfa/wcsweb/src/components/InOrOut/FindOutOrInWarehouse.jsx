@@ -1,4 +1,4 @@
-import {Button,Modal,Icon , Form, Input, Table, Badge, DatePicker, Select, message, Row, Col} from 'antd';
+import {Button,Modal,Icon , Form, Input,Radio, Table, Badge, DatePicker, Select, message, Row, Col} from 'antd';
 import React from 'react';
 const FormItem = Form.Item;
 import reqwest from 'reqwest';
@@ -6,6 +6,7 @@ import {reqwestError, dateFormat} from '../common/Golbal';
 const Option = Select.Option;
 const confirm = Modal.confirm;
 const RangePicker = DatePicker.RangePicker;
+const RadioGroup = Radio.Group;
 var columns2 ="";
 let OutputArea = React.createClass({
     getInitialState(){
@@ -81,7 +82,7 @@ let OutputArea = React.createClass({
             method: 'post',
             data: {current:values.currentPage,defaultPageSize:defaultPageSize,
                 productId:values.productId,beginDate:values.beginDate,
-                endDate:values.endDate},
+                endDate:values.endDate,type:values.type},
             success: function (json) {
                 if(json.success){
                     console.log(json.res);
@@ -153,6 +154,9 @@ let OutputArea = React.createClass({
             title: '货品名称',
             dataIndex: 'skuName',
         }, {
+            title: '批次',
+            dataIndex: 'lotNum',
+        },{
             title: '托盘数量',
             dataIndex: 'num',
         }, {
@@ -178,6 +182,7 @@ let OutputArea = React.createClass({
             wrapperCol: {span: 14},
         };
         const createDateProps = getFieldProps('createDate');
+        const radioGroupProps= getFieldProps('type',{initialValue:'00'});
         const commodityCodeListSelect =[];
         commodityCodeListSelect.push(<Option value="">---请选择---</Option>);
         this.state.commodityCodeList.forEach((commodityCode)=>{
@@ -208,7 +213,16 @@ let OutputArea = React.createClass({
                                              format="yyyy-MM-dd HH:mm:ss"
                                 />
                             </FormItem>
-
+                            <FormItem
+                                {...formItemLayout}
+                                label="查询类型"
+                            >
+                                <RadioGroup {...radioGroupProps}>
+                                    <Radio value="00">全部</Radio>
+                                    <Radio value="01">入库</Radio>
+                                    <Radio value="03">出库</Radio>
+                                </RadioGroup>
+                            </FormItem>
 
                             <FormItem wrapperCol={{offset: 10}}>
                                 <Button type="primary" onClick={this.handleSubmit}>查询</Button>

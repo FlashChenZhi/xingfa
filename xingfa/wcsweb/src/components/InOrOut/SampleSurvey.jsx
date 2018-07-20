@@ -16,12 +16,7 @@ const RangePicker = DatePicker.RangePicker;
 const RadioGroup = Radio.Group;
 
 var sc ="";
-var content = (
-    <div>
-        <p>Content</p>
-        <p>Content</p>
-    </div>
-);
+
 
 let OutputArea = React.createClass({
     getInitialState(){
@@ -77,7 +72,7 @@ let OutputArea = React.createClass({
         const values = this.props.form.getFieldsValue();
         console.log(values);
         reqwest({
-            url: '/wms/master/AssignsTheStorehouseAction/getStorageLocationData',
+            url: '/wms/master/SampleSurveyAction/getStorageLocationData',
             dataType: 'json',
             method: 'post',
             data: {productId:values.productId,tier:level},
@@ -109,10 +104,11 @@ let OutputArea = React.createClass({
                     }
                     sc.get(json.res.unavailableList).status('unavailable');
                     sc.get(json.res.availableList).status('available');
+                    sc.get(json.res.unavailableList1).status('unavailable');
+                    sc.get(json.res.unavailableList2).status('unavailable');
                     sc.get(json.res.reservedOutList).status('reservedOut');
                     sc.get(json.res.emptyList).status('empty');
                     sc.get(json.res.reservedInList).status('reservedIn');
-                    sc.get(json.res.unavailableList1).status('unavailable');
                     sc.get(json.res.unavailableList3).status('reservedCheck');
                     sc.get(json.res.unavailableList4).status('reservedCheck');
                 }else{
@@ -212,63 +208,25 @@ let OutputArea = React.createClass({
         let level = this.state.tabKey;
 
         if(settings.status=='available'){
-            reqwest({
-                url: '/wms/master/AssignsTheStorehouseAction/getNextAvailableLocation',
-                dataType: 'json',
-                method: 'post',
-                data: {bank:bank,bay:bay,level:level},
-                success: function (json) {
-                    if(json.success) {
-                        if(json.res.status){
-                           sc.get(json.res.location).status('available');
-                        }
-                        let locationNo = this.PrefixInteger(bank,3)+this.PrefixInteger(bay,3)+this.PrefixInteger(level,3);
-                        this.state.selectLocation.push(locationNo);
-                        console.log(this.state.selectLocation);
-                    }else{
-                        message.error("获取下一位库位代码失败！");
-                    }
-                }.bind(this),
-                error: function (err) {
-                    message.error("获取下一位库位代码失败！");
-                }.bind(this)
-            })
-        }else if(settings.status=='selected'){
-            reqwest({
-                url: '/wms/master/AssignsTheStorehouseAction/getAgoUnavailableLocation',
-                dataType: 'json',
-                method: 'post',
-                data: {bank:bank,bay:bay,level:level},
-                success: function (json) {
-                    if(json.success) {
-                        if(json.res.status){
-                            sc.get(json.res.location).status('unavailable');
-                        }
-                        this.setState({
-                            cancelLocation:json.res.location,
-                        })
+            this.state.selectLocation.forEach((s)=>{
+                sc.get(s).status('available');
+                let index = this.state.selectLocation.indexOf(s);
+                if(index >= 0){
+                    this.state.selectLocation.splice(index,1);
+                }
+            });
+            this.state.selectLocation.push(bank+'_'+bay);
+            console.log( this.state.selectLocation);
 
-                        this.state.cancelLocation.forEach((s)=>{
-                            let locationNo = this.PrefixInteger(s.split("_")[0],3)+this.PrefixInteger(s.split("_")[1],3)+this.PrefixInteger(level,3);
-                            let index = this.state.selectLocation.indexOf(locationNo);
-                            if(index >= 0){
-                                this.state.selectLocation.splice(index,1);
-                            }
-                        })
-                        let locationNo = this.PrefixInteger(bank,3)+this.PrefixInteger(bay,3)+this.PrefixInteger(level,3);
-                        let index = this.state.selectLocation.indexOf(locationNo);
-                        if(index >= 0){
-                            this.state.selectLocation.splice(index,1);
-                        }
-                        console.log( this.state.selectLocation);
-                    }else{
-                        message.error("初始化库位代码失败！");
-                    }
-                }.bind(this),
-                error: function (err) {
-                    message.error("初始化库位代码失败！");
-                }.bind(this)
-            })
+        }else if(settings.status=='selected'){
+            this.state.selectLocation.forEach((s)=>{
+                sc.get(s).status('available');
+                let index = this.state.selectLocation.indexOf(s);
+                if(index >= 0){
+                    this.state.selectLocation.splice(index,1);
+                }
+            });
+            console.log( this.state.selectLocation);
         }
 
     },
@@ -278,7 +236,7 @@ let OutputArea = React.createClass({
         let level = this.state.tabKey;
         this.setState({PopoverModelVisible: true});
         reqwest({
-            url: '/wms/master/AssignsTheStorehouseAction/getLocationInfo',
+            url: '/wms/master/SampleSurveyAction/getLocationInfo',
             dataType: 'json',
             method: 'post',
             data: {bank:bank,bay:bay,level:level},
@@ -320,11 +278,12 @@ let OutputArea = React.createClass({
     },
     handleSubmit2(e) {
         let locationList =JSON.stringify(this.state.selectLocation);
+        let level = this.state.tabKey;
         reqwest({
-            url: '/wms/master/AssignsTheStorehouseAction/assignsTheStorehouse',
+            url: '/wms/master/SampleSurveyAction/assignsTheStorehouse',
             dataType: 'json',
             method: 'post',
-            data: { selectLocation:locationList},
+            data: { selectLocation:locationList,level:level},
             success: function (json) {
                 if(json.success) {
                     message.success(json.msg);
@@ -332,6 +291,7 @@ let OutputArea = React.createClass({
                     this.getStorageLocationData(level);
                 }else{
                     message.error(json.msg);
+                    //this.getStorageLocationData(level);
                 }
             }.bind(this),
             error: function (err) {
