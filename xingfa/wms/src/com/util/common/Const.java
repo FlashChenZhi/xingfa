@@ -16,6 +16,10 @@ public class Const {
 
     public static final int bankCount = 26;
 
+    public static final int LOW_POWER = 35;
+
+    public static final int LHLOW_POWER = 60;
+
     public final static String OP_LOG_NAME = "opLog";
 
     //收货暂存区

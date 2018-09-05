@@ -1,10 +1,12 @@
 package com.wms.domain;
 
+import com.asrs.business.consts.AsrsJobType;
 import org.hibernate.*;
 import com.util.hibernate.HibernateUtil;
 import org.hibernate.Query;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -332,6 +334,73 @@ public class AsrsJob {
         for(WcsMessage wm : wms){
             session.delete(wm);
         }
+    }
+
+    /*
+     * @author：ed_chen
+     * @date：2018/8/3 10:50
+     * @description：查找此货位列有无其他任务
+     * @param location
+     * @return：boolean
+     */
+    public static boolean findAsrsJobByLocation(Location location,String asrsJobType){
+
+        boolean flag=true;
+
+        Session session = HibernateUtil.getCurrentSession();
+
+        List<String> list = new ArrayList<>();
+        list.add(AsrsJobType.PUTAWAY);
+        list.add(AsrsJobType.RETRIEVAL);
+        //是否存在同列出库任务
+        if(!AsrsJobType.RETRIEVAL.equals(asrsJobType) && flag){
+            Query query = session.createQuery("select count(*) as count from Container c " +
+                    "where c.reserved = true and c.location.bay=:bay and c.location.level=:level " +
+                    "and c.location.position=:position and c.location.actualArea=:actualArea");
+            query.setParameter("bay", location.getBay());
+            query.setParameter("level", location.getLevel());
+            query.setParameter("position", location.getPosition());
+            query.setParameter("actualArea", location.getActualArea());
+
+            long count =(long) query.uniqueResult();
+
+            if(count>0){
+                flag=false;
+            }
+        }
+        if(!AsrsJobType.PUTAWAY.equals(asrsJobType) && flag) {
+            //是否存在同列入库任务
+            Query query = session.createQuery("select count(*) as count from Location l " +
+                    "where l.reserved = true and l.bay=:bay and l.level=:level " +
+                    "and l.position=:position and l.actualArea=:actualArea");
+            query.setParameter("bay", location.getBay());
+            query.setParameter("level", location.getLevel());
+            query.setParameter("position", location.getPosition());
+            query.setParameter("actualArea", location.getActualArea());
+
+            long count = (long) query.uniqueResult();
+            if (count > 0) {
+                flag = false;
+            }
+        }
+        if(flag){
+            //到此列的其他任务
+            Query query = session.createQuery("select count(*) as count from Job a,Location l " +
+                    "where (a.fromLocation.locationNo = l.locationNo or a.toLocation.locationNo = l.locationNo) " +
+                    "and l.level=:level and l.position=:position and l.actualArea=:actualArea and " +
+                    "l.bay=:bay and a.type not in (:types) ");
+            query.setParameter("bay", location.getBay());
+            query.setParameter("level", location.getLevel());
+            query.setParameter("position", location.getPosition());
+            query.setParameter("actualArea", location.getActualArea());
+            query.setParameterList("types", list);
+            long count =(long) query.uniqueResult();
+            if(count>0){
+                flag=false;
+            }
+        }
+
+        return flag;
     }
 
 }

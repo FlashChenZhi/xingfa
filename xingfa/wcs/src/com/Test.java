@@ -8,6 +8,7 @@ import com.asrs.message.Message03;
 import com.asrs.message.Message40;
 import com.thread.blocks.Block;
 import com.thread.blocks.MCar;
+import com.thread.blocks.SCar;
 import com.thread.utils.MsgSender;
 import com.util.common.Const;
 import com.util.hibernate.HibernateUtil;
@@ -26,8 +27,22 @@ import java.util.Map;
 
 public class Test {
     public static void main(String[] args) throws Exception {
-        Transaction.begin();
+        try {
+            try {
+                Transaction.begin();
+                int i = 1/0;
+                Transaction.commit();
+            }catch (Exception e){
 
-        Transaction.commit();
+                System.out.println("nei catch");
+
+            }
+        }catch (Exception e){
+            Transaction.rollback();
+            System.out.println("wai catch");
+            e.printStackTrace();
+        }
+
+
     }
 }

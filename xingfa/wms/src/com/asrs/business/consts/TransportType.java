@@ -15,5 +15,5 @@ public class TransportType {
     public static final String CHECKINSTORAGE = "14";//抽检入库
     public static final String BACK_PUTAWAY = "06";//抽检回库
     public static final String LOCATIONTOLOCATION = "11";//库内移动
-
+    public static final String MOVESTORAGE = "15";//理货
 }

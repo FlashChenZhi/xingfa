@@ -91,6 +91,6 @@ public class Message03 extends Message implements Serializable {
         public static final String offCarCarryGoods = "13";
         public static final String charge = "14";
         public static final String chargeFinish = "15";
-
+        public static final String moveGood = "17";
     }
 }

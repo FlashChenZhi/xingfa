@@ -33,6 +33,12 @@ import AssignsTheStorehouse from '../components/InOrOut/AssignsTheStorehouse';
 import SampleSurvey from '../components/InOrOut/SampleSurvey';
 import CheckInStorage from '../components/InOrOut/CheckInStorage';
 import MoveStorage from '../components/InOrOut/MoveStorage';
+import TrimStorage from '../components/InOrOut/TrimStorage';
+import FindOrderDetail from '../components/InOrOut/FindOrderDetail';
+import StockOutODO from '../components/InOrOut/StockOutODO';
+import AssignsTheStorehouseML02 from '../components/InOrOut/AssignsTheStorehouseML02';
+import FindDayNeaten from '../components/InOrOut/FindDayNeaten';
+
 class Index extends React.Component {
     constructor(props) {
         super(props);
@@ -70,6 +76,11 @@ class Index extends React.Component {
                     <Route path="/SampleSurvey" components={SampleSurvey}/>
                     <Route path="/CheckInStorage" components={CheckInStorage}/>
                     <Route path="/MoveStorage" components={MoveStorage}/>
+                    <Route path="/TrimStorage" components={TrimStorage}/>
+                    <Route path="/FindOrderDetail" components={FindOrderDetail}/>
+                    <Route path="/StockOutODO" components={StockOutODO}/>
+                    <Route path="/AssignsTheStorehouseML02" components={AssignsTheStorehouseML02}/>
+                    <Route path="/FindDayNeaten" components={FindDayNeaten}/>
                 </Route>
                 <Route path="/" component={LoginMain}>
                     <IndexRedirect to="/login"/>

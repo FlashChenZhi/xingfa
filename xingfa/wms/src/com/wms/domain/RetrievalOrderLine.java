@@ -25,6 +25,7 @@ public class RetrievalOrderLine {
     private String danwei;
     private String lotNo;
     private Date chuangjianshijian;
+    private String fromStation;
     @Id
     @Column(name = "RID", nullable = false, precision = 0)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -166,6 +167,16 @@ public class RetrievalOrderLine {
         this.lotNo = lotNo;
     }
 
+    @Basic
+    @Column(name = "FROMSTATION", nullable = true)
+    public String getFromStation() {
+        return fromStation;
+    }
+
+    public void setFromStation(String fromStation) {
+        this.fromStation = fromStation;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -200,6 +211,12 @@ public class RetrievalOrderLine {
         return (RetrievalOrderLine) q.uniqueResult();
     }
 
+    public static RetrievalOrderLine getRetrievalOrderLineByjinhuodanhao(String jinhuodanhao) {
+        org.hibernate.Query q = HibernateUtil.getCurrentSession().createQuery("from RetrievalOrderLine r where r.jinhuodanhao = :jinhuodanhao ")
+                .setString("jinhuodanhao", jinhuodanhao);
+
+        return (RetrievalOrderLine) q.uniqueResult();
+    }
     public Date getChuangjianshijian() {
         return chuangjianshijian;
     }

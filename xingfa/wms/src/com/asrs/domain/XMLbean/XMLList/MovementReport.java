@@ -286,7 +286,36 @@ public class MovementReport extends XMLProcess {
             session.update(fromLocation);
             session.update(toLocation);
 
+        }else if(dataArea.getReasonCode().equals(ReasonCode.MSFINISHED)){
+            //理货成功
+            Location fromLocation = j.getFromLocation();
+            String locationNo = fromLocation.getLocationNo();
+            //将库存移到前面
+            Query query2 = session.createQuery("from Inventory i where i.container.location.bay = :bay " +
+                    "and i.container.location.level = :level and i.container.location.position = :position " +
+                    "and i.container.location.actualArea = :actualArea order by i.container.location.bank asc ");
+            query2.setParameter("bay", fromLocation.getBay());
+            query2.setParameter("level", fromLocation.getLevel());
+            query2.setParameter("position", fromLocation.getPosition());
+            query2.setParameter("actualArea", fromLocation.getActualArea());
+            List<Inventory> inventoryList = query2.list();
+            for(int i =0;i<inventoryList.size();i++){
+                Inventory inventory=inventoryList.get(i);
+                Container container = inventory.getContainer();
+                Location fromLocation2 =container.getLocation();
+                int j2 = i+3;
+                String toLocationNo = locationNo.substring(0,2 )+""+j2+locationNo.substring(3,9 );
+                Location location = Location.getByLocationNo(toLocationNo);
+                container.setLocation(location);
+                container.setReserved(false);
+                session.update(container);
+                fromLocation2.setEmpty(true);
+                location.setEmpty(false);
+                session.update(fromLocation2);
+                session.update(location);
+            }
         }
+
         j.asrsDone();
 
     }

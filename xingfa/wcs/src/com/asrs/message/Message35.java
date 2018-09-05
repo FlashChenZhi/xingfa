@@ -85,7 +85,9 @@ public class Message35 extends Message implements Serializable {
     public boolean isPickingUpGoods() {
         return CycleOrder.equals(_CycleOrder.pickUpGoods);
     }
-
+    public boolean isMoveGoods() {
+        return CycleOrder.equals(_CycleOrder.moveGood);
+    }
     public boolean isUnloadGoods() {
         return CycleOrder.equals(_CycleOrder.unloadGoods);
     }
@@ -154,6 +156,6 @@ public class Message35 extends Message implements Serializable {
         public static final String offCarCarryGoods = "13";
         public static final String charge = "14";
         public static final String chargeFinish = "15";
-
+        public static final String moveGood = "17";
     }
 }

@@ -182,19 +182,6 @@ public abstract class SrmAndScarServiceImpl implements SrmService {
                                 }
                             }
                         }
-
-                        //获取出库任务
-                        if (!hasJob) {
-                            Query query = HibernateUtil.getCurrentSession().createQuery(" from AsrsJob where type=:tp and statusDetail = '0' and fromStation=:fStation order by id asc ").setMaxResults(1);
-                            query.setParameter("tp", AsrsJobType.RETRIEVAL);
-                            query.setParameter("fStation", srm.getBlockNo());
-                            AsrsJob asrsJob = (AsrsJob) query.uniqueResult();
-                            if (asrsJob != null) {
-                                srm.setReservedMcKey(asrsJob.getMcKey());
-                                hasJob = true;
-                            }
-                        }
-
                         //获取移库任务
                         if (!hasJob) {
                             Query query = HibernateUtil.getCurrentSession().createQuery(" from AsrsJob where type=:tp and statusDetail = '0' and fromStation=:fStation order by id asc ").setMaxResults(1);
@@ -217,6 +204,17 @@ public abstract class SrmAndScarServiceImpl implements SrmService {
                                 hasJob = true;
                             }
                         }
+                        //获取出库任务
+                        if (!hasJob) {
+                            Query query = HibernateUtil.getCurrentSession().createQuery(" from AsrsJob where type=:tp and statusDetail = '0' and fromStation=:fStation order by id asc ").setMaxResults(1);
+                            query.setParameter("tp", AsrsJobType.RETRIEVAL);
+                            query.setParameter("fStation", srm.getBlockNo());
+                            AsrsJob asrsJob = (AsrsJob) query.uniqueResult();
+                            if (asrsJob != null) {
+                                srm.setReservedMcKey(asrsJob.getMcKey());
+                                hasJob = true;
+                            }
+                        }
                         //获取抽检出库任务
                         if (!hasJob) {
                             Query query = HibernateUtil.getCurrentSession().createQuery(" from AsrsJob where type=:tp and statusDetail = '0' and fromStation=:fStation order by id asc ").setMaxResults(1);
@@ -228,7 +226,17 @@ public abstract class SrmAndScarServiceImpl implements SrmService {
                                 hasJob = true;
                             }
                         }
-
+                        //获取理货任务
+                        if (!hasJob) {
+                            Query query = HibernateUtil.getCurrentSession().createQuery(" from AsrsJob where type=:tp and statusDetail = '0' and fromStation=:fStation order by id asc ").setMaxResults(1);
+                            query.setParameter("tp", AsrsJobType.MOVESTORAGE);
+                            query.setParameter("fStation", srm.getBlockNo());
+                            AsrsJob asrsJob = (AsrsJob) query.uniqueResult();
+                            if (asrsJob != null) {
+                                srm.setReservedMcKey(asrsJob.getMcKey());
+                                hasJob = true;
+                            }
+                        }
                         if (!hasJob) {
                             Block bb = srm.getPreBlockHasMckey(AsrsJobType.ST2ST);
                             if (bb != null) {
@@ -372,6 +380,16 @@ public abstract class SrmAndScarServiceImpl implements SrmService {
                     if (!hasJob) {
                         Query query = HibernateUtil.getCurrentSession().createQuery(" from AsrsJob where type=:tp and statusDetail = '0' and fromStation=:st order by id asc ").setMaxResults(1);
                         query.setParameter("tp", AsrsJobType.BACK_PUTAWAY);
+                        query.setParameter("st", srm.getBlockNo());
+                        AsrsJob asrsJob = (AsrsJob) query.uniqueResult();
+                        if (asrsJob != null) {
+                            srm.setReservedMcKey(asrsJob.getMcKey());
+                            hasJob = true;
+                        }
+                    }
+                    if (!hasJob) {
+                        Query query = HibernateUtil.getCurrentSession().createQuery(" from AsrsJob where type=:tp and statusDetail = '0' and fromStation=:st order by id asc ").setMaxResults(1);
+                        query.setParameter("tp", AsrsJobType.MOVESTORAGE);
                         query.setParameter("st", srm.getBlockNo());
                         AsrsJob asrsJob = (AsrsJob) query.uniqueResult();
                         if (asrsJob != null) {

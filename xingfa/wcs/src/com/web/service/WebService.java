@@ -771,6 +771,45 @@ public class WebService {
 
     }
 
+    public HttpMessage constraintChargeFinish(String blockNo) {
+        HttpMessage httpMessage = new HttpMessage();
+        try {
+
+            Transaction.begin();
+
+            Block block = Block.getByBlockNo(blockNo);
+            if (block instanceof SCar && block.getBlockNo().equals("SC01")) {
+
+                SCar sCar = (SCar) block;
+                if (!sCar.getStatus().equals(SCar.STATUS_CHARGE)) {
+                    Transaction.rollback();
+                    httpMessage.setSuccess(false);
+                    httpMessage.setMsg("子车非充电中");
+                    return httpMessage;
+                }
+                sCar.setStatus(SCar.STATUS_RUN);
+
+            } else {
+                Transaction.rollback();
+                httpMessage.setSuccess(false);
+                httpMessage.setMsg("设备非一号子车");
+                return httpMessage;
+            }
+
+            Transaction.commit();
+
+            httpMessage.setSuccess(true);
+            httpMessage.setMsg("成功");
+
+        } catch (Exception e) {
+            Transaction.rollback();
+            httpMessage.setSuccess(false);
+            httpMessage.setMsg("出错了。");
+            e.printStackTrace();
+        }
+        return httpMessage;
+    }
+
     public HttpMessage chargeFinish(String blockNo) {
         HttpMessage httpMessage = new HttpMessage();
         try {

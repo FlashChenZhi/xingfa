@@ -52,6 +52,8 @@ const typeCmp = (s) => {
         return '充电开始';
     } else if (s == '15') {
         return '充电结束';
+    }else if (s == '17') {
+        return '理货';
     }
 };
 

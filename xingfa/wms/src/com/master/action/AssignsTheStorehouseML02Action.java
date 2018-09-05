@@ -1,7 +1,7 @@
 package com.master.action;
 
 import com.master.service.AssignsTheStorehouseService;
-import com.util.common.PagerReturnObj;
+import com.master.service.AssignsTheStorehouseServiceML02;
 import com.util.common.ReturnObj;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -19,10 +18,10 @@ import java.util.Map;
  * @Modified By:
  */
 @Controller
-@RequestMapping("/master/AssignsTheStorehouseAction")
-public class AssignsTheStorehouseAction {
+@RequestMapping("/master/AssignsTheStorehouseActionML02")
+public class AssignsTheStorehouseML02Action {
     @Resource
-    private AssignsTheStorehouseService assignsTheStorehouseService;
+    private AssignsTheStorehouseServiceML02 assignsTheStorehouseServiceML02;
     /*
      * @author：ed_chen
      * @date：2018/4/10 18:23
@@ -35,7 +34,7 @@ public class AssignsTheStorehouseAction {
     @ResponseBody
     public ReturnObj<Map<String, Object>> getStorageLocationData(String productId,String tier,String lotNum){
 
-        return assignsTheStorehouseService.getStorageLocationData(productId,tier,lotNum);
+        return assignsTheStorehouseServiceML02.getStorageLocationData(productId,tier,lotNum);
     }
     /*
      * @author：ed_chen
@@ -50,7 +49,7 @@ public class AssignsTheStorehouseAction {
     @ResponseBody
     public ReturnObj<Map<String, Object>> getLocationInfo(String bank,String bay,String level){
 
-        return assignsTheStorehouseService.getLocationInfo(bank,bay,level);
+        return assignsTheStorehouseServiceML02.getLocationInfo(bank,bay,level);
     }
     /*
      * @author：ed_chen
@@ -65,7 +64,7 @@ public class AssignsTheStorehouseAction {
     @ResponseBody
     public ReturnObj<Map<String, Object>> getNextAvailableLocation(String bank,String bay,String level){
 
-        return assignsTheStorehouseService.getNextAvailableLocation(bank,bay,level);
+        return assignsTheStorehouseServiceML02.getNextAvailableLocation(bank,bay,level);
     }
     /*
      * @author：ed_chen
@@ -80,7 +79,7 @@ public class AssignsTheStorehouseAction {
     @ResponseBody
     public ReturnObj<Map<String, Object>> getAgoUnavailableLocation(String bank,String bay,String level){
 
-        return assignsTheStorehouseService.getAgoUnavailableLocation(bank,bay,level);
+        return assignsTheStorehouseServiceML02.getAgoUnavailableLocation(bank,bay,level);
     }
 
     /*
@@ -96,6 +95,6 @@ public class AssignsTheStorehouseAction {
     @ResponseBody
     public ReturnObj<Map<String, Object>> assignsTheStorehouse(String selectLocation){
 
-        return assignsTheStorehouseService.assignsTheStorehouse(selectLocation);
+        return assignsTheStorehouseServiceML02.assignsTheStorehouse(selectLocation);
     }
 }

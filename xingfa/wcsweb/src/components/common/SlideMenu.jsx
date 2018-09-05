@@ -68,53 +68,86 @@ const SlideMenu = React.createClass({
                         </Menu.Item>
 
                     </SubMenu>
-                    <SubMenu key="6" title={<span><Icon type="shopping-cart"/><span>出入库</span></span>}>
+                    <SubMenu key="6" title={<span><Icon type="shopping-cart"/><span>入库</span></span>}>
                         <Menu.Item key='61'>
                             <Link to='PutInStorage'>
                                 <Icon type="shopping-cart"/><span className="nav-text">入库</span>
                             </Link>
                         </Menu.Item>
-                        <Menu.Item key='62'>
-                            <Link to='CheckInStorage'>
-                                <Icon type="shopping-cart"/><span className="nav-text">抽检入库</span>
-                            </Link>
-                        </Menu.Item>
-                        <Menu.Item key='63'>
-                            <Link to='OrderInquiry'>
-                                <Icon type="book"/><span className="nav-text">订单查询</span>
-                            </Link>
-                        </Menu.Item>
+
                         <Menu.Item key='64'>
                             <Link to='PlatformSwitch'>
                                 <Icon type="ellipsis" /><span className="nav-text">站台模式切换</span>
                             </Link>
                         </Menu.Item>
-                        <Menu.Item key='65'>
-                            <Link to='FindInventory'>
-                                <Icon type="solution" /><span className="nav-text">库存展示</span>
+
+                    </SubMenu>
+                    <SubMenu key="7" title={<span><Icon type="shopping-cart"/><span>出库</span></span>}>
+                        <Menu.Item key='71'>
+                            <Link to='StockOutODO'>
+                                <Icon type="solution" /><span className="nav-text">订单出库</span>
                             </Link>
                         </Menu.Item>
-                        <Menu.Item key='66'>
-                            <Link to='FindOutOrInWarehouse'>
-                                <Icon type="solution" /><span className="nav-text">出入库查询</span>
+                        <Menu.Item key='72'>
+                            <Link to='OrderInquiry'>
+                                <Icon type="book"/><span className="nav-text">订单查询</span>
                             </Link>
                         </Menu.Item>
-                        <Menu.Item key='67'>
+                        {/*<Menu.Item key='72'>
+                            <Link to='FindOrderDetail'>
+                                <Icon type="solution" /><span className="nav-text">订单详情</span>
+                            </Link>
+                        </Menu.Item>*/}
+                        <Menu.Item key='73'>
                             <Link to='AssignsTheStorehouse'>
-                                <Icon type="solution" /><span className="nav-text">定点出库</span>
+                                <Icon type="solution" /><span className="nav-text">定点出库ML01</span>
                             </Link>
                         </Menu.Item>
-                        <Menu.Item key='68'>
+                        <Menu.Item key='74'>
+                            <Link to='AssignsTheStorehouseML02'>
+                                <Icon type="solution" /><span className="nav-text">定点出库ML02</span>
+                            </Link>
+                        </Menu.Item>
+                    </SubMenu>
+                    <SubMenu key="8" title={<span><Icon type="shopping-cart"/><span>库存整理</span></span>}>
+
+                        <Menu.Item key='81'>
+                            <Link to='CheckInStorage'>
+                                <Icon type="shopping-cart"/><span className="nav-text">抽检入库</span>
+                            </Link>
+                        </Menu.Item>
+                        <Menu.Item key='82'>
                             <Link to='SampleSurvey'>
                                 <Icon type="solution" /><span className="nav-text">抽检出库</span>
                             </Link>
                         </Menu.Item>
-                        <Menu.Item key='69'>
+                        <Menu.Item key='83'>
                             <Link to='MoveStorage'>
                                 <Icon type="solution" /><span className="nav-text">移库</span>
                             </Link>
                         </Menu.Item>
+                        <Menu.Item key='84'>
+                            <Link to='TrimStorage'>
+                                <Icon type="solution" /><span className="nav-text">理货</span>
+                            </Link>
+                        </Menu.Item>
+                        <Menu.Item key='85'>
+                            <Link to='FindInventory'>
+                                <Icon type="solution" /><span className="nav-text">库存展示</span>
+                            </Link>
+                        </Menu.Item>
+                        <Menu.Item key='86'>
+                            <Link to='FindOutOrInWarehouse'>
+                                <Icon type="solution" /><span className="nav-text">出入库查询</span>
+                            </Link>
+                        </Menu.Item>
+                        <Menu.Item key='87'>
+                            <Link to='FindDayNeaten'>
+                                <Icon type="solution" /><span className="nav-text">日结查询</span>
+                            </Link>
+                        </Menu.Item>
                     </SubMenu>
+
                 </Menu>
             </aside>
         );

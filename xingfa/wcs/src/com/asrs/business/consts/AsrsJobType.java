@@ -50,7 +50,7 @@ public class AsrsJobType {
     public static final String LOCATIONTOLOCATION = "11";//库内移动
     public static final String CHECKOUTSTORAGE = "13";//抽检出库
     public static final String CHECKINSTORAGE = "14";//抽检入库
-
+    public static final String MOVESTORAGE = "15";//理货
 //    public static final String TRANSFER = "07";//库内移动
 
     public static final Map<String, String> map = new HashMap<String, String>();
@@ -67,6 +67,7 @@ public class AsrsJobType {
         map.put(CHECKINSTORAGE, "抽检入库");
         map.put(BACK_PUTAWAY, "抽检移库回库");
         map.put(LOCATIONTOLOCATION, "库内移动");
+        map.put(MOVESTORAGE, "理货");
 //        map.put(TRANSFER,"库内移动");
     }
 

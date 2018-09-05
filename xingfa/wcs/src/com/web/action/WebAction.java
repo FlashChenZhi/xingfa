@@ -133,6 +133,13 @@ public class WebAction {
         return httpMessage;
     }
 
+    @RequestMapping("constraintChargeFinish.do")
+    @ResponseBody
+    public HttpMessage constraintChargeFinish(String blockNo) {
+        HttpMessage httpMessage = webService.constraintChargeFinish(blockNo);
+        return httpMessage;
+    }
+
     @RequestMapping("chargeFinish.do")
     @ResponseBody
     public HttpMessage chargeFinish(String blockNo) {

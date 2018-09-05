@@ -588,7 +588,7 @@ public class Msg35Proc implements MsgProcess {
                                 sCar.setBank(Integer.parseInt(message35.Bank));
                                 sCar.clearMckeyAndReservMckey();
                                 if (aj.getStatus().equals(AsrsJobStatus.DONE)) {
-                                    aj.delete();
+                                    //aj.delete();
                                 } else {
                                     aj.setStatus(AsrsJobStatus.DONE);
                                 }
@@ -603,6 +603,85 @@ public class Msg35Proc implements MsgProcess {
                                 sCar.setBank(Integer.parseInt(message35.Bank));
                                 sCar.setOnMCar(null);
                                 sCar.generateMckey(message35.McKey);
+                            }
+                        }
+                    } else if (AsrsJobType.MOVESTORAGE.equals(aj.getType())) {
+                        // 理货
+                        if (block instanceof SCar) {
+                            SCar sCar = (SCar) block;
+                            if (message35.isMoveGoods()) {
+
+                                sCar.clearMckeyAndReservMckey();
+                                //sCar.setOnMCar(message35.Station);
+                                if (aj.getStatus().equals(AsrsJobStatus.DONE)) {
+                                    //aj.delete();
+                                } else {
+                                    aj.setStatus(AsrsJobStatus.DONE);
+                                }
+                                //理货完成,发送wms理货完成xml
+                                moveStorgeFinish(aj);
+                            } else if (message35.isOnCar()) {
+
+                                sCar.setOnMCar(message35.Station);
+                                sCar.setBank(0);
+
+                            } else if (message35.isOffCar()) {
+                                sCar.setBank(Integer.parseInt(message35.Bank));
+                                sCar.setOnMCar(null);
+                                sCar.generateMckey(message35.McKey);
+                            }
+                        }  else if (block instanceof Srm) {
+                            Srm srm = (Srm) block;
+                            if (message35.isMove()) {
+                                //升降机移动
+                                if (message35.Station.equals("0000")) {
+                                    srm.setDock(null);
+                                    srm.setBay(Integer.parseInt(message35.Bay));
+                                    srm.setLevel(Integer.parseInt(message35.Level));
+                                    Location toLoc = Location.getByBankBayLevel(Integer.parseInt(message35.Bank), srm.getBay(), srm.getLevel());
+                                    srm.setActualArea(toLoc.getActualArea());
+                                    if (StringUtils.isNotBlank(srm.getsCarBlockNo())) {
+                                        SCar sCar = (SCar) Block.getByBlockNo(srm.getsCarBlockNo());
+                                        sCar.setBay(srm.getBay());
+                                        sCar.setLevel(srm.getLevel());
+                                        sCar.setActualArea(srm.getActualArea());
+                                    }
+                                } else {
+                                    srm.setDock(message35.Station);
+                                    if (StringUtils.isNotBlank(srm.getsCarBlockNo())) {
+                                        SCar sCar = (SCar) Block.getByBlockNo(srm.getsCarBlockNo());
+                                        sCar.setBay(0);
+                                    }
+                                }
+                                srm.setCheckLocation(true);
+                            } else if (message35.isLoadCar()) {
+
+                                SCar sCar = (SCar) Block.getByBlockNo(message35.Station);
+                                srm.setsCarBlockNo(sCar.getBlockNo());
+
+                                /*if (StringUtils.isNotBlank(sCar.getMcKey())) {
+                                    srm.generateMckey(sCar.getMcKey());
+                                }*/
+
+                            } else if (message35.isUnLoadCar()) {
+                                SCar sCar = (SCar) Block.getByBlockNo(srm.getsCarBlockNo());
+                                srm.setsCarBlockNo(null);
+                                // mCar.setReservedMcKey(null);
+                                srm.clearMckeyAndReservMckey();
+                            }
+                        } else if (block instanceof MCar) {
+                            MCar mCar = (MCar) block;
+                            if (message35.isMove()) {
+                                if (message35.Station.equals("0000")) {
+                                    mCar.setDock(null);
+                                } else {
+                                    mCar.setDock(message35.Station);
+                                }
+                                mCar.setCheckLocation(true);
+                            } else if (message35.isMoveCarryGoods()) {
+                                mCar.generateMckey(message35.McKey);
+                            } else if (message35.isMoveUnloadGoods()) {
+                                mCar.clearMckeyAndReservMckey();
                             }
                         }
                     } else if (AsrsJobType.ST2ST.equals(aj.getType())) {
@@ -910,6 +989,77 @@ public class Msg35Proc implements MsgProcess {
             mrd.setReasonCode(ReasonCode.LTLFINISHED);
         }else if(AsrsJobType.BACK_PUTAWAY.equals(aj.getType())){
             mrd.setReasonCode(ReasonCode.BACK_PUTAWAYFINISHED);
+        }
+
+        mrd.setToLocation(toLocation);
+        //创建MovementReport响应核心对象
+        MovementReport mr = new MovementReport();
+        mr.setControlArea(ca);
+        mr.setDataArea(mrd);
+        //将MovementReport发送给wms
+        Envelope el = new Envelope();
+        el.setMovementReport(mr);
+
+        XMLMessage xmlMessage = new XMLMessage();
+        xmlMessage.setStatus("1");
+        xmlMessage.setRecv("WMS");
+        xmlMessage.setMessageInfo(XMLUtil.getSendXML(el));
+        HibernateUtil.getCurrentSession().save(xmlMessage);
+
+    }
+
+    /*
+     * @author：ed_chen
+     * @date：2018/8/8 17:11
+     * @description：理货完成
+     * @param aj
+     * @return：void
+     */
+    private void moveStorgeFinish(AsrsJob aj) throws Exception {
+
+        //创建ControlArea控制域对象
+        Sender sd = new Sender();
+        sd.setDivision(XMLConstant.COM_DIVISION);
+
+        Receiver receiver = new Receiver();
+        receiver.setDivision(XMLConstant.WMS_DIVISION);
+
+        RefId ri = new RefId();
+        ri.setReferenceId(aj.getWmsMckey());
+
+        ControlArea ca = new ControlArea();
+        ca.setSender(sd);
+        ca.setReceiver(receiver);
+        ca.setRefId(ri);
+        ca.setCreationDateTime(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
+
+        Location ajFromLocation = Location.getByLocationNo(aj.getFromLocation());
+
+        FromLocation fromLocation = new FromLocation();
+        List<String> list = new ArrayList<>(3);
+        fromLocation.setMHA(aj.getFromStation());
+        list.add(String.valueOf(ajFromLocation.getBank()));
+        list.add(String.valueOf(ajFromLocation.getBay()));
+        list.add(String.valueOf(ajFromLocation.getLevel()));
+        fromLocation.setRack(list);
+
+        Location ajToLocation = Location.getByLocationNo(aj.getToLocation());
+        ToLocation toLocation = new ToLocation();
+        // TODO: 2017/5/1 修改货位
+        toLocation.setMHA(aj.getToStation());
+        List<String> rack = new ArrayList<>(3);
+        rack.add(String.valueOf(ajToLocation.getBank()));
+        rack.add(String.valueOf(ajToLocation.getBay()));
+        rack.add(String.valueOf(ajToLocation.getLevel()));
+        toLocation.setRack(rack);
+
+        //创建MovementReportDA数据域对象
+        MovementReportDA mrd = new MovementReportDA();
+        mrd.setFromLocation(fromLocation);
+        mrd.setStUnitId(aj.getBarcode());
+
+        if(AsrsJobType.MOVESTORAGE.equals(aj.getType())){
+            mrd.setReasonCode(ReasonCode.MSFINISHED);
         }
 
         mrd.setToLocation(toLocation);

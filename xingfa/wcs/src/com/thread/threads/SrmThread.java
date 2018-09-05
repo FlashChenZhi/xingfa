@@ -9,6 +9,7 @@ import com.thread.threads.service.impl.SrmAndScarServiceImpl;
 import com.thread.threads.service.impl.charage.SrmCharageService;
 import com.thread.threads.service.impl.charageover.SrmCharageOverService;
 import com.thread.threads.service.impl.locationtolocation.SrmLocationToLocationService;
+import com.thread.threads.service.impl.movestorage.SrmMoveStorageService;
 import com.thread.threads.service.impl.putaway.SrmAndScarPutawayService;
 import com.thread.threads.service.impl.retrieval.SrmAndScarRetrievalService;
 import com.thread.utils.MsgSender;
@@ -97,6 +98,8 @@ public class SrmThread extends BlockThread<Srm> {
                             service = new SrmCharageOverService(srm);
                         } else if(asrsJob.getType().equals(AsrsJobType.LOCATIONTOLOCATION)||asrsJob.getType().equals(AsrsJobType.BACK_PUTAWAY)){
                             service = new SrmLocationToLocationService(srm);
+                        }else if( asrsJob.getType().equals(AsrsJobType.MOVESTORAGE) ){
+                            service = new SrmMoveStorageService(srm);
                         }
 
                         service.withReserveMckey();
@@ -114,6 +117,8 @@ public class SrmThread extends BlockThread<Srm> {
                             service = new SrmCharageOverService(srm);
                         }else if(asrsJob.getType().equals(AsrsJobType.LOCATIONTOLOCATION)||asrsJob.getType().equals(AsrsJobType.BACK_PUTAWAY)){
                             service = new SrmLocationToLocationService(srm);
+                        }else if( asrsJob.getType().equals(AsrsJobType.MOVESTORAGE) ){
+                            service = new SrmMoveStorageService(srm);
                         }
                         service.withMckey();
                     }

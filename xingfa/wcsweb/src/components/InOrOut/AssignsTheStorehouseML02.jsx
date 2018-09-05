@@ -44,7 +44,6 @@ let OutputArea = React.createClass({
             qty:"",
             selectLocation:[],
             cancelLocation:[],
-            commodityCode:"",
             kongNum:"",
             shiNum:"",
         };
@@ -80,7 +79,7 @@ let OutputArea = React.createClass({
         const values = this.props.form.getFieldsValue();
         console.log(values);
         reqwest({
-            url: '/wms/master/AssignsTheStorehouseAction/getStorageLocationData',
+            url: '/wms/master/AssignsTheStorehouseActionML02/getStorageLocationData',
             dataType: 'json',
             method: 'post',
             data: {productId:values.productId,tier:level,lotNum:values.lotNum},
@@ -121,6 +120,7 @@ let OutputArea = React.createClass({
                     sc.get(json.res.unavailableList1).status('unavailable');
                     sc.get(json.res.unavailableList3).status('reservedCheck');
                     sc.get(json.res.unavailableList4).status('reservedCheck');
+
                 }else{
                     message.error("初始化库位代码失败！");
                 }
@@ -219,7 +219,7 @@ let OutputArea = React.createClass({
 
         if(settings.status=='available'){
             reqwest({
-                url: '/wms/master/AssignsTheStorehouseAction/getNextAvailableLocation',
+                url: '/wms/master/AssignsTheStorehouseActionML02/getNextAvailableLocation',
                 dataType: 'json',
                 method: 'post',
                 data: {bank:bank,bay:bay,level:level},
@@ -241,7 +241,7 @@ let OutputArea = React.createClass({
             })
         }else if(settings.status=='selected'){
             reqwest({
-                url: '/wms/master/AssignsTheStorehouseAction/getAgoUnavailableLocation',
+                url: '/wms/master/AssignsTheStorehouseActionML02/getAgoUnavailableLocation',
                 dataType: 'json',
                 method: 'post',
                 data: {bank:bank,bay:bay,level:level},
@@ -284,7 +284,7 @@ let OutputArea = React.createClass({
         let level = this.state.tabKey;
         this.setState({PopoverModelVisible: true});
         reqwest({
-            url: '/wms/master/AssignsTheStorehouseAction/getLocationInfo',
+            url: '/wms/master/AssignsTheStorehouseActionML02/getLocationInfo',
             dataType: 'json',
             method: 'post',
             data: {bank:bank,bay:bay,level:level},
@@ -327,7 +327,7 @@ let OutputArea = React.createClass({
     handleSubmit2(e) {
         let locationList =JSON.stringify(this.state.selectLocation);
         reqwest({
-            url: '/wms/master/AssignsTheStorehouseAction/assignsTheStorehouse',
+            url: '/wms/master/AssignsTheStorehouseActionML02/assignsTheStorehouse',
             dataType: 'json',
             method: 'post',
             data: { selectLocation:locationList},
@@ -443,7 +443,7 @@ let OutputArea = React.createClass({
                                     showSearch
                                     filterOption={(input, option) => option.props.children.toLowerCase().indexOf(input.toLowerCase()) >= 0}
                                     id="select" size="large" style={{ width: 200 }}
-                                    {...commodityCodeProps}  onChange={this.commodityCodeChange}>
+                                    {...commodityCodeProps} onChange={this.commodityCodeChange}>
                                     {commodityCodeListSelect}
                                 </Select>
                             </FormItem>

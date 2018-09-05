@@ -1,6 +1,7 @@
 package com.wms.domain;
 
 import com.asrs.business.consts.AsrsJobStatus;
+import com.asrs.business.consts.AsrsJobType;
 import com.util.hibernate.HibernateUtil;
 import org.apache.log4j.Logger;
 import org.hibernate.*;
@@ -271,13 +272,15 @@ public class Job {
         jobLog.setMckey(this.getMcKey());
         jobLog.setFromStation(this.getFromStation());
         jobLog.setToStation(this.getToStation());
-        for(JobDetail jd : getJobDetails()){
-            jobLog.setSkuCode(jd.getInventory().getSkuCode());
-            jobLog.setSkuName(jd.getInventory().getSkuName());
-            jobLog.setQty(jd.getInventory().getQty());
-            jobLog.setLotNum(jd.getInventory().getLotNum());
+        if(!this.getType().equals(AsrsJobType.MOVESTORAGE)){
+            for(JobDetail jd : getJobDetails()){
+                jobLog.setSkuCode(jd.getInventory().getSkuCode());
+                jobLog.setSkuName(jd.getInventory().getSkuName());
+                jobLog.setQty(jd.getInventory().getQty());
+                jobLog.setLotNum(jd.getInventory().getLotNum());
+            }
         }
-
+        jobLog.setRead(false);
 
         HibernateUtil.getCurrentSession().save(jobLog);
     }

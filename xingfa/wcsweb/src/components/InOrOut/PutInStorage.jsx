@@ -293,8 +293,8 @@ let PutInStorage = React.createClass({
                                 //disabled={this.state.tuopanhao.length > 0 ? false : true}
                         >设定</Button>
                         <Button style={{marginLeft:"13%"}} type="primary" onClick={this.update}
-                            //disabled={this.state.tuopanhao.length > 0 ? false : true}
-                        >刷新</Button>
+                        //disabled={this.state.tuopanhao.length > 0 ? false : true}
+                    >刷新</Button>
                         <Button style={{marginLeft:"13%"}} type="primary" onClick={this.delete}
                             //disabled={this.state.tuopanhao.length > 0 ? false : true}
                         >删除</Button>

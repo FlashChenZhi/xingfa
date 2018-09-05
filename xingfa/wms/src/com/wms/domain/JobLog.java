@@ -1,8 +1,14 @@
 package com.wms.domain;
 
+import com.asrs.business.consts.AsrsJobType;
+import com.util.hibernate.HibernateUtil;
+import org.hibernate.Query;
+
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by van on 2018/1/14.
@@ -33,7 +39,7 @@ public class JobLog {
     private String skuName;
     private BigDecimal _qty;
     private String lotNum;
-
+    private boolean isRead;
 
     public static final String COL_ID = "id";
 
@@ -197,5 +203,27 @@ public class JobLog {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    @Basic
+    @Column(name = "ISREAD")
+    public boolean isRead() {
+        return isRead;
+    }
+
+    public void setRead(boolean read) {
+        isRead = read;
+    }
+
+    //查询出入库的jobLog
+    public static List<JobLog> getJobLogByType(){
+        List<String> list = new ArrayList<>();
+        list.add(AsrsJobType.PUTAWAY);
+        list.add(AsrsJobType.RETRIEVAL);
+        //Query query = HibernateUtil.getCurrentSession().createQuery("from JobLog  ");
+        Query query = HibernateUtil.getCurrentSession().createQuery("from JobLog  where " +
+                " isRead is false and type in (:types) ");
+        query.setParameterList("types", list);
+        return query.list();
     }
 }

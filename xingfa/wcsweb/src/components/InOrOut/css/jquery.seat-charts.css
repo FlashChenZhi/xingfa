@@ -99,6 +99,10 @@ div.seatCharts-seat.toLocation {
 	cursor: not-allowed;
 }
 
+div.seatCharts-seat.two {
+	background-color: #a3de10;
+	cursor: not-allowed;
+}
 
 
 div.seatCharts-legend {

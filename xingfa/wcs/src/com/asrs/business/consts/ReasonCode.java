@@ -11,4 +11,5 @@ public class ReasonCode {
     public final static String CHECKOUTFINISHED = "131";//抽检出库完成
     public final static String CHECKINFINISHED = "141";//抽检入库完成
     public final static String LTLFINISHED = "111";//移库完成
+    public final static String MSFINISHED = "151";//理货完成
 }

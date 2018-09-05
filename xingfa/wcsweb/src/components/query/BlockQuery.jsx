@@ -286,6 +286,26 @@ let BlockQuery = React.createClass({
         });
     },
 
+    constraintChargeFinish(blockNo){
+        reqwest({
+            url: '/wcs/webService/constraintChargeFinish.do',
+            method: 'POST',
+            data: {blockNo: blockNo},
+            type: 'json',
+            error: err => {
+                message.error('网络异常,请稍后再试');
+            },
+            success: resp => {
+                if (resp.success) {
+                    message.success(resp.msg);
+                    this.getTableData(1);
+                } else {
+                    message.error(resp.msg);
+                }
+            }
+        });
+    },
+
     addScar(blockNo){
         this.setState({blockNo: blockNo, addScarModel: true});
     },
@@ -349,6 +369,7 @@ let BlockQuery = React.createClass({
             title: '操作', dataIndex: 'operation', key: 'operation', fixed: 'right', width: 250,
             render: (text, record) =>{
                 const blockNoStr = record.blockNo.substr(0,2);
+                const blockNo = record.blockNo;
                 return(
                     <span>
                         <a onClick={this.onLine.bind(this, record.blockNo)}>运行</a>
@@ -377,6 +398,14 @@ let BlockQuery = React.createClass({
                                 :
                                 <span></span>
 
+                        }
+                        {
+                            blockNo=='SC01'?
+                                <span>&nbsp;&nbsp;||&nbsp;&nbsp;
+                                    <a onClick={this.constraintChargeFinish.bind(this, record.blockNo)}>强制充电完成</a >
+                            </span>
+                                :
+                                <span></span>
                         }
                     </span>
                 );

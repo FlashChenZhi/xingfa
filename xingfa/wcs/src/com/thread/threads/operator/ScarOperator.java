@@ -113,7 +113,16 @@ public class ScarOperator {
         Srm srm = Srm.getSrmByGroupNo(sCar.getGroupNo());
         MsgSender.send03(Message03._CycleOrder.pickUpGoods, mckey, sCar, locationNo, srm.getBlockNo(), "", "");
     }
-
+    /**
+     * 子车去理货
+     *
+     * @param locationNo
+     * @throws Exception
+     */
+    public void moveGoods(String locationNo) throws Exception {
+        Srm srm = Srm.getSrmByGroupNo(sCar.getGroupNo());
+        MsgSender.send03(Message03._CycleOrder.moveGood, mckey, sCar, locationNo, srm.getBlockNo(), "", "");
+    }
     /**
      * 子车卸货
      *
@@ -151,7 +160,19 @@ public class ScarOperator {
             pickUpGoods(toLocation);
         }
     }
-
+    /**
+     * 子车尝试去理货
+     *
+     * @param toLocation
+     */
+    public void tryMoveGoods(String toLocation) throws Exception {
+        Location location = Location.getByLocationNo(toLocation);
+        if (location.getActualArea().equals(sCar.getActualArea())
+                && location.getBay() == sCar.getBay()
+                && sCar.getLevel() == sCar.getLevel()) {
+            moveGoods(toLocation);
+        }
+    }
     /**
      * 子车尝试下堆垛机
      *

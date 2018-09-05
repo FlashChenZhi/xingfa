@@ -36,7 +36,7 @@ public class AssignsTheStorehouseService {
      * @param tier
      * @return：com.util.common.ReturnObj<java.util.Map<java.lang.String,java.lang.Object>>
      */
-    public ReturnObj<Map<String, Object>> getStorageLocationData(String productId,String tier){
+    public ReturnObj<Map<String, Object>> getStorageLocationData(String productId,String tier,String lotNum){
         ReturnObj<Map<String, Object>> s = new ReturnObj();
         try {
             Transaction.begin();
@@ -78,6 +78,12 @@ public class AssignsTheStorehouseService {
                 LocationList.add(sb.toString());
             }
 
+            //查询同一列有两种货物的列
+            Query query10 = session.createQuery("select convert(varchar,i1.container.location.bank)+'_'+convert(varchar,i1.container.location.bay) as coordinate " +
+                    "from Inventory i1 where exists(select 1 from Inventory i2 where i1.container.location.bay=i2.container.location.bay and i1.container.location.level=i2.container.location.level " +
+                    "and i1.container.location.position=i2.container.location.position and i1.container.location.actualArea=i2.container.location.actualArea " +
+                    "and (i1.skuCode!=i2.skuCode or i1.lotNum!=i2.lotNum) ) and i1.container.location.level=:level");
+            query10.setString("level", tier);
             //查询空货位
             Query query2 = session.createQuery("select convert(varchar,a.bank)+'_'+convert(varchar,a.bay) as coordinate from Location a where " +
                     "a.empty = true and a.level = :level ");
@@ -104,10 +110,16 @@ public class AssignsTheStorehouseService {
             if(StringUtils.isNotBlank(productId)){
                 sb.append(" and i.skucode=:skucode ");
             }
+            if(StringUtils.isNotBlank(lotNum)){
+                sb.append(" and i.LOT_NUM=:LOT_NUM ");
+            }
             Query query3 = session.createSQLQuery(sb.toString());
 
             if(StringUtils.isNotBlank(productId)){
                 query3.setString("skucode", productId);
+            }
+            if(StringUtils.isNotBlank(lotNum)){
+                query3.setString("LOT_NUM", lotNum);
             }
             query3.setString("level", tier);
             //查询已经有出库任务的货位
@@ -135,6 +147,16 @@ public class AssignsTheStorehouseService {
                     " l.level = :level and exists (select 1 from TransportOrderLog t where t.toLocation.locationNo=l.locationNo  )  ");
             query9.setString("level", tier);
 
+            Query query11 =session.createQuery("select count(*) as count from Inventory i where i.container.location.level=:level and i.container.location.empty is false " +
+                    "and i.container.location.putawayRestricted is false and i.container.location.retrievalRestricted is false");
+            query11.setString("level", tier);
+            long shiNum = (long)query11.uniqueResult();
+
+            Query query12 =session.createQuery("select count(*) as count from Location l where l.level=:level and l.empty is true " +
+                    "and l.putawayRestricted is false and l.retrievalRestricted is false");
+            query12.setString("level", tier);
+            long kongNum = (long)query12.uniqueResult();
+
             map.put("map", LocationList); //总货位
             map.put("emptyList", query2.list()); //空货位
             map.put("availableList", query3.list()); //可被选择的货位
@@ -144,6 +166,9 @@ public class AssignsTheStorehouseService {
             map.put("unavailableList1", query6.list());//已有抽检任务的列
             map.put("unavailableList3", query8.list());//已有抽检任务的货位
             map.put("unavailableList4", query9.list());//已有抽检任务的货位
+            map.put("unavailableList5", query10.list());//有两种货物的列
+            map.put("shiNum", shiNum);//实货位数量
+            map.put("kongNum", kongNum);//空货位数量
             s.setRes(map);
             s.setSuccess(true);
             Transaction.commit();

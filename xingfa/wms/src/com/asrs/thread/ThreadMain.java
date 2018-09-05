@@ -72,6 +72,19 @@ public class ThreadMain {
                         }
                     }
 
+                    //查询理货任务
+                    query = HibernateUtil.getCurrentSession().createQuery("from Job  where sendReport=false and type=:tp  order by fromLocation.position asc, fromLocation.bay asc,fromLocation.level desc,fromLocation.seq2 asc")
+                            .setParameter("tp", AsrsJobType.MOVESTORAGE);
+
+                    List<Job> moveStoragejobList2 =  query.list();
+                    if (moveStoragejobList2.size()!=0) {
+                        System.out.println("进入理货任务");
+                        for(Job job2:moveStoragejobList2){
+                            createMoveStorageJob(job2,TransportType.MOVESTORAGE);
+                            job2.setSendReport(true);
+                        }
+                    }
+
                     //查询出库任务
                     query = HibernateUtil.getCurrentSession().createQuery("from Job  where sendReport=false and type=:tp and toStation = :station order by fromLocation.position asc, fromLocation.bay asc,fromLocation.level asc,fromLocation.seq2 asc")
                             .setParameter("tp", AsrsJobType.RETRIEVAL)
@@ -233,6 +246,81 @@ public class ThreadMain {
 
         HibernateUtil.getCurrentSession().save(xmlMessage);
         System.out.println("完成生成移库任务！");
+    }
+
+    //生成理货任务transportOrder
+    private static void createMoveStorageJob(Job job,String asrsJobType) throws Exception {
+        System.out.println("进入生成理货任务！");
+
+        Location location = job.getFromLocation();
+        //location.setRetrievalRestricted(true);
+        //到达货位要不要设置入库属性为true
+        Location gotToLocation = job.getToLocation();
+
+        //获取容器Container
+        /*Container container = Container.getByBarcode(job.getContainer());
+        container.setReserved(true);
+        HibernateUtil.getCurrentSession().update(container);*/
+
+        //创建FromLocation对象
+        FromLocation fromLocation = new FromLocation();
+
+        List<String> locations = new ArrayList<>();
+        locations.add(location.getBank() + "");
+        locations.add(location.getBay() + "");
+        locations.add(location.getLevel() + "");
+        fromLocation.setRack(locations);
+
+        fromLocation.setMHA(job.getFromStation());
+        //创建toLocation对象（移库与出库不同）
+        ToLocation toLocation = new ToLocation();
+
+        toLocation.setMHA(job.getToStation());
+
+        List<String> locations2 = new ArrayList<>();
+        locations2.add(gotToLocation.getBank() + "");
+        locations2.add(gotToLocation.getBay() + "");
+        locations2.add(gotToLocation.getLevel() + "");
+        toLocation.setRack(locations2);
+
+        StUnit stUnit = new StUnit();
+
+        /*stUnit.setStUnitID(container.getBarcode());*/
+        //创建TransportOrderDA对象
+        TransportOrderDA transportOrderDA = new TransportOrderDA();
+        transportOrderDA.setTransportType(asrsJobType);//transportOrderType 类型
+        transportOrderDA.setFromLocation(fromLocation);
+        transportOrderDA.setToLocation(toLocation);
+        transportOrderDA.setStUnit(stUnit);
+
+        //创建sender对象
+        Sender sender = new Sender();
+        sender.setDivision(XMLConstant.COM_DIVISION);
+
+        RefId refId = new RefId();
+        refId.setReferenceId(job.getMcKey());
+
+        //创建ControlArea对象
+        ControlArea controlArea = new ControlArea();
+        controlArea.setRefId(refId);
+        controlArea.setCreationDateTime(DateFormat.format(new Date(), DateFormat.YYYYMMDDHHMMSS));
+        controlArea.setSender(sender);
+
+        //wms发送给wcs的运输命令
+        TransportOrder transportOrder = new TransportOrder();
+        transportOrder.setDataArea(transportOrderDA);
+        transportOrder.setControlArea(controlArea);
+
+        Envelope envelope = new Envelope();
+        envelope.setTransportOrder(transportOrder);
+
+        XMLMessage xmlMessage = new XMLMessage();
+        xmlMessage.setRecv("WCS");
+        xmlMessage.setStatus("1");
+        xmlMessage.setMessageInfo(XMLUtil.getSendXML(envelope));
+
+        HibernateUtil.getCurrentSession().save(xmlMessage);
+        System.out.println("完成生成理货任务！");
     }
 
 }

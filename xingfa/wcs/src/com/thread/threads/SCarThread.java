@@ -13,6 +13,7 @@ import com.thread.threads.service.impl.ScarAndSrmServiceImpl;
 import com.thread.threads.service.impl.charage.ScarCharageService;
 import com.thread.threads.service.impl.charageover.ScarCharageOverService;
 import com.thread.threads.service.impl.locationtolocation.ScarLocationToLocationService;
+import com.thread.threads.service.impl.movestorage.ScarMoveStorageService;
 import com.thread.threads.service.impl.putaway.ScarAndSrmPutawayServcie;
 import com.thread.threads.service.impl.retrieval.ScarAndSrmRetrievalService;
 import com.thread.utils.MsgSender;
@@ -57,7 +58,7 @@ public class SCarThread extends BlockThread<SCar> {
                     if(sCar.getBank() != location.getBank() ||sCar.getBay() != location.getBay() || sCar.getLevel() != location.getLevel()){
                         sCar.setStatus(SCar.STATUS_RUN);
 
-                    }else if(sCar.getPower() >= 100){
+                    }else if(sCar.getPower() >= 94){
                         Srm fromSrm = Srm.getSrmByPosition(location.getPosition());
                         Srm toSrm = Srm.getSrmByGroupNo(sCar.getGroupNo());
 
@@ -107,6 +108,8 @@ public class SCarThread extends BlockThread<SCar> {
                             service = new ScarCharageOverService(sCar);
                         }else if (asrsJob.getType().equals(AsrsJobType.LOCATIONTOLOCATION)||asrsJob.getType().equals(AsrsJobType.BACK_PUTAWAY)) {
                             service = new ScarLocationToLocationService(sCar);
+                        }else if (asrsJob.getType().equals(AsrsJobType.MOVESTORAGE)) {
+                            service = new ScarMoveStorageService(sCar);
                         }
                         service.withMckey();
 
@@ -125,6 +128,8 @@ public class SCarThread extends BlockThread<SCar> {
                             service = new ScarCharageOverService(sCar);
                         }else if (asrsJob.getType().equals(AsrsJobType.LOCATIONTOLOCATION)||asrsJob.getType().equals(AsrsJobType.BACK_PUTAWAY)) {
                             service = new ScarLocationToLocationService(sCar);
+                        }else if (asrsJob.getType().equals(AsrsJobType.MOVESTORAGE)) {
+                            service = new ScarMoveStorageService(sCar);
                         }
                         service.withReserveMckey();
 

@@ -1,10 +1,10 @@
 package com.master.service;
 
 import com.asrs.Mckey;
-import com.asrs.business.consts.AsrsJobStatus;
 import com.asrs.business.consts.AsrsJobType;
-import com.master.vo.SkuVo2;
-import com.util.common.*;
+import com.util.common.Const;
+import com.util.common.LogMessage;
+import com.util.common.ReturnObj;
 import com.util.hibernate.HibernateUtil;
 import com.util.hibernate.Transaction;
 import com.wms.domain.*;
@@ -16,18 +16,16 @@ import org.hibernate.exception.JDBCConnectionException;
 import org.hibernate.transform.Transformers;
 import org.springframework.stereotype.Service;
 
-import java.io.IOException;
-import java.math.BigDecimal;
 import java.util.*;
 
 /**
  * @Author: ed_chen
- * @Date: Create in 12:50 2018/6/10
+ * @Date: Create in 15:20 2018/4/8
  * @Description:
  * @Modified By:
  */
 @Service
-public class MoveStorageService {
+public class AssignsTheStorehouseServiceML02 {
     /*
      * @author：ed_chen
      * @date：2018/4/10 16:16
@@ -36,7 +34,7 @@ public class MoveStorageService {
      * @param tier
      * @return：com.util.common.ReturnObj<java.util.Map<java.lang.String,java.lang.Object>>
      */
-    public ReturnObj<Map<String, Object>> getStorageLocationData(String productId,String tier,String selectStatus,String fromLocationNo){
+    public ReturnObj<Map<String, Object>> getStorageLocationData(String productId,String tier,String lotNum){
         ReturnObj<Map<String, Object>> s = new ReturnObj();
         try {
             Transaction.begin();
@@ -78,91 +76,51 @@ public class MoveStorageService {
                 LocationList.add(sb.toString());
             }
 
+            //查询同一列有两种货物的列
+            Query query10 = session.createQuery("select convert(varchar,i1.container.location.bank)+'_'+convert(varchar,i1.container.location.bay) as coordinate " +
+                    "from Inventory i1 where exists(select 1 from Inventory i2 where i1.container.location.bay=i2.container.location.bay and i1.container.location.level=i2.container.location.level " +
+                    "and i1.container.location.position=i2.container.location.position and i1.container.location.actualArea=i2.container.location.actualArea " +
+                    "and (i1.skuCode!=i2.skuCode or i1.lotNum!=i2.lotNum) ) and i1.container.location.level=:level ");
+            query10.setString("level", tier);
             //查询空货位
             Query query2 = session.createQuery("select convert(varchar,a.bank)+'_'+convert(varchar,a.bay) as coordinate from Location a where " +
                     "a.empty = true and a.level = :level ");
             query2.setString("level", tier);
 
-            Query query3=null;
-            Query query11=null;
-            if(selectStatus.equals("1")){
-                //判断可以定点出库的货位
-                StringBuffer sb = new StringBuffer(
-                        " select convert(varchar,e.bank)+'_'+convert(varchar,e.bay) as coordinate from xingfa.Inventory i , xingfa.CONTAINER d " +
-                                ",( " +
-                                "select a.id as id ,a.BANK,a.BAY from xingfa.location a , " +
-                                "(select min(seq2) as seq2,bay,POSITION,AREA " +
-                                "from xingfa.LOCATION where empty=0 and lev=:level   and PUTAWAYRESTRICTED=0 and " +
-                                "RETRIEVALRESTRICTED=0 and ABNORMAL =0 group by bay,POSITION,AREA " +
-                                ") b " +
-                                "where a.seq2=b.seq2 and a.bay = b.bay and " +
-                                "a.position = b.position and a.area = b.area and a.lev=:level and PUTAWAYRESTRICTED=0 and " +
-                                "RETRIEVALRESTRICTED=0 and ABNORMAL =0 and  not exists( " +
-                                "select 1 from xingfa.Location l where l.bay=a.bay and " +
-                                "l.area=a.area and l.lev =a.lev " +
-                                "and  l.position=a.position and l.seq2 < a.seq2 and " +
-                                " l.seq > a.seq and l.reserved = 1 " +
-                                "  ) " +
-                                ") e  where i.CONTAINERID=d.ID and e.ID = d.LOCATIONID and d.RESERVED=0 ");
-                if(org.apache.commons.lang3.StringUtils.isNotBlank(productId)){
-                    sb.append(" and i.skucode=:skucode ");
-                }
-                query3 = session.createSQLQuery(sb.toString());
-
-                if(StringUtils.isNotBlank(productId)){
-                    query3.setString("skucode", productId);
-                }
-                query3.setString("level", tier);
-            }else if(selectStatus.equals("2")){
-                //若状态为2，则查询可移入的货位
-                if(!fromLocationNo.equals("")){
-                    Query query10 = session.createQuery("from Inventory i where i.container.location.locationNo = :locationNo");
-                    query10.setParameter("locationNo", fromLocationNo);
-                    query10.setMaxResults(1);
-                    Inventory inventory = (Inventory) query10.uniqueResult();
-                    //查询一号堆垛机所在的空货位
-                    query3 = session.createQuery("select convert(varchar,l.bank)+'_'+convert(varchar,l.bay) " +
-                            "as coordinate from Location l where not exists(select 1 " +
-                            "from Location lo where l.position=lo.position and l.level=lo.level and " +
-                            "l.bay=lo.bay and l.actualArea=lo.actualArea and (lo.empty=false or " +
-                            "lo.reserved=true or lo.putawayRestricted=true or lo.retrievalRestricted =true ) )  " +
-                            "and l.position =1 and l.level=:level");
-                    query3.setString("level", tier);
-                    if(inventory!=null){
-                        //查询与此货位相同货品相同批次的列所在的空货位
-                        StringBuffer sb = new StringBuffer("select convert(varchar,h.bank)+'_'+convert(varchar,h.bay) as coordinate from (" +
-                                " select e.bank,e.bay,e.outposition,e.area,e.seq2 from xingfa.Inventory i , xingfa.CONTAINER d " +
-                                "  ,( " +
-                                " select a.id as id ,a.BANK,a.BAY,a.outposition,a.seq2,a.area from xingfa.location a , " +
-                                " (select min(seq2) as seq2,bay,OUTPOSITION,AREA " +
-                                " from xingfa.LOCATION where empty=0 and lev=:level  and PUTAWAYRESTRICTED=0 and " +
-                                " RETRIEVALRESTRICTED=0 and ABNORMAL =0 group by bay,OUTPOSITION,AREA " +
-                                " ) b " +
-                                " where a.seq2=b.seq2 and a.bay = b.bay and " +
-                                " a.outposition = b.outposition and a.area = b.area and a.lev=:level and PUTAWAYRESTRICTED=0 and " +
-                                " RETRIEVALRESTRICTED=0 and ABNORMAL =0 and  not exists( " +
-                                " select 1 from xingfa.Location l where l.bay=a.bay and " +
-                                " l.area=a.area and l.lev =a.lev " +
-                                " and  l.outposition=a.outposition and l.seq2 < a.seq2 and " +
-                                " l.seq > a.seq and l.reserved = 1 " +
-                                " ) " +
-                                " ) e  where i.CONTAINERID=d.ID and e.ID = d.LOCATIONID  and d.RESERVED=0 and i.LOT_NUM=:lotNum and i.skuCode=:skuCode " +
-                                " ) f ,xingfa.location h where f.bay=h.bay and not exists(select 1 from xingfa.location m where h.id=m.id " +
-                                " and m.bay=:bay and m.position=:position and m.area=:area) and h.lev=:level and f.outposition =h.outposition and f.area=h.area and f.seq2>h.seq2 ");
-                        //bay的问题导致同一列不是同一巷道的货，不能移回去
-                        query11 = session.createSQLQuery(sb.toString());
-                        query11.setString("skuCode", inventory.getSkuCode());
-                        query11.setString("level", tier);
-                        query11.setString("lotNum", inventory.getLotNum());
-                        query11.setParameter("bay", inventory.getContainer().getLocation().getBay());
-                        query11.setParameter("position", inventory.getContainer().getLocation().getPosition());
-                        query11.setParameter("area", inventory.getContainer().getLocation().getActualArea());
-                    }
-
-                }
-
+            //判断可以定点出库的货位
+            StringBuffer sb = new StringBuffer(
+                    " select convert(varchar,e.bank)+'_'+convert(varchar,e.bay) as coordinate from xingfa.Inventory i , xingfa.CONTAINER d " +
+                    ",( " +
+                        "select a.id as id ,a.BANK,a.BAY from xingfa.location a , " +
+                            "(select max(seq2) as seq2,bay,POSITION,AREA " +
+                            "from xingfa.LOCATION where empty=0 and lev=:level   and PUTAWAYRESTRICTED=0 and " +
+                            "RETRIEVALRESTRICTED=0 and ABNORMAL =0 group by bay,POSITION,AREA " +
+                            ") b " +
+                        "where a.seq2=b.seq2 and a.bay = b.bay and a.bank>2 and a.bay not in (:bays) and " +
+                        "a.position = b.position and a.area = b.area and a.lev=:level and PUTAWAYRESTRICTED=0 and " +
+                        "RETRIEVALRESTRICTED=0 and ABNORMAL =0 and  not exists( " +
+                            "select 1 from xingfa.Location l where l.bay=a.bay and " +
+                            "l.area=a.area and l.lev =a.lev " +
+                            "and  l.position=a.position and l.seq2 < a.seq2 and " +
+                            " l.seq > a.seq and l.reserved = 1 " +
+                        "  ) " +
+                    ") e  where i.CONTAINERID=d.ID and e.ID = d.LOCATIONID and d.RESERVED=0 ");
+            if(StringUtils.isNotBlank(productId)){
+                sb.append(" and i.skucode=:skucode ");
             }
+            if(StringUtils.isNotBlank(lotNum)){
+                sb.append(" and i.LOT_NUM=:LOT_NUM ");
+            }
+            Query query3 = session.createSQLQuery(sb.toString());
 
+            if(StringUtils.isNotBlank(productId)){
+                query3.setString("skucode", productId);
+            }
+            if(StringUtils.isNotBlank(lotNum)){
+                query3.setString("LOT_NUM", lotNum);
+            }
+            query3.setString("level", tier);
+            query3.setParameterList("bays", bayslist);
             //查询已经有出库任务的货位
             Query query4 = session.createQuery("select convert(varchar,c.location.bank)+'_'+convert(varchar,c.location.bay) as coordinate from Container c where " +
                     " c.location.level = :level and c.reserved = true  ");
@@ -188,26 +146,28 @@ public class MoveStorageService {
                     " l.level = :level and exists (select 1 from TransportOrderLog t where t.toLocation.locationNo=l.locationNo  )  ");
             query9.setString("level", tier);
 
+            Query query11 =session.createQuery("select count(*) as count from Inventory i where i.container.location.level=:level and i.container.location.empty is false " +
+                    "and i.container.location.putawayRestricted is false and i.container.location.retrievalRestricted is false");
+            query11.setString("level", tier);
+            long shiNum = (long)query11.uniqueResult();
+
+            Query query12 =session.createQuery("select count(*) as count from Location l where l.level=:level and l.empty is true " +
+                    "and l.putawayRestricted is false and l.retrievalRestricted is false");
+            query12.setString("level", tier);
+            long kongNum = (long)query12.uniqueResult();
+
             map.put("map", LocationList); //总货位
             map.put("emptyList", query2.list()); //空货位
-            List<String> list1 =query3.list();
-            if(query11!=null){
-                List<String> list2 =query11.list();
-                if(list2.size()!=0){
-                   for(String s2 : list2){
-                       list1.add(s2);
-                   }
-                }
-                /*map.put("availableList11", query11.list()); //可被选择的货位*/
-            }
-            map.put("availableList", list1); //可被选择的货位
-            map.put("unavailableList4", query9.list());//已有抽检任务的货位
+            map.put("availableList", query3.list()); //可被选择的货位
             map.put("reservedOutList", query4.list()); //已经有任务的货位
             map.put("reservedInList", query5.list()); //已经有任务的货位
             map.put("unavailableList", list);
             map.put("unavailableList1", query6.list());//已有抽检任务的列
             map.put("unavailableList3", query8.list());//已有抽检任务的货位
             map.put("unavailableList4", query9.list());//已有抽检任务的货位
+            map.put("unavailableList5", query10.list());//有两种货物的列
+            map.put("shiNum", shiNum);//实货位数量
+            map.put("kongNum", kongNum);//空货位数量
             s.setRes(map);
             s.setSuccess(true);
             Transaction.commit();
@@ -291,13 +251,11 @@ public class MoveStorageService {
                     "+convert(varchar,a.bay) as coordinate from Location a " +
                     "where a.position=(select position from Location c where c.bank=:bank and c.bay=:bay and c.level=:level) " +
                     "and a.actualArea = (select actualArea from Location c where c.bank=:bank and c.bay=:bay and c.level=:level) " +
-                    "and a.seq2=(select seq2+1 from Location c where c.bank=:bank and c.bay=:bay and c.level=:level) " +
+                    "and a.seq2=(select seq2-1 from Location c where c.bank=:bank and c.bay=:bay and c.level=:level) " +
                     "and a.level = :level  and a.bay=:bay and a.empty = false");
             query.setString("bank", bank);
             query.setString("bay", bay);
             query.setString("level", level);
-
-
 
             List<String> list = query.list();
             Map<String,Object> map = new HashMap<>();
@@ -305,18 +263,8 @@ public class MoveStorageService {
                 map.put("status", false);
             }else{
                 map.put("status", true);
+                map.put("location", list);
             }
-            Location location = Location.getByLocationNo(StringUtils.leftPad(bank, 3, "0")+StringUtils.leftPad(bay, 3, "0")+StringUtils.leftPad(level, 3, "0"));
-            //查询非此列的其他货位
-            Query query2 = session.createQuery("select convert(varchar,a.bank)+'_'+convert(varchar,a.bay) as coordinate from Location a " +
-                    "where not exists (select 1 from Location b where a.id=b.id and b.position =:position " +
-                    "and b.bay=:bay and b.level=:level and b.actualArea=:actualArea) and a.level=:level");
-            query2.setString("position", location.getPosition());
-            query2.setString("bay", bay);
-            query2.setString("level", level);
-            query2.setString("actualArea", location.getActualArea());
-            map.put("location", list);
-            map.put("otherlocation", query2.list());
             s.setRes(map);
             s.setSuccess(true);
             Transaction.commit();
@@ -350,7 +298,7 @@ public class MoveStorageService {
                     "+convert(varchar,a.bay) as coordinate from Location a " +
                     "where a.position=(select position from Location c where c.bank=:bank and c.bay=:bay and c.level=:level) " +
                     "and a.actualArea = (select actualArea from Location c where c.bank=:bank and c.bay=:bay and c.level=:level) " +
-                    "and a.seq2>(select seq2 from Location c where c.bank=:bank and c.bay=:bay and c.level=:level) " +
+                    "and a.seq2<(select seq2 from Location c where c.bank=:bank and c.bay=:bay and c.level=:level) " +
                     "and a.level = :level  and a.bay=:bay and a.empty = false");
             query.setString("bank", bank);
             query.setString("bay", bay);
@@ -386,79 +334,48 @@ public class MoveStorageService {
      * @param selectLocation
      * @return：com.util.common.ReturnObj<java.util.Map<java.lang.String,java.lang.Object>>
      */
-    public ReturnObj<Map<String, Object>> assignsTheStorehouse(String fromLocationNos,String toLocationNos){
+    public ReturnObj<Map<String, Object>> assignsTheStorehouse(String selectLocation){
 
         ReturnObj<Map<String, Object>> s = new ReturnObj();
-        //要移货位
-        JSONArray fromjsonArray = JSONArray.fromObject(fromLocationNos);
-        List<String> fromlist = (List<String>) JSONArray.toCollection(fromjsonArray,String.class);
-        //移至货位
-        JSONArray tojsonArray = JSONArray.fromObject(toLocationNos);
-        List<String> tolist = (List<String>) JSONArray.toCollection(tojsonArray,String.class);
+        JSONArray jsonArray = JSONArray.fromObject(selectLocation);
+        List<String> list = (List<String>) JSONArray.toCollection(jsonArray,String.class);
         try {
             Transaction.begin();
             Session session = HibernateUtil.getCurrentSession();
             boolean flag = true;
             String location="";
-            Query query11 = session.createQuery("from Job a where type=:type");
-            query11.setParameter("type", AsrsJobType.LOCATIONTOLOCATION);
-            query11.setMaxResults(1);
-            Job job = (Job)query11.uniqueResult();
-            if(job==null){
-                Query query = session.createQuery("select count(1) as count from Location l where (l.locationNo in (:locationNos) " +
-                        "or l.locationNo in (:locationNos2)) and ( exists " +
-                        "(select 1 from Location lo where lo.position=l.position and lo.bay=l.bay and " +
-                        "lo.actualArea =l.actualArea and lo.level=l.level and lo.reserved=true) or exists ( " +
-                        "select 1 from Container c where c.location.position=l.position and c.location.bay=l.bay and " +
-                        "c.location.actualArea=l.actualArea and c.location.level=l.level and c.reserved=true) )");
-                query.setParameterList("locationNos", tolist);
-                query.setParameterList("locationNos2", fromlist);
-                int count = ((Long)query.uniqueResult()).intValue();
-                if(count==0){
-                    Query query1= session.createQuery("from Location l where l.locationNo in (:fromLocationNos) order by l.seq2");
-                    query1.setParameterList("fromLocationNos", fromlist);
-                    List<Location> fromLocations = query1.list();
+            Station station = Station.getStation("1301");
+            if(AsrsJobType.RETRIEVAL.equals(station.getMode())){
+                for(int i =0;i<list.size();i++){
+                    location = list.get(i);
+                    //按照Container中的reserved判断
+                    Query query = session.createQuery(" from Container c where reserved = false and c.location.locationNo=:locationNo");
 
-                    Query query2= session.createQuery("from Location l where l.locationNo in (:toLocationNos) order by l.level,l.bay,l.actualArea,l.position,l.seq");
-                    query2.setParameterList("toLocationNos", tolist);
-                    List<Location> toLocations = query2.list();
-                    if(fromLocations.size()==toLocations.size()){
-                        if(AsrsJob.findAsrsJobByLocation(fromLocations.get(0), AsrsJobType.LOCATIONTOLOCATION) && AsrsJob.findAsrsJobByLocation(toLocations.get(0), AsrsJobType.LOCATIONTOLOCATION) ){
-                            for(int i =0;i<fromLocations.size();i++){
-                                yiku(session,fromLocations.get(i).getLocationNo(),toLocations.get(i));
-                            }
-                        }else{
-                            flag=false;
-                            Transaction.rollback();
-                            s.setSuccess(false);
-                            s.setMsg("要移货位和移动货位列有任务！");
-                        }
+                    query.setString("locationNo", location);
+                    Container container =(Container) query.uniqueResult();
 
+                    if(container!=null){
+                        outKu(session,location);
                     }else{
                         flag=false;
-                        Transaction.rollback();
-                        s.setSuccess(false);
-                        s.setMsg("要移货位和移动货位不一致！");
+                        break;
                     }
-
+                }
+                if(flag){
+                    s.setMsg("设定出库成功");
+                    s.setSuccess(true);
+                    Transaction.commit();
                 }else{
-                    flag=false;
                     Transaction.rollback();
                     s.setSuccess(false);
-                    s.setMsg("已选货位列存在出库任务！");
+                    s.setMsg("货位："+location+"前已有入库任务");
                 }
             }else{
-                flag=false;
                 Transaction.rollback();
                 s.setSuccess(false);
-                s.setMsg("已存在移库任务！");
+                s.setMsg("出库站台1301不是出库状态！");
             }
 
-            if(flag){
-                s.setMsg("设定移库成功");
-                s.setSuccess(true);
-                Transaction.commit();
-            }
         } catch (JDBCConnectionException ex) {
             s.setSuccess(false);
             s.setMsg(LogMessage.DB_DISCONNECTED.getName());
@@ -471,14 +388,14 @@ public class MoveStorageService {
         return s;
     }
 
-    public void yiku(Session session,String locationNo,Location toLocation){
+    public void outKu(Session session,String locationNo){
         Query query2 = session.createQuery("from Inventory i where i.container.location.locationNo = :locationNo");
         query2.setString("locationNo",locationNo);
         List<Inventory> inventoryList = query2.list();
         Inventory inventory =inventoryList.get(0);
         int qty = inventory.getQty().intValue();//货品数量
 
-        String outPosition = inventory.getContainer().getLocation().getOutPosition();
+        String position = inventory.getContainer().getLocation().getOutPosition();
 
         JobDetail jobDetail = new JobDetail();
         Job job = new Job();
@@ -488,9 +405,9 @@ public class MoveStorageService {
         //数据准备
 
         String mckey = Mckey.getNext();
-        String toStation = "ML01" ;//到达站台
-        String fromStation ="ML01" ;//出发地点
-        String type = AsrsJobType.LOCATIONTOLOCATION; //移库
+        String toStation =  "1301";//到达站台
+        String fromStation =  "ML02";//出发地点
+        String type = AsrsJobType.RETRIEVAL; //出库
         //存入jobDetail
         jobDetail.setInventory(inventory);
         jobDetail.setQty(inventory.getQty());
@@ -506,15 +423,10 @@ public class MoveStorageService {
         job.addJobDetail(jobDetail);
         job.setCreateDate(new Date());
         job.setFromLocation(inventory.getContainer().getLocation());
-        //要比出库多一个toLocation
-        job.setToLocation(toLocation);
 
         //修改此托盘
         Container container = inventory.getContainer();
         container.setReserved(true);
-        toLocation.setReserved(true);
         session.saveOrUpdate(container);
     }
-
-
 }
