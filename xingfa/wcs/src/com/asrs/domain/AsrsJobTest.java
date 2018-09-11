@@ -3,6 +3,7 @@ package com.asrs.domain;
 import org.hibernate.*;
 import com.util.hibernate.HibernateUtil;
 import org.hibernate.Query;
+import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -15,6 +16,7 @@ import java.util.Date;
  */
 @Entity
 @Table(name = "XINGFA.ASRSJOBTEST")
+@DynamicUpdate()
 public class AsrsJobTest {
     public static final String __FROMSTATION = "fromStation";
 

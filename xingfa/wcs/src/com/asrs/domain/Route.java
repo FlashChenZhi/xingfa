@@ -4,6 +4,7 @@ import com.util.hibernate.HibernateUtil;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -17,6 +18,7 @@ import java.util.List;
  */
 @Entity
 @Table(name = "XINGFA.ROUTE")
+@DynamicUpdate()
 public class Route {
     private int _id;
 

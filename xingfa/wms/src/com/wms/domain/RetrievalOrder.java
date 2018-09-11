@@ -3,6 +3,7 @@ package com.wms.domain;
 import com.util.hibernate.HibernateUtil;
 import org.hibernate.*;
 import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
 import javax.persistence.Version;
@@ -17,6 +18,7 @@ import java.util.Set;
  */
 @Entity
 @Table(name = "XINGFA.RETRIEVAL_ORDER")
+@DynamicUpdate()
 public class RetrievalOrder {
 
     public static final String COL_ORDER_NO = "orderNo";

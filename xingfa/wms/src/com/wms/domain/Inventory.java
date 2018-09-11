@@ -2,6 +2,7 @@ package com.wms.domain;
 
 import com.util.hibernate.HibernateUtil;
 import org.hibernate.Session;
+import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -16,6 +17,7 @@ import java.util.List;
  */
 @Entity
 @Table(name = "XINGFA.INVENTORY")
+@DynamicUpdate()
 public class Inventory {
 
     public static final String __CONTAINER = "container";
@@ -205,7 +207,8 @@ public class Inventory {
         }
         org.hibernate.Query query = session.createQuery("select sum(i.qty) as count " +
                 "from Inventory i where i.lotNum=:lotNum and i.skuCode=:skuCode " +
-                "and i.container.reserved=false and i.container.location.position =:position " +
+                "and i.container.reserved=false and (i.container.location.position =:position or " +
+                "i.container.location.outPosition =:outPosition) " +
                 "and not exists (select 1 from Location l where " +
                 "l.bay=i.container.location.bay and l.actualArea=i.container.location.actualArea " +
                 "and l.level =i.container.location.level and l.position=i.container.location.position " +
@@ -213,6 +216,7 @@ public class Inventory {
         query.setParameter("skuCode", skuCode);
         query.setParameter("lotNum", lotNum);
         query.setParameter("position", position);
+        query.setParameter("outPosition", position);
         BigDecimal i2 =(BigDecimal) query.uniqueResult();
         int i = i2==null?0:i2.intValue();
         return i;

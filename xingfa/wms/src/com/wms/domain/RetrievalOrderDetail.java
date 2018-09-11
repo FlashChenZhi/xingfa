@@ -1,5 +1,7 @@
 package com.wms.domain;
 
+import org.hibernate.annotations.DynamicUpdate;
+
 import javax.persistence.*;
 import java.math.BigDecimal;
 
@@ -8,6 +10,7 @@ import java.math.BigDecimal;
  */
 @Entity
 @Table(name = "XINGFA.RETRIEVAL_ORDER_DETAIL")
+@DynamicUpdate()
 public class RetrievalOrderDetail {
     private int id;
     private BigDecimal qty;//总只数

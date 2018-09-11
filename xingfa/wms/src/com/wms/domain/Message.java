@@ -1,5 +1,7 @@
 package com.wms.domain;
 
+import org.hibernate.annotations.DynamicUpdate;
+
 import javax.persistence.*;
 import java.util.Date;
 
@@ -8,6 +10,7 @@ import java.util.Date;
  */
 @Entity
 @Table(name = "XINGFA.MESSAGE")
+@DynamicUpdate()
 public class Message {
     private int id;
     private String machineNo;

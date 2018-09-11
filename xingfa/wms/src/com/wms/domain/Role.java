@@ -4,6 +4,7 @@ import com.util.hibernate.HibernateUtil;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.criterion.Restrictions;
 
 import javax.persistence.*;
@@ -16,6 +17,7 @@ import java.util.Set;
  */
 @Entity
 @Table(name = "XINGFA.ROLE")
+@DynamicUpdate()
 public class Role {
     private int id;
     private String name;

@@ -1,5 +1,7 @@
 package com.wms.domain;
 
+import org.hibernate.annotations.DynamicUpdate;
+
 import javax.persistence.*;
 
 /**
@@ -10,6 +12,7 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name = "XINGFA.WCS")
+@DynamicUpdate()
 public class Wcs {
     private String _wcsName;
 

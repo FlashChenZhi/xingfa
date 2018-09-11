@@ -1,5 +1,7 @@
 package com.wms.domain;
 
+import org.hibernate.annotations.DynamicUpdate;
+
 import javax.persistence.*;
 import java.math.BigDecimal;
 
@@ -8,6 +10,7 @@ import java.math.BigDecimal;
  */
 @Entity
 @Table(name = "XINGFA.SKU_IFAC")
+@DynamicUpdate()
 public class SkuView {
     public static final String COL_CODE = "skuCode";
     private String id;

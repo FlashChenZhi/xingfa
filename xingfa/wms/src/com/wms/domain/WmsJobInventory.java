@@ -1,5 +1,7 @@
 package com.wms.domain;
 
+import org.hibernate.annotations.DynamicUpdate;
+
 import javax.persistence.*;
 
 /**
@@ -7,6 +9,7 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name = "XINGFA.WMS_JOB_INVENTORY")
+@DynamicUpdate()
 public class WmsJobInventory {
 
     private int id;

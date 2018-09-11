@@ -2,6 +2,7 @@ package com.asrs.domain;
 
 import com.util.hibernate.HibernateUtil;
 import org.apache.commons.lang.StringUtils;
+import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
 
@@ -10,6 +11,7 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name = "XINGFA.LEDMESSAGE")
+@DynamicUpdate()
 public class LedMessage {
     private String ledNo;
 

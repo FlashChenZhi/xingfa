@@ -1,6 +1,7 @@
 package com.wms.domain;
 
 import com.util.hibernate.HibernateUtil;
+import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -11,6 +12,7 @@ import java.util.List;
  */
 @Entity
 @Table(name = "XINGFA.INMESSAGE")
+@DynamicUpdate()
 public class InMessage {
     private String stationNo;
     private String palletNo;

@@ -7,6 +7,7 @@ import com.util.hibernate.HibernateUtil;
 import org.apache.commons.lang.StringUtils;
 import org.hibernate.Query;
 import org.hibernate.Session;
+import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -22,6 +23,7 @@ import java.util.List;
  */
 @Entity
 @Table(name = "XINGFA.LOCATION")
+@DynamicUpdate()
 public class Location {
 
     public static final String __LOCATIONNO = "locationNo";

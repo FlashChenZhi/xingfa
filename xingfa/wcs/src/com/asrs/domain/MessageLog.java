@@ -1,5 +1,7 @@
 package com.asrs.domain;
 
+import org.hibernate.annotations.DynamicUpdate;
+
 import javax.persistence.*;
 import java.util.Date;
 
@@ -8,6 +10,7 @@ import java.util.Date;
  */
 @Entity
 @Table(name = "XINGFA.MESSAGELOG")
+@DynamicUpdate()
 public class MessageLog {
     public static final String __MESSAGETYPE = "type";
     public static final String __CREATEDATE = "createDate";

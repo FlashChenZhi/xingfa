@@ -1,5 +1,7 @@
 package com.asrs.domain;
 
+import org.hibernate.annotations.DynamicUpdate;
+
 import javax.persistence.*;
 
 /**
@@ -7,6 +9,7 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name = "XINGFA.ROUTEDETAIL")
+@DynamicUpdate()
 public class RouteDetail {
     private int _id;
 

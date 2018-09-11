@@ -2,6 +2,7 @@ package com.asrs.domain;
 
 import com.util.hibernate.HibernateUtil;
 import org.hibernate.Session;
+import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -14,6 +15,7 @@ import java.util.Date;
  */
 @Entity
 @Table(name = "XINGFA.PLC")
+@DynamicUpdate()
 public class Plc
 {
     private String _plcName;

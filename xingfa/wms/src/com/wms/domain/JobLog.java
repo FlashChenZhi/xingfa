@@ -3,6 +3,7 @@ package com.wms.domain;
 import com.asrs.business.consts.AsrsJobType;
 import com.util.hibernate.HibernateUtil;
 import org.hibernate.Query;
+import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -15,6 +16,7 @@ import java.util.List;
  */
 @Entity
 @Table(name = "XINGFA.JOBLOG")
+@DynamicUpdate()
 public class JobLog {
     public static final String __TYPE = "type";
     public static final String __CONTAINER = "container";

@@ -1,5 +1,7 @@
 package com.wms.domain;
 
+import org.hibernate.annotations.DynamicUpdate;
+
 import javax.persistence.*;
 import java.math.BigDecimal;
 
@@ -11,6 +13,7 @@ import java.math.BigDecimal;
  */
 @Entity
 @Table(name = "XINGFA.JOBDETAIL")
+@DynamicUpdate()
 public class JobDetail {
     public static final String __INVENTORY = "inventory";
     public static final String __JOB = "job";

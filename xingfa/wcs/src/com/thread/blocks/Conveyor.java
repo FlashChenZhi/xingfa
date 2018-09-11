@@ -1,5 +1,7 @@
 package com.thread.blocks;
 
+import org.hibernate.annotations.DynamicUpdate;
+
 import javax.persistence.*;
 
 /**
@@ -9,6 +11,7 @@ import javax.persistence.*;
 @Entity
 @Table(name = "XINGFA.Block")
 @DiscriminatorValue(value = "1")
+@DynamicUpdate()
 public class Conveyor extends Block {
     private String dock;
     private String onCar;

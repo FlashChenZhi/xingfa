@@ -2,6 +2,7 @@ package com.wms.domain;
 
 import com.util.hibernate.HibernateUtil;
 import org.hibernate.Query;
+import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -16,6 +17,7 @@ import java.util.List;
  */
 @Entity
 @Table(name = "DAYNEATEN")
+@DynamicUpdate()
 public class DayNeaten {
 
     private int id;

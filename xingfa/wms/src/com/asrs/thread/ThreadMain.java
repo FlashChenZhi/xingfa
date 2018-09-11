@@ -84,9 +84,13 @@ public class ThreadMain {
                             job2.setSendReport(true);
                         }
                     }
-
+                    
                     //查询出库任务
-                    query = HibernateUtil.getCurrentSession().createQuery("from Job  where sendReport=false and type=:tp and toStation = :station order by fromLocation.position asc, fromLocation.bay asc,fromLocation.level asc,fromLocation.seq2 asc")
+                    /*query = HibernateUtil.getCurrentSession().createQuery("from Job  where sendReport=false and type=:tp and toStation = :station order by fromLocation.position asc, fromLocation.bay asc,fromLocation.level asc,fromLocation.seq2 asc")
+                            .setParameter("tp", AsrsJobType.RETRIEVAL)
+                            .setString("station",station.getStationNo()).setMaxResults(1);*/
+
+                    query = HibernateUtil.getCurrentSession().createQuery("from Job  where sendReport=false and type=:tp and toStation = :station order by id asc")
                             .setParameter("tp", AsrsJobType.RETRIEVAL)
                             .setString("station",station.getStationNo()).setMaxResults(1);
 

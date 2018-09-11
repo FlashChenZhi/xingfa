@@ -4,6 +4,7 @@ import com.asrs.business.consts.AsrsJobType;
 import org.hibernate.*;
 import com.util.hibernate.HibernateUtil;
 import org.hibernate.Query;
+import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -18,6 +19,7 @@ import java.util.List;
  */
 @Entity
 @Table(name = "XINGFA.ASRSJOB")
+@DynamicUpdate()
 public class AsrsJob {
     public static final String __FROMSTATION = "fromStation";
 

@@ -1,6 +1,7 @@
 package com.thread.blocks;
 
 import com.util.hibernate.HibernateUtil;
+import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
 
@@ -11,6 +12,7 @@ import javax.persistence.*;
 @Entity
 @Table(name = "XINGFA.Block")
 @DiscriminatorValue(value = "3")
+@DynamicUpdate()
 public class StationBlock extends Block {
     protected String stationNo;
     private String dock;

@@ -1,5 +1,7 @@
 package com.wms.domain;
 
+import org.hibernate.annotations.DynamicUpdate;
+
 import javax.persistence.*;
 
 /**
@@ -8,6 +10,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "XINGFA.RETRIEVAL_FINISH")
+@DynamicUpdate()
 public class RetrievalFinishLog {
     private int id;
     private String orderNo;

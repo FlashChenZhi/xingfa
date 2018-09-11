@@ -9,6 +9,7 @@ import com.util.hibernate.*;
 import com.util.hibernate.Transaction;
 import org.apache.commons.lang.StringUtils;
 import org.hibernate.*;
+import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
 import javax.persistence.Query;
@@ -20,6 +21,7 @@ import java.util.List;
 @Entity
 @Table(name = "XINGFA.Block")
 @DiscriminatorColumn(name = "type")
+@DynamicUpdate()
 public abstract class Block {
     protected String blockNo;
     protected boolean waitingResponse;

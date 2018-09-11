@@ -2,6 +2,7 @@ package com.wms.domain;
 
 import com.util.hibernate.HibernateUtil;
 import org.hibernate.*;
+import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
 
@@ -10,6 +11,7 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name = "XINGFA.IN_STRATEGY")
+@DynamicUpdate()
 public class InStrategy {
 
     private int id;

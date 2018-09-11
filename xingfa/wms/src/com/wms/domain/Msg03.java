@@ -1,12 +1,15 @@
 package com.wms.domain;
 
 
+import org.hibernate.annotations.DynamicUpdate;
+
 import javax.persistence.*;
 import java.util.Date;
 
 
 @Entity
 @Table(name = "XINGFA.MSG03")
+@DynamicUpdate()
 public class Msg03 {
     private int id;
     private String plcName = "";

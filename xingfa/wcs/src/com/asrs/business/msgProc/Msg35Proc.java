@@ -759,6 +759,29 @@ public class Msg35Proc implements MsgProcess {
                             } else if (message35.isLoadCar()) {
                                 srm.setsCarBlockNo(message35.Station);
                             }
+                        }else if (block instanceof MCar) {
+                            MCar mCar = (MCar) block;
+                            if (message35.isMove()) {
+                                if ("0000".equals(message35.Station) || StringUtils.isBlank(message35.Station)) {
+                                    mCar.setDock(null);
+                                    Location loc = Location.getByBankBayLevel(Integer.parseInt(message35.Bank), Integer.parseInt(message35.Bay), Integer.parseInt(message35.Level));
+                                    mCar.setBay(loc.getBay());
+//                                    mCar.setLevel(loc.getLevel());
+                                    mCar.setActualArea(loc.getActualArea());
+                                } else {
+//                                    mCar.setLevel(1);
+                                    mCar.setDock(message35.Station);
+                                    mCar.setBay(0);
+                                    if (StringUtils.isNotBlank(mCar.getsCarBlockNo())) {
+                                        SCar sCar = (SCar) Block.getByBlockNo(mCar.getsCarBlockNo());
+                                        sCar.setLevel(1);
+                                        sCar.setBay(0);
+                                    }
+                                }
+                                mCar.setCheckLocation(true);
+                            } else if (message35.isLoadCar()) {
+                                mCar.setsCarBlockNo(message35.Station);
+                            }
                         }
 
                         Query delQ = HibernateUtil.getCurrentSession().createQuery("delete from WcsMessage where mcKey= '9999' and machineNo=:blockNo ");

@@ -1,6 +1,7 @@
 package com.wms.domain;
 
 import com.util.hibernate.HibernateUtil;
+import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -10,6 +11,7 @@ import java.util.Date;
  */
 @Entity
 @Table(name = "XINGFA.SYSTEM_LOG")
+@DynamicUpdate()
 public class SystemLog {
     private int id;
     private String message;

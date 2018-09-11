@@ -1,5 +1,7 @@
 package com.wms.domain;
 
+import org.hibernate.annotations.DynamicUpdate;
+
 import javax.persistence.*;
 
 /**
@@ -7,6 +9,7 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name = "XINGFA.OUTSEA_BATCH")
+@DynamicUpdate()
 public class OutSeaBatch {
 
     private int id;

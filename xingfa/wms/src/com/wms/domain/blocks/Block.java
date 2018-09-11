@@ -3,6 +3,7 @@ package com.wms.domain.blocks;
 import com.util.hibernate.HibernateUtil;
 import org.apache.commons.lang.StringUtils;
 import org.hibernate.Session;
+import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
 
@@ -12,6 +13,7 @@ import javax.persistence.*;
 @Entity
 @Table(name = "XINGFA.Block")
 @DiscriminatorColumn(name = "type")
+@DynamicUpdate()
 public abstract class Block {
     protected String blockNo;
     protected boolean waitingResponse;

@@ -2,6 +2,7 @@ package com.wms.domain;
 
 import com.util.hibernate.HibernateUtil;
 import org.hibernate.Query;
+import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -11,6 +12,7 @@ import java.math.BigDecimal;
  */
 @Entity
 @Table(name = "XINGFA.RECEIVINGPLAN")
+@DynamicUpdate()
 public class InventoryView {
 
     private int id;

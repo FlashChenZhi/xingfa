@@ -5,6 +5,7 @@ import org.apache.commons.codec.digest.DigestUtils;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.criterion.Restrictions;
 
 import javax.persistence.*;
@@ -18,6 +19,7 @@ import java.util.Set;
  */
 @Entity
 @Table(name = "\"XINGFA.USER\"")
+@DynamicUpdate()
 public class User {
     private int id;
     private String code;

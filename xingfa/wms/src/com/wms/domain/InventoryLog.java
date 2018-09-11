@@ -1,5 +1,7 @@
 package com.wms.domain;
 
+import org.hibernate.annotations.DynamicUpdate;
+
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.Date;
@@ -9,6 +11,7 @@ import java.util.Date;
  */
 @Entity
 @Table(name = "XINGFA.INVENTORY_LOG")
+@DynamicUpdate()
 public class InventoryLog {
 
     public static final String COL_ID = "id";

@@ -1,5 +1,7 @@
 package com.wms.domain.blocks;
 
+import org.hibernate.annotations.DynamicUpdate;
+
 import javax.persistence.*;
 
 /**
@@ -9,6 +11,7 @@ import javax.persistence.*;
 @Entity
 @Table(name = "XINGFA.Block")
 @DiscriminatorValue(value = "2")
+@DynamicUpdate()
 public class Lift extends Block {
     private int level;
     private String onCar;

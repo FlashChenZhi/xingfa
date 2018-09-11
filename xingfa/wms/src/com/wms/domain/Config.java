@@ -1,6 +1,7 @@
 package com.wms.domain;
 
 import com.util.hibernate.HibernateUtil;
+import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
 
@@ -9,6 +10,7 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name = "XINGFA.CONFIG")
+@DynamicUpdate()
 public class Config {
     private String key;
     private String value;

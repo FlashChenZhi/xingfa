@@ -2,6 +2,7 @@ package com.asrs.domain;
 
 import com.util.hibernate.HibernateUtil;
 import org.hibernate.Session;
+import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
 
@@ -13,6 +14,7 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name = "XINGFA.WCS")
+@DynamicUpdate()
 public class Wcs
 {
     public static final String ONLINE = "1";

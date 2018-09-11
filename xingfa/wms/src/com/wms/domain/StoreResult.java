@@ -1,5 +1,7 @@
 package com.wms.domain;
 
+import org.hibernate.annotations.DynamicUpdate;
+
 import javax.persistence.*;
 import java.math.BigDecimal;
 
@@ -10,6 +12,7 @@ import java.math.BigDecimal;
  */
 @Entity
 @Table(name = "XINGFA.STORE_RESULT")
+@DynamicUpdate()
 public class StoreResult {
     private int id;
     private String skuCode;

@@ -1,6 +1,7 @@
 package com.wms.domain.blocks;
 
 import com.util.hibernate.HibernateUtil;
+import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
 
@@ -9,6 +10,7 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name = "XINGFA.DOCK")
+@DynamicUpdate()
 public class Dock {
     private int id;
     private String liftNo;

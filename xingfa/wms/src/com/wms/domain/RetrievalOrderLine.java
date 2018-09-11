@@ -1,6 +1,7 @@
 package com.wms.domain;
 
 import com.util.hibernate.HibernateUtil;
+import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -8,6 +9,7 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "XINGFA.RETRIEVAL_ORDER_LINE", schema = "XINGFA", catalog = "")
+@DynamicUpdate()
 public class RetrievalOrderLine {
 
     private int rid;

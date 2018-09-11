@@ -2,6 +2,7 @@ package com.wms.domain;
 
 import com.util.hibernate.HibernateUtil;
 import org.hibernate.*;
+import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
 import javax.persistence.Version;
@@ -15,6 +16,7 @@ import java.util.Date;
  */
 @Entity
 @Table(name = "XINGFA.SKU")
+@DynamicUpdate()
 public class Sku {
 
     public static final String __SKUCODE = "skuCode";

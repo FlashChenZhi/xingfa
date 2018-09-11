@@ -2,6 +2,7 @@ package com.wms.domain.blocks;
 
 
 import com.util.hibernate.HibernateUtil;
+import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
 
@@ -12,6 +13,7 @@ import javax.persistence.*;
 @Entity
 @Table(name = "XINGFA.Block")
 @DiscriminatorValue(value = "6")
+@DynamicUpdate()
 public class Srm extends Block {
 
     private String sCarBlockNo;

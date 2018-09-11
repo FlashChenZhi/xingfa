@@ -7,6 +7,7 @@ import org.apache.log4j.Logger;
 import org.hibernate.*;
 import org.hibernate.Query;
 import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -21,6 +22,7 @@ import java.util.Date;
  */
 @Entity
 @Table(name = "XINGFA.JOB")
+@DynamicUpdate()
 public class Job {
     public static final String __CONTAINER = "container";
 

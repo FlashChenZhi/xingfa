@@ -3,6 +3,7 @@ package com.asrs.domain;
 import com.asrs.message.Message35;
 import com.util.hibernate.HibernateUtil;
 import org.hibernate.*;
+import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -10,6 +11,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "XINGFA.WSG")
+@DynamicUpdate()
 public class WcsMessage {
     private int id;
     private String plcName = "";
