@@ -10,7 +10,7 @@ import jxl.read.biff.BiffException;
 import jxl.write.Label;
 import jxl.write.WritableSheet;
 import jxl.write.WritableWorkbook;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.hibernate.Session;
 
 import java.io.*;
@@ -31,7 +31,6 @@ public class InputSkuThread  implements Runnable{
         while (true){
             try
             {
-
                 File file = new File(path);
                 File[] filelist = file.listFiles();
                 if(filelist != null){
@@ -53,18 +52,28 @@ public class InputSkuThread  implements Runnable{
                             for (int i = 1; i < sheet.getRows(); i++)
                             {
                                 if(StringUtils.isNotBlank(sheet.getCell(0, i).getContents())){
-                                    Sku sku = Sku.getByCode(sheet.getCell(0, i).getContents());
+                                    String skuCode = sheet.getCell(0, i).getContents();
+                                    if(skuCode.contains("\'")){
+                                        skuCode = skuCode.split("\'")[1];
+                                    }
+                                    Sku sku = Sku.getByCode(skuCode);
                                     if(sku != null)
                                     {
-                                        list.add(new ErrorMessage(sku,"商品代码重复"));
-                                        continue;
+                                        if(StringUtils.isBlank(sku.getSkuType())){
+                                            sku.setSkuType(sheet.getCell(3, i).getContents());
+                                            session.saveOrUpdate(sku);
+                                        }else{
+                                            list.add(new ErrorMessage(sku,"商品代码重复"));
+                                            continue;
+                                        }
+                                    }else{
+                                        sku = new Sku();
+                                        session.save(sku);
+                                        sku.setSkuCode(sheet.getCell(0, i).getContents());
+                                        sku.setSkuName(sheet.getCell(1, i).getContents());
+                                        sku.setDanwei(sheet.getCell(2, i).getContents());
+                                        sku.setSkuType(sheet.getCell(3, i).getContents());
                                     }
-                                    sku = new Sku();
-                                    session.save(sku);
-                                    sku.setSkuCode(sheet.getCell(0, i).getContents());
-                                    sku.setSkuName(sheet.getCell(1, i).getContents());
-                                    sku.setDanwei(sheet.getCell(2, i).getContents());
-
                                 }
                             }
                             if(!list.isEmpty()){

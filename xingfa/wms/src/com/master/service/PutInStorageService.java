@@ -13,6 +13,7 @@ import com.util.common.ReturnObj;
 import com.util.hibernate.HibernateUtil;
 import com.util.hibernate.Transaction;
 import com.wms.domain.*;
+import org.apache.commons.collections.map.HashedMap;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.exception.JDBCConnectionException;
@@ -77,6 +78,7 @@ public class PutInStorageService {
 
     public BaseReturnObj addTask(String tuopanhao, String zhantai, String commodityCode,String lotNo, int num) {
         BaseReturnObj returnObj = new BaseReturnObj();
+        ReturnObj returnObj2 = new ReturnObj();
         if(tuopanhao.length()!=10){
             returnObj.setSuccess(false);
             returnObj.setMsg("托盘号不正确!");
@@ -109,37 +111,62 @@ public class PutInStorageService {
                 Transaction.rollback();
                 return returnObj;
             }
-            Job job = new Job();
-            session.save(job);
-            job.setFromStation(zhantai);
-            job.setContainer(tuopanhao);
-            job.setSendReport(false);
-            job.setCreateDate(new Date());
-            if (zhantai.equals("1101")) {
-                job.setToStation("ML01");
+            boolean flag=true;
+            int bay=0;
+            int level=0;
+            if(!zhantai.equals("1101")){
+                returnObj2= findInStorageStrategy(commodityCode, lotNo,bay,level);
+
+                returnObj.setSuccess(returnObj2.isSuccess());
+                returnObj.setMsg(returnObj2.getMsg());
+
+                if(!returnObj2.isSuccess()){
+                    Transaction.rollback();
+                    return returnObj;
+                }else{
+                    Map<String,Integer> map =(Map<String,Integer>)returnObj2.getRes();
+                    bay=map.get("bay");
+                    level=map.get("level");
+                }
             }
-            if (zhantai.equals("1301")) {
-                job.setToStation("ML02");
+
+            if(flag){
+                Job job = new Job();
+                session.save(job);
+                job.setFromStation(zhantai);
+                job.setContainer(tuopanhao);
+                job.setSendReport(false);
+                job.setCreateDate(new Date());
+                if (zhantai.equals("1101")) {
+                    job.setToStation("ML01");
+                }
+                if (zhantai.equals("1301")) {
+                    job.setToStation("ML02");
+                }
+                job.setType(AsrsJobType.PUTAWAY);
+                job.setMcKey(Mckey.getNext());
+                job.setStatus(AsrsJobStatus.WAITING);
+
+                job.setBay(bay);
+                job.setLevel(level);
+
+                JobDetail jobDetail = new JobDetail();
+                session.save(jobDetail);
+                jobDetail.setJob(job);
+                jobDetail.setQty(new BigDecimal(num));
+
+                inventoryView = new InventoryView();
+                session.save(inventoryView);
+                inventoryView.setPalletCode(tuopanhao);
+                inventoryView.setQty(new BigDecimal(num));
+                inventoryView.setSkuCode(commodityCode);
+                inventoryView.setSkuName(sku.getSkuName());
+                inventoryView.setWhCode(sku.getCangkudaima());
+                inventoryView.setLotNum(lotNo);
+
+                returnObj.setSuccess(true);
             }
-            job.setType(AsrsJobType.PUTAWAY);
-            job.setMcKey(Mckey.getNext());
-            job.setStatus(AsrsJobStatus.WAITING);
 
-            JobDetail jobDetail = new JobDetail();
-            session.save(jobDetail);
-            jobDetail.setJob(job);
-            jobDetail.setQty(new BigDecimal(num));
-
-            inventoryView = new InventoryView();
-            session.save(inventoryView);
-            inventoryView.setPalletCode(tuopanhao);
-            inventoryView.setQty(new BigDecimal(num));
-            inventoryView.setSkuCode(commodityCode);
-            inventoryView.setSkuName(sku.getSkuName());
-            inventoryView.setWhCode(sku.getCangkudaima());
-            inventoryView.setLotNum(lotNo);
-
-            returnObj.setSuccess(true);
             Transaction.commit();
         } catch (JDBCConnectionException ex) {
             returnObj.setSuccess(false);
@@ -513,6 +540,209 @@ public class PutInStorageService {
         container.setReserved(true);
         session.saveOrUpdate(container);
     }
+
+    /*
+     * @author：ed_chen
+     * @date：2018/9/17 15:20
+     * @description：根据入库策略查询是否可以入库
+     * @param commodityCode
+     * @param lotNo
+     * @param bay
+     * @param level
+     * @return：boolean
+     */
+    public ReturnObj findInStorageStrategy(String commodityCode,String lotNo,int bay,int level){
+        ReturnObj returnObj = new ReturnObj();
+        boolean flag=false;
+        Session session=HibernateUtil.getCurrentSession();
+        //查询此种商品有无入库策略
+        List<InStorageStrategy> inStorageStrategyList = InStorageStrategy.findInStroageStrategyBaySL(commodityCode,lotNo );
+        if(inStorageStrategyList.size()!=0){
+            //有入库策略分配列层
+            for(int i=0;i< inStorageStrategyList.size();i++){
+                InStorageStrategy inStorageStrategy1=inStorageStrategyList.get(i);
+                //查询此列有无货物，有多少种货物，及其分布情况（seq）
+                Query query1 = session.createQuery("select i.skuCode as skuCode,i.lotNum as lotNum, " +
+                        "max(i.container.location.seq) as seq from Inventory i where i.container.location.bay=:bay " +
+                        "and i.container.location.level=:level and i.container.location.position=:position and " +
+                        "i.container.location.actualArea=:actualArea group by i.skuCode,i.lotNum ").setResultTransformer(Transformers.ALIAS_TO_ENTITY_MAP);
+                query1.setParameter("bay",inStorageStrategy1.getBay());
+                query1.setParameter("level",inStorageStrategy1.getLevel());
+                query1.setParameter("position","2");
+                query1.setParameter("actualArea","2");
+                List<Map<String,Object>> mapList=query1.list();
+                //查询此列还剩多少货位
+                query1 = session.createQuery("select count(*) as count from Location l where l.bay=:bay " +
+                        "and l.level=:level and l.position=:position and " +
+                        "l.actualArea=:actualArea and l.reserved=false " +
+                        "and l.putawayRestricted = false and l.empty=true  ");
+                query1.setParameter("bay",inStorageStrategy1.getBay());
+                query1.setParameter("level",inStorageStrategy1.getLevel());
+                query1.setParameter("position","2");
+                query1.setParameter("actualArea","2");
+                long kongCount = (long)query1.uniqueResult();
+                if(kongCount>0){
+                    long beGoingToResevedCount = Job.findCountJobByBL(inStorageStrategy1.getBay(), inStorageStrategy1.getLevel());
+                    if(kongCount > beGoingToResevedCount){
+                        //此入库策略有可用货位时
+                        if(mapList.size()!=0){
+                            //此列有库存
+                            if(mapList.size()==1){
+                                Map<String,Object> invMap=mapList.get(0);
+                                //此列有一种库存，查询是否有到此列的未分配货位的job
+                                Map<String,Object> map3=Job.findJobByBL(inStorageStrategy1.getBay(), inStorageStrategy1.getLevel());
+                                if(map3!=null){
+                                    if( (map3.get("skuCode").equals(invMap.get("skuCode")) && map3.get("lotNum").equals(invMap.get("lotNum")) ) ||
+                                            (map3.get("skuCode").equals(commodityCode) && map3.get("lotNum").equals(lotNo) ) ){
+
+                                    }else{
+                                        flag=false;
+                                        returnObj.setSuccess(false);
+                                        returnObj.setMsg("存在另一种非此设定任务的货物正在入往此列，且此列有一种非以上两种类型的货物");
+                                        continue;
+                                    }
+                                }
+
+                                //此列有一种库存，查询是否有到此列的已分配货位job
+                                Map<String,Object> jobMap=Job.findJobByBL2(inStorageStrategy1.getBay(),inStorageStrategy1.getLevel() );
+                                if(jobMap!=null){
+                                    if( (jobMap.get("skuCode").equals(invMap.get("skuCode")) && jobMap.get("lotNum").equals(invMap.get("lotNum")) ) ||
+                                            (jobMap.get("skuCode").equals(commodityCode) && jobMap.get("lotNum").equals(lotNo) )  ){
+                                        bay=inStorageStrategy1.getBay();
+                                        level=inStorageStrategy1.getLevel();
+                                        flag=true;
+                                        break;
+                                    }else{
+                                        flag=false;
+                                        returnObj.setSuccess(false);
+                                        returnObj.setMsg("存在另一种非此设定任务的货物正在入往此列，且此列有一种非以上两种类型的货物");
+                                        continue;
+                                    }
+                                }else{
+                                    bay=inStorageStrategy1.getBay();
+                                    level=inStorageStrategy1.getLevel();
+                                    flag=true;
+                                    break;
+                                }
+                            }else if(mapList.size()==2){
+                                //此列有两种库存，查询靠近二号堆垛机的库存是否是要入的入库策略
+                                for(int i2=0; i2<mapList.size();i2++){
+                                    Map<String ,Object> map = mapList.get(i2);
+                                    if(map.get("skuCode").equals(commodityCode) && map.get("lotNum").equals(lotNo)){
+                                        int ruSeq = (int)map.get("seq");
+                                        int yiRuSeq=0;
+                                        if(i2==0){
+                                            yiRuSeq = (int)mapList.get(1).get("seq");
+                                        }else if(i2==1){
+                                            yiRuSeq = (int)mapList.get(0).get("seq");
+                                        }
+                                        if(ruSeq>yiRuSeq){
+                                            flag=true;
+                                        }else{
+                                            flag=false;
+                                            returnObj.setSuccess(false);
+                                            returnObj.setMsg("此列存在两种库存，但是此种货物不靠近ML02！");
+                                            continue;
+                                        }
+                                    }
+                                }
+                                //存在入库策略的货物，并且靠近二号堆垛机，查询有无入到此列的非入库策略货物
+                                if(flag){
+                                    Map<String,Object> mapList2=Job.findJobByBL(inStorageStrategy1.getBay(),inStorageStrategy1.getLevel() );
+                                    if(mapList2!=null){
+                                        if(!(mapList2.get("skuCode").equals(commodityCode) && mapList2.get("lotNum").equals(lotNo)) ){
+                                            flag=false;
+                                            returnObj.setSuccess(false);
+                                            returnObj.setMsg("存在非此设定任务的货物正在入往此列");
+                                            continue;
+                                        }
+                                    }
+                                    mapList2=Job.findJobByBL2(inStorageStrategy1.getBay(),inStorageStrategy1.getLevel() );
+                                    if(mapList2!=null){
+                                        if( !(mapList2.get("skuCode").equals(commodityCode) && mapList2.get("lotNum").equals(lotNo)) ){
+                                            flag=false;
+                                            returnObj.setSuccess(false);
+                                            returnObj.setMsg("存在非此设定任务的货物正在入往此列");
+                                            continue;
+                                        }
+                                    }
+                                }
+                                if(flag){
+                                    bay=inStorageStrategy1.getBay();
+                                    level=inStorageStrategy1.getLevel();
+                                    flag=true;
+                                    break;
+                                }
+                            }else{
+                                flag=false;
+                                returnObj.setSuccess(false);
+                                returnObj.setMsg("同一列有两种以上货物");
+                                continue;
+                            }
+                        }else{
+                            //此列无库存，查询有无准备到此列的货物
+                            //此列有一种库存，查询是否有到此列的未分配货位的job
+                            Map<String,Object> map3=Job.findJobByBL(inStorageStrategy1.getBay(), inStorageStrategy1.getLevel());
+                            if(map3!=null){
+                                if( (map3.get("skuCode").equals(commodityCode) && map3.get("lotNum").equals(lotNo) ) ){
+
+                                }else{
+                                    flag=false;
+                                    returnObj.setSuccess(false);
+                                    returnObj.setMsg("存在另一种非此设定任务的货物正在入往此列，且此列有一种非以上两种类型的货物");
+                                    continue;
+                                }
+                            }
+
+                            //此列有一种库存，查询是否有到此列的已分配货位job
+                            Map<String,Object> jobMap=Job.findJobByBL2(inStorageStrategy1.getBay(),inStorageStrategy1.getLevel() );
+                            if(jobMap!=null){
+                                if( (jobMap.get("skuCode").equals(commodityCode) && jobMap.get("lotNum").equals(lotNo) )  ){
+                                    bay=inStorageStrategy1.getBay();
+                                    level=inStorageStrategy1.getLevel();
+                                    flag=true;
+                                    break;
+                                }else{
+                                    flag=false;
+                                    returnObj.setSuccess(false);
+                                    returnObj.setMsg("存在另一种非此设定任务的货物正在入往此列，且此列有一种非以上两种类型的货物");
+                                    continue;
+                                }
+                            }else{
+                                bay=inStorageStrategy1.getBay();
+                                level=inStorageStrategy1.getLevel();
+                                flag=true;
+                                break;
+                            }
+                        }
+                    }else{
+                        flag=false;
+                        returnObj.setSuccess(false);
+                        returnObj.setMsg("此列不存在可用货位！");
+                        continue;
+                    }
+                }else{
+                    returnObj.setSuccess(false);
+                    returnObj.setMsg("此列不存在可用货位！");
+                    continue;
+                }
+            }
+        }else{
+            //无入库策略不分配列层
+            flag=true;
+        }
+        if(flag){
+            Map<String,Integer> map=new HashedMap();
+            map.put("bay",bay );
+            map.put("level",level );
+            returnObj.setSuccess(true);
+            returnObj.setRes(map);
+        }else{
+            returnObj.setSuccess(false);
+        }
+        return returnObj;
+    }
+
 
 }
 

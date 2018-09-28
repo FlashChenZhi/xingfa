@@ -1,11 +1,28 @@
 package com;
 
 import com.asrs.Mckey;
+import com.asrs.business.consts.AsrsJobStatus;
 import com.asrs.business.consts.AsrsJobType;
+import com.asrs.business.consts.SkuType;
+import com.asrs.business.consts.TransportType;
+import com.asrs.domain.XMLbean.Envelope;
+import com.asrs.domain.XMLbean.XMLList.ControlArea.ControlArea;
+import com.asrs.domain.XMLbean.XMLList.ControlArea.Receiver;
+import com.asrs.domain.XMLbean.XMLList.ControlArea.RefId;
+import com.asrs.domain.XMLbean.XMLList.ControlArea.Sender;
+import com.asrs.domain.XMLbean.XMLList.DataArea.DAList.TransportOrderDA;
+import com.asrs.domain.XMLbean.XMLList.DataArea.FromLocation;
+import com.asrs.domain.XMLbean.XMLList.DataArea.StUnit;
+import com.asrs.domain.XMLbean.XMLList.DataArea.ToLocation;
+import com.asrs.domain.XMLbean.XMLList.TransportOrder;
+import com.asrs.domain.consts.xmlbean.XMLConstant;
+import com.asrs.xml.util.XMLUtil;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.util.common.DateFormat;
 import com.util.hibernate.HibernateUtil;
 import com.util.hibernate.Transaction;
 import com.wms.domain.*;
+import com.wms.domain.blocks.Srm;
 import jxl.Workbook;
 import jxl.write.*;
 import jxl.write.biff.RowsExceededException;
@@ -30,51 +47,50 @@ import java.util.*;
  */
 public class Test {
     public static void main(String[] args) {
-        while (true){
-            try {
-                Transaction.begin();
-                Session session = HibernateUtil.getCurrentSession();
-                Query query = HibernateUtil.getCurrentSession().createQuery("from RetrievalOrderLine r " +
-                        "where r.dingdanshuliang > isnull(r.wanchengdingdanshuliang,0) ");
-                List<RetrievalOrderLine> rolList = query.list();
+        try {
+            Transaction.begin();
+            Session session = HibernateUtil.getCurrentSession();
 
-                for (RetrievalOrderLine rol : rolList) {
-                    String orderToStation = rol.getFromStation();//出库站台
-                    String orderposition = orderToStation.equals("1301")?"2":"1";
-                    int dingdanshuliang = rol.getDingdanshuliang();//获取订单数量
+            String stationNo = "1301";
+            org.hibernate.Query jobQuery = HibernateUtil.getCurrentSession().createQuery("from Job j where j.fromStation = :station and j.status = :waiting order by j.createDate")
+                    .setString("station",stationNo)
+                    .setString("waiting", AsrsJobStatus.WAITING)
+                    .setMaxResults(1);
 
-                    System.out.println(rol.getShouhuodanhao());
-                    if(orderToStation.equals("1201")){
-                        for(int i=1;i<4;i++){
-                            //一号堆垛机出库，整列
-                            dingdanshuliang=ML01ArrayOut(rol,orderposition,dingdanshuliang,i);
-                            if(dingdanshuliang<=0){
-                                break;
-                            }
-                        }
+            Job j = (Job) jobQuery.uniqueResult();
+            if(j == null) {
+                SystemLog.error("入库站台" + stationNo + "不存在任务");
+                InMessage.error(stationNo, "入库站台" + stationNo + "不存在任务");
+            }else{
+                InventoryView view = InventoryView.getByPalletNo(j.getContainer());
+                Station station = Station.getStation(stationNo);
 
-                    }else if(orderToStation.equals("1301")){
-                        for(int i=1;i<4;i++){
-                            //二号堆垛机出库，整列
-                            dingdanshuliang=ML02ArrayOut(rol,orderposition,dingdanshuliang,i);
-                            if(dingdanshuliang<=0){
-                                break;
-                            }
+                Location newLocation=null;
+
+                if(AsrsJobType.PUTAWAY.equals(j.getType())){
+                    WholeInStorageStrategy wholeInStorageStrategy =WholeInStorageStrategy.getWholeInStorageStrategyById(1);
+                    if(wholeInStorageStrategy.isStatus()){
+                        //若是入库分配货位
+                        newLocation = Location.getEmptyLocation(view.getSkuCode(),view.getLotNum(),station.getPosition(),"02",j.getBay(),j.getLevel());
+                    }else{
+                        //若全局入库策略是手动的，则只能入有入库策略的货物
+                        if(!(j.getBay()==0 && j.getLevel()==0 )){
+                            newLocation = Location.getEmptyLocation(view.getSkuCode(),view.getLotNum(),station.getPosition(),"02",j.getBay(),j.getLevel());
+                        }else{
+                            j.setError("全局入库策略为手动，不可入没有入库策略的货物");
                         }
                     }
 
+                }else if(AsrsJobType.CHECKINSTORAGE.equals(j.getType())){
+                    //若是抽检入库，则回原位
+                    newLocation=j.getToLocation();
                 }
-                Transaction.commit();
-            }catch (Exception e){
-                Transaction.rollback();
-                e.printStackTrace();
-            }
 
-            try {
-                Thread.sleep(10000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
             }
+            Transaction.commit();
+        }catch (Exception e){
+            Transaction.rollback();
+            e.printStackTrace();
         }
     }
 

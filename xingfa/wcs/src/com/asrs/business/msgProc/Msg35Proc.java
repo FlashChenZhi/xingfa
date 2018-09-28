@@ -796,7 +796,7 @@ public class Msg35Proc implements MsgProcess {
                     conveyor.setMantWaiting(false);
                 }
 
-                Thread.sleep(100);
+                Thread.sleep(500);
 
             }
             Query wcsQ2 = HibernateUtil.getCurrentSession().createQuery("from WcsMessage where dock=:dock and msgType=:msgType and mcKey=:mckey and received=false");

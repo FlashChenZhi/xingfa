@@ -19,24 +19,35 @@ import java.util.List;
 public class Msg10AndMsg06 {
     public static void main(String[] args) throws Exception {
         while (true) {
-            Transaction.begin();
-            Session session = HibernateUtil.getCurrentSession();
-            List<Plc> plcs = session.createCriteria(Plc.class).add(Restrictions.eq("status", "1")).list();
-            MessageProxy _wcsproxy = (MessageProxy) Naming.lookup(Const.WCSPROXY);
-            for (Plc plc : plcs) {
-                Message10 message10 = new Message10();
-                message10.ConsoleNo = plc.getPlcName();
-                message10.WcsNo = "1";
-                message10.setPlcName(plc.getPlcName());
-                message10.HeartBeatCycle = "5";
+            try {
+                Transaction.begin();
+                Session session = HibernateUtil.getCurrentSession();
+                List<Plc> plcs = session.createCriteria(Plc.class).add(Restrictions.eq("status", "1")).list();
+                MessageProxy _wcsproxy = (MessageProxy) Naming.lookup(Const.WCSPROXY);
+                for (Plc plc : plcs) {
+                    Message10 message10 = new Message10();
+                    message10.ConsoleNo = plc.getPlcName();
+                    message10.WcsNo = "1";
+                    message10.setPlcName(plc.getPlcName());
+                    message10.HeartBeatCycle = "5";
 
-                Message06 message06 = new Message06();
-                message06.setPlcName(plc.getPlcName());
-                message06.Status = "0";
-                _wcsproxy.addSndMsg(message10);
-                _wcsproxy.addSndMsg(message06);
+                    Message06 message06 = new Message06();
+                    message06.setPlcName(plc.getPlcName());
+                    message06.Status = "0";
+                    _wcsproxy.addSndMsg(message10);
+                    _wcsproxy.addSndMsg(message06);
+                }
+                Transaction.commit();
+            }catch (Exception e){
+                Transaction.rollback();
+                e.printStackTrace();
+            }finally {
+                try {
+                    Thread.sleep(10000);
+                }catch (InterruptedException e){
+                    e.printStackTrace();
+                }
             }
-            Thread.sleep(10000);
         }
     }
 }

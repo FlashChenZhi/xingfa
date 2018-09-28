@@ -1,5 +1,6 @@
 package com.master.service;
 
+import com.asrs.business.consts.SkuType;
 import com.util.common.LogMessage;
 import com.util.common.PagerReturnObj;
 import com.util.common.ReturnObj;
@@ -98,9 +99,10 @@ public class FindDayNeatenService {
 
             Query query =session.createQuery("select d.skuCode as skuCode,d.skuName as skuName,d.lotNum as lotNum," +
                     "d.benginningInventory as benginningInventory,d.inStorage as inStorage,d.outStorage as " +
-                    "outStorage,d.carryover as carryover,d.date as date from "+table+" d where 1=1 "
+                    "outStorage,d.carryover as carryover,d.date as date,s.skuType as skuType " +
+                    "from "+table+" d,Sku s where d.skuCode=s.skuCode "
                     +(StringUtils.isNotBlank(date)?" and d.date=:date ":"")+""
-                    +(StringUtils.isNotBlank(productId)?" and d.skuCode=:skuCode ":"")+" order by date desc,skuCode asc").setResultTransformer(Transformers.ALIAS_TO_ENTITY_MAP);
+                    +(StringUtils.isNotBlank(productId)?" and d.skuCode=:skuCode ":"")+" order by date desc,skuType asc").setResultTransformer(Transformers.ALIAS_TO_ENTITY_MAP);
             if(StringUtils.isNotBlank(date)){
                 query.setParameter("date", date);
             }
@@ -121,7 +123,13 @@ public class FindDayNeatenService {
             }
             List<Map<String,Object>> jobList = query.list();
             long count = (long)query1.uniqueResult();
-
+            for(Map<String,Object> map : jobList){
+                if(map.get("skuType")!=null && StringUtils.isNotBlank(map.get("skuType").toString())){
+                    map.put("skuType", SkuType.map.get(map.get("skuType").toString()));
+                }else{
+                    map.put("skuType", "无分类");
+                }
+            }
             returnObj.setSuccess(true);
             returnObj.setRes(jobList);
             returnObj.setCount(count);
@@ -193,7 +201,7 @@ public class FindDayNeatenService {
 
             ouputStream = response.getOutputStream();
 
-            List<Map<String,Object>> dataList= getExclContent(date,table);
+            List<List<Map<String,Object>>> dataList= getExclContent(date,table);
 
             //jxl导出报表方法
             exportExcel(dataList, ouputStream,date,fileName);
@@ -225,7 +233,7 @@ public class FindDayNeatenService {
      *            要插入的数据源
      *            excel表名称
      */
-    public void exportExcel( List<Map<String,Object>> datalist, OutputStream os,
+    public void exportExcel( List<List<Map<String,Object>>> datalist, OutputStream os,
                              String date,String fileName ) {
 
         WritableWorkbook workbook = null;
@@ -237,7 +245,9 @@ public class FindDayNeatenService {
             workbook = Workbook.createWorkbook(os);
             //workbook = Workbook.createWorkbook(new File(path+fileName+hz));
             Map<String,String> mapTitle = new HashMap<>();
-            mapTitle.put("title0", fileName);
+            mapTitle.put("title0", "产成品");
+            mapTitle.put("title1", "原材料");
+            mapTitle.put("title2", "包装袋");
 
             WritableSheet sheet=null;
             //设置字体为Arial，30号，加粗
@@ -251,57 +261,64 @@ public class FindDayNeatenService {
             //设置左右居中对齐
             format1.setAlignment(Alignment.CENTRE);
             format2.setVerticalAlignment(VerticalAlignment.CENTRE);
-            //创建一个sheet
-            sheet = workbook.createSheet(mapTitle.get("title0"), 0);
-            //设置单元格宽度
-            for(int j = 0;j<7;j++){
-                if(j == 0){
-                    sheet.setColumnView(j, 10);
-                }else if(j == 2){
-                    sheet.setColumnView(j, 33);
-                }else if(j == 5){
-                    sheet.setColumnView(j, 22);
-                }else{
-                    sheet.setColumnView(j, 20);
+            for(int i=0;i<datalist.size();i++){
+                //创建一个sheet
+                sheet = workbook.createSheet(mapTitle.get("title"+i), i);
+                //设置单元格宽度
+                for(int j = 0;j<7;j++){
+                    if(j == 0){
+                        sheet.setColumnView(j, 10);
+                    }else if(j == 2){
+                        sheet.setColumnView(j, 33);
+                    }else if(j == 5){
+                        sheet.setColumnView(j, 22);
+                    }else{
+                        sheet.setColumnView(j, 20);
+                    }
+                }
+                sheet.setRowView(0, 600);
+                sheet.setRowView(1, 600);
+                // 合并单元格    (开始列, 开始行, 结束列, 结束行)
+                sheet.mergeCells(0, 1, 2, 1);
+                // 合并单元格  (开始列, 开始行, 结束列, 结束行)
+                sheet.mergeCells(0, 0, 7, 0);
+                //添加第二行标题
+                sheet.addCell(new Label(0, 1, "时间："+date,format2));
+
+                //添加第一行标题
+                sheet.addCell(new Label(0, 0, mapTitle.get("title"+i),format1));
+
+                sheet.addCell(new Label(0, 2, "行号"));
+                sheet.addCell(new Label(1, 2, "商品代码"));
+                sheet.addCell(new Label(2, 2, "商品名称"));
+                sheet.addCell(new Label(3, 2, "商品类型"));
+                sheet.addCell(new Label(4, 2, "批次"));
+                sheet.addCell(new Label(5, 2, "期初"));
+                sheet.addCell(new Label(6, 2, "入库"));
+                sheet.addCell(new Label(7, 2, "出库"));
+                sheet.addCell(new Label(8, 2, "结余"));
+                String skuCode="";
+
+                List<Map<String,Object>> datalist2=datalist.get(i);
+                for(int j =0;j<datalist2.size();j++){
+
+                    Map<String,Object> dataMap = datalist2.get(j);
+                    int k =j+1;
+                    sheet.addCell(new Label(0, j+3, k+"",format));
+                    if(!skuCode.equals((String)dataMap.get("skuCode"))){
+                        sheet.addCell(new Label(1, j+3, (String)dataMap.get("skuCode"),format));
+                        sheet.addCell(new Label(2, j+3, (String)dataMap.get("skuName"),format));
+                        skuCode=(String)dataMap.get("skuCode");
+                    }
+                    sheet.addCell(new Label(3, j+3, (String)dataMap.get("skuType"),format));
+                    sheet.addCell(new Label(4, j+3, (String)dataMap.get("lotNum"),format));
+                    sheet.addCell(new Label(5, j+3, ""+dataMap.get("benginningInventory"),format));
+                    sheet.addCell(new Label(6, j+3, ""+dataMap.get("inStorage"),format));
+                    sheet.addCell(new Label(7, j+3, ""+dataMap.get("outStorage"),format));
+                    sheet.addCell(new Label(8, j+3, ""+dataMap.get("carryover"),format));
                 }
             }
-            sheet.setRowView(0, 600);
-            sheet.setRowView(1, 600);
-            // 合并单元格    (开始列, 开始行, 结束列, 结束行)
-            sheet.mergeCells(0, 1, 2, 1);
-            // 合并单元格  (开始列, 开始行, 结束列, 结束行)
-            sheet.mergeCells(0, 0, 7, 0);
-            //添加第二行标题
-            sheet.addCell(new Label(0, 1, "时间："+date,format2));
 
-            //添加第一行标题
-            sheet.addCell(new Label(0, 0, mapTitle.get("title0"),format1));
-
-            sheet.addCell(new Label(0, 2, "行号"));
-            sheet.addCell(new Label(1, 2, "商品代码"));
-            sheet.addCell(new Label(2, 2, "商品名称"));
-            sheet.addCell(new Label(3, 2, "批次"));
-            sheet.addCell(new Label(4, 2, "期初"));
-            sheet.addCell(new Label(5, 2, "入库"));
-            sheet.addCell(new Label(6, 2, "出库"));
-            sheet.addCell(new Label(7, 2, "结余"));
-            String skuCode="";
-            for(int j =0;j<datalist.size();j++){
-
-                Map<String,Object> dataMap = datalist.get(j);
-                int k =j+1;
-                sheet.addCell(new Label(0, j+3, k+"",format));
-                if(!skuCode.equals((String)dataMap.get("skuCode"))){
-                    sheet.addCell(new Label(1, j+3, (String)dataMap.get("skuCode"),format));
-                    sheet.addCell(new Label(2, j+3, (String)dataMap.get("skuName"),format));
-                    skuCode=(String)dataMap.get("skuCode");
-                }
-                sheet.addCell(new Label(3, j+3, (String)dataMap.get("lotNum"),format));
-                sheet.addCell(new Label(4, j+3, ""+dataMap.get("benginningInventory"),format));
-                sheet.addCell(new Label(5, j+3, ""+dataMap.get("inStorage"),format));
-                sheet.addCell(new Label(6, j+3, ""+dataMap.get("outStorage"),format));
-                sheet.addCell(new Label(7, j+3, ""+dataMap.get("carryover"),format));
-            }
 
             workbook.write();
         } catch (RowsExceededException e) {
@@ -345,18 +362,42 @@ public class FindDayNeatenService {
         return wcformat;
     }
 
-    public List<Map<String,Object>> getExclContent(String date, String table){
+    public List<List<Map<String,Object>>> getExclContent(String date, String table){
         Session session = HibernateUtil.getCurrentSession();
         //查询sheet1，库存汇总表,当前时间
         Query query =session.createQuery("select d.skuCode as skuCode,d.skuName as skuName,d.lotNum as lotNum," +
                 "d.benginningInventory as benginningInventory,d.inStorage as inStorage,d.outStorage as " +
-                "outStorage,d.carryover as carryover,d.date as date from "+table+" d where 1=1 "
+                "outStorage,d.carryover as carryover,d.date as date,s.skuType as skuType from " +
+                table+" d,Sku s where d.skuCode =s.skuCode and s.skuType=:skuType "
                 +(StringUtils.isNotBlank(date)?" and d.date=:date ":"")+" order by skuCode asc").setResultTransformer(Transformers.ALIAS_TO_ENTITY_MAP);
         if(StringUtils.isNotBlank(date)){
             query.setParameter("date", date);
         }
+        query.setParameter("skuType", SkuType.FINISHED_PRODUCT);
         List<Map<String,Object>> list1 = query.list();
-        return list1;
+
+
+        query.setParameter("skuType", SkuType.RAW_MATERIAL);
+        List<Map<String,Object>> list2 = query.list();
+
+        query.setParameter("skuType", SkuType.PACKING_BAG);
+        List<Map<String,Object>> list3 = query.list();
+
+        List<List<Map<String,Object>>> lists = new ArrayList<>();
+
+        lists.add(list1);
+        lists.add(list2);
+        lists.add(list3);
+        for(List<Map<String,Object>> listt :lists){
+            for(Map<String,Object> map : listt){
+                if(map.get("skuType")!=null && StringUtils.isNotBlank(map.get("skuType").toString())){
+                    map.put("skuType", SkuType.map.get(map.get("skuType").toString()));
+                }else{
+                    map.put("skuType", "无分类");
+                }
+            }
+        }
+        return lists;
     }
 
 

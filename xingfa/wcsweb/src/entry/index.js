@@ -38,6 +38,8 @@ import FindOrderDetail from '../components/InOrOut/FindOrderDetail';
 import StockOutODO from '../components/InOrOut/StockOutODO';
 import AssignsTheStorehouseML02 from '../components/InOrOut/AssignsTheStorehouseML02';
 import FindDayNeaten from '../components/InOrOut/FindDayNeaten';
+import InStorageStrategy from '../components/InOrOut/InStorageStrategy';
+import WholeInStorageStrategy from '../components/InOrOut/WholeInStorageStrategy';
 
 class Index extends React.Component {
     constructor(props) {
@@ -81,6 +83,8 @@ class Index extends React.Component {
                     <Route path="/StockOutODO" components={StockOutODO}/>
                     <Route path="/AssignsTheStorehouseML02" components={AssignsTheStorehouseML02}/>
                     <Route path="/FindDayNeaten" components={FindDayNeaten}/>
+                    <Route path="/InStorageStrategy" components={InStorageStrategy}/>
+                    <Route path="/WholeInStorageStrategy" components={WholeInStorageStrategy}/>
                 </Route>
                 <Route path="/" component={LoginMain}>
                     <IndexRedirect to="/login"/>

@@ -459,6 +459,9 @@ let OutputArea = React.createClass({
             title: '库存',
             dataIndex: 'sumQty',
         }, {
+            title: '所属种类',
+            dataIndex: 'skuType',
+        }, {
             title: '最近入库时间',
             dataIndex: 'dateTime',
         }];

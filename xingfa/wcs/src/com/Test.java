@@ -30,7 +30,9 @@ public class Test {
         try {
             try {
                 Transaction.begin();
-                int i = 1/0;
+                int i =1;
+                String s = StringUtils.leftPad(i+"",3 ,"0" );
+                System.out.println(s);
                 Transaction.commit();
             }catch (Exception e){
 

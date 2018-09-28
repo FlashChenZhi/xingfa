@@ -8,11 +8,10 @@ import org.hibernate.*;
 import org.hibernate.Query;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.DynamicUpdate;
+import org.hibernate.transform.Transformers;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Date;
+import java.util.*;
 
 /**
  * Author: Zhouyue
@@ -145,6 +144,42 @@ public class Job {
 
     public void setSendReport(boolean sendReport) {
         this.sendReport = sendReport;
+    }
+
+    private int bay;
+
+    private int level;
+
+    private String error;
+
+    @Column(name = "BAY")
+    @Basic
+    public int getBay() {
+        return bay;
+    }
+
+    public void setBay(int bay) {
+        this.bay = bay;
+    }
+
+    @Column(name = "LEV")
+    @Basic
+    public int getLevel() {
+        return level;
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
+    }
+
+    @Column(name = "ERROR")
+    @Basic
+    public String getError() {
+        return error;
+    }
+
+    public void setError(String error) {
+        this.error = error;
     }
 
     @Override
@@ -334,6 +369,110 @@ public class Job {
 //
 //        session.delete(this);
 
+    }
+
+    /*
+     * @author：ed_chen
+     * @date：2018/9/17 15:08
+     * @description：根据Bay和Level查询未分配货位的Job
+     * @param bay
+     * @param level
+     * @return：java.util.List<java.util.Map<java.lang.String,java.lang.Object>>
+     */
+    public static Map<String,Object> findJobByBL(int bay,int level){
+        Session session =HibernateUtil.getCurrentSession();
+        Query query2=session.createQuery("select iv.skuCode as skuCode,iv.lotNum as lotNum," +
+                " max(j.createDate) as createDate from Job j,InventoryView iv where j.container=iv.palletCode " +
+                "and j.type='01' and j.bay=:bay and j.level=:level and j.fromStation='1301' and j.fromLocation is null " +
+                "group by iv.skuCode,iv.lotNum order by max(j.createDate) desc ").setResultTransformer(Transformers.ALIAS_TO_ENTITY_MAP);
+        query2.setParameter("bay",bay);
+        query2.setParameter("level",level);
+        query2.setMaxResults(1);
+        Map<String,Object> mapList3=(Map<String,Object>)query2.uniqueResult();
+        return mapList3;
+    }
+
+    /*
+     * @author：ed_chen
+     * @date：2018/9/18 15:30
+     * @description：查询未分配货位的job数量
+     * @param bay
+     * @param level
+     * @return：long
+     */
+    public static long findCountJobByBL(int bay,int level){
+        Session session =HibernateUtil.getCurrentSession();
+        Query query2=session.createQuery("select count(*) as count from Job j,InventoryView iv " +
+                "where j.container=iv.palletCode and j.type='01' and j.bay=:bay and j.level=:level " +
+                "and j.fromStation='1301' and j.fromLocation is null ");
+        query2.setParameter("bay",bay);
+        query2.setParameter("level",level);
+        long count =(long)query2.uniqueResult();
+        return count;
+    }
+
+    /*
+     * @author：ed_chen
+     * @date：2018/9/17 15:08
+     * @description：根据Bay和Level查询已分配货位的Job
+     * @param bay
+     * @param level
+     * @return：java.util.List<java.util.Map<java.lang.String,java.lang.Object>>
+     */
+    public static Map<String,Object> findJobByBL2(int bay,int level){
+        Session session =HibernateUtil.getCurrentSession();
+        Query query2=session.createQuery("select iv.skuCode as skuCode,iv.lotNum as lotNum, " +
+                "max(j.toLocation.seq) as seq from Job j,InventoryView iv where j.container=iv.palletCode " +
+                "and j.type='01' and j.toLocation.bay=:bay and j.toLocation.level=:level and " +
+                "j.toLocation.position='2' and j.toLocation.actualArea='2' group by iv.skuCode,iv.lotNum " +
+                "order by max(j.toLocation.seq) desc ").setResultTransformer(Transformers.ALIAS_TO_ENTITY_MAP);
+        query2.setParameter("bay",bay);
+        query2.setParameter("level",level);
+        query2.setMaxResults(1);
+        Map<String,Object> mapList2=(Map<String,Object>) query2.uniqueResult();
+        return mapList2;
+    }
+
+    /*
+     * @author：ed_chen
+     * @date：2018/9/17 15:08
+     * @description：根据Bay和Level,skuCode,lotNum查询未分配货位的Job
+     * @param bay
+     * @param level
+     * @return：java.util.List<java.util.Map<java.lang.String,java.lang.Object>>
+     */
+    public static long findJobByBLSL(int bay,int level,String skuCode,String lotNum){
+        Session session =HibernateUtil.getCurrentSession();
+        Query query2=session.createQuery("select count(*) as count from Job j,InventoryView iv where j.container=iv.palletCode " +
+                "and j.type='01' and j.bay=:bay and j.level=:level and iv.skuCode=:skuCode and iv.lotNum=:lotNum " +
+                "and j.fromStation='1301' and j.fromLocation is null  ");
+        query2.setParameter("bay",bay);
+        query2.setParameter("level",level);
+        query2.setParameter("skuCode",skuCode);
+        query2.setParameter("lotNum",lotNum);
+        long count =(long)query2.uniqueResult();
+        return count;
+    }
+
+    /*
+     * @author：ed_chen
+     * @date：2018/9/17 15:08
+     * @description：根据Bay和Level查询已分配货位的Job
+     * @param bay
+     * @param level
+     * @return：java.util.List<java.util.Map<java.lang.String,java.lang.Object>>
+     */
+    public static long findJobByBLSL2(int bay,int level,String skuCode,String lotNum){
+        Session session =HibernateUtil.getCurrentSession();
+        Query query2=session.createQuery("select count(*) as count from Job j,InventoryView iv where j.container=iv.palletCode " +
+                "and j.type='01' and j.toLocation.bay=:bay and j.toLocation.level=:level and " +
+                "j.toLocation.position='2' and j.toLocation.actualArea='2' and iv.skuCode=:skuCode and iv.lotNum=:lotNum ");
+        query2.setParameter("bay",bay);
+        query2.setParameter("level",level);
+        query2.setParameter("skuCode",skuCode);
+        query2.setParameter("lotNum",lotNum);
+        long count=(long) query2.uniqueResult();
+        return count;
     }
 
 }

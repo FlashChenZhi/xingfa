@@ -154,6 +154,9 @@ let OutputArea = React.createClass({
             title: '货品名称',
             dataIndex: 'skuName',
         }, {
+            title: '商品类型',
+            dataIndex: 'skuType',
+        }, {
             title: '批次',
             dataIndex: 'lotNum',
         },{

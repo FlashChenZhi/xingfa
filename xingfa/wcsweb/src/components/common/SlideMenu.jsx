@@ -1,6 +1,6 @@
 import React from 'react';
 import {Link} from 'react-router';
-import {Menu, Icon,message} from 'antd';
+import {Menu, Icon,message, Button} from 'antd';
 const SubMenu = Menu.SubMenu;
 
 const SlideMenu = React.createClass({
@@ -35,6 +35,7 @@ const SlideMenu = React.createClass({
                       selectedKeys={[this.state.current]}
                       mode="inline"
                       theme="dark"
+
                 >
                     <SubMenu key="1" title={<span><Icon type="setting"/><span>查询</span></span>}>
 
@@ -74,7 +75,16 @@ const SlideMenu = React.createClass({
                                 <Icon type="shopping-cart"/><span className="nav-text">入库</span>
                             </Link>
                         </Menu.Item>
-
+                        <Menu.Item key='62'>
+                            <Link to='InStorageStrategy'>
+                                <Icon type="shopping-cart"/><span className="nav-text">入库策略</span>
+                            </Link>
+                        </Menu.Item>
+                        <Menu.Item key='63'>
+                            <Link to='WholeInStorageStrategy'>
+                                <Icon type="shopping-cart"/><span className="nav-text">全局入库策略</span>
+                            </Link>
+                        </Menu.Item>
                         <Menu.Item key='64'>
                             <Link to='PlatformSwitch'>
                                 <Icon type="ellipsis" /><span className="nav-text">站台模式切换</span>

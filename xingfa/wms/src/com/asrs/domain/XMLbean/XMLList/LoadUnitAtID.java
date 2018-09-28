@@ -278,8 +278,19 @@ public class LoadUnitAtID extends XMLProcess {
             Location newLocation=null;
 
             if(AsrsJobType.PUTAWAY.equals(j.getType())){
-                //若是入库分配货位
-                newLocation = Location.getEmptyLocation(view.getSkuCode(),view.getLotNum(),station.getPosition(),dataArea.getLoadType());
+                WholeInStorageStrategy wholeInStorageStrategy =WholeInStorageStrategy.getWholeInStorageStrategyById(1);
+                if(wholeInStorageStrategy.isStatus()){
+                    //若是入库分配货位
+                    newLocation = Location.getEmptyLocation(view.getSkuCode(),view.getLotNum(),station.getPosition(),dataArea.getLoadType(),j.getBay(),j.getLevel());
+                }else{
+                    //若全局入库策略是手动的，则只能入有入库策略的货物
+                    if(!(j.getBay()==0 && j.getLevel()==0 )){
+                        newLocation = Location.getEmptyLocation(view.getSkuCode(),view.getLotNum(),station.getPosition(),dataArea.getLoadType(),j.getBay(),j.getLevel());
+                    }else{
+                        j.setError("全局入库策略为手动，不可入没有入库策略的货物");
+                    }
+                }
+
             }else if(AsrsJobType.CHECKINSTORAGE.equals(j.getType())){
                 //若是抽检入库，则回原位
                 newLocation=j.getToLocation();
@@ -289,6 +300,9 @@ public class LoadUnitAtID extends XMLProcess {
             if (newLocation == null) {
                 SystemLog.error("托盘" + palletNo + "找不到合适的货位");
                 InMessage.error(stationNo, "托盘" + palletNo + "，找不到合适的货位");
+                if(j.getError()==null){
+                    j.setError("托盘" + palletNo + "，找不到合适的货位");
+                }
             }else{
 
                 newLocation.setReserved(true);

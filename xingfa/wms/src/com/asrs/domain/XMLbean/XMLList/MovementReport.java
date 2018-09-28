@@ -15,6 +15,7 @@ import com.util.hibernate.HibernateUtil;
 import com.wms.domain.Location;
 import com.wms.domain.blocks.Block;
 import com.wms.domain.blocks.StationBlock;
+import org.apache.commons.lang.StringUtils;
 import org.apache.http.client.utils.DateUtils;
 import org.hibernate.*;
 import org.hibernate.Query;
@@ -200,6 +201,11 @@ public class MovementReport extends XMLProcess {
                 if(inventory != null){
                     message2 = inventory.getSkuName();
                     message3 = inventory.getLotNum();
+                    if(dataArea.getReasonCode().equals(ReasonCode.RETRIEVALFINISHED)){
+                        //查找是否有入库策略
+                        finishInStorageStrategy(inventory.getSkuCode(),inventory.getLotNum(),inventory.getContainer().getLocation().getBay(),inventory.getContainer().getLocation().getLevel(),inventory.getId());
+                    }
+
                 }
                 message4 = String.valueOf(jd.getQty());
             }
@@ -248,6 +254,10 @@ public class MovementReport extends XMLProcess {
                     }
 
                     session.update(inventory);
+                    if(dataArea.getReasonCode().equals(ReasonCode.LTLFINISHED)){
+                        //查找是否有入库策略
+                        finishInStorageStrategy(inventory.getSkuCode(),inventory.getLotNum(),inventory.getContainer().getLocation().getBay(),inventory.getContainer().getLocation().getLevel(),inventory.getId());
+                    }
                 }
             }
 
@@ -301,11 +311,15 @@ public class MovementReport extends XMLProcess {
             List<Inventory> inventoryList = query2.list();
             for(int i =0;i<inventoryList.size();i++){
                 Inventory inventory=inventoryList.get(i);
+                System.out.println("理货库存ID："+inventory.getId());
                 Container container = inventory.getContainer();
                 Location fromLocation2 =container.getLocation();
                 int j2 = i+3;
-                String toLocationNo = locationNo.substring(0,2 )+""+j2+locationNo.substring(3,9 );
+                String s = StringUtils.leftPad(j2+"",3 ,"0" );
+                String toLocationNo = s+locationNo.substring(3,9 );
+                System.out.println("理货货位No："+toLocationNo);
                 Location location = Location.getByLocationNo(toLocationNo);
+                System.out.println("理货货位id："+location.getId());
                 container.setLocation(location);
                 container.setReserved(false);
                 session.update(container);
@@ -362,5 +376,42 @@ public class MovementReport extends XMLProcess {
         Container container = inventory.getContainer();
         container.setReserved(true);
         session.saveOrUpdate(container);
+    }
+
+    /*
+     * @author：ed_chen
+     * @date：2018/9/19 16:17
+     * @description：查找有无入库策略，有入库策略，查找有无库存，无库存删除入库策略
+     * @param skuCode
+     * @param lotNum
+     * @param bay
+     * @param level
+     * @return：void
+     */
+    public void finishInStorageStrategy(String skuCode,String lotNum,int bay,int level,int inventoryId) {
+
+        Session session = HibernateUtil.getCurrentSession();
+        InStorageStrategy inStorageStrategy = InStorageStrategy.findInStroageStrategy(skuCode,lotNum ,bay ,level );
+        if(inStorageStrategy!=null){
+            Query query=session.createQuery("select count(*) as count from Inventory i where i.container.location.bay=:bay and " +
+                    "i.container.location.level=:level and i.skuCode=:skuCode and i.lotNum=:lotNum and i.id !=:id ");
+            query.setParameter("bay",bay );
+            query.setParameter("level",level );
+            query.setParameter("skuCode", skuCode);
+            query.setParameter("lotNum", lotNum);
+            query.setParameter("id", inventoryId);
+            long count =(long)query.uniqueResult();
+            if(count!=0){
+                return;
+            }else{
+                //仓库无库存，查询有无将要入进来的货物
+                long count1=Job.findJobByBLSL(bay,level ,skuCode ,lotNum );
+                long count2=Job.findJobByBLSL2(bay,level ,skuCode ,lotNum );
+                if(count1==0 && count2==0){
+                    session.delete(inStorageStrategy);
+                }
+            }
+
+        }
     }
 }

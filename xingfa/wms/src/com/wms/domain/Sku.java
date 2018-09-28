@@ -38,6 +38,8 @@ public class Sku {
     private String danwei;
     private Integer cunfangquyu;
     private Date chuangjianshijian;
+    private String skuType;
+
     @Id
     @Column(name = "ID")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -199,14 +201,6 @@ public class Sku {
         this.cunfangquyu = cunfangquyu;
     }
 
-    public static Sku getByCode(String skuCode) {
-
-        org.hibernate.Query query = HibernateUtil.getCurrentSession().createQuery("from Sku where skuCode =:skuCode");
-        query.setParameter("skuCode", skuCode);
-        query.setMaxResults(1);
-        return (Sku) query.uniqueResult();
-    }
-
     @Basic
     @Column(name = "chuangjianshijian")
     public Date getChuangjianshijian() {
@@ -216,4 +210,23 @@ public class Sku {
     public void setChuangjianshijian(Date chuangjianshijian) {
         this.chuangjianshijian = chuangjianshijian;
     }
+
+    @Basic
+    @Column(name = "SKUTYPE")
+    public String getSkuType() {
+        return skuType;
+    }
+
+    public void setSkuType(String skuType) {
+        this.skuType = skuType;
+    }
+
+    public static Sku getByCode(String skuCode) {
+
+        org.hibernate.Query query = HibernateUtil.getCurrentSession().createQuery("from Sku where skuCode =:skuCode");
+        query.setParameter("skuCode", skuCode);
+        query.setMaxResults(1);
+        return (Sku) query.uniqueResult();
+    }
+
 }

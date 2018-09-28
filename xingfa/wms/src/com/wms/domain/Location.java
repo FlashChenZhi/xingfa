@@ -482,6 +482,16 @@ public class Location {
         _version = version;
     }
 
+    private String bayLevel;
+    @Basic
+    @Column(name = "BAYLEV")
+    public String getBayLevel() {
+        return bayLevel;
+    }
+
+    public void setBayLevel(String bayLevel) {
+        this.bayLevel = bayLevel;
+    }
 
 
     @Override
@@ -621,50 +631,70 @@ public class Location {
      * @param position
      * @return
      */
-    public static Location getEmptyLocation(String skuCode,String lotNo,String position,String loadType) {
+    public static Location getEmptyLocation(String skuCode,String lotNo,String position,String loadType,int bay,int level) {
         //loadType = 01 高 02 低
         Location location=null;
-
         if(StringUtils.isNotBlank(loadType)){
-            location = getLocation(skuCode,lotNo,position,loadType);
+            location = getLocation(skuCode,lotNo,position,loadType,bay,level);
             if(location == null && "02".equals(loadType)){
-                location = getLocation(skuCode,lotNo,position,"01");
+                location = getLocation(skuCode,lotNo,position,"01",bay,level);
             }
             if(location == null ){
-                location = getLocation2(skuCode,lotNo,position,loadType);
+                location = getLocation2(skuCode,lotNo,position,loadType,bay,level);
             }
             if(location == null && "02".equals(loadType)){
-                location = getLocation2(skuCode,lotNo,position,"01");
+                location = getLocation2(skuCode,lotNo,position,"01",bay,level);
             }
         }
         return location;
     }
 
     //正常的入库查找入库货位
-    public static Location getLocation(String skuCode,String lotNo,String position,String loadType){
+    public static Location getLocation(String skuCode,String lotNo,String position,String loadType,int bay,int level){
         Session session = HibernateUtil.getCurrentSession();
-        //存在同批次的库存同一边的可用
-        Query q = session.createQuery("from Location l where exists( select 1 from Inventory i where l.bay=i.container.location.bay and l.actualArea=i.container.location.actualArea " +
-                " and l.level =i.container.location.level  and i.skuCode=:skuCode " + (StringUtils.isBlank(lotNo) ? " and (i.lotNum is null or i.lotNum = '') " : " and i.lotNum = :lotNum ") +
-                " and  l.position=i.container.location.position and i.container.location.seq+1=l.seq ) and not exists (select 1 from Container c where l.bay=c.location.bay and l.actualArea=c.location.actualArea " +
-                " and l.level =c.location.level and  l.position=c.location.position and c.location.seq<l.seq and c.location.seq2>l.seq2 and c.reserved = true ) " +
-                " and l.empty=true  and l.position=:po and l.reserved=false and l.asrsFlag = true and l.putawayRestricted = false and l.positionType = :positionType order by l.seq")
-                .setString("skuCode", skuCode).setParameter("po", position).setParameter("positionType",loadType);
+
+        //查找正在执行的入库任务
+        Query q = session.createQuery("from Location l where exists( select j from Job j,InventoryView  v where j.container =v.palletCode" +
+                " and l.actualArea= j.toLocation.actualArea " +
+                " and l.level = j.toLocation.level and l.bay = j.toLocation.bay and v.skuCode=:skuCode " + (StringUtils.isBlank(lotNo) ? " and (v.lotNum is null or v.lotNum = '') " : " and v.lotNum = :lotNum ") +
+                " and l.position=j.toLocation.position and j.toLocation.seq+1 =l.seq )  " +
+                " and l.empty=true and l.position=:po and l.reserved=false and l.asrsFlag = true and " +
+                " l.putawayRestricted = false and l.positionType = :positionType " +
+                (bay==0?"":" and l.bay=:bay ")+(level==0?"":" and l.level=:level ")+
+                 (bay==0 && level==0?" and not exists(select 1 from InStorageStrategy iss where iss.bayLevel=l.bayLevel ) ":"")+
+                "order by l.seq asc ")
+                .setParameter("po", position).setParameter("skuCode", skuCode).setParameter("positionType",loadType);
         if(StringUtils.isNotBlank(lotNo)){
             q.setString("lotNum",lotNo);
+        }
+        if(bay!=0){
+            q.setParameter("bay",bay);
+        }
+        if(level!=0){
+            q.setParameter("level",level);
         }
         if (!q.list().isEmpty()) {
             return (Location) q.list().get(0);
         } else {
-            //查找正在执行的入库任务
-            q = session.createQuery("from Location l where exists( select j from Job j,InventoryView  v where j.container =v.palletCode" +
-                    " and l.actualArea= j.toLocation.actualArea " +
-                    " and l.level = j.toLocation.level and l.bay = j.toLocation.bay and v.skuCode=:skuCode " + (StringUtils.isBlank(lotNo) ? " and (v.lotNum is null or v.lotNum = '') " : " and v.lotNum = :lotNum ") +
-                    " and l.position=j.toLocation.position and j.toLocation.seq+1 =l.seq )  " +
-                    "and l.empty=true and l.position=:po and l.reserved=false and l.asrsFlag = true and l.putawayRestricted = false and l.positionType = :positionType order by l.seq asc")
-                    .setParameter("po", position).setParameter("skuCode", skuCode).setParameter("positionType",loadType);
+            //存在同批次的库存同一边的可用
+            q = session.createQuery("from Location l where exists( select 1 from Inventory i where l.bay=i.container.location.bay and l.actualArea=i.container.location.actualArea " +
+                " and l.level =i.container.location.level  and i.skuCode=:skuCode " + (StringUtils.isBlank(lotNo) ? " and (i.lotNum is null or i.lotNum = '') " : " and i.lotNum = :lotNum ") +
+                " and l.position=i.container.location.position and i.container.location.seq+1=l.seq ) and not exists (select 1 from Container c where l.bay=c.location.bay and l.actualArea=c.location.actualArea " +
+                " and l.level =c.location.level and  l.position=c.location.position and c.location.seq<l.seq and c.location.seq2>l.seq2 and c.reserved = true ) " +
+                " and l.empty=true  and l.position=:po and l.reserved=false and l.asrsFlag = true and l.putawayRestricted = false and l.positionType = :positionType " +
+                (bay==0?"":" and l.bay=:bay ")+(level==0?"":" and l.level=:level ")+
+                    (bay==0 && level==0?" and not exists(select 1 from InStorageStrategy iss where iss.bayLevel=l.bayLevel ) ":"")+
+                "order by l.seq")
+                .setString("skuCode", skuCode).setParameter("po", position).setParameter("positionType",loadType);
+
             if(StringUtils.isNotBlank(lotNo)){
                 q.setString("lotNum",lotNo);
+            }
+            if(bay!=0){
+                q.setParameter("bay",bay);
+            }
+            if(level!=0){
+                q.setParameter("level",level);
             }
             if (!q.list().isEmpty()) {
                 return (Location) q.list().get(0);
@@ -673,16 +703,35 @@ public class Location {
                 q = session.createQuery("from Location l where not exists (select 1 from Location ol where ol.bay = l.bay and (ol.reserved=true or ol.empty=false ) " +
                         "and l.level =ol.level and l.actualArea=ol.actualArea and l.position=ol.position )" +
                         " and l.empty=true  and l.position=:po and l.reserved=false and l.asrsFlag = true and l.putawayRestricted = false and not exists (select 1 from Location l2 where l.bay=l2.bay and l.actualArea=l2.actualArea " +
-                        " and l.level =l2.level and  l.position=l2.position and l2.seq <> l2.seq2 ) and l.positionType = :positionType  order by l.bay asc,level asc,actualArea asc,seq asc ")
+                        " and l.level =l2.level and  l.position=l2.position and l2.seq <> l2.seq2 ) and l.positionType = :positionType  " +
+                        (bay==0?"":" and l.bay=:bay ")+(level==0?"":" and l.level=:level ")+
+                        (bay==0 && level==0?" and not exists(select 1 from InStorageStrategy iss where iss.bayLevel=l.bayLevel ) ":"")+
+                        "order by l.bay asc,level asc,actualArea asc,seq asc ")
                         .setParameter("po", position).setParameter("positionType",loadType);
+                if(bay!=0){
+                    q.setParameter("bay",bay);
+                }
+                if(level!=0){
+                    q.setParameter("level",level);
+                }
                 if (!q.list().isEmpty()) {
                     return (Location) q.list().get(0);
                 }else{
                     //查找一个空的巷道
                     q = session.createQuery("from Location l where not exists (select 1 from Location ol where ol.bay = l.bay and (ol.reserved=true or ol.empty=false ) " +
-                            "and l.level =ol.level and l.actualArea=ol.actualArea and l.position=ol.position )" +
-                            " and l.empty=true  and l.position=:po and l.reserved=false and l.asrsFlag = true and l.putawayRestricted = false and l.positionType = :positionType order by l.bay asc,level asc,actualArea asc,seq asc ")
+                            "and l.level =ol.level and l.actualArea=ol.actualArea and l.position=ol.position ) " +
+                            "and l.empty=true  and l.position=:po and l.reserved=false and l.asrsFlag = true and l.putawayRestricted = false " +
+                            "and l.positionType = :positionType " +
+                            (bay==0?"":" and l.bay=:bay ")+(level==0?"":" and l.level=:level ")+
+                            (bay==0 && level==0?" and not exists(select 1 from InStorageStrategy iss where iss.bayLevel=l.bayLevel ) ":"")+
+                            "order by l.bay asc,level asc,actualArea asc,seq asc ")
                             .setParameter("po", position).setParameter("positionType",loadType);
+                    if(bay!=0){
+                        q.setParameter("bay",bay);
+                    }
+                    if(level!=0){
+                        q.setParameter("level",level);
+                    }
                     if (!q.list().isEmpty()) {
                         return (Location) q.list().get(0);
                     }
@@ -693,19 +742,27 @@ public class Location {
     }
 
     //当无正常的入库路径时，查找有空货位，最后一盘货是此品种此批次的巷道或者只有一个品种的巷道
-    public static Location getLocation2(String skuCode,String lotNo,String position,String loadType){
+    public static Location getLocation2(String skuCode,String lotNo,String position,String loadType,int bay,int level){
         Session session = HibernateUtil.getCurrentSession();
         //查找正在执行的入库任务
         Query q = session.createQuery("from Location l where exists( select j from Job j,InventoryView  v where j.container =v.palletCode" +
                 " and l.actualArea= j.toLocation.actualArea " +
                 " and l.level = j.toLocation.level and l.bay = j.toLocation.bay and v.skuCode=:skuCode " + (StringUtils.isBlank(lotNo) ? " and (v.lotNum is null or v.lotNum = '') " : " and v.lotNum = :lotNum ") +
                 " and l.position=j.toLocation.position and j.toLocation.seq+1 =l.seq )  " +
-                " and l.empty=true and l.position=:po and l.reserved=false and l.asrsFlag = true and l.putawayRestricted = false and l.positionType = :positionType order by l.seq asc")
+                " and l.empty=true and l.position=:po and l.reserved=false and l.asrsFlag = true and l.putawayRestricted = false and l.positionType = :positionType " +
+                (bay==0?"":" and l.bay=:bay ")+(level==0?"":" and l.level=:level ")+
+                (bay==0 && level==0?" and not exists(select 1 from InStorageStrategy iss where iss.bayLevel=l.bayLevel ) ":"")+
+                "order by l.seq asc")
                 .setParameter("po", position).setParameter("skuCode", skuCode).setParameter("positionType",loadType);
         if(StringUtils.isNotBlank(lotNo)){
             q.setString("lotNum",lotNo);
         }
-
+        if(bay!=0){
+            q.setParameter("bay",bay);
+        }
+        if(level!=0){
+            q.setParameter("level",level);
+        }
         if (!q.list().isEmpty()) {
             return (Location) q.list().get(0);
         } else {
@@ -714,10 +771,19 @@ public class Location {
                     " and l.level =i.container.location.level  and i.skuCode=:skuCode " + (StringUtils.isBlank(lotNo) ? " and (i.lotNum is null or i.lotNum = '') " : " and i.lotNum = :lotNum ") +
                     " and  l.position=i.container.location.position and i.container.location.seq+1=l.seq ) and not exists (select 1 from Container c where l.bay=c.location.bay and l.actualArea=c.location.actualArea " +
                     " and l.level =c.location.level and  l.position=c.location.position and c.location.seq<l.seq and c.location.seq2>l.seq2 and c.reserved = true ) " +
-                    " and l.empty=true  and l.position=:po and l.reserved=false and l.asrsFlag = true and l.putawayRestricted = false and l.positionType = :positionType order by l.seq")
+                    " and l.empty=true  and l.position=:po and l.reserved=false and l.asrsFlag = true and l.putawayRestricted = false and l.positionType = :positionType " +
+                    (bay==0?"":" and l.bay=:bay ")+(level==0?"":" and l.level=:level ")+
+                    (bay==0 && level==0?" and not exists(select 1 from InStorageStrategy iss where iss.bayLevel=l.bayLevel ) ":"")+
+                    " order by l.seq")
                     .setString("skuCode", skuCode).setParameter("po", position).setParameter("positionType",loadType);
             if(StringUtils.isNotBlank(lotNo)){
                 q.setString("lotNum",lotNo);
+            }
+            if(bay!=0){
+                q.setParameter("bay",bay);
+            }
+            if(level!=0){
+                q.setParameter("level",level);
             }
             if (!q.list().isEmpty()) {
                 return (Location) q.list().get(0);
@@ -737,9 +803,17 @@ public class Location {
                         "and l.actualArea=c.location.actualArea and l.level =c.location.level and l.position=c.location.position " +
                         "and c.location.seq<l.seq and c.location.seq2>l.seq2 and c.reserved = true ) " +
                         "and l.empty=true  and l.position=:po and l.reserved=false and l.asrsFlag = true and " +
-                        "l.putawayRestricted = false and l.positionType = :positionType and l.bay not in (:bays)" +
+                        "l.putawayRestricted = false and l.positionType = :positionType and l.bay not in (:bays) " +
+                        (bay==0?"":" and l.bay=:bay ")+(level==0?"":" and l.level=:level ")+
+                        (bay==0 && level==0?" and not exists(select 1 from InStorageStrategy iss where iss.bayLevel=l.bayLevel ) ":"")+
                         "order by l.bay asc,level asc,actualArea asc,seq asc ")
                         .setParameter("po", position).setParameter("positionType",loadType).setParameterList("bays",list);
+                if(bay!=0){
+                    q.setParameter("bay",bay);
+                }
+                if(level!=0){
+                    q.setParameter("level",level);
+                }
                 List<Location> locationList =q.list();
                 if (!q.list().isEmpty()) {
                     return (Location) q.list().get(0);

@@ -9,7 +9,7 @@
         <property name="hibernate.connection.driver_class">com.microsoft.sqlserver.jdbc.SQLServerDriver</property>
         <!--<property name="hibernate.connection.url">jdbc:oracle:thin:@localhost:1521:orcl</property>-->
 
-        <property name="hibernate.connection.url">jdbc:sqlserver://192.168.10.13:1433;DatabaseName=xingfa</property>
+        <property name="hibernate.connection.url">jdbc:sqlserver://localhost:1433;DatabaseName=xingfa</property>
 
         <property name="hibernate.connection.username">xingfa</property>
         <property name="connection.password">wms</property>
@@ -79,5 +79,7 @@
         <mapping class="com.wms.domain.TransportOrderLog"/>
         <mapping class="com.wms.domain.DayNeaten"/>
         <mapping class="com.wms.domain.MonthNeaten"/>
+        <mapping class="com.wms.domain.InStorageStrategy"/>
+        <mapping class="com.wms.domain.WholeInStorageStrategy"/>
     </session-factory>
 </hibernate-configuration>

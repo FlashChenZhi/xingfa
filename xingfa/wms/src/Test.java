@@ -1,8 +1,11 @@
 import com.util.hibernate.HibernateUtil;
 import com.util.hibernate.Transaction;
+import com.wms.domain.InStorageStrategy;
 import com.wms.domain.Location;
 import org.apache.commons.lang3.StringUtils;
 import org.hibernate.Query;
+
+import java.util.List;
 
 /**
  * Created by Administrator on 2016/12/19.
@@ -10,7 +13,10 @@ import org.hibernate.Query;
 public class Test {
     public static void main(String[] args) {
         Transaction.begin();
-        oneToEight("2",2);
+        Query query =HibernateUtil.getCurrentSession().createQuery("select 1 from InStorageStrategy iss where iss.bayLevel=:bayLevel");
+        query.setParameter("bayLevel", "40_1");
+        List<InStorageStrategy> inStorageStrategyList =query.list();
+        System.out.println(inStorageStrategyList);
          Transaction.commit();
 
     }

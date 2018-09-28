@@ -1,5 +1,6 @@
 package com.master.service;
 
+import com.asrs.business.consts.SkuType;
 import com.util.common.LogMessage;
 import com.util.common.PagerReturnObj;
 import com.util.common.ReturnObj;
@@ -87,10 +88,11 @@ public class FindOutOrInWarehouseService {
             Session session = HibernateUtil.getCurrentSession();
 
             StringBuffer sb = new StringBuffer("select a.id as id,a.skuCode as skuCode,a.qty as qty, " +
-                    "a.skuName as skuName,a.num as num,a.dateTime as dateTime,a.type as type,a.LOT_NUM as lotNum " +
-                    "from (select max(b.id) as id,b.skuCode as skuCode, " +
+                    "a.skuName as skuName,a.num as num,a.dateTime as dateTime,a.type as type,a.LOT_NUM as lotNum," +
+                    "a.skuType as skuType from (select max(b.id) as id,b.skuCode as skuCode, " +
                     "b.skuName as skuName,count(*) as num,sum(qty) as qty,b.LOT_NUM as LOT_NUM,max(b.createDate) as dateTime," +
-                    "case type when '01' then '入库' else '出库' end  as type from xingfa.JOBLOG b where 1=1 ");
+                    "case b.type when '01' then '入库' else '出库' end  as type,s.skuType as skuType from " +
+                    "xingfa.JOBLOG b ,xingfa.SKU s where b.skuCode=s.SKU_CODE ");
             StringBuffer sb1 = new StringBuffer("select count(*) from (select b.skuCode from xingfa.JOBLOG b where  1=1 ");
             if(StringUtils.isNotBlank(productId)){
                 sb.append("and b.skuCode =:productId ");
@@ -108,7 +110,7 @@ public class FindOutOrInWarehouseService {
                 sb.append("and b.type = :type ");
                 sb1.append("and b.type = :type ");
             }
-            sb.append(" group by skuCode,skuName,type,LOT_NUM ) a  order by a.dateTime desc ");
+            sb.append(" group by b.skuCode,b.skuName,b.type,b.LOT_NUM,s.SKUTYPE ) a  order by a.dateTime desc ");
             sb1.append("group by skuCode,skuName,type,LOT_NUM)a ");
             Query query = session.createSQLQuery(sb.toString()).setResultTransformer(Transformers.ALIAS_TO_ENTITY_MAP);
             Query query1 = session.createSQLQuery(sb1.toString());
@@ -134,7 +136,13 @@ public class FindOutOrInWarehouseService {
             }
             List<Map<String,Object>> jobList = query.list();
             int count = (int)query1.uniqueResult();
-
+            for(Map<String,Object> map : jobList){
+                if(map.get("skuType")!=null && StringUtils.isNotBlank(map.get("skuType").toString())){
+                    map.put("skuType", SkuType.map.get(map.get("skuType").toString()));
+                }else{
+                    map.put("skuType", "无分类");
+                }
+            }
             returnObj.setSuccess(true);
             returnObj.setRes(jobList);
             returnObj.setCount(count);
@@ -307,8 +315,9 @@ public class FindOutOrInWarehouseService {
                 sheet.addCell(new Label(1, 2, "商品代码"));
                 sheet.addCell(new Label(2, 2, "商品名称"));
                 sheet.addCell(new Label(3, 2, "单位"));
-                sheet.addCell(new Label(4, 2, "数量"));
-                sheet.addCell(new Label(5, 2, "最近操作时间"));
+                sheet.addCell(new Label(4, 2, "商品类型"));
+                sheet.addCell(new Label(5, 2, "数量"));
+                sheet.addCell(new Label(6, 2, "最近操作时间"));
 
                 if(i!=1){
                     for(int j =0;j<datalist.size();j++){
@@ -319,12 +328,13 @@ public class FindOutOrInWarehouseService {
                         sheet.addCell(new Label(1, j+3, (String)dataMap.get("skuCode"),format));
                         sheet.addCell(new Label(2, j+3, (String)dataMap.get("skuName"),format));
                         sheet.addCell(new Label(3, j+3, (String)dataMap.get("danwei"),format));
-                        sheet.addCell(new Label(4, j+3, ""+dataMap.get("qty"),format));
+                        sheet.addCell(new Label(4, j+3, (String)dataMap.get("skuType"),format));
+                        sheet.addCell(new Label(5, j+3, ""+dataMap.get("qty"),format));
                         if(i==0){
-                            sheet.addCell(new Label(5, j+3, (String)dataMap.get("dateTime"),format));
+                            sheet.addCell(new Label(6, j+3, (String)dataMap.get("dateTime"),format));
                         }else{
-                            sheet.addCell(new Label(5, j+3, sdf.format((Date)dataMap.get("dateTime")),format));
-                            sheet.addCell(new Label(6, j+3, (String)dataMap.get("lotNum"),format));
+                            sheet.addCell(new Label(6, j+3, sdf.format((Date)dataMap.get("dateTime")),format));
+                            sheet.addCell(new Label(7, j+3, (String)dataMap.get("lotNum"),format));
                         }
                     }
                 }else{
@@ -338,8 +348,9 @@ public class FindOutOrInWarehouseService {
                         sheet.addCell(new Label(1, k+j+3, (String)dataMap0.get("skuCode"),format));
                         sheet.addCell(new Label(2, k+j+3, (String)dataMap0.get("skuName"),format));
                         sheet.addCell(new Label(3, k+j+3, (String)dataMap0.get("danwei"),format));
-                        sheet.addCell(new Label(4, k+j+3, ""+dataMap0.get("qty"),format));
-                        sheet.addCell(new Label(5, k+j+3, (String)dataMap0.get("dateTime"),format));
+                        sheet.addCell(new Label(4, k+j+3, (String)dataMap0.get("skuType"),format));
+                        sheet.addCell(new Label(5, k+j+3, ""+dataMap0.get("qty"),format));
+                        sheet.addCell(new Label(6, k+j+3, (String)dataMap0.get("dateTime"),format));
                         for(int h =0;h<datalist.size();h++){
                             Map<String,Object> dataMap = datalist.get(h);
                             if(dataMap.get("skuCode").toString().equals(dataMap0.get("skuCode").toString())){
@@ -348,9 +359,10 @@ public class FindOutOrInWarehouseService {
                                 sheet.addCell(new Label(1, k+j+3, "",format));
                                 sheet.addCell(new Label(2, k+j+3, "",format));
                                 sheet.addCell(new Label(3, k+j+3, "",format));
-                                sheet.addCell(new Label(4, k+j+3, ""+dataMap.get("qty"),format));
-                                sheet.addCell(new Label(5, k+j+3, (String)dataMap.get("dateTime"),format));
-                                sheet.addCell(new Label(6, k+j+3, (String)dataMap.get("lotNum"),format));
+                                sheet.addCell(new Label(4, k+j+3, (String)dataMap.get("skuType"),format));
+                                sheet.addCell(new Label(5, k+j+3, ""+dataMap.get("qty"),format));
+                                sheet.addCell(new Label(6, k+j+3, (String)dataMap.get("dateTime"),format));
+                                sheet.addCell(new Label(7, k+j+3, (String)dataMap.get("lotNum"),format));
                             }
                         }
                     }
@@ -404,28 +416,28 @@ public class FindOutOrInWarehouseService {
         List<List<Map<String,Object>>> list = new ArrayList<>();
         //查询sheet1，库存汇总表,当前时间
         StringBuffer sb1 = new StringBuffer("select a.skuCode as skuCode,a.skuName as skuName," +
-                "s.danwei as danwei,SUM(a.qty) as qty,max(a.storeDate+' '+a.storeTime) as dateTime " +
-                "from Inventory a,Sku s where a.skuCode=s.skuCode " +
-                "group by a.skuCode,a.skuName,s.danwei");
+                "s.danwei as danwei,SUM(a.qty) as qty,max(a.storeDate+' '+a.storeTime) as dateTime, " +
+                "s.skuType as skuType from Inventory a,Sku s where a.skuCode=s.skuCode " +
+                "group by a.skuCode,a.skuName,s.danwei,s.skuType order by skuType");
         Query query1 = session.createQuery( sb1.toString()).setResultTransformer(Transformers.ALIAS_TO_ENTITY_MAP);
         List<Map<String,Object>> list1 = query1.list();
 
         //查询sheet2，库存明细表，当前时间
         StringBuffer sb2 = new StringBuffer("select a.skuCode as skuCode,a.skuName as skuName,SUM(a.qty) as qty," +
-                "max(a.storeDate+' '+a.storeTime) as dateTime,s.danwei as danwei, a.lotNum as lotNum " +
-                "from Inventory a,Sku s where a.skuCode=s.skuCode group by a.skuCode,a.skuName,a.lotNum,s.danwei ");
+                "max(a.storeDate+' '+a.storeTime) as dateTime,s.danwei as danwei, a.lotNum as lotNum,s.skuType as skuType " +
+                "from Inventory a,Sku s where a.skuCode=s.skuCode group by a.skuCode,a.skuName,a.lotNum,s.danwei,s.skuType order by skuType");
         Query query2 = session.createQuery(sb2.toString()).setResultTransformer(Transformers.ALIAS_TO_ENTITY_MAP);
 
         List<Map<String,Object>> list2 = query2.list();
 
         //查询sheet3，入库明细表，按照用户输入时间，若无，默认当天零点到当先时间
         StringBuffer sb3 = new StringBuffer("select a.id as id,a.skuCode as skuCode,a.danwei as danwei,a.qty as qty, " +
-                "a.skuName as skuName,a.num as num,a.dateTime as dateTime,a.lotNum as lotNum " +
+                "a.skuName as skuName,a.num as num,a.dateTime as dateTime,a.lotNum as lotNum,a.skuType as skuType " +
                 "from (select max(b.id) as id,b.skuCode as skuCode,b.LOT_NUM as lotNum,s.DANWEI as danwei, " +
-                "b.skuName as skuName,count(*) as num,sum(qty) as qty, max(b.createDate) as dateTime " +
+                "b.skuName as skuName,count(*) as num,sum(qty) as qty, max(b.createDate) as dateTime,s.skuType as skuType " +
                 "from xingfa.JOBLOG b,xingfa.SKU s where b.skuCode=s.SKU_CODE and " +
                 "b.createDate >= :beginDate and b.createDate <= :endDate and type=:type " +
-                "group by skuCode,skuName,LOT_NUM,s.DANWEI) a  order by a.dateTime desc");
+                "group by skuCode,skuName,LOT_NUM,s.DANWEI,s.skuType) a  order by a.dateTime desc");
 
         Query query3 = session.createSQLQuery(sb3.toString()).setResultTransformer(Transformers.ALIAS_TO_ENTITY_MAP);
         query3.setString("beginDate",beginDate);
@@ -435,12 +447,12 @@ public class FindOutOrInWarehouseService {
 
         //查询sheet4，出库明细表，按照用户输入时间，若无，默认当天零点到当先时间
         StringBuffer sb4 = new StringBuffer("select a.id as id,a.skuCode as skuCode,a.danwei as danwei,a.qty as qty, " +
-                "a.skuName as skuName,a.num as num,a.dateTime as dateTime,a.lotNum as lotNum " +
+                "a.skuName as skuName,a.num as num,a.dateTime as dateTime,a.lotNum as lotNum,a.skuType as skuType " +
                 "from (select max(b.id) as id,b.skuCode as skuCode,b.LOT_NUM as lotNum,s.DANWEI as danwei, " +
-                "b.skuName as skuName,count(*) as num,sum(qty) as qty, max(b.createDate) as dateTime " +
+                "b.skuName as skuName,count(*) as num,sum(qty) as qty, max(b.createDate) as dateTime,s.skuType as skuType " +
                 "from xingfa.JOBLOG b,xingfa.SKU s where b.skuCode=s.SKU_CODE and " +
                 "b.createDate >= :beginDate and b.createDate <= :endDate and type=:type " +
-                "group by skuCode,skuName,LOT_NUM,s.DANWEI) a  order by a.dateTime desc");
+                "group by skuCode,skuName,LOT_NUM,s.DANWEI,s.skuType) a  order by a.dateTime desc");
 
         Query query4 = session.createSQLQuery(sb4.toString()).setResultTransformer(Transformers.ALIAS_TO_ENTITY_MAP);
         query4.setString("beginDate",beginDate);
@@ -453,6 +465,15 @@ public class FindOutOrInWarehouseService {
         list.add(list3);
         list.add(list4);
 
+        for(List<Map<String,Object>> listt :list){
+            for(Map<String,Object> map : listt){
+                if(map.get("skuType")!=null && StringUtils.isNotBlank(map.get("skuType").toString())){
+                    map.put("skuType", SkuType.map.get(map.get("skuType").toString()));
+                }else{
+                    map.put("skuType", "无分类");
+                }
+            }
+        }
         return list;
 
     }

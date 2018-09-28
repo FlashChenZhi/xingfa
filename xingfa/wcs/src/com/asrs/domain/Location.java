@@ -432,6 +432,17 @@ public class Location {
         _version = version;
     }
 
+    private String bayLevel;
+    @Basic
+    @Column(name = "BAYLEV")
+    public String getBayLevel() {
+        return bayLevel;
+    }
+
+    public void setBayLevel(String bayLevel) {
+        this.bayLevel = bayLevel;
+    }
+
 
     private String positionType;
 

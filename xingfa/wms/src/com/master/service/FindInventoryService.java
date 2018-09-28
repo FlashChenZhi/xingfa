@@ -1,5 +1,6 @@
 package com.master.service;
 
+import com.asrs.business.consts.SkuType;
 import com.util.common.DateTimeFormatter;
 import com.util.common.LogMessage;
 import com.util.common.PagerReturnObj;
@@ -56,7 +57,8 @@ public class FindInventoryService {
             Transaction.begin();
             Session session = HibernateUtil.getCurrentSession();
             StringBuffer sb1 = new StringBuffer("select max(a.id) as id,a.skuCode as skuCode,a.skuName as skuName," +
-                    "SUM(a.qty) as sumQty,max(a.storeDate+' '+a.storeTime) as dateTime from Inventory a where 1=1 ");
+                    "SUM(a.qty) as sumQty,max(a.storeDate+' '+a.storeTime) as dateTime,s.skuType as skuType " +
+                    "from Inventory a,Sku s where a.skuCode=s.skuCode ");
             StringBuffer sb2 = new StringBuffer("select count(*) from Inventory where id in (select max(id) from Inventory a where 1=1 ");
             if(StringUtils.isNotBlank(containerNo)){
                 sb1.append("and a.container.barcode = :containerNo ");
@@ -82,7 +84,7 @@ public class FindInventoryService {
                 sb1.append("and a.storeDate+' '+a.storeTime <= :endDate ");
                 sb2.append("and a.storeDate+' '+a.storeTime <= :endDate ");
             }
-            sb1.append(" group by a.skuCode,a.skuName");
+            sb1.append(" group by a.skuCode,a.skuName,s.skuType");
             sb2.append(" group by a.skuCode)");
 
             Query query1 = session.createQuery( sb1.toString()).setResultTransformer(Transformers.ALIAS_TO_ENTITY_MAP);
@@ -116,6 +118,13 @@ public class FindInventoryService {
                 query2.setString("endDate",endDate);
             }
             List<Map<String,Object>> jobList = query1.list();
+            for(Map<String,Object> map : jobList){
+                if(map.get("skuType")!=null && StringUtils.isNotBlank(map.get("skuType").toString())){
+                    map.put("skuType", SkuType.map.get(map.get("skuType").toString()));
+                }else{
+                    map.put("skuType", "无分类");
+                }
+            }
             Long count = (Long) query2.uniqueResult();
             returnObj.setSuccess(true);
             returnObj.setRes(jobList);
